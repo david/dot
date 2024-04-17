@@ -355,6 +355,7 @@
                       lspFallback = true;
                     };
                     formattersByFt = {
+                      "eruby" = [ "trim_whitespace" ];
                       "_" = [ "trim_whitespace" ];
                     };
                   };
