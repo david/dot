@@ -9,11 +9,7 @@ def main [] {
 
   render
 
-  wm events | where name == "workspace" | each { run-external $env.PROCESS_PATH render }
-}
-
-def "main render" [] {
-  render
+  wm events | where name == "workspace" | each { |e| render }
 }
 
 def render [] {
@@ -22,14 +18,13 @@ def render [] {
   let ws = (wm ws)
   let root = ($ws | ws root | str replace $"($env.HOME)/" "")
 
-  print $" (' ' | fade) ($root)(ansi erase_line_from_cursor_to_end)"
+  print $" ('󰕮 ' | fade) ($ws | get name) (' ' | fade) ($root)(ansi erase_line_from_cursor_to_end)"
 
   let branch = (git branch --show-current e> /dev/null | str trim)
 
   if ($branch | is-not-empty) {
-    print $" (' ' | fade) ($branch | str trim)(ansi erase_line_from_cursor_to_end)"
+    print --no-newline $" (' ' | fade) ($branch | str trim)(ansi erase_line_from_cursor_to_end)"
   } 
 
-  print --no-newline $" ('󰕮 ' | fade) ($ws | get name)(ansi erase_line_from_cursor_to_end)"
   print --no-newline (ansi clear_screen_from_cursor_to_end)
 }

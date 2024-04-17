@@ -509,7 +509,7 @@
                   inherit (widget) x width;
 
                   y = sensorWidget.y + sensorWidget.height + spacing;
-                  height = cellHeight * 3;
+                  height = cellHeight * 2;
                 };
 
                 windowListWidget = {
