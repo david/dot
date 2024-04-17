@@ -440,9 +440,4 @@ $env.config = {
   ]
 }
 
-# source sys.nu
-#
-# use fz.nu
-# use widget.nu
-# use wm.nu
-# use ws.nu
+use sys.nu
