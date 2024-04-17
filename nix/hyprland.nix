@@ -161,7 +161,6 @@ in {
 
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
-        "$cas, y, exec, term sys rebuild"
 
         "$scas, e, exec, variety -t"
         "$scas, h, movetoworkspace, -1"

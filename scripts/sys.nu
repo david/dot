@@ -4,12 +4,6 @@ export-env {
   $env.SYS_PATH = $"($env.HOME)/sys"
 }
 
-export def main [] {}
-
-export def "main rebuild" [] {
-  rebuild
-}
-
 export def prune [] {
   sudo nix-collect-garbage --delete-older-than 7d
 }

@@ -30,7 +30,6 @@
     ".local/bin/fz".source = ../scripts/fz.nu;
     ".local/bin/mediactl".source = ../scripts/mediactl.nu;
     ".local/bin/notifyctl".source = ../scripts/notifyctl.nu;
-    ".local/bin/sys".source = ../scripts/sys.nu;
     ".local/bin/term".source = ../scripts/term.nu;
 
     ".local/bin/widgetctl" = {
