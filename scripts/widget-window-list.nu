@@ -26,13 +26,13 @@ def render [] {
   let list = (wm win ls)
 
   let out = (
-    $list 
+    $list
     | insert group { |e| $e.grouped | str join "," }
     | group-by group
     | values
-    | each { |g| 
+    | each { |g|
       if ($g | is-not-empty) {
-        $g | first | get grouped | each { |e| 
+        $g | first | get grouped | each { |e|
           let win = ($list | where id == $e | first)
 
           if $win != null {
@@ -48,9 +48,9 @@ def render [] {
               _            => { icon: "  ", fg: "default" }
             }
 
-            let title = [$meta.icon, $win.title] 
-            | str join " " 
-            | str truncate $max_width
+            let title = [$meta.icon, $win.title]
+            | str join " "
+            | strx truncate $max_width
             | fill --width $max_width
 
             $"(ansi erase_line)(
@@ -61,8 +61,8 @@ def render [] {
               }
             )"
           }
-        } 
-      } 
+        }
+      }
     }
     | flatten
     | str join "\n"

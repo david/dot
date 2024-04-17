@@ -26,25 +26,25 @@ export def stop [widget] {
 }
 
 export def "list running" [] {
-  wm win ls --all 
-  | where class starts-with "widget." 
+  wm win ls --all
+  | where class starts-with "widget."
   | insert name { |w| $w.class | str replace "widget." "" }
 }
 
 export def "list available" [] {
   # TODO: stop hardcoding the path here
-  glob $"($env.HOME)/sys/scripts/widget-*.nu" 
+  glob $"($env.HOME)/sys/scripts/widget-*.nu"
   | wrap path
   | insert name { |w| $w.path | path basename }
   | str replace --all --regex "(widget-|\\.nu)" "" name
 }
 
 def "filter names" [names: list<string>] {
-  filter { |w| 
-    if ($names | is-empty) { 
-      true 
+  filter { |w|
+    if ($names | is-empty) {
+      true
     } else {
-      $names | any { |n| $n == $w.name } 
+      $names | any { |n| $n == $w.name }
     }
   }
 }
