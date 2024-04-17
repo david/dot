@@ -6,10 +6,8 @@ const SEP = "%%"
 
 export def main [] {}
 
-export def "main find file" [] {
-  let file = (run fz file find)
-
-  if ($file | is-not-empty) { run nvim $file }
+export def "main grep" [] {
+  run fz grep
 }
 
 export def "main switch" [name: string] {

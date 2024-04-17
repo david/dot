@@ -17,12 +17,6 @@ export-env {
 
 export def main [] {}
 
-export def "main file find" [] {
-  let cmd = if (which find-file | is-not-empty) { "find-file" } else { "fd" }
-
-  run-external $cmd | filter | str trim
-}
-
 def "main recent-directory" [--json] {
   let choice = (
     glob --depth 1 $"($env.HOME)/ar/trees/*"

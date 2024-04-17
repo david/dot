@@ -110,7 +110,7 @@ in {
         "$s, e, exec, ws switch code"
         "$s, e, exec, wm run-if-empty ws term nvim"
 
-        "$s, f, exec, ws term ws find file"
+        "$s, f, exec, fz-open ui"
 
         "$s, g, exec, ws switch gitui"
         "$s, g, exec, wm run-if-empty ws term lazygit"
