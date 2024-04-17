@@ -102,10 +102,7 @@ in {
 
         "$s, 0, exec, notifyctl dismiss"
 
-        "$s, c, workspace, name:chat"
-        "$s, c, exec, wm run-if-empty ${slack}"
-        "$s, c, layoutmsg, preselect d"
-        "$s, c, exec, wm run-if-empty ${discord}"
+        "$s, c, togglespecialworkspace, slack"
 
         "$s, d, workspace, name:devapp"
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
@@ -128,12 +125,13 @@ in {
 
         "$s, n, exec, ${browse}"
         "$s, p, exec, term nvim $HOME/sys/plan.md"
+        "$s, o, togglespecialworkspace, discord"
         "$s, s, exec, ws term"
 
         "$s, r, exec, ws switch services"
         "$s, r, exec, wm run-if-empty term ws services"
 
-        "$s, u, workspace, name:music"
+        "$s, u, togglespecialworkspace, music"
         "$s, u, exec, wm run-if-empty ${music}"
 
         "$s, v, workspace, name:video"
@@ -326,9 +324,15 @@ in {
         "move ${toString windowListWidget.x} ${toString windowListWidget.y}, class:^widget\\.window-list"
       ];
 
-      workspace = [
+      workspace = let 
+        gapY = spacing * 4;
+        gapX = gap.left + (spacing * 2);
+      in [
         "1, defaultName:code%%${work.projects.current.root}"
         "2, defaultName:code%%$HOME/sys"
+        "special:discord, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${discord}"
+        "special:slack, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${slack}"
+        "special:music, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${music}"
       ];
     };
   };
