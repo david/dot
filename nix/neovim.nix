@@ -52,6 +52,8 @@
     in withDefaults [
       { action = "q"; key = "m"; }
       { action = "<cmd>q<cr>"; key = "q"; }
+      { action = "<cmd>m-2<cr>=="; key = "<c-k>"; }
+      { action = "<cmd>m+1<cr>=="; key = "<c-j>"; }
     ];
 
     plugins = {
