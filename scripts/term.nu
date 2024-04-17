@@ -28,9 +28,19 @@ export def --wrapped main [
   )
 }
 
-export def "main fz" [] {
-  # TODO: remove full path to fz.nu
-  main --class "filter" --font-size 18 --padding 8 bash -c $"exec ~/sys/scripts/fz.nu filter >&3 <&2"
+export def "main fz" [...$command] {
+  # build the command used to produce the list of items that will be filtered,
+  # since I couldn't find a way to have kitty redirect its stdin to a child process
+  let cmd = (
+    $command
+    | append [
+      "|" "fz"
+      "|" "save" "--raw" "--append" "$\"/dev/fd/($env.KITTY_STDIO_FORWARDED)\""
+    ]
+    | str join " "
+  )
+
+  main --class "filter" --font-size 18 --padding 8 nu --commands $"($cmd)" | str trim
 }
 
 export def "main widget" [name: string] {
@@ -48,4 +58,3 @@ export def "main widget" [name: string] {
       nu $"($env.HOME)/sys/scripts/widget-($name).nu"
   )
 }
-

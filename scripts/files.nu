@@ -5,7 +5,7 @@ use wm.nu
 export def main [file?: path, ...rest] {
   let choice = (
     if $file == null {
-      wm win open --above { list | term fz }
+      wm win open --above { term fz files csv }
     } else {
       $file
     }
@@ -16,6 +16,6 @@ export def main [file?: path, ...rest] {
   }
 }
 
-def list [] {
+export def "main csv" [] {
   fd --type f .
 }

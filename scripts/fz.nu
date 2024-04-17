@@ -16,9 +16,7 @@ export-env {
   )
 }
 
-export def main [] {}
-
-export def "main filter" [] {
+export def main [] {
   $in
   | fzf --delimiter="\t" --with-nth=1
   | lines
