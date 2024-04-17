@@ -152,14 +152,14 @@ def "wifi render" [] {
   let val = $in
 
   if ($val | is-empty) {
-    "󰤭 "
+    "󱜡 "
   } else if $val < 25 {
-    $"󰤟  ($val) " | yell
+    $"󱜠  ($val) " | yell
   } else if $val < 50 {
-    $"󰤢  ($val) " | warn
+    $"󱜠  ($val) " | warn
   } else if $val < 75 {
-    $"󰤥  ($val) " | nudge
+    $"󱜠  ($val) " | nudge
   } else {
-    $"('󰤨 ' | fade) ($val)(' ' | fade)"
+    $"('󱜠 ' | fade) ($val)(' ' | fade)"
   }
 }
