@@ -7,7 +7,9 @@ const SEP = "%%"
 export def main [] {}
 
 export def "main find file" [] {
-  run nvim (run fz file)
+  let file = (run fz file)
+
+  if $file != null { run nvim }
 }
 
 export def --wrapped "main run" [...command] {
