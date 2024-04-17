@@ -104,7 +104,7 @@ in {
 
         "$s, c, togglespecialworkspace, slack"
 
-        "$s, d, workspace, name:devapp"
+        "$s, d, exec, ws switch devapp"
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
         "$s, e, exec, ws switch code"
@@ -137,7 +137,7 @@ in {
         "$s, v, workspace, name:video"
         "$s, v, exec, wm run-if-empty ${video}"
 
-        "$s, w, workspace, name:web"
+        "$s, w, exec, ws switch web"
         "$s, w, exec, wm run-if-empty ${browse}"
 
         "$ss, f, togglefloating"
