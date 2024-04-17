@@ -38,7 +38,6 @@
     tree-sitter-nu,
     ...
   } @ inputs : let
-    user = (builtins.fromJSON (builtins.readFile ./private.json)).user;
     system = "x86_64-linux";
 
     pkgs = import nixpkgs {
@@ -78,7 +77,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.${user.login} = import ./nix/home.nix;
+            home-manager.users.david = import ./nix/home.nix;
           }
         ];
       };
