@@ -154,7 +154,28 @@
 
   programs.git = {
     enable = true;
-    delta.enable = true;
+
+    delta = {
+      enable = true;
+
+      options = {
+        hyperlinks = true;
+        line-numbers = true;
+        navigate = true;
+        side-by-side = true;
+        true-color = "always";
+      };
+    };
+
+    extraConfig = {
+      diff = {
+        colorMoved = true;
+      };
+
+      merge = {
+        conflictstyle = "diff3";
+      };
+    };
   };
 
   programs.hyprlock.enable = true;
