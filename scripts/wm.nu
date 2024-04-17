@@ -20,9 +20,11 @@ export def win [--class: string] {
   if $class != null {
     win ls | where class == $class | append [null] | first
   } else {
-    let id = (hyprctl activewindow -j | from json | get address)
+    let id = (hyprctl activewindow -j | from json | default {} | get --ignore-errors address)
 
-    win ls | where id == $id | append [null] | first
+    if $id != null {
+      win ls | where id == $id | append [null] | first
+    }
   }
 }
 
