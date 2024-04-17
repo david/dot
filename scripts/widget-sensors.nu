@@ -18,7 +18,7 @@ def main [] {
   }
 
   loop { 
-    let cols = ((term size | get columns) - 2) / 4 | into int
+    let cols = (term size | get columns) / 4 | into int
     let strip = (
       [
         ($out.battery | fill --alignment center --width $cols)
@@ -30,7 +30,7 @@ def main [] {
       | fill --alignment center --width $cols
     )
 
-    print --no-newline $"(tput cup 0 0) ($strip) (ansi erase_line_from_cursor_to_end)"
+    print --no-newline $"(tput cup 0 0)($strip)(ansi erase_line_from_cursor_to_end)"
 
     if $i mod 2 == 0 {
       $out = ($out | merge { cpu: (cpu | cpu render)})
