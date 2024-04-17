@@ -656,6 +656,7 @@
                     ]))
 
                     "$cas, q, killactive"
+                    "$cas, w, exec, widgetctl toggle"
 
                     "$scas, e, exec, variety -t"
                     "$scas, h, movetoworkspace, -1"

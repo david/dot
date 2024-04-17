@@ -17,6 +17,16 @@ export def "main stop" [...name: string] {
   list running | filter names $name | each { |w| stop $w }
 }
 
+export def "main toggle" [...name: string] {
+  let running = (list running | filter names $name)
+
+  if ($running | is-empty) {
+    main start ...$name
+  } else {
+    main stop ...$name
+  }
+}
+
 export def start [widget] {
   term widget $widget.name
 }
