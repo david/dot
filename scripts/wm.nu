@@ -10,6 +10,10 @@ export def events [] {
   nc -U $"/tmp/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock" | lines | split column >> name payload
 }
 
+export def monitors [] {
+  hyprctl monitors -j | from json
+}
+
 export def --wrapped run [
   --geometry: record<x: int, y: int, width: int, height: int>
   ...command

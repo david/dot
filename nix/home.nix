@@ -1,5 +1,6 @@
 { colors, config, pkgs, ... }: {
   imports = [
+    ./backgrounds.nix
     ./hyprland.nix
     ./kitty.nix
     ./neovim.nix
