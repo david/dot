@@ -237,7 +237,7 @@
 
                 settings = {
                   background = colors.black;
-                  background_opacity = "0.48";
+                  background_opacity = "0.64";
                   cursor = colors.limeGreen;
                   cursor_blink_interval = 0;
                   disable_ligatures = "cursor";
