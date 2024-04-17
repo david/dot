@@ -55,7 +55,6 @@
     brightnessctl
     fd
     grimblast
-    lazygit
     libnotify
     manix
     netcat
@@ -108,6 +107,38 @@
   };
 
   programs.hyprlock.enable = true;
+
+  programs.lazygit = {
+    enable = true;
+
+    settings = {
+      disableStartupPopups = true; 
+
+      git = {
+        paging = {
+          colorArg = "always";
+          pager = "delta --paging=never";
+        };
+      };
+
+      gui = {
+        enlargedSideViewLocation = "top";
+        nerdFontsVersion = "3";
+        shortTimeFormat = "15:04";
+        sidePanelWidth = 0.25;
+        showCommandLog = false;
+        showRandomTip = false;
+        skipRewordInEditorWarning = true;
+        skipStashWarning = true;
+      };
+
+      notARepository = "skip";
+
+      update = {
+        method = "never";
+      };
+    };
+  };
 
   programs.nushell = {
     enable = true;
