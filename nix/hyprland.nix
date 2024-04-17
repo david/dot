@@ -241,7 +241,7 @@ in {
         "col.nogroup_border_active" = col.active;
 
         gaps_in = 8;
-        gaps_out = "16,608";
+        gaps_out = "16,16,16,608";
 
         layout = "dwindle";
       };
