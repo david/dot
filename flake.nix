@@ -153,6 +153,7 @@
                 ".local/bin/files".source = ./scripts/files.nu;
                 ".local/bin/fz".source = ./scripts/fz.nu;
                 ".local/bin/mediactl".source = ./scripts/mediactl.nu;
+                ".local/bin/notifyctl".source = ./scripts/notifyctl.nu;
                 ".local/bin/sys".source = ./scripts/sys.nu;
                 ".local/bin/term".source = ./scripts/term.nu;
                 ".local/bin/widgetctl".source = ./scripts/widgetctl.nu;
@@ -592,6 +593,7 @@
 
                   bind = [
                     "$s, slash, exec, ws.nu search --new-window"
+                    "$s, 0, exec, notifyctl dismiss"
                     "$s, b, togglespecialworkspace, bugs"
                     "$s, c, togglespecialworkspace, chat"
                     "$s, d, togglespecialworkspace, devapp"
