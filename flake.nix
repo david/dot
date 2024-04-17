@@ -343,7 +343,18 @@
                   cmp-git.enable = true;
                   cmp-path.enable = true;
                   comment.enable = true;
-                  conform-nvim.enable = true;
+
+                  conform-nvim = {
+                    enable = true;
+                    formatOnSave = {
+                      timeoutMs = 3000;
+                      lspFallback = true;
+                    };
+                    formattersByFt = {
+                      "_" = [ "trim_whitespace" ];
+                    };
+                  };
+
                   copilot-cmp.enable = true;
 
                   copilot-lua = {
