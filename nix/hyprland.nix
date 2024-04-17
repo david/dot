@@ -42,13 +42,20 @@
     inherit (widget) x width;
 
     y = sensorWidget.y + sensorWidget.height + spacing;
-    height = cellHeight * 2;
+    height = cellHeight + 4;
+  };
+
+  projectWidget = {
+    inherit (widget) x width;
+
+    y = desktopWidget.y + desktopWidget.height + spacing;
+    height = cellHeight + 4;
   };
 
   windowListWidget = {
     inherit (widget) x width;
 
-    y = desktopWidget.y + desktopWidget.height + spacing;
+    y = projectWidget.y + projectWidget.height + spacing;
     height = cellHeight * 9;
   };
 
@@ -311,6 +318,9 @@ in {
 
         "size ${toString desktopWidget.width} ${toString desktopWidget.height}, class:^widget\\.desktop"
         "move ${toString desktopWidget.x} ${toString desktopWidget.y}, class:^widget\\.desktop"
+
+        "size ${toString projectWidget.width} ${toString projectWidget.height}, class:^widget\\.project"
+        "move ${toString projectWidget.x} ${toString projectWidget.y}, class:^widget\\.project"
 
         "size ${toString windowListWidget.width} ${toString windowListWidget.height}, class:^widget\\.window-list"
         "move ${toString windowListWidget.x} ${toString windowListWidget.y}, class:^widget\\.window-list"
