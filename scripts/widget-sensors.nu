@@ -56,30 +56,63 @@ def main [] {
 }
 
 def battery [] {
-  (
-    dbus-send 
-      --system 
-      --print-reply=literal 
-      --dest=org.freedesktop.UPower 
-      /org/freedesktop/UPower/devices/battery_BAT0 
+  let charge = (
+    dbus-send
+      --system
+      --print-reply=literal
+      --dest=org.freedesktop.UPower
+      /org/freedesktop/UPower/devices/battery_BAT0
       org.freedesktop.DBus.Properties.Get string:org.freedesktop.UPower.Device string:Percentage
     | str trim
-    | split column --regex "\\s+" 
+    | split column --regex "\\s+"
     | get column3
     | first
     | into int
   )
+
+  let state_int = (
+    dbus-send
+      --system
+      --print-reply=literal
+      --dest=org.freedesktop.UPower
+      /org/freedesktop/UPower/devices/battery_BAT0
+      org.freedesktop.DBus.Properties.Get string:org.freedesktop.UPower.Device string:State
+    | str trim
+    | split column --regex "\\s+"
+    | get column3
+    | first
+    | into int
+  )
+
+  {
+    charge: $charge
+    state: (
+      match $state_int {
+        1 => "charging"
+        2 => "discharging"
+        _ => $"($state_int)"
+      }
+    )
+  }
 }
 
 def "battery render" [] {
-  let val = $in
+  let batt = $in
 
-  if $val < 25 {
-    $"󰁹  ($val) " | yell
-  } else if $val < 50 {
-    $"󰁹  ($val) " | warn
+  let icon = (
+    match $batt.state {
+      "charging" => "󰂏 "
+      "discharging" => "󰂌 "
+      _ => $batt.state
+    }
+  )
+
+  if $batt.charge < 25 {
+    $"($icon) ($batt.charge) " | yell
+  } else if $batt.charge < 50 {
+    $"($icon) ($batt.charge) " | warn
   } else {
-    $"('󰁹 ' | fade) ($val)(' ' | fade)"
+    $"($icon | fade) ($batt.charge)(' ' | fade)"
   }
 }
 
