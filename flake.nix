@@ -122,7 +122,14 @@
 
               home.file = {
                 ".local/bin/browse".source = ./bin/browse;
+                ".local/bin/files".source = ./scripts/files.nu;
+                ".local/bin/fz".source = ./scripts/fz.nu;
                 ".local/bin/mediactl".source = ./scripts/mediactl.nu;
+                ".local/bin/term".source = ./scripts/term.nu;
+                ".local/bin/widgetctl".source = ./scripts/widgetctl.nu;
+                ".local/bin/ws".source = ./scripts/ws.nu;
+
+                ".config/nushell/scripts".source = ./scripts;
               };
 
               home.packages = with pkgs; [ #{{{
