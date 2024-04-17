@@ -316,12 +316,9 @@ in {
         "name:devapp, gapsout:16 16 16 608"
         "name:game, on-created-empty: lutris"
         "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
-        "special:bugs, on-created-empty:${browse}, gapsout:16 16 16 604"
         "name:meet, gapsout:16 16 16 608"
         "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
-        "special:mail, on-created-empty:${mail}, gapsout:96 480"
         "special:video, on-created-empty:${video}, gapsout:96 480"
-        "special:plan, on-created-empty:${browse}, gapsout:16 16 16 604"
         "special:services, on-created-empty:ws run services, gapsout:16 16 16 604"
         "special:web, on-created-empty:${browse}, gapsout:16 16 16 604"
       ];
