@@ -18,6 +18,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixvim.url = "github:nix-community/nixvim";
+
+    tree-sitter-nu = {
+      url = "github:nushell/tree-sitter-nu";
+      flake = false;
+    };
   }; # }}}
 
   outputs = { # {{{
@@ -29,6 +34,7 @@
     nixos-hardware,
     nixpkgs,
     nixvim,
+    tree-sitter-nu,
     ...
   }: let # }}}
     pvt = builtins.fromJSON (builtins.readFile ./private.json);
@@ -296,6 +302,11 @@
                 };
 
                 extraPlugins = with pkgs.vimPlugins; [
+                  (pkgs.vimUtils.buildVimPlugin {
+                    name = "tree-sitter-nu";
+                    src = tree-sitter-nu;
+                  })
+
                   neodev-nvim
                 ];
 
@@ -348,6 +359,14 @@
 
                   treesitter = {
                     enable = true;
+
+                    grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [
+                      (pkgs.tree-sitter.buildGrammar {
+                        language = "nu";
+                        version = tree-sitter-nu.rev;
+                        src = tree-sitter-nu;
+                      })
+                    ];
                   };
 
                   which-key.enable = true;
