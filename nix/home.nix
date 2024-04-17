@@ -181,8 +181,6 @@
     };
   };
 
-  programs.hyprlock.enable = true;
-
   programs.lazygit = {
     enable = true;
 
@@ -219,36 +217,6 @@
     enable = true;
     configFile.source = ../nushell/config.nu;
     envFile.source = ../nushell/env.nu;
-  };
-
-  services.hypridle = {
-    enable = true;
-
-    listeners = [
-    {
-      timeout = 300;
-      onTimeout = pkgs.lib.getExe config.programs.hyprlock.package;
-    }
-
-    {
-      timeout = 360;
-      onTimeout = "hyprctl dispatch dpms off";
-      onResume = "hyprctl dispatch dpms on";
-    }
-
-    {
-      timeout = 600;
-      onTimeout = "systemctl suspend";
-    }
-    ];
-  };
-
-  services.hyprpaper = let
-    bg = builtins.head (map toString (pkgs.lib.filesystem.listFilesRecursive ../backgrounds));
-  in {
-    enable = true;
-    preloads = [ bg ];
-    wallpapers = [ "eDP-1,${bg}" "DP-1,${bg}" ];
   };
 
   services.mako = {

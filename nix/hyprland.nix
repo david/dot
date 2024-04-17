@@ -1,4 +1,4 @@
-{ colors, inputs, pkgs, ... }: let
+{ colors, config, inputs, pkgs, ... }: let
   work = (builtins.fromJSON (builtins.readFile ../private.json)).work;
 
   browse = "firefox";
@@ -64,6 +64,38 @@
   slack = browseApp work.slack.url;
   video = browseApp "https://youtube.com";
 in {
+  programs.hyprlock.enable = true;
+
+  services.hypridle = {
+    enable = true;
+
+    listeners = [
+    {
+      timeout = 300;
+      onTimeout = pkgs.lib.getExe config.programs.hyprlock.package;
+    }
+
+    {
+      timeout = 360;
+      onTimeout = "hyprctl dispatch dpms off";
+      onResume = "hyprctl dispatch dpms on";
+    }
+
+    {
+      timeout = 600;
+      onTimeout = "systemctl suspend";
+    }
+    ];
+  };
+
+  services.hyprpaper = let
+    bg = builtins.head (map toString (pkgs.lib.filesystem.listFilesRecursive ../backgrounds));
+  in {
+    enable = true;
+    preloads = [ bg ];
+    wallpapers = [ "eDP-1,${bg}" "DP-1,${bg}" ];
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
 
