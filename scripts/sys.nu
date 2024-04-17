@@ -19,5 +19,5 @@ export def update [] {
 
 export def upgrade [] {
   update
-  config
+  rebuild
 }
