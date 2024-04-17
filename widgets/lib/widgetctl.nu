@@ -4,29 +4,6 @@ use wm.nu
 
 def main [] {}
 
-export def "main restart" [...name: string] {
-  main stop ...$name
-  main start ...$name
-}
-
-def "main start" [...name: string] {
-  list available | filter names $name | each { |w| start $w }
-}
-
-export def "main stop" [...name: string] {
-  list running | filter names $name | each { |w| stop $w }
-}
-
-export def "main toggle" [...name: string] {
-  let running = (list running | filter names $name)
-
-  if ($running | is-empty) {
-    main start ...$name
-  } else {
-    main stop ...$name
-  }
-}
-
 export def start [widget] {
   term widget $widget.name
 }
@@ -43,13 +20,13 @@ export def "list running" [] {
 
 export def "list available" [] {
   # TODO: stop hardcoding the path here
-  glob $"($env.HOME)/sys/scripts/widget-*.nu"
+  glob $"($env.HOME)/.local/share/widgets/widget-*.nu"
   | wrap path
   | insert name { |w| $w.path | path basename }
   | str replace --all --regex "(widget-|\\.nu)" "" name
 }
 
-def "filter names" [names: list<string>] {
+export def "filter names" [names: list<string>] {
   filter { |w|
     if ($names | is-empty) {
       true

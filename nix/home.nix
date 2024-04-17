@@ -32,11 +32,21 @@
     ".local/bin/notifyctl".source = ../scripts/notifyctl.nu;
     ".local/bin/sys".source = ../scripts/sys.nu;
     ".local/bin/term".source = ../scripts/term.nu;
-    ".local/bin/widgetctl".source = ../scripts/widgetctl.nu;
+
+    ".local/bin/widgetctl" = {
+      executable = true;
+
+      text = builtins.replaceStrings
+        [ "widgetctl.nu" ]
+        [ "${config.xdg.dataHome}/widgets/widgetctl.nu" ]
+        (builtins.readFile ../widgets/bin/widgetctl.nu);
+    };
+
     ".local/bin/wm".source = ../scripts/wm.nu;
     ".local/bin/ws".source = ../scripts/ws.nu;
 
     ".config/nushell/scripts".source = ../scripts;
+    "${config.xdg.dataHome}/widgets".source = ../widgets/lib;
   };
 
   home.packages = with pkgs; [

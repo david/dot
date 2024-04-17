@@ -55,6 +55,6 @@ export def "main widget" [name: string] {
       --padding 0
       --title $"widget.($name)"
       # TODO: remove full path to widget
-      nu $"($env.HOME)/sys/scripts/widget-($name).nu"
+      nu $"($env.HOME)/.local/share/widgets/widget-($name).nu"
   )
 }
