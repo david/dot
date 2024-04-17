@@ -54,6 +54,7 @@
     brave
     brightnessctl
     fd
+    google-chrome
     grimblast
     libnotify
     manix
@@ -65,6 +66,7 @@
     ripgrep
     sound-theme-freedesktop
     vorbis-tools
+    wf-recorder
     wl-clipboard
   ];
 
