@@ -118,6 +118,7 @@ in {
         "$s, n, exec, ${browse}"
         "$s, p, exec, term nvim $HOME/sys/plan.md"
         "$s, s, exec, ws term"
+
         "$s, r, exec, ws switch services"
         "$s, r, exec, wm run-if-empty term ws services"
 
@@ -128,6 +129,7 @@ in {
         "$s, v, exec, wm run-if-empty ${video}"
 
         "$s, w, workspace, name:web"
+        "$s, w, exec, wm run-if-empty ${browse}"
 
         "$s, y, workspace, 2"
 
