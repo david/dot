@@ -202,6 +202,8 @@
                 nix-direnv.enable = true;
               };
 
+              programs.firefox.enable = true;
+
               programs.fzf.enable = true;
 
               programs.gh = {
