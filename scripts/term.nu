@@ -16,6 +16,7 @@ export def --wrapped new [
   (
     kitty
       --override $"window_padding_width=($padding | default 0)"
+      --override "forward_stdio=true"
       ...(
         if $opacity != null {
           [ --override dynamic_background_opacity=true --override $"background_opacity=($opacity)" ]
