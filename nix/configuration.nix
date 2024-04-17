@@ -195,6 +195,8 @@ in {
     localBinInPath = true;
 
     systemPackages = [ ];
+
+    variables.EDITOR = "nvim";
   };
 
   services.fwupd.enable = true;
