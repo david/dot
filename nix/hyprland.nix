@@ -93,7 +93,12 @@ in {
         "$s, slash, exec, ws.nu search --new-window"
         "$s, 0, exec, notifyctl dismiss"
         "$s, b, togglespecialworkspace, bugs"
+
         "$s, c, workspace, name:chat"
+        "$s, c, exec, wm run-if-empty ${slack}"
+        "$s, c, layoutmsg, preselect d"
+        "$s, c, exec, wm run-if-empty ${discord}"
+
         "$s, d, togglespecialworkspace, devapp"
         "$s, e, exec, ws.nu show dev"
         "$s, f, exec, ws run files"
@@ -281,7 +286,7 @@ in {
 
         "nodim, class:search-current"
 
-        "group override deny, workspace:2"
+        "group override deny, workspace:name:chat"
 
         "group override deny, class: ^filter$"
 
@@ -303,7 +308,6 @@ in {
 
       workspace = [
         "name:game, on-created-empty: lutris"
-        "name:chat, gapsout:${toString spacing}, on-created-empty:${discord} & ${slack}"
         "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
         "special:bugs, on-created-empty:${browse}, gapsout:16 16 16 604"
         "special:devapp, on-created-empty:${browse}, gapsout:16 16 16 604"
