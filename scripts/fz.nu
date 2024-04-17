@@ -17,10 +17,7 @@ export-env {
 }
 
 export def main [] {
-  $in
-  | fzf --delimiter="\t" --with-nth=1
-  | lines
-  | last
+  filter
 }
 
 def "main recent-directory" [--json] {
@@ -92,9 +89,7 @@ def "main text" [--json] {
 
 def filter [] {
   $in
-  | (
-      fzf --delimiter="\t" --with-nth=1 
-    )
+  | fzf --delimiter="\t" --with-nth=1
   | lines
   | last
 }

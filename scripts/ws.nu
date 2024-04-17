@@ -6,6 +6,10 @@ const SEP = "%%"
 
 export def main [] {}
 
+export def "main find file" [] {
+  run nvim (run fz file)
+}
+
 export def --wrapped "main run" [...command] {
   run ...$command
 }

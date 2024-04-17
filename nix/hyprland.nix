@@ -103,7 +103,7 @@ in {
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
         "$s, e, workspace, 1"
-        "$s, f, exec, ws run files"
+        "$s, f, exec, term ws find file"
         "$s, g, togglespecialworkspace, gitui"
         "$s, h, movefocus, l"
         "$s, j, changegroupactive, f"
