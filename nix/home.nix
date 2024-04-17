@@ -104,6 +104,7 @@
       DisablePocket = true;
 
       Preferences = {
+        "browser.sessionstore.resume_from_crash" = False;
         "browser.translations.automaticallyPopup" = False;
         "devtools.toolbox.host" = { Value = "window"; };
         "toolkit.legacyUserProfileCustomizations.stylesheets" = True;
