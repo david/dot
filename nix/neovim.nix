@@ -135,6 +135,14 @@
         cmp.enable = true;
       };
 
+      mini = {
+        enable = true;
+
+        modules = {
+          align = {};
+        };
+      };
+
       noice.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
