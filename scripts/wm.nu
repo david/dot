@@ -30,36 +30,30 @@ export def --wrapped run [
 
 export def win [--class: string] {
   if $class != null {
-    win ls | where class == $class | append [null] | first
+    ws | win list | where class == $class | append [null] | first
   } else {
     let id = (hyprctl activewindow -j | from json | default {} | get --ignore-errors address)
 
     if $id != null {
-      win ls | where id == $id | append [null] | first
+      ws | win list | where id == $id | append [null] | first
     }
   }
 }
 
 export def "win list" [] {
   let ws = $in
+  let windows = hyprctl clients -j | from json
 
-  hyprctl clients -j
-  | from json
-  | where workspace.id == $ws.id and pinned == false
-}
-
-export def "win ls" [--all] {
-  let ws = $in | default (ws)
-
-  hyprctl clients -j
-  | from json
-  | where $all or ($it.workspace != null and $it.workspace.id == $ws.id and $it.pinned == false)
+  if $ws != null {
+    $windows | where workspace.id == $ws.id and pinned == false
+  } else {
+    $windows
+  }
   | rename --column { address: "id" }
   | insert x { |e| $e.at | first }
   | insert y { |e| $e.at | last }
   | insert width { |e| $e.size | first }
   | insert height { |e| $e.size | last }
-  | select id class title workspace x y width height grouped pid
 }
 
 export def "win open" [--above, block: closure] {

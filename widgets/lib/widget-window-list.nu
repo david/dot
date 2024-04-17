@@ -17,7 +17,7 @@ def main [] {
 def render [] {
   print --no-newline (ansi cursor_off)
 
-  let list = (wm win ls)
+  let list = (wm ws | wm win list)
 
   window | widget resize --rows ($list | length)
 

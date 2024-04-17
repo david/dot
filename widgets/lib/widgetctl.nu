@@ -13,7 +13,7 @@ export def stop [widget] {
 }
 
 export def "list running" [] {
-  wm win ls --all
+  wm win list
   | where class starts-with "widget."
   | insert name { |w| $w.class | str replace "widget." "" }
 }
