@@ -628,12 +628,26 @@
                     "$sc, l, movefocus, r"
                     "$sc, s, exec, ws.nu term new"
 
-                    "$cas, h, workspace, -1"
-                    "$cas, j, exec, hyprctl keyword animations:animation workspaces,1,3,default,slidevert"
-                    "$cas, j, workspace, +100"
-                    "$cas, k, exec, hyprctl keyword animations:animation workspaces,1,3,default,slidevert"
-                    "$cas, k, workspace, -100"
-                    "$cas, l, workspace, +1"
+                    ("$cas, h, exec, " + builtins.concatStringsSep " && " [
+                      "hyprctl keyword animation workspaces,1,3,default,slide"
+                      "hyprctl dispatch workspace -1"
+                    ])
+
+                    ("$cas, j, exec, " + builtins.concatStringsSep " && " [
+                      "hyprctl keyword animation workspaces,1,3,default,slidevert"
+                      "hyprctl dispatch workspace +100"
+                    ])
+
+                    ("$cas, k, exec, " + (builtins.concatStringsSep " && " [
+                      "hyprctl keyword animation workspaces,1,3,default,slidevert"
+                      "hyprctl dispatch workspace -100"
+                    ]))
+
+                    ("$cas, l, exec, " + (builtins.concatStringsSep " && " [
+                      "hyprctl keyword animation workspaces,1,3,default,slide"
+                      "hyprctl dispatch workspace +1"
+                    ]))
+
                     "$cas, q, killactive"
 
                     "$scas, e, exec, variety -t"
