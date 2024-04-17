@@ -602,7 +602,7 @@
                     "$s, slash, exec, ws.nu search --new-window"
                     "$s, 0, exec, notifyctl dismiss"
                     "$s, b, togglespecialworkspace, bugs"
-                    "$s, c, togglespecialworkspace, chat"
+                    "$s, c, workspace, name:chat"
                     "$s, d, togglespecialworkspace, devapp"
                     "$s, e, exec, ws.nu show dev"
                     "$s, f, exec, ws run files"
@@ -783,7 +783,7 @@
 
                     "nodim, class:search-current"
 
-                    "group override deny, class: ^brave-(app\\.slack|discord)\\.com"
+                    "group override deny, workspace:2"
 
                     "group override deny, class: ^filter$"
 
@@ -811,8 +811,8 @@
                     video = "browse https://youtube.com";
                   in [
                     "name:game, on-created-empty: lutris"
+                    "name:chat, gapsout:${toString spacing}, on-created-empty:${discord} & ${slack}"
                     "special:bugs, on-created-empty:browse, gapsout:16 16 16 604"
-                    "special:chat, on-created-empty:${slack} & ${discord}, gapsout:48, gapsin:24"
                     "special:devapp, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
                     "special:mail, on-created-empty:${mail}, gapsout:96 480"
