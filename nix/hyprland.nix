@@ -52,7 +52,6 @@
   };
 
   discord = "${browse} --app=https://discord.com/channels/@me";
-  mail = "${browse} --app=https://mail.google.com";
   music = "${browse} --app=https://music.youtube.com";
   slack = "${browse} --app=${work.slack.url}";
   video = "${browse} --app=https://youtube.com";
