@@ -92,7 +92,6 @@ in {
       bind = [
         "$s, slash, exec, ws.nu search --new-window"
         "$s, 0, exec, notifyctl dismiss"
-        "$s, b, togglespecialworkspace, bugs"
 
         "$s, c, workspace, name:chat"
         "$s, c, exec, wm run-if-empty ${slack}"
