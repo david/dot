@@ -91,6 +91,8 @@ in {
 
       bind = [
         "$s, slash, exec, ws.nu search --new-window"
+        "$s, semicolon, workspace, previous"
+
         "$s, 0, exec, notifyctl dismiss"
 
         "$s, c, workspace, name:chat"
