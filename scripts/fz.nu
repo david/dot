@@ -10,7 +10,7 @@ export-env {
       "--layout=reverse"
       "--no-scrollbar"
       "--pointer=' '"
-      "--prompt '   '"
+      "--prompt '  '"
       "--color 'fg:#ebdbb2,fg+:#1d2021,bg+:#d79921,gutter:#000000,pointer:#000000'"
     ] | str join " "
   )
