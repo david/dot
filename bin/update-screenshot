@@ -1,0 +1,22 @@
+#!/usr/bin/env nu
+
+[
+  {
+    sleep 1sec
+    grimblast save screen desktop.png
+  }
+
+  {
+    (
+      term nvim assets/logo.txt
+        '+set nonumber'
+        '+set norelativenumber'
+        '+set nocursorline'
+        '+norm 27G'
+        '+norm 77|'
+    )
+
+    kitty +kitten icat desktop.png
+  }
+] | par-each { |c| do $c }
+
