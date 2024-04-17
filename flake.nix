@@ -398,7 +398,10 @@
 
                   treesitter-textobjects.enable = true;
                   which-key.enable = true;
-                  yanky.enable = true;
+                  yanky = {
+                    enable = true;
+                    ring.storage = "sqlite";
+                  };
                 };
 
                 opts = {
