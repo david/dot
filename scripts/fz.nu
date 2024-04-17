@@ -5,7 +5,6 @@ export-env {
     [
       "--ansi"
       "--cycle"
-      "--header=''"
       "--info=inline-right"
       "--layout=reverse"
       "--no-scrollbar"
