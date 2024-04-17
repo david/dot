@@ -55,6 +55,9 @@ def main [] {
   }
 }
 
+const CHARGING = "1";
+const DISCHARGING = "2";
+
 def battery [] {
   let charge = (
     dbus-send
@@ -70,7 +73,7 @@ def battery [] {
     | into int
   )
 
-  let state_int = (
+  let state = (
     dbus-send
       --system
       --print-reply=literal
@@ -86,13 +89,7 @@ def battery [] {
 
   {
     charge: $charge
-    state: (
-      match $state_int {
-        1 => "charging"
-        2 => "discharging"
-        _ => $"($state_int)"
-      }
-    )
+    state: $state
   }
 }
 
@@ -101,8 +98,8 @@ def "battery render" [] {
 
   let icon = (
     match $batt.state {
-      "charging" => "󰂏 "
-      "discharging" => "󰂌 "
+      CHARGING => "󰂏 "
+      DISCHARGING => "󰂌 "
       _ => $batt.state
     }
   )
