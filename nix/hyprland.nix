@@ -102,7 +102,7 @@ in {
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
         "$s, e, workspace, 1"
-        "$s, f, exec, term ws find file"
+        "$s, f, exec, ws term ws find file"
 
         "$s, g, exec, ws switch gitui"
         "$s, g, exec, wm run-if-empty ws term lazygit"
@@ -117,7 +117,7 @@ in {
 
         "$s, n, exec, ${browse}"
         "$s, p, exec, term nvim $HOME/sys/plan.md"
-        "$s, s, exec, ws run term"
+        "$s, s, exec, ws term"
         "$s, r, exec, ws switch services"
         "$s, r, exec, wm run-if-empty term ws services"
 
@@ -144,7 +144,7 @@ in {
         "$sc, j, movefocus, d"
         "$sc, k, movefocus, u"
         "$sc, l, movefocus, r"
-        "$sc, s, exec, ws.nu term new"
+        "$sc, s, exec, ws term"
 
         ("$cas, h, exec, " + builtins.concatStringsSep " && " [
          "hyprctl keyword animation workspaces,1,3,default,slide"
