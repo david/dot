@@ -140,8 +140,6 @@ in {
         "$ss, k, movewindoworgroup, u"
         "$ss, l, movewindoworgroup, r"
 
-        "$sc, d, exec, ws.nu chdir"
-        "$sc, f, exec, ws.nu open"
         "$sc, g, workspace, name:game"
         "$sc, h, movefocus, l"
         "$sc, j, movefocus, d"
@@ -174,8 +172,6 @@ in {
 
         "$scas, e, exec, variety -t"
         "$scas, h, movetoworkspace, -1"
-        "$scas, j, movetoworkspace, +100"
-        "$scas, k, movetoworkspace, -100"
         "$scas, l, movetoworkspace, +1"
         "$scas, q, exit"
 
