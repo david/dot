@@ -152,7 +152,6 @@
               };
 
               home.file = {
-                ".local/bin/browse".source = ./bin/browse;
                 ".local/bin/files".source = ./scripts/files.nu;
                 ".local/bin/fz".source = ./scripts/fz.nu;
                 ".local/bin/mediactl".source = ./scripts/mediactl.nu;
@@ -522,6 +521,8 @@
               };
 
               wayland.windowManager.hyprland = let
+                browse = "brave";
+
                 col = {
                   active = "rgba(${builtins.substring 1 7 colors.light2}ff)";
                   inactive = "rgba(${builtins.substring 1 7 colors.black}77)";
@@ -614,7 +615,7 @@
                     "$s, j, changegroupactive, f"
                     "$s, k, changegroupactive, b"
                     "$s, l, movefocus, r"
-                    "$s, n, exec, browse"
+                    "$s, n, exec, ${browse}"
                     "$s, p, exec, term nvim $HOME/sys/plan.md"
                     "$s, s, exec, ws run term"
                     "$s, r, togglespecialworkspace, services"
@@ -813,24 +814,24 @@
                   ];
 
                   workspace = let
-                    discord = "browse https://discord.com/channels/@me";
-                    mail = "browse https://mail.google.com";
-                    music = "browse https://music.youtube.com";
-                    slack = "browse ${work.slack.url}";
-                    video = "browse https://youtube.com";
+                    discord = "${browse} --app=https://discord.com/channels/@me";
+                    mail = "${browse} --app=https://mail.google.com";
+                    music = "${browse} --app=https://music.youtube.com";
+                    slack = "${browse} --app=${work.slack.url}";
+                    video = "${browse} --app=https://youtube.com";
                   in [
                     "name:game, on-created-empty: lutris"
                     "name:chat, gapsout:${toString spacing}, on-created-empty:${discord} & ${slack}"
-                    "name:web, gapsout:16 16 16 604, on-created-empty:browse"
-                    "special:bugs, on-created-empty:browse, gapsout:16 16 16 604"
-                    "special:devapp, on-created-empty:browse, gapsout:16 16 16 604"
+                    "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
+                    "special:bugs, on-created-empty:${browse}, gapsout:16 16 16 604"
+                    "special:devapp, on-created-empty:${browse}, gapsout:16 16 16 604"
                     "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
                     "special:mail, on-created-empty:${mail}, gapsout:96 480"
                     "special:music, on-created-empty:${music}, gapsout:96 480"
                     "special:video, on-created-empty:${video}, gapsout:96 480"
-                    "special:plan, on-created-empty:browse, gapsout:16 16 16 604"
+                    "special:plan, on-created-empty:${browse}, gapsout:16 16 16 604"
                     "special:services, on-created-empty:ws run services, gapsout:16 16 16 604"
-                    "special:web, on-created-empty:browse, gapsout:16 16 16 604"
+                    "special:web, on-created-empty:${browse}, gapsout:16 16 16 604"
                   ];
                 };
               };
