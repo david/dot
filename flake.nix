@@ -442,6 +442,7 @@
                   incsearch = true;
                   laststatus = 0;
                   mouse = "";
+                  number = true;
                   numberwidth = 4;
                   relativenumber = true;
                   scrolloff = 999;
