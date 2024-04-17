@@ -612,12 +612,12 @@
                     "$s, k, changegroupactive, b"
                     "$s, l, movefocus, r"
                     "$s, n, exec, browse"
-                    "$s, p, exec, ws.nu pull-request"
+                    "$s, p, exec, term nvim $HOME/sys/plan.md"
                     "$s, s, exec, ws run term"
                     "$s, r, togglespecialworkspace, services"
                     "$s, u, togglespecialworkspace, music"
                     "$s, v, togglespecialworkspace, video"
-                    "$s, w, togglespecialworkspace, web"
+                    "$s, w, workspace, name:web"
 
                     "$ss, f, togglefloating"
                     "$ss, g, togglegroup"
@@ -814,6 +814,7 @@
                   in [
                     "name:game, on-created-empty: lutris"
                     "name:chat, gapsout:${toString spacing}, on-created-empty:${discord} & ${slack}"
+                    "name:web, gapsout:16 16 16 604, on-created-empty:browse"
                     "special:bugs, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:devapp, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
