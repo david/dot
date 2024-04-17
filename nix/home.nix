@@ -92,7 +92,54 @@
     nix-direnv.enable = true;
   };
 
-  programs.firefox.enable = true;
+  programs.firefox = let
+    True = { Value = true; Status = "locked"; };
+    False = { Value = false; Status = "locked"; };
+  in {
+    enable = true;
+
+    policies = {
+      DisablePocket = true;
+
+      Preferences = {
+        "browser.translations.automaticallyPopup" = False;
+        "devtools.toolbox.host" = { Value = "window"; };
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = True;
+      };
+    };
+
+    profiles.default = {
+      id = 0;
+
+      isDefault = true;
+
+      userChrome = ''
+        #TabsToolbar { 
+          display: none; 
+        }
+      '';
+    };
+
+    profiles.discord = {
+      id = 1;
+
+      userChrome = ''
+        #TabsToolbar { 
+          display: none; 
+        }
+      '';
+    };
+
+    profiles.slack = {
+      id = 2;
+
+      userChrome = ''
+        #TabsToolbar { 
+          display: none; 
+        }
+      '';
+    };
+  };
 
   programs.fzf.enable = true;
 

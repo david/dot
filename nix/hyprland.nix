@@ -1,7 +1,8 @@
 { colors, inputs, pkgs, ... }: let
   work = (builtins.fromJSON (builtins.readFile ../private.json)).work;
 
-  browse = "brave";
+  browse = "firefox";
+  browseApp = url: "firefox ${url}";
 
   col = {
     active = "rgba(${builtins.substring 1 7 colors.light2}ff)";
@@ -51,10 +52,10 @@
     height = cellHeight * 9;
   };
 
-  discord = "${browse} --app=https://discord.com/channels/@me";
-  music = "${browse} --app=https://music.youtube.com";
-  slack = "${browse} --app=${work.slack.url}";
-  video = "${browse} --app=https://youtube.com";
+  discord = browseApp "https://discord.com/channels/@me";
+  music = browseApp "https://music.youtube.com";
+  slack = browseApp work.slack.url;
+  video = browseApp "https://youtube.com";
 in {
   wayland.windowManager.hyprland = {
     enable = true;
