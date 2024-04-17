@@ -319,13 +319,6 @@ in {
       ];
 
       workspace = [
-        "name:devapp, gapsout:16 16 16 608"
-        "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
-        "name:meet, gapsout:16 16 16 608"
-        "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
-        "special:video, on-created-empty:${video}, gapsout:96 480"
-        "special:services, on-created-empty:ws run services, gapsout:16 16 16 604"
-        "special:web, on-created-empty:${browse}, gapsout:16 16 16 604"
       ];
     };
   };
