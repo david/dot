@@ -103,7 +103,9 @@ in {
         "$s, d, workspace, name:devapp"
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
-        "$s, e, workspace, 1"
+        "$s, e, exec, ws switch code"
+        "$s, e, exec, wm run-if-empty ws term nvim"
+
         "$s, f, exec, ws term ws find file"
 
         "$s, g, exec, ws switch gitui"
@@ -132,8 +134,6 @@ in {
 
         "$s, w, workspace, name:web"
         "$s, w, exec, wm run-if-empty ${browse}"
-
-        "$s, y, workspace, 2"
 
         "$ss, f, togglefloating"
         "$ss, g, togglegroup"
@@ -169,8 +169,10 @@ in {
          "hyprctl dispatch workspace +1"
         ])
 
+        "$cas, a, workspace, 1"
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
+        "$cas, y, workspace, 2"
 
         "$scas, e, exec, variety -t"
         "$scas, h, movetoworkspace, -1"
