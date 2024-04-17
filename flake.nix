@@ -192,6 +192,8 @@
 
               programs.bat.enable = true;
 
+              programs.btop.enable = true;
+
               programs.carapace = {
                 enable = true;
                 enableNushellIntegration = true;
