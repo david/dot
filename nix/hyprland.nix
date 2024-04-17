@@ -121,7 +121,7 @@ in {
         "$s, u, exec, wm run-if-empty ${music}"
         "$s, v, togglespecialworkspace, video"
         "$s, w, workspace, name:web"
-        "$s, y, workspace, name:sys"
+        "$s, y, workspace, name:code%%$HOME/sys"
 
         "$ss, f, togglefloating"
         "$ss, g, togglegroup"
