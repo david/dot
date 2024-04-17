@@ -21,7 +21,7 @@ def render [] {
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $padx_size)
-  let max_width = $ncols - ($padx_size * 2)
+  let max_width = $ncols - ($padx_size * 2) - 3
 
   let active = (wm win)
 
@@ -34,8 +34,8 @@ def render [] {
     | values
     | each { |g|
       if ($g | is-not-empty) {
-        $g | first | get grouped | each { |e|
-          let win = ($list | where id == $e | first)
+        $g | first | get grouped | enumerate | each { |e|
+          let win = ($list | where id == $e.item | first)
 
           if $win != null {
             let meta = match [$win.class, $win.title] {
@@ -55,11 +55,17 @@ def render [] {
             | strx truncate $max_width
             | fill --width $max_width
 
+            let accel = if $e.index < 10 {
+              $"[($e.index)]"
+            } else {
+              "   "
+            }
+
             $"(ansi erase_line)(
               if $active != null and $win.id == $active.id {
-                $"(ansi default_reverse)($padx)($title)($padx)(ansi reset)"
+                $"(ansi default_reverse)($padx)($title)($accel)($padx)(ansi reset)"
               } else {
-                $"($padx)(ansi $meta.fg)($title)(ansi reset)($padx)"
+                $"($padx)(ansi $meta.fg)($title)($accel)(ansi reset)($padx)"
               }
             )"
           }
