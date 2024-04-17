@@ -173,6 +173,7 @@
                 netcat
                 openshot-qt
                 pamixer
+                polkit_gnome
                 playerctl
                 ripgrep
                 sound-theme-freedesktop
