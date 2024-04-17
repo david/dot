@@ -40,21 +40,18 @@
     };
 
     keymaps = let
-      options = {
-        silent = true;
-        noremap = true;
-      };
-    in [
-    {
-      inherit options;
-      action = "q";
-      key = "m";
-    }
-    {
-      inherit options;
-      action = "<cmd>q<cr>";
-      key = "q";
-    }
+      withDefaults = kms:
+        map (km: {
+          inherit (km) action key;
+
+          options = {
+            noremap = true;
+            silent = true;
+          };
+        }) kms;
+    in withDefaults [
+      { action = "q"; key = "m"; }
+      { action = "<cmd>q<cr>"; key = "q"; }
     ];
 
     plugins = {
