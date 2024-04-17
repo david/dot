@@ -128,7 +128,8 @@ in {
         "$s, v, exec, wm run-if-empty ${video}"
 
         "$s, w, workspace, name:web"
-        "$s, y, workspace, name:code%%$HOME/sys"
+
+        "$s, y, workspace, 2"
 
         "$ss, f, togglefloating"
         "$ss, g, togglegroup"
@@ -319,6 +320,8 @@ in {
       ];
 
       workspace = [
+        "1, defaultName:code%%${work.projects.current.root}"
+        "2, defaultName:code%%$HOME/sys"
       ];
     };
   };
