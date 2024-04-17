@@ -73,14 +73,13 @@ def battery [] {
 
 def "battery render" [] {
   let val = $in
-  let r = $"(icon '󰁹 ') ($val)(icon ' ')"
 
   if $val < 25 {
-    $"(ansi red)($r)(ansi reset)"  
+    $"(ansi red)󰁹  ($val) (ansi reset)"
   } else if $val < 50 {
-    $"(ansi yellow)($r)(ansi reset)"  
+    $"(ansi yellow)󰁹  ($val) (ansi reset)"
   } else {
-    $r
+    $"(icon '󰁹 ') ($val)(icon ' ')"
   }
 }
 
@@ -90,14 +89,13 @@ def cpu [] {
 
 def "cpu render" [] {
   let val = $in
-  let r = $"(icon ' ') ($val)(icon ' ')"
 
   if $val > 90 {
-    $"(ansi purple)($r)(ansi reset)"
+    $"(ansi red)  ($val) (ansi reset)"
   } else if $val > 50 {
-    $"(ansi yellow)($r)(ansi reset)"
+    $"(ansi yellow)  ($val) (ansi reset)"
   } else {
-    $r
+    $"(icon ' ') ($val)(icon ' ')"
   }
 }
 
