@@ -200,6 +200,10 @@ in {
   environment = {
     localBinInPath = true;
 
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+
     systemPackages = [ ];
 
     variables.EDITOR = "nvim";
