@@ -40,19 +40,8 @@ def render [] {
           let win = ($list | where id == $e.item | first)
 
           if $win != null {
-            let meta = match [$win.class, $win.title] {
-              [_, $file] if ($file ends-with ".conf") => { icon: " ", fg: "yellow" }
-              [_, $file] if ($file ends-with ".erb") => { icon: "󰗀 ", fg: "light_green" }
-              [_, $file] if ($file ends-with ".js") => { icon: " ", fg: "yellow" }
-              [_, $file] if ($file ends-with ".nix") => { icon: "󱄅 ", fg: "light_blue" }
-              [_, $file] if ($file ends-with ".nu") => { icon: "nu", fg: "light_green" }
-              [_, $file] if ($file ends-with ".rb") => { icon: " ", fg: "light_magenta" }
-              ["kitty", _] => { icon: " ", fg: "default" }
-              ["nvim", _]  => { icon: "󱃖 ", fg: "default" }
-              _            => { icon: "  ", fg: "default" }
-            }
-
-            let title = [$meta.icon, $win.title]
+            let style = (style $win)
+            let title = [$style.icon, $win.title]
             | str join " "
             | strx truncate $max_width
             | fill --width $max_width
@@ -66,7 +55,7 @@ def render [] {
             let str = if $active != null and $win.id == $active.id {
               $"(ansi default_reverse)($padx)($title) ($accel)($padx)(ansi reset)"
             } else {
-              $"($padx)(ansi $meta.fg)($title) ($accel)(ansi reset)($padx)"
+              $"($padx)(ansi $style.fg)($title) ($accel)(ansi reset)($padx)"
             }
 
             $"(ansi erase_line)($str)"
@@ -79,6 +68,20 @@ def render [] {
   )
 
   print --no-newline $"($out)(ansi clear_screen_from_cursor_to_end)"
+}
+
+def style [window: record] {
+  match [$window.class, $window.title] {
+    [_, $file] if $file ends-with ".conf" => { icon: " ", fg: "yellow" }
+    [_, $file] if $file ends-with ".erb"  => { icon: "󰗀 ", fg: "light_green" }
+    [_, $file] if $file ends-with ".js"   => { icon: " ", fg: "yellow" }
+    [_, $file] if $file ends-with ".nix"  => { icon: "󱄅 ", fg: "light_blue" }
+    [_, $file] if $file ends-with ".nu"   => { icon: "nu", fg: "light_green" }
+    [_, $file] if $file ends-with ".rb"   => { icon: " ", fg: "light_magenta" }
+    ["kitty", _]                          => { icon: " ", fg: "default" }
+    ["nvim", _]                           => { icon: "󱃖 ", fg: "default" }
+    _                                     => { icon: "  ", fg: "default" }
+  }
 }
 
 def window [] {
