@@ -55,9 +55,6 @@ def main [] {
   }
 }
 
-const CHARGING = "1";
-const DISCHARGING = "2";
-
 def battery [] {
   let charge = (
     dbus-send
@@ -89,20 +86,18 @@ def battery [] {
 
   {
     charge: $charge
-    state: $state
+    state: ($state | into int)
   }
 }
 
 def "battery render" [] {
   let batt = $in
 
-  let icon = (
-    match $batt.state {
-      CHARGING => "󰂏 "
-      DISCHARGING => "󰂌 "
-      _ => $batt.state
-    }
-  )
+  let icon = match $batt.state {
+    1 => "󱐋 "
+    2 => "󰁹 "
+    _ => $batt.state
+  }
 
   if $batt.charge < 25 {
     $"($icon) ($batt.charge) " | yell
