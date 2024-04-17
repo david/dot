@@ -649,7 +649,6 @@
                   }; # }}}
 
                   dwindle = { # {{{
-                    default_split_ratio = 0.75;
                     force_split = 1;
                     preserve_split = true;
                     pseudotile = true;
