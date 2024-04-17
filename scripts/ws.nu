@@ -24,6 +24,10 @@ export def --wrapped "main run" [...command] {
   run ...$command
 }
 
+export def "main services" [] {
+  direnv exec . services
+}
+
 export def --wrapped "main term" [--class: string, ...command] {
   if ($command | is-empty) {
     term ...(if $class != null { [--class $class] } else { [] }) ws run nu
