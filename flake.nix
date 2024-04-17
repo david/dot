@@ -28,6 +28,7 @@
   outputs = {
     hm,
     hypridle,
+    hyprland,
     hyprlock,
     hyprpaper,
     neovim-nightly-overlay,
@@ -36,7 +37,7 @@
     nixvim,
     tree-sitter-nu,
     ...
-  }: let
+  } @ inputs : let
     pvt = builtins.fromJSON (builtins.readFile ./private.json);
 
     user = pvt.user;
@@ -56,6 +57,8 @@
       timbuktu = nixpkgs.lib.nixosSystem {
         inherit system;
         inherit pkgs;
+
+        specialArgs = { inherit inputs; };
 
         modules = [
           ./nix/hardware-configuration.nix
@@ -563,6 +566,8 @@
                 };
               in {
                 enable = true;
+
+                package = hyprland.packages.${pkgs.system}.hyprland;
 
                 settings = {
                   "$touchpad_enabled" = true;

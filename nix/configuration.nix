@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ inputs, pkgs, ... }: let
   user = (builtins.fromJSON (builtins.readFile ../private.json)).user;
 in {
   boot = {
@@ -235,7 +235,10 @@ in {
 
   services.upower.enable = true;
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
 
   programs.steam = {
     enable = true;
