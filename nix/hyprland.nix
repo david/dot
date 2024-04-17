@@ -153,6 +153,8 @@ in {
         "$sc, l, movefocus, r"
         "$sc, s, exec, ws term"
 
+        "$cas, a, workspace, name:code%%${work.projects.current.root}"
+
         ("$cas, h, exec, " + builtins.concatStringsSep " && " [
          "hyprctl keyword animation workspaces,1,3,default,slide"
          "hyprctl dispatch workspace -1"
@@ -173,7 +175,6 @@ in {
          "hyprctl dispatch workspace +1"
         ])
 
-        "$cas, a, workspace, 1"
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
         "$cas, y, workspace, 2"
