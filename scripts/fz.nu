@@ -16,7 +16,9 @@ export-env {
   )
 }
 
-export def main [] {
+export def main [] {}
+
+export def "main file find" [] {
   filter | str trim
 }
 
