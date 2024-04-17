@@ -240,10 +240,6 @@ in {
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  programs.steam = {
-    enable = true;
-  };
-
   system.stateVersion = "23.11";
 
   systemd = {
