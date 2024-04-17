@@ -21,14 +21,14 @@ def render [] {
   let ws = (wm ws)
   let root = ($ws | ws root | str replace $"($env.HOME)/" "")
 
-  print $"   ($root)(ansi erase_line_from_cursor_to_end)"
+  print $" (ansi grey) (ansi reset) ($root)(ansi erase_line_from_cursor_to_end)"
 
   let branch = (git branch --show-current e> /dev/null | str trim)
 
   if ($branch | is-not-empty) {
-    print $"   ($branch | str trim)(ansi erase_line_from_cursor_to_end)" 
+    print $" (ansi grey) (ansi reset) ($branch | str trim)(ansi erase_line_from_cursor_to_end)" 
   } 
 
-  print --no-newline $" 󰕮  ($ws | get name)(ansi erase_line_from_cursor_to_end)"
+  print --no-newline $" (ansi grey)󰕮 (ansi reset) ($ws | get name)(ansi erase_line_from_cursor_to_end)"
   print --no-newline (ansi clear_screen_from_cursor_to_end)
 }
