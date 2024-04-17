@@ -16,6 +16,8 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixvim.url = "github:nix-community/nixvim";
   }; # }}}
 
   outputs = { # {{{
@@ -26,6 +28,7 @@
     neovim-nightly-overlay,
     nixos-hardware,
     nixpkgs,
+    nixvim,
     ...
   }: let # }}}
     pvt = builtins.fromJSON (builtins.readFile ./private.json);
@@ -58,6 +61,7 @@
               hypridle.homeManagerModules.default
               hyprlock.homeManagerModules.default
               hyprpaper.homeManagerModules.default
+              nixvim.homeManagerModules.nixvim
             ]; # }}}
 
             home-manager.useGlobalPkgs = true;
@@ -148,7 +152,6 @@
                 ".local/bin/ws".source = ./scripts/ws.nu;
 
                 ".config/nushell/scripts".source = ./scripts;
-
               }; # }}}
 
               home.packages = with pkgs; [ # {{{
@@ -271,64 +274,121 @@
                 '';
               }; # }}}
 
-              programs.neovim = { # {{{
+
+              programs.nixvim = { # {{{
                 enable = true;
+
                 defaultEditor = true;
-                package = pkgs.neovim-nightly;
 
-                extraLuaConfig = builtins.readFile ./nvim/config.lua;
+                clipboard.providers.wl-copy.enable = true;
 
-                extraPackages = with pkgs; [ # {{{
-                  emmet-language-server
-                  lua-language-server
-                  nil
-                  nodejs
-                  nodePackages.eslint
-                  nodePackages.typescript-language-server
-                  nodePackages.vscode-css-languageserver-bin
-                  nodePackages.vscode-html-languageserver-bin
-                  nodePackages.vscode-json-languageserver-bin
-                  stylua
-                  tailwindcss-language-server
-                ]; # }}}
+                colorschemes.gruvbox = {
+                  enable = true;
 
-                plugins = with pkgs.vimPlugins; [ # {{{
-                  auto-save-nvim
-                  cmp-buffer
-                  cmp-cmdline
-                  cmp-cmdline-history
-                  cmp_luasnip
-                  cmp-nvim-lsp
-                  cmp-path
-                  comment-nvim
-                  conform-nvim
-                  copilot-cmp
-                  copilot-lua
-                  direnv-vim
-                  fidget-nvim
-                  flit-nvim
-                  gitsigns-nvim
-                  gruvbox-nvim
-                  indent-blankline-nvim
-                  leap-nvim
-                  lspkind-nvim
-                  luasnip
+                  settings = {
+                    overrides = {
+                      NormalFloat = {
+                        bg = "#1d2021";
+                      };
+                    };
+                    transparent_mode = true;
+                  };
+                };
+
+                extraPlugins = with pkgs.vimPlugins; [
                   neodev-nvim
-                  noice-nvim
-                  nui-nvim
-                  nvim-autopairs
-                  nvim-cmp
-                  nvim-colorizer-lua
-                  nvim-lint
-                  nvim-lspconfig
-                  nvim-surround
-                  (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars))
-                  nvim-treesitter-endwise
-                  nvim-treesitter-textobjects
-                  vim-repeat
-                  which-key-nvim
-                  yanky-nvim
-                ]; # }}}
+                ];
+
+                plugins = {
+                  auto-save.enable = true;
+                  cmp.enable = true;
+                  comment.enable = true;
+                  conform-nvim.enable = true;
+                  copilot-cmp.enable = true;
+
+                  copilot-lua = {
+                    enable = true;
+                    panel.enabled = false;
+                    suggestion.enabled = false;
+                  };
+
+                  direnv.enable = true;
+                  fidget.enable = true;
+                  gitsigns.enable = true;
+                  leap.enable = true;
+                  lint.enable = true;
+
+                  lsp = {
+                    enable = true;
+
+                    servers = {
+                      cssls.enable = true; 
+                      eslint.enable = true;
+
+                      html = {
+                        enable = true;
+                        filetypes = [ "eruby" "html" ];
+                      };
+
+                      jsonls.enable = true;
+                      lua-ls.enable = true;
+                      nil_ls.enable = true;
+                      nushell.enable = true;
+                      solargraph.enable = true;
+                      tailwindcss.enable = true;
+                      tsserver.enable = true;
+                    };
+                  };
+
+                  lspkind.enable = true;
+                  noice.enable = true;
+                  nvim-autopairs.enable = true;
+                  nvim-colorizer.enable = true;
+                  surround.enable = true;
+
+                  treesitter = {
+                    enable = true;
+                  };
+
+                  which-key.enable = true;
+                };
+
+                opts = {
+                  autoread = true;
+                  autowrite = true;
+                  background = "dark";
+                  backup = false;
+                  clipboard = "unnamedplus";
+                  completeopt = [ "menu" "menuone" "noinsert" "preview" ];
+                  cursorline = true;
+                  cursorlineopt = "both";
+                  expandtab = true;
+                  fileencoding = "utf-8";
+                  foldmethod = "marker";
+                  guifont = "Iosevka Timbuktu:h12";
+                  hidden = true;
+                  hlsearch = false;
+                  ignorecase = true;
+                  inccommand = "split";
+                  incsearch = true;
+                  laststatus = 0;
+                  mouse = "";
+                  numberwidth = 4;
+                  relativenumber = true;
+                  scrolloff = 999;
+                  shiftwidth = 2;
+                  smartcase = true;
+                  splitbelow = true;
+                  splitright = false;
+                  swapfile = false;
+                  termguicolors = true;
+                  timeout = true;
+                  timeoutlen = 300;
+                  title = true;
+                  titlestring = "%t";
+                  undofile = true;
+                  virtualedit = "block";
+                };
               }; # }}}
 
               programs.nushell = { # {{{
