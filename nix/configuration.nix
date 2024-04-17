@@ -211,13 +211,11 @@ in {
 
   services.fwupd.enable = true;
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = user.login;
 
     defaultSession = "hyprland";
-
-    lightdm.enable = true;
   };
 
   fonts = {
