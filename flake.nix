@@ -117,8 +117,10 @@
                 };
               }; #}}}
 
-              home.file.".local/bin/browse".source = ./bin/browse;
-              home.file.".local/bin/mediactl".source = ./scripts/mediactl.nu;
+              home.file = {
+                ".local/bin/browse".source = ./bin/browse;
+                ".local/bin/mediactl".source = ./scripts/mediactl.nu;
+              };
 
               home.packages = with pkgs; [ #{{{
                 brave
