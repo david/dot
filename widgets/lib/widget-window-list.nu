@@ -8,11 +8,7 @@ const padx_size = 1;
 def main [] {
   render
 
-  wm events | where $it =~ activewindowv2 | each { run-external $env.PROCESS_PATH render }
-}
-
-def "main render" [] {
-  render
+  wm events | where $it =~ activewindowv2 | each { render }
 }
 
 def render [] {
