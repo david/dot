@@ -2,7 +2,7 @@
   description = "System flake";
 
   inputs = {
-    hm = { 
+    hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -234,30 +234,30 @@
                   shell = "nu";
                   symbol_map = (
                     builtins.concatStringsSep "," [
-                      "U+23FB-U+23FE" 
-                      "U+2500-U+259F" 
-                      "U+2665" 
-                      "U+26A1" 
-                      "U+2B58" 
-                      "U+E000-U+E00A" 
-                      "U+E0A0-U+E0A2" 
-                      "U+E0A3" 
-                      "U+E0B0-U+E0B3" 
-                      "U+E0B4-U+E0C8" 
-                      "U+E0CA" 
-                      "U+E0CC-U+E0D4" 
-                      "U+E200-U+E2A9" 
-                      "U+E300-U+E3E3" 
-                      "U+E5FA-U+E6B1" 
-                      "U+E700-U+E7C5" 
-                      "U+EA60-U+EBEB" 
-                      "U+F000-U+F2E0" 
-                      "U+F300-U+F372" 
-                      "U+F400-U+F532" 
-                      "U+F500-U+FD46" 
-                      "U+E276C-U+E2771" 
+                      "U+23FB-U+23FE"
+                      "U+2500-U+259F"
+                      "U+2665"
+                      "U+26A1"
+                      "U+2B58"
+                      "U+E000-U+E00A"
+                      "U+E0A0-U+E0A2"
+                      "U+E0A3"
+                      "U+E0B0-U+E0B3"
+                      "U+E0B4-U+E0C8"
+                      "U+E0CA"
+                      "U+E0CC-U+E0D4"
+                      "U+E200-U+E2A9"
+                      "U+E300-U+E3E3"
+                      "U+E5FA-U+E6B1"
+                      "U+E700-U+E7C5"
+                      "U+EA60-U+EBEB"
+                      "U+F000-U+F2E0"
+                      "U+F300-U+F372"
+                      "U+F400-U+F532"
+                      "U+F500-U+FD46"
+                      "U+E276C-U+E2771"
                       "U+F0001-U+F1AF0"
-                    ] 
+                    ]
                   ) + " Symbols Nerd Font Mono";
                   visual_bell_duration = "0.25";
                   window_padding_width = 4;
@@ -285,8 +285,8 @@
                   nodePackages.eslint
                   nodePackages.typescript-language-server
                   nodePackages.vscode-css-languageserver-bin
-                  nodePackages.vscode-html-languageserver-bin 
-                  nodePackages.vscode-json-languageserver-bin 
+                  nodePackages.vscode-html-languageserver-bin
+                  nodePackages.vscode-json-languageserver-bin
                   stylua
                   tailwindcss-language-server
                 ];
@@ -476,14 +476,14 @@
                     "$s, u, togglespecialworkspace, music"
                     "$s, v, togglespecialworkspace, video"
                     "$s, w, togglespecialworkspace, web"
-                    
+
                     "$ss, f, togglefloating"
                     "$ss, g, togglegroup"
                     "$ss, h, movewindoworgroup, l"
                     "$ss, j, movewindoworgroup, d"
                     "$ss, k, movewindoworgroup, u"
                     "$ss, l, movewindoworgroup, r"
-                   
+
                     "$sc, d, exec, ws.nu chdir"
                     "$sc, f, exec, ws.nu open"
                     "$sc, g, workspace, name:game"
@@ -492,7 +492,7 @@
                     "$sc, k, movefocus, u"
                     "$sc, l, movefocus, r"
                     "$sc, s, exec, ws.nu term new"
-                  
+
                     "$cas, h, workspace, -1"
                     "$cas, j, exec, hyprctl keyword animations:animation workspaces,1,3,default,slidevert"
                     "$cas, j, workspace, +100"
@@ -500,7 +500,7 @@
                     "$cas, k, workspace, -100"
                     "$cas, l, workspace, +1"
                     "$cas, q, killactive"
-                 
+
                     "$scas, e, exec, variety -t"
                     "$scas, h, movetoworkspace, -1"
                     "$scas, j, movetoworkspace, +100"
@@ -509,14 +509,14 @@
                     "$scas, q, exit"
                     "$scas, r, exec, variety -n"
                     "$scas, w, exec, variety -p"
-                
+
                     "$scs, f, fakefullscreen"
                     "$scs, h, movegroupwindow, b"
                     "$scs, j, movewindoworgroup, d"
                     "$scs, k, movewindoworgroup, u"
                     "$scs, l, movegroupwindow, f"
                     "$scs, s, exec, kitty"
-               
+
                     "  , XF86AudioRaiseVolume, exec, mediactl vol up"
                     "  , XF86AudioLowerVolume, exec, mediactl vol down"
                     "  , XF86AudioMute, exec, mediactl vol mute"
@@ -524,7 +524,7 @@
                     "  , XF86AudioNext, exec, mediactl track next"
                     "  , XF86AudioPrev, exec, mediactl track prev"
                     "  , XF86AudioPlay, exec, mediactl track play-pause"
-             
+
                     "  , XF86MonBrightnessUp, exec, mediactl brightness up"
                     "  , XF86MonBrightnessDown, exec, mediactl brightness down"
                   ]; #}}}
@@ -592,7 +592,7 @@
                   }; #}}}
 
                   input = { #{{{
-                    kb_layout = "us"; 
+                    kb_layout = "us";
                     kb_variant = "intl";
 
                     follow_mouse = 1;
