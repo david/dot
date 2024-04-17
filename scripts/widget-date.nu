@@ -16,7 +16,7 @@ def "main render" [] {
 def render [] {
   let date = (
     date now 
-    | format date $"%a, %b %e (ansi grey)//(ansi reset) %H:%M" 
+    | format date $"%a, %b %-e (ansi grey)//(ansi reset) %H:%M" 
     | fill --alignment center --width (term size | get columns)
     | str trim --char "\n"
   )
