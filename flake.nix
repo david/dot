@@ -1,7 +1,7 @@
 {
   description = "System flake";
 
-  inputs = { # {{{
+  inputs = {
     hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,9 +23,9 @@
       url = "github:nushell/tree-sitter-nu";
       flake = false;
     };
-  }; # }}}
+  };
 
-  outputs = { # {{{
+  outputs = {
     hm,
     hypridle,
     hyprlock,
@@ -36,7 +36,7 @@
     nixvim,
     tree-sitter-nu,
     ...
-  }: let # }}}
+  }: let
     pvt = builtins.fromJSON (builtins.readFile ./private.json);
 
     user = pvt.user;
@@ -63,18 +63,18 @@
           ./nix/configuration.nix
 
           hm.nixosModules.home-manager {
-            home-manager.sharedModules = [ # {{{
+            home-manager.sharedModules = [
               hypridle.homeManagerModules.default
               hyprlock.homeManagerModules.default
               hyprpaper.homeManagerModules.default
               nixvim.homeManagerModules.nixvim
-            ]; # }}}
+            ];
 
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
             home-manager.users.${user.login} = { config, pkgs, ... }: let
-              colors = { # {{{
+              colors = {
                 aquaBright    = "#8ec07c";
                 aquaFaded     = "#427b58";
                 aquaNeutral   = "#689d6a";
@@ -126,9 +126,9 @@
                 yellowBright  = "#fabd2f";
                 yellowFaded   = "#b57614";
                 yellowNeutral = "#d79921";
-              }; # }}}
+              };
             in {
-              gtk = { # {{{
+              gtk = {
                 enable = true;
 
                 cursorTheme = {
@@ -146,9 +146,9 @@
                   package = pkgs.gruvbox-gtk-theme;
                   name = "Gruvbox-Dark-BL-LB";
                 };
-              }; # }}}
+              };
 
-              home.file = { # {{{
+              home.file = {
                 ".local/bin/browse".source = ./bin/browse;
                 ".local/bin/files".source = ./scripts/files.nu;
                 ".local/bin/fz".source = ./scripts/fz.nu;
@@ -158,9 +158,9 @@
                 ".local/bin/ws".source = ./scripts/ws.nu;
 
                 ".config/nushell/scripts".source = ./scripts;
-              }; # }}}
+              };
 
-              home.packages = with pkgs; [ # {{{
+              home.packages = with pkgs; [
                 brave
                 brightnessctl
                 fd
@@ -177,45 +177,45 @@
                 sound-theme-freedesktop
                 vorbis-tools
                 wl-clipboard
-              ]; # }}}
+              ];
 
-              home.pointerCursor = { # {{{
+              home.pointerCursor = {
                 gtk.enable = true;
                 package = pkgs.gnome.adwaita-icon-theme;
                 name = "Adwaita";
                 size = 48;
-              }; # }}}
+              };
 
               home.stateVersion = "23.11";
 
               programs.bat.enable = true;
 
-              programs.carapace = { # {{{
+              programs.carapace = {
                 enable = true;
                 enableNushellIntegration = true;
-              }; # }}}
+              };
 
-              programs.direnv = { # {{{
+              programs.direnv = {
                 enable = true;
                 enableNushellIntegration = true;
                 nix-direnv.enable = true;
-              }; # }}}
+              };
 
               programs.fzf.enable = true;
 
-              programs.gh = { # {{{
+              programs.gh = {
                 enable = true;
                 gitCredentialHelper.enable = true;
-              }; # }}}
+              };
 
-              programs.git = { # {{{
+              programs.git = {
                 enable = true;
                 delta.enable = true;
-              }; # }}}
+              };
 
               programs.hyprlock.enable = true;
 
-              programs.kitty = { # {{{
+              programs.kitty = {
                 enable = true;
 
                 font = {
@@ -278,10 +278,9 @@
                 extraConfig = ''
                   symbol_map U+26A1 Noto Color Emoji
                 '';
-              }; # }}}
+              };
 
-
-              programs.nixvim = { # {{{
+              programs.nixvim = {
                 enable = true;
 
                 defaultEditor = true;
@@ -358,7 +357,7 @@
                     enable = true;
 
                     servers = {
-                      cssls.enable = true; 
+                      cssls.enable = true;
                       eslint.enable = true;
 
                       html = {
@@ -435,15 +434,15 @@
                   undofile = true;
                   virtualedit = "block";
                 };
-              }; # }}}
+              };
 
-              programs.nushell = { # {{{
+              programs.nushell = {
                 enable = true;
                 configFile.source = ./nushell/config.nu;
                 envFile.source = ./nushell/env.nu;
-              }; # }}}
+              };
 
-              services.hypridle = { # {{{
+              services.hypridle = {
                 enable = true;
 
                 listeners = [
@@ -463,17 +462,17 @@
                     onTimeout = "systemctl suspend";
                   }
                 ];
-              }; # }}}
+              };
 
-              services.hyprpaper = let # {{{
+              services.hyprpaper = let
                 bg = builtins.head (map toString (nixpkgs.lib.filesystem.listFilesRecursive ./backgrounds));
               in {
                 enable = true;
                 preloads = [ bg ];
                 wallpapers = [ "eDP-1,${bg}" ];
-              }; # }}}
+              };
 
-              services.mako = { # {{{
+              services.mako = {
                 enable = true;
 
                 anchor = "bottom-left";
@@ -491,9 +490,9 @@
                 sort = "+time";
                 textColor = colors.light1;
                 width = 572;
-              }; # }}}
+              };
 
-              wayland.windowManager.hyprland = let # {{{
+              wayland.windowManager.hyprland = let
                 col = {
                   active = "rgba(${builtins.substring 1 7 colors.light2}ff)";
                   inactive = "rgba(${builtins.substring 1 7 colors.black}77)";
@@ -547,7 +546,7 @@
                 settings = {
                   "$touchpad_enabled" = true;
 
-                  animations = { # {{{
+                  animations = {
                     enabled = true;
 
                     bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -561,7 +560,7 @@
                       "workspaces, 1, 3, default, slide"
                       "specialWorkspace, 1, 3, myBezier, slidevert"
                     ];
-                  }; # }}}
+                  };
 
                   "$c"    = "CONTROL";
                   "$cas"  = "CONTROL ALT SHIFT";
@@ -571,7 +570,7 @@
                   "$scas" = "SUPER CONTROL ALT SHIFT";
                   "$scs"  = "SUPER CONTROL SHIFT";
 
-                  bind = [ # {{{
+                  bind = [
                     "$s, slash, exec, ws.nu search --new-window"
                     "$s, b, togglespecialworkspace, bugs"
                     "$s, c, togglespecialworkspace, chat"
@@ -641,18 +640,18 @@
 
                     "  , XF86MonBrightnessUp, exec, mediactl brightness up"
                     "  , XF86MonBrightnessDown, exec, mediactl brightness down"
-                  ]; # }}}
+                  ];
 
-                  bindm = [ # {{{
+                  bindm = [
                     "$s, mouse:272, movewindow"
                     # "$s, mouse:273, resizewindow"
-                  ]; # }}}
+                  ];
 
-                  binds = { # {{{
+                  binds = {
                     workspace_back_and_forth = true;
-                  }; # }}}
+                  };
 
-                  decoration = { # {{{
+                  decoration = {
                     rounding = 4;
 
                     blur = {
@@ -669,15 +668,15 @@
                     shadow_render_power = 2;
 
                     "col.shadow" = col.shadow;
-                  }; # }}}
+                  };
 
-                  dwindle = { # {{{
+                  dwindle = {
                     force_split = 1;
                     preserve_split = true;
                     pseudotile = true;
-                  }; # }}}
+                  };
 
-                  general = { # {{{
+                  general = {
                     allow_tearing = false;
 
                     border_size = 3;
@@ -691,20 +690,20 @@
                     gaps_out = "16,608";
 
                     layout = "dwindle";
-                  }; # }}}
+                  };
 
-                  gestures = { # {{{
+                  gestures = {
                     workspace_swipe = false;
-                  }; # }}}
+                  };
 
-                  group = { # {{{
+                  group = {
                     groupbar.enabled = false;
 
                     "col.border_active" = col.active;
                     "col.border_inactive" = col.inactive;
-                  }; # }}}
+                  };
 
-                  input = { # {{{
+                  input = {
                     kb_layout = "us";
                     kb_variant = "intl";
 
@@ -717,17 +716,17 @@
                     };
 
                     sensitivity = 0;
-                  }; # }}}
+                  };
 
-                  misc = { # {{{
+                  misc = {
                     disable_hyprland_logo = true;
                     disable_splash_rendering = true;
                     force_default_wallpaper = 0;
-                  }; # }}}
+                  };
 
                   monitor = [ ", preferred, auto, 1"];
 
-                  windowrulev2 = [ # {{{
+                  windowrulev2 = [
                     "float, class:^widget."
                     "noborder, class:^widget\\."
                     "nodim, class:^widget\\."
@@ -757,9 +756,9 @@
 
                     "size ${toString windowListWidget.width} ${toString windowListWidget.height}, class:^widget\\.window-list"
                     "move ${toString windowListWidget.x} ${toString windowListWidget.y}, class:^widget\\.window-list"
-                  ]; # }}}
+                  ];
 
-                  workspace = let # {{{
+                  workspace = let
                     discord = "browse https://discord.com/channels/@me";
                     mail = "browse https://mail.google.com";
                     music = "browse https://music.youtube.com";
@@ -776,14 +775,14 @@
                     "special:video, on-created-empty:${video}, gapsout:96 480"
                     "special:plan, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:web, on-created-empty:browse, gapsout:16 16 16 604"
-                  ]; # }}}
+                  ];
                 };
-              }; # }}}
+              };
 
-              xdg = { # {{{
+              xdg = {
                 enable = true;
                 mimeApps.enable = true;
-              }; # }}}
+              };
             };
           }
         ];
