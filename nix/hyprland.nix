@@ -12,7 +12,7 @@
 
   spacing = 16;
 
-  cellHeight = spacing * 2.94;
+  cellHeight = 38;
 
   gap = {
     left = spacing * 38;
@@ -20,22 +20,22 @@
   };
 
   widget = {
-    x = spacing;
-    width = gap.left - (spacing * 2);
+    x = spacing + 2;
+    width = gap.left - (spacing * 2) - 4;
   };
 
   dateWidget = {
     inherit (widget) x width;
 
     y = spacing;
-    height = cellHeight;
+    height = cellHeight + 4;
   };
 
   sensorWidget = {
     inherit (widget) x width;
 
     y = dateWidget.y + dateWidget.height + spacing;
-    height = cellHeight;
+    height = cellHeight + 4;
   };
 
   desktopWidget = {
