@@ -311,9 +311,32 @@
                   vim-repeat
                 ];
 
+                keymaps = let
+                  options = {
+                    silent = true;
+                    noremap = true;
+                  };
+                in [
+                  {
+                    inherit options;
+                    action = "q";
+                    key = "m";
+                  }
+                  {
+                    inherit options;
+                    action = "<cmd>q<cr>";
+                    key = "q";
+                  }
+                ];
+
                 plugins = {
                   auto-save.enable = true;
                   cmp.enable = true;
+                  cmp-buffer.enable = true;
+                  cmp-cmdline.enable = true;
+                  cmp-cmdline-history.enable = true;
+                  cmp-git.enable = true;
+                  cmp-path.enable = true;
                   comment.enable = true;
                   conform-nvim.enable = true;
                   copilot-cmp.enable = true;
