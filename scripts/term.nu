@@ -1,10 +1,6 @@
 #!/usr/bin/env nu
 
-export def --wrapped main [...rest] {
-  new ...$rest
-}
-
-export def --wrapped new [
+export def --wrapped main [
   --cell-size: string
   --font-size: float
   --group: string
@@ -32,14 +28,14 @@ export def --wrapped new [
   )
 }
 
-export def fz [] {
+export def "main fz" [] {
   # TODO: remove full path to fz.nu
-  new --class "filter" --font-size 18 --padding 8 bash -c $"exec ~/sys/scripts/fz.nu filter >&3 <&2"
+  main --class "filter" --font-size 18 --padding 8 bash -c $"exec ~/sys/scripts/fz.nu filter >&3 <&2"
 }
 
-export def widget [name: string] {
+export def "main widget" [name: string] {
   (
-    new
+    main
       # TODO: this should be close to the rest of the configuration in Nix
       --cell-size 140%
       --class $"widget.($name)"

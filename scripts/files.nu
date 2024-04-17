@@ -1,7 +1,5 @@
 #!/usr/bin/env nu
 
-use fz.nu
-use term.nu
 use wm.nu
 
 export def main [file?: path, ...rest] {

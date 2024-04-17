@@ -1,6 +1,5 @@
 #!/usr/bin/env nu
 
-use term.nu
 use wm.nu
 
 def main [] {}
