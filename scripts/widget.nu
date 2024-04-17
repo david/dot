@@ -1,3 +1,5 @@
-export def icon [icon: string] {
-  $"(ansi grey)($icon)(ansi reset)"
+export def fade [] {
+  let text: string = $in
+
+  $"(ansi grey)($text)(ansi reset)"
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-use widget.nu icon
+use widget.nu fade
 
 def main [] {
   sleep 0.1sec
@@ -79,7 +79,7 @@ def "battery render" [] {
   } else if $val < 50 {
     $"(ansi yellow)󰁹  ($val) (ansi reset)"
   } else {
-    $"(icon '󰁹 ') ($val)(icon ' ')"
+    $"('󰁹 ' | fade) ($val)(' ' | fade)"
   }
 }
 
@@ -95,7 +95,7 @@ def "cpu render" [] {
   } else if $val > 50 {
     $"(ansi yellow)  ($val) (ansi reset)"
   } else {
-    $"(icon ' ') ($val)(icon ' ')"
+    $"(' ' | fade) ($val)(' ' | fade)"
   }
 }
 
@@ -106,7 +106,7 @@ def temp [] {
 def "temp render" [] {
   let val = $in
 
-  $"(icon '󰔏 ') ($val)(icon '󰔄 ')"
+  $"('󰔏 ' | fade) ($val)('󰔄 ' | fade)"
 }
 
 def wifi [] {
@@ -134,6 +134,6 @@ def "wifi render" [] {
   } else if $val < 75 {
     $"(ansi light_yellow)󰤥  ($val) (ansi reset)"
   } else {
-    $"(icon '󰤨 ') ($val)(icon ' ')"
+    $"('󰤨 ' | fade) ($val)(' ' | fade)"
   }
 }
