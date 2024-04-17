@@ -44,12 +44,7 @@
     };
   in {
     nixosConfigurations = {
-      timbuktu = let 
-        screen = {
-          height = 1800;
-          width = 2880;
-        };
-      in nixpkgs.lib.nixosSystem {
+      timbuktu = nixpkgs.lib.nixosSystem {
         inherit system;
         inherit pkgs;
 
