@@ -495,7 +495,10 @@
               in {
                 enable = true;
                 preloads = [ bg ];
-                wallpapers = [ "eDP-1,${bg}" ];
+                wallpapers = [ 
+                  "eDP-1,${bg}" 
+                  "DP-1,${bg}" 
+                ];
               };
 
               services.mako = {
@@ -772,7 +775,10 @@
                     force_default_wallpaper = 0;
                   };
 
-                  monitor = [ ", preferred, auto, 1"];
+                  monitor = [ 
+                    "eDP-1, 2880x1800, 0x0, 1"
+                    "DP-1, 1920x1080, 0x1880, 1"
+                  ];
 
                   windowrulev2 = [
                     "float, class:^widget."
