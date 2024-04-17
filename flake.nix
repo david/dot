@@ -12,15 +12,36 @@
     hyprlock.url = "github:hyprwm/hyprlock";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { hm, hypridle, hyprlock, hyprpaper, nixos-hardware, nixpkgs, ... }: let
+  outputs = {
+    hm,
+    hypridle,
+    hyprlock,
+    hyprpaper,
+    neovim-nightly-overlay,
+    nixos-hardware,
+    nixpkgs,
+    ...
+  }: let
     pvt = builtins.fromJSON (builtins.readFile ./private.json);
 
     user = pvt.user;
     work = pvt.work;
+
+    system = "x86_64-linux";
+
+    pkgs = import nixpkgs {
+      inherit system;
+
+      config.allowUnfree = true;
+
+      overlays = [ neovim-nightly-overlay.overlay ];
+    };
   in {
     nixosConfigurations = {
       timbuktu = let 
@@ -29,7 +50,9 @@
           width = 2880;
         };
       in nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
+        inherit pkgs;
+
         modules = [
           ./nix/hardware-configuration.nix
           nixos-hardware.nixosModules.tuxedo-infinitybook-pro14-gen7
@@ -255,6 +278,7 @@
               programs.neovim = { #{{{
                 enable = true;
                 defaultEditor = true;
+                package = pkgs.neovim-nightly;
 
                 extraLuaConfig = builtins.readFile ./nvim/config.lua;
 

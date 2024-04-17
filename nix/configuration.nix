@@ -191,8 +191,6 @@ in {
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   environment = {
     localBinInPath = true;
 
