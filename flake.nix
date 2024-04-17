@@ -17,7 +17,10 @@
   };
 
   outputs = { hm, hypridle, hyprlock, hyprpaper, nixos-hardware, nixpkgs, ... }: let
-    user = (builtins.fromJSON (builtins.readFile ./private.json)).user;
+    pvt = builtins.fromJSON (builtins.readFile ./private.json);
+
+    user = pvt.user;
+    work = pvt.work;
   in {
     nixosConfigurations = {
       timbuktu = let 
@@ -618,11 +621,12 @@
                     discord = "browse https://discord.com/channels/@me";
                     mail = "browse https://mail.google.com";
                     music = "browse https://music.youtube.com";
+                    slack = "browse ${work.slack.url}";
                     video = "browse https://youtube.com";
                   in [
                     "name:game, on-created-empty: lutris"
                     "special:bugs, on-created-empty:browse, gapsout:16 16 16 604"
-                    "special:chat, on-created-empty:slack & ${discord}, gapsout:48, gapsin:24"
+                    "special:chat, on-created-empty:${slack} & ${discord}, gapsout:48, gapsin:24"
                     "special:devapp, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:gitui, on-created-empty:ws.nu git-ui, gapsout:16 16 16 604"
                     "special:mail, on-created-empty:${mail}, gapsout:96 480"
