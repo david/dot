@@ -31,8 +31,6 @@ export def win [--class: string] {
 export def "win ls" [--all] {
   let ws = $in | default (ws)
 
-  echo $ws
-
   hyprctl clients -j
   | from json
   | where $all or ($it.workspace != null and $it.workspace.id == $ws.id and $it.pinned == false)
