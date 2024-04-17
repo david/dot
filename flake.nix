@@ -618,6 +618,7 @@
                     "$s, u, togglespecialworkspace, music"
                     "$s, v, togglespecialworkspace, video"
                     "$s, w, workspace, name:web"
+                    "$s, y, workspace, name:sys"
 
                     "$ss, f, togglefloating"
                     "$ss, g, togglegroup"
