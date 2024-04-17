@@ -222,6 +222,7 @@ in {
 
       dwindle = {
         force_split = 1;
+        permanent_direction_override = true;
         preserve_split = true;
         pseudotile = true;
       };
