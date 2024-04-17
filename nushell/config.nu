@@ -94,7 +94,7 @@ $env.config = {
   edit_mode: vi
   shell_integration: true
   render_right_prompt_on_last_line: false
-  use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
+  use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
   highlight_resolved_externals: true
 
   hooks: {
