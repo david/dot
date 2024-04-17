@@ -33,6 +33,7 @@
     ".local/bin/sys".source = ../scripts/sys.nu;
     ".local/bin/term".source = ../scripts/term.nu;
     ".local/bin/widgetctl".source = ../scripts/widgetctl.nu;
+    ".local/bin/wm".source = ../scripts/wm.nu;
     ".local/bin/ws".source = ../scripts/ws.nu;
 
     ".config/nushell/scripts".source = ../scripts;

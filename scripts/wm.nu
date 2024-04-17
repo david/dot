@@ -1,3 +1,11 @@
+#!/usr/bin/env nu
+
+export def main [] {}
+
+export def --wrapped "main run-if-empty" [...command: string] {
+  ws | ws if-empty { run-external ($command | first) ...($command | skip 1) }
+}
+
 export def events [] {
   nc -U $"/tmp/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock" | lines | split column >> name payload
 }
@@ -26,6 +34,14 @@ export def win [--class: string] {
       win ls | where id == $id | append [null] | first
     }
   }
+}
+
+export def "win list" [] {
+  let ws = $in
+
+  hyprctl clients -j
+  | from json
+  | where workspace.id == $ws.id and pinned == false
 }
 
 export def "win ls" [--all] {
@@ -129,7 +145,7 @@ export def "ws toggle" [] {
 export def "ws if-empty" [command] {
   let ws = $in
 
-  if ($ws | win ls | is-empty) {
+  if ($ws | win list | is-empty) {
     do $command $ws
   }
 

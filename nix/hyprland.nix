@@ -50,6 +50,12 @@
     y = desktopWidget.y + desktopWidget.height + spacing;
     height = cellHeight * 9;
   };
+
+  discord = "${browse} --app=https://discord.com/channels/@me";
+  mail = "${browse} --app=https://mail.google.com";
+  music = "${browse} --app=https://music.youtube.com";
+  slack = "${browse} --app=${work.slack.url}";
+  video = "${browse} --app=https://youtube.com";
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -100,7 +106,8 @@ in {
         "$s, p, exec, term nvim $HOME/sys/plan.md"
         "$s, s, exec, ws run term"
         "$s, r, togglespecialworkspace, services"
-        "$s, u, togglespecialworkspace, music"
+        "$s, u, workspace, name:music"
+        "$s, u, exec, wm run-if-empty ${music}"
         "$s, v, togglespecialworkspace, video"
         "$s, w, workspace, name:web"
         "$s, y, workspace, name:sys"
@@ -294,13 +301,7 @@ in {
         "move ${toString windowListWidget.x} ${toString windowListWidget.y}, class:^widget\\.window-list"
       ];
 
-      workspace = let
-        discord = "${browse} --app=https://discord.com/channels/@me";
-        mail = "${browse} --app=https://mail.google.com";
-        music = "${browse} --app=https://music.youtube.com";
-        slack = "${browse} --app=${work.slack.url}";
-        video = "${browse} --app=https://youtube.com";
-      in [
+      workspace = [
         "name:game, on-created-empty: lutris"
         "name:chat, gapsout:${toString spacing}, on-created-empty:${discord} & ${slack}"
         "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
@@ -308,7 +309,6 @@ in {
         "special:devapp, on-created-empty:${browse}, gapsout:16 16 16 604"
         "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
         "special:mail, on-created-empty:${mail}, gapsout:96 480"
-        "special:music, on-created-empty:${music}, gapsout:96 480"
         "special:video, on-created-empty:${video}, gapsout:96 480"
         "special:plan, on-created-empty:${browse}, gapsout:16 16 16 604"
         "special:services, on-created-empty:ws run services, gapsout:16 16 16 604"
