@@ -4,7 +4,11 @@
 
     defaultEditor = true;
 
-    clipboard.providers.wl-copy.enable = true;
+    clipboard = {
+      register = "unnamedplus";
+
+      providers.wl-copy.enable = true;
+    };
 
     colorschemes.gruvbox = {
       enable = true;
@@ -23,11 +27,17 @@
       (pkgs.vimUtils.buildVimPlugin {
        name = "tree-sitter-nu";
        src = inputs.tree-sitter-nu;
-       })
+      })
 
-    neodev-nvim
+      neodev-nvim
       vim-repeat
     ];
+
+    globals = {
+      loaded_ruby_provider = 0;
+      loaded_perl_provider = 0;
+      loaded_python_provider = 0;
+    };
 
     keymaps = let
       options = {
@@ -49,25 +59,36 @@
 
     plugins = {
       auto-save.enable = true;
-      cmp.enable = true;
+
+      cmp = {
+        enable = true;
+
+        autoEnableSources = true;
+
+        settings = {
+          sources = [
+            { name = "buffer"; }
+            { name = "cmdline"; }
+            { name = "cmdline-history"; }
+            { name = "git"; }
+            { name = "path"; }
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            {
+              name = "buffer";
+              option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
+            }
+          ];
+        };
+      };
+
       cmp-buffer.enable = true;
       cmp-cmdline.enable = true;
       cmp-cmdline-history.enable = true;
       cmp-git.enable = true;
       cmp-path.enable = true;
-      comment.enable = true;
 
-      conform-nvim = {
-        enable = true;
-        formatOnSave = {
-          timeoutMs = 3000;
-          lspFallback = true;
-        };
-        formattersByFt = {
-          "eruby" = [ "trim_whitespace" ];
-          "_" = [ "trim_whitespace" ];
-        };
-      };
+      comment.enable = true;
 
       copilot-cmp.enable = true;
 
@@ -83,6 +104,7 @@
       gitsigns.enable = true;
       leap.enable = true;
       lint.enable = true;
+      luasnip.enable = true;
 
       lsp = {
         enable = true;
@@ -100,13 +122,20 @@
           lua-ls.enable = true;
           nil_ls.enable = true;
           nushell.enable = true;
-          solargraph.enable = true;
+          # solargraph.enable = true;
           tailwindcss.enable = true;
           tsserver.enable = true;
         };
       };
 
-      lspkind.enable = true;
+      lspkind = {
+        enable = true;
+
+        mode = "symbol";
+
+        cmp.enable = true;
+      };
+
       noice.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
@@ -133,11 +162,12 @@
     };
 
     opts = {
+      autoindent = true;
       autoread = true;
       autowrite = true;
       background = "dark";
       backup = false;
-      clipboard = "unnamedplus";
+      colorcolumn = [ 120 ];
       completeopt = [ "menu" "menuone" "noinsert" "preview" ];
       cursorline = true;
       cursorlineopt = "both";
@@ -146,17 +176,24 @@
       foldmethod = "marker";
       guifont = "Iosevka Timbuktu:h12";
       hidden = true;
-      hlsearch = false;
+      hlsearch = true;
       ignorecase = true;
       inccommand = "split";
       incsearch = true;
       laststatus = 0;
+      list = true;
+      listchars = {
+        tab = "⭾ ";
+        trail = "󰈅";
+        nbsp = "󱁐";
+      };
       mouse = "";
       number = true;
       numberwidth = 4;
       relativenumber = true;
       scrolloff = 999;
       shiftwidth = 2;
+      signcolumn = "yes";
       smartcase = true;
       splitbelow = true;
       splitright = false;
@@ -167,6 +204,7 @@
       title = true;
       titlestring = "%t";
       undofile = true;
+      updatetime = 100;
       virtualedit = "block";
     };
   };
