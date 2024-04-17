@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-use widget.nu fade
+use widget.nu [fade nudge warn yell]
 
 def main [] {
   sleep 0.1sec
@@ -75,9 +75,9 @@ def "battery render" [] {
   let val = $in
 
   if $val < 25 {
-    $"(ansi red)󰁹  ($val) (ansi reset)"
+    $"󰁹  ($val) " | yell
   } else if $val < 50 {
-    $"(ansi yellow)󰁹  ($val) (ansi reset)"
+    $"󰁹  ($val) " | warn
   } else {
     $"('󰁹 ' | fade) ($val)(' ' | fade)"
   }
@@ -91,9 +91,9 @@ def "cpu render" [] {
   let val = $in
 
   if $val > 90 {
-    $"(ansi red)  ($val) (ansi reset)"
+    $"  ($val) " | yell
   } else if $val > 50 {
-    $"(ansi yellow)  ($val) (ansi reset)"
+    $"  ($val) " | warn
   } else {
     $"(' ' | fade) ($val)(' ' | fade)"
   }
@@ -115,6 +115,7 @@ def wifi [] {
     | lines
     | split column : in-use signal
     | where in-use == "*"
+
   )
 
   if ($conn | is-not-empty) {
@@ -128,11 +129,11 @@ def "wifi render" [] {
   if ($val | is-empty) {
     "󰤭 "
   } else if $val < 25 {
-    $"(ansi red)󰤟  ($val) (ansi reset)"
+    $"󰤟  ($val) " | yell
   } else if $val < 50 {
-    $"(ansi yellow)󰤢  ($val) (ansi reset)"
+    $"󰤢  ($val) " | warn
   } else if $val < 75 {
-    $"(ansi light_yellow)󰤥  ($val) (ansi reset)"
+    $"󰤥  ($val) " | nudge
   } else {
     $"('󰤨 ' | fade) ($val)(' ' | fade)"
   }
