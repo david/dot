@@ -103,7 +103,10 @@ in {
 
         "$s, e, workspace, 1"
         "$s, f, exec, term ws find file"
-        "$s, g, togglespecialworkspace, gitui"
+
+        "$s, g, exec, ws switch gitui"
+        "$s, g, exec, wm run-if-empty ws term lazygit"
+
         "$s, h, movefocus, l"
         "$s, j, changegroupactive, f"
         "$s, k, changegroupactive, b"

@@ -12,8 +12,24 @@ export def "main find file" [] {
   if ($file | is-not-empty) { run nvim $file }
 }
 
+export def "main switch" [name: string] {
+  let root = (wm ws | meta | get --ignore-errors root)
+
+  if $root != null {
+    wm ws switch --name $"({ root: $root, name: $name } | into wm-name)"
+  }
+}
+
 export def --wrapped "main run" [...command] {
   run ...$command
+}
+
+export def --wrapped "main term" [--class: string, ...command] {
+  if ($command | is-empty) {
+    term ...(if $class != null { [--class $class] } else { [] }) ws run nu
+  } else {
+    term ...(if $class != null { [--class $class] } else { [] }) ws run ...$command
+  }
 }
 
 export def meta [] {
@@ -29,4 +45,10 @@ export def --wrapped run [...command] {
 
   # `run-external ...$command` doesn't work, but this does
   run-external ($command | first) ...($command | skip 1)
+}
+
+def "into wm-name" [] {
+  let meta = $in
+
+  $"($meta.name)($SEP)($meta.root)"
 }

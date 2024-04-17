@@ -123,17 +123,18 @@ export def "ws list" [] {
   hyprctl workspaces -j | from json
 }
 
-export def "ws switch" [] {
+export def "ws switch" [--name: string] {
   let ws = $in
-  let id = ($ws | get --ignore-errors id)
 
-  if $id == null or $id < 0 {
-    hyprctl dispatch workspace $"name:($ws.name)"
-  } else {
-    hyprctl dispatch workspace $id
+  let ref = if $ws != null {
+    $ws.id
+  } else if $name != null {
+    $"name:($name)"
   }
 
-  ws --name $ws.name
+  hyprctl dispatch workspace $ref
+
+  ws
 }
 
 export def "ws rename" [name: string] {
