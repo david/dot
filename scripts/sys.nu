@@ -5,7 +5,8 @@ export-env {
 }
 
 export def prune [] {
-  sudo nix-collect-garbage --delete-older-than 7d
+  sudo nix-collect-garbage --delete-older-than 1d
+  nix-collect-garbage --delete-older-than 1d
 }
 
 export def rebuild [] {
