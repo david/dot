@@ -120,8 +120,7 @@ in {
         "$s, k, changegroupactive, b"
         "$s, l, movefocus, r"
 
-        "$s, m, workspace, name:meet"
-        "$s, m, exec, wm run-if-empty ${browse} https://meet.google.com/landing?authuser=1"
+        "$s, m, togglespecialworkspace, meet"
 
         "$s, n, exec, ${browse}"
         "$s, p, exec, term nvim $HOME/sys/plan.md"
@@ -332,6 +331,7 @@ in {
         "2, defaultName:code%%$HOME/sys"
         "special:discord, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${discord}"
         "special:slack, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${slack}"
+        "special:meet, on-created-empty:${browse} https://meet.google.com/landing?authuser=1"
         "special:music, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${music}"
       ];
     };
