@@ -153,6 +153,7 @@
       };
 
       treesitter-textobjects.enable = true;
+      trouble.enable = true;
       which-key.enable = true;
       yanky = {
         enable = true;
