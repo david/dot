@@ -308,6 +308,7 @@
                   })
 
                   neodev-nvim
+                  vim-repeat
                 ];
 
                 plugins = {
@@ -324,6 +325,7 @@
                   };
 
                   direnv.enable = true;
+                  endwise.enable = true;
                   fidget.enable = true;
                   gitsigns.enable = true;
                   leap.enable = true;
@@ -369,7 +371,9 @@
                     ];
                   };
 
+                  treesitter-textobjects.enable = true;
                   which-key.enable = true;
+                  yanky.enable = true;
                 };
 
                 opts = {
