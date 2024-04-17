@@ -313,7 +313,6 @@ in {
 
       workspace = [
         "name:devapp, gapsout:16 16 16 608"
-        "name:game, on-created-empty: lutris"
         "name:web, gapsout:16 16 16 604, on-created-empty:${browse}"
         "name:meet, gapsout:16 16 16 608"
         "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"

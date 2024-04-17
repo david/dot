@@ -56,7 +56,6 @@
     grimblast
     lazygit
     libnotify
-    lutris
     manix
     netcat
     openshot-qt
