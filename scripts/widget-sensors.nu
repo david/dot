@@ -5,6 +5,8 @@ def main [] {
 
   print --no-newline (ansi cursor_off)
 
+  let cols = (term size | get columns)
+
   mut i = 0
   mut out = {
     battery: (battery | battery render)
@@ -14,19 +16,19 @@ def main [] {
   }
 
   loop { 
-    let cols = (term size | get columns)
+    let cols = ((term size | get columns) - 2) / 4 | into int
     let strip = (
       [
-        $out.battery  
-        $out.temp 
-        ($out.cpu | fill --width 7)
-        ($out.wifi | fill --width 7)
+        ($out.battery | fill --alignment center --width $cols)
+        ($out.temp | fill --alignment center --width $cols)
+        ($out.cpu | fill --alignment center --width $cols)
+        ($out.wifi | fill --alignment center --width $cols)
       ] 
-      | str join "       "
+      | str join ""
       | fill --alignment center --width $cols
     )
 
-    print --no-newline $"(tput cup 0 0)($strip)(ansi erase_line_from_cursor_to_end)"
+    print --no-newline $"(tput cup 0 0) ($strip) (ansi erase_line_from_cursor_to_end)"
 
     if $i mod 2 == 0 {
       $out = ($out | merge { cpu: (cpu | cpu render)})
