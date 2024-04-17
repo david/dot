@@ -441,3 +441,4 @@ $env.config = {
 }
 
 use sys.nu
+use wm.nu
