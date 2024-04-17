@@ -656,8 +656,6 @@
                     "$scas, k, movetoworkspace, -100"
                     "$scas, l, movetoworkspace, +1"
                     "$scas, q, exit"
-                    "$scas, r, exec, variety -n"
-                    "$scas, w, exec, variety -p"
 
                     "$scs, f, fakefullscreen"
                     "$scs, h, movegroupwindow, b"
