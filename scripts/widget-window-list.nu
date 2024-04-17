@@ -1,5 +1,6 @@
 #!/usr/bin/env nu
 
+use strx.nu
 use wm.nu
 
 const padx_size = 1;
@@ -70,13 +71,3 @@ def render [] {
 
   print --no-newline $"($out)(ansi clear_screen_from_cursor_to_end)"
 }
-
-def "str truncate" [max_width: int] {
-  let str = $in
-
-  if ($str | str length) > $max_width {
-    $str | split chars | take ($max_width - 1) | append "…" | str join ""
-  } else {
-    $str
-  }
-} 
