@@ -18,6 +18,6 @@ export def main [file?: path, ...rest] {
   }
 }
 
-def list [--json] {
+def list [] {
   fd --type f .
 }
