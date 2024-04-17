@@ -48,6 +48,8 @@
 
     ".config/nushell/scripts".source = ../scripts;
     "${config.xdg.dataHome}/widgets".source = ../widgets/lib;
+
+    "${config.xdg.dataHome}/backgrounds".source = ../backgrounds;
   };
 
   home.packages = with pkgs; [
