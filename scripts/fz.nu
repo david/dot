@@ -17,7 +17,7 @@ export-env {
 }
 
 export def main [] {
-  filter
+  filter | str trim
 }
 
 def "main recent-directory" [--json] {

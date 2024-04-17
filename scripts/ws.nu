@@ -7,7 +7,7 @@ const SEP = "%%"
 export def main [] {}
 
 export def "main find file" [] {
-  let file = (run fz | str trim)
+  let file = (run fz)
 
   if ($file | is-not-empty) { run nvim $file }
 }
