@@ -59,7 +59,7 @@ $env.config = {
     max_size: 100_000 # Session has to be reloaded for this to take effect
     sync_on_enter: true
     file_format: "sqlite"
-    isolation: false
+    isolation: true
   }
 
   completions: {
