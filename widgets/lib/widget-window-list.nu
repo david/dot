@@ -1,6 +1,7 @@
 #!/usr/bin/env nu
 
 use strx.nu
+use widget.nu
 use wm.nu
 
 const padx_size = 1;
@@ -13,14 +14,18 @@ def main [] {
 
 def render [] {
   print --no-newline (ansi cursor_off)
-  print --no-newline (tput cup 0 0)
+
+  let list = (wm win ls)
+
+  window | widget resize --rows ($list | length)
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $padx_size)
   let max_width = $ncols - ($padx_size * 2)
 
   let active = (wm win)
-  let list = (wm win ls)
+
+  print --no-newline (tput cup 0 0)
 
   let out = (
     $list
@@ -66,4 +71,8 @@ def render [] {
   )
 
   print --no-newline $"($out)(ansi clear_screen_from_cursor_to_end)"
+}
+
+def window [] {
+  widget window window-list
 }

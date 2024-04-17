@@ -72,6 +72,12 @@ export def "win open" [--above, block: closure] {
   do $block
 }
 
+export def "win resize" [--height: int] {
+  let window = $in
+
+  hyprctl dispatch resizewindowpixel $"exact ($window.width) ($height),address:($window.id)" o> /dev/null
+}
+
 export def "win switch" [] {
   let window = $in
 
