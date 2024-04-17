@@ -415,10 +415,17 @@
                   height = cellHeight;
                 };
 
+                sensorWidget = {
+                  inherit (widget) x width;
+
+                  y = dateWidget.y + dateWidget.height + spacing;
+                  height = cellHeight;
+                };
+
                 desktopWidget = {
                   inherit (widget) x width;
 
-                  y = dateWidget.x + dateWidget.height + spacing;
+                  y = sensorWidget.y + sensorWidget.height + spacing;
                   height = cellHeight * 3;
                 };
 
@@ -636,6 +643,9 @@
                     # TODO: nix module?
                     "size ${toString dateWidget.width} ${toString dateWidget.height}, class:^widget\\.date"
                     "move ${toString dateWidget.x} ${toString dateWidget.y}, class:^widget\\.date"
+
+                    "size ${toString sensorWidget.width} ${toString sensorWidget.height}, class:^widget\\.sensors"
+                    "move ${toString sensorWidget.x} ${toString sensorWidget.y}, class:^widget\\.sensors"
 
                     "size ${toString desktopWidget.width} ${toString desktopWidget.height}, class:^widget\\.desktop"
                     "move ${toString desktopWidget.x} ${toString desktopWidget.y}, class:^widget\\.desktop"
