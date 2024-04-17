@@ -19,7 +19,7 @@ export def "main stop" [...name: string] {
 }
 
 export def "main toggle" [...name: string] {
-  let running = (list running | widgetctl filter names $name)
+  let running = (widgetctl list running | widgetctl filter names $name)
 
   if ($running | is-empty) {
     main start ...$name
