@@ -123,7 +123,10 @@ in {
 
         "$s, u, workspace, name:music"
         "$s, u, exec, wm run-if-empty ${music}"
-        "$s, v, togglespecialworkspace, video"
+
+        "$s, v, workspace, name:video"
+        "$s, v, exec, wm run-if-empty ${video}"
+
         "$s, w, workspace, name:web"
         "$s, y, workspace, name:code%%$HOME/sys"
 
