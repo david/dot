@@ -3,14 +3,14 @@
 export-env {
   $env.FZF_DEFAULT_OPTS = (
     [
-      "--ansi" 
-      "--cycle" 
-      "--header=''" 
-      "--info=inline-right" 
-      "--layout=reverse" 
-      "--no-scrollbar" 
-      "--pointer=' '" 
-      "--prompt '   '" 
+      "--ansi"
+      "--cycle"
+      "--header=''"
+      "--info=inline-right"
+      "--layout=reverse"
+      "--no-scrollbar"
+      "--pointer=' '"
+      "--prompt '   '"
       "--color 'fg:#ebdbb2,fg+:#1d2021,bg+:#d79921,gutter:#000000,pointer:#000000'"
     ] | str join " "
   )
@@ -73,16 +73,16 @@ def "main window" [--basedir: path, filter: string] {
 def "main text" [--json] {
   let rg = "rg --column --line-number --no-heading --color=always --smart-case"
 
-  echo "" 
+  echo ""
   | (
-      fzf --bind $"change:reload:($rg) {q} || true" 
+      fzf --bind $"change:reload:($rg) {q} || true"
           --bind $"enter:execute(kittyctl.nu new --class nvim nvim {1} '+normal {2}G{3}|')"
           --bind $"focus:transform-header:echo ' {1}'"
           --delimiter=:
           --disabled
           --no-scrollbar
           --with-nth=4
-    ) 
+    )
   | split column ":" filename line column match
   | first
 }
