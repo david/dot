@@ -1,5 +1,7 @@
 #!/usr/bin/env nu
 
+use widget.nu icon
+
 def main [] {
   sleep 0.1sec
 
@@ -71,7 +73,7 @@ def battery [] {
 
 def "battery render" [] {
   let val = $in
-  let r = $"(ansi grey)󰁹 (ansi reset) ($val)(ansi grey) (ansi reset)"
+  let r = $"(icon '󰁹 ') ($val)(icon ' ')"
 
   if $val < 25 {
     $"(ansi red)($r)(ansi reset)"  
@@ -88,7 +90,7 @@ def cpu [] {
 
 def "cpu render" [] {
   let val = $in
-  let r = $"(ansi grey) (ansi reset) ($val)(ansi grey) (ansi reset)"
+  let r = $"(icon ' ') ($val)(icon ' ')"
 
   if $val > 90 {
     $"(ansi purple)($r)(ansi reset)"
@@ -106,7 +108,7 @@ def temp [] {
 def "temp render" [] {
   let val = $in
 
-  $"(ansi grey)󰔏 (ansi reset) ($val)(ansi grey)󰔄 (ansi reset)"
+  $"(icon '󰔏 ') ($val)(icon '󰔄 ')"
 }
 
 def wifi [] {
@@ -134,6 +136,6 @@ def "wifi render" [] {
   } else if $val < 75 {
     $"(ansi light_yellow)󰤥  ($val) (ansi reset)"
   } else {
-    $"(ansi grey)󰤨 (ansi reset) ($val)(ansi grey) (ansi reset)"
+    $"(icon '󰤨 ') ($val)(icon ' ')"
   }
 }
