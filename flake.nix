@@ -635,7 +635,7 @@
                     "special:bugs, on-created-empty:browse, gapsout:16 16 16 604"
                     "special:chat, on-created-empty:${slack} & ${discord}, gapsout:48, gapsin:24"
                     "special:devapp, on-created-empty:browse, gapsout:16 16 16 604"
-                    "special:gitui, on-created-empty:ws.nu git-ui, gapsout:16 16 16 604"
+                    "special:gitui, on-created-empty:term --opacity 0.8 ws run lazygit, gapsout:16"
                     "special:mail, on-created-empty:${mail}, gapsout:96 480"
                     "special:music, on-created-empty:${music}, gapsout:96 480"
                     "special:video, on-created-empty:${video}, gapsout:96 480"

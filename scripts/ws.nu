@@ -33,6 +33,10 @@ export def --env "main roots csv" [] {
   $env.WS_NU.roots | to csv --noheaders
 }
 
+export def --wrapped "main run" [...command] {
+  run ...$command
+}
+
 export def id [] {
   (wm ws | get id) / 100 | into int
 }
@@ -49,4 +53,11 @@ export def "root set" [dir: path] {
   open $env.WS_NU.state-file | merge { $"($ws.id)": $dir } | save --force $env.WS_NU.state-file
 
   $ws
+}
+
+export def --wrapped run [...command] {
+  cd (wm ws | root)
+
+  # `run-external ...$command` doesn't work, but this does
+  run-external ($command | first) ...($command | skip 1)
 }
