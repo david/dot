@@ -3,22 +3,11 @@
 use wm.nu
 
 export-env {
-  let state = {
-    state-file: $"($env.HOME)/.local/state/root-mappings.nuon"
-    roots: (
-      [
-        [name];
-        [ $"($env.HOME)/sys" ]
-      ]
-      | append (glob $"($env.HOME)/work/*/trees/*" | each { |e| [ $e ] })
-    )
-  }
+  $env.WS_STATE_FILE = $"($env.HOME)/.local/state/root-mappings.nuon"
 
-  if not ($state.state-file | path exists) {
-    {} | save --force $state.state-file
+  if not ($env.WS_STATE_FILE | path exists) {
+    {} | save --force $env.WS_STATE_FILE
   }
-
-  $env.WS_NU = $state
 }
 
 export def main [] {}
@@ -30,7 +19,12 @@ export def "main chdir" [] {
 }
 
 export def --env "main roots csv" [] {
-  $env.WS_NU.roots | to csv --noheaders
+  [
+    [name];
+    [$"($env.HOME)/sys"]
+  ]
+  | append (glob $"($env.HOME)/work/*/trees/*" | each { |e| [ $e ] })
+  | to csv --noheaders
 }
 
 export def --wrapped "main run" [...command] {
@@ -44,13 +38,13 @@ export def id [] {
 export def root [] {
   let ws = $in
 
-  open $env.WS_NU.state-file | get --ignore-errors $"($ws.id)" | default $env.HOME | path expand
+  open $env.WS_STATE_FILE | get --ignore-errors $"($ws.id)" | default $env.HOME | path expand
 }
 
 export def "root set" [dir: path] {
   let ws = $in
 
-  open $env.WS_NU.state-file | merge { $"($ws.id)": $dir } | save --force $env.WS_NU.state-file
+  open $env.WS_STATE_FILE | merge { $"($ws.id)": $dir } | save --force $env.WS_STATE_FILE
 
   $ws
 }
