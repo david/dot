@@ -1,6 +1,4 @@
-{ config, inputs, pkgs, ... }: let
-  colors = import ./colors.nix;
-
+{ colors, config, inputs, pkgs, ... }: let
   work = (builtins.fromJSON (builtins.readFile ../private.json)).work;
 in {
   gtk = {

@@ -62,7 +62,11 @@
           ./nix/configuration.nix
 
           hm.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+
+              colors = import ./nix/colors.nix;
+            };
 
             home-manager.sharedModules = [
               hypridle.homeManagerModules.default
