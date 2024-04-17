@@ -201,10 +201,6 @@ in {
         # "$s, mouse:273, resizewindow"
       ];
 
-      binds = {
-        workspace_back_and_forth = true;
-      };
-
       decoration = {
         rounding = 4;
 
