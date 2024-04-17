@@ -296,8 +296,6 @@ in {
 
         "group override deny, workspace:name:chat"
 
-        "group override deny, class: ^filter$"
-
         "group set always, class:(.)"
       ] ++ [
         # TODO: nix module?
