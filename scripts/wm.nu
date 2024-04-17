@@ -6,13 +6,13 @@ export def --wrapped run [
   --geometry: record<x: int, y: int, width: int, height: int>
   ...command
 ] {
-  let rules = [] 
+  let rules = []
   | append [
     $"size ($geometry.width) ($geometry.height)"
     $"move ($geometry.x) ($geometry.y)"
-  ] 
+  ]
   | str join ";"
- 
+
   hyprctl dispatch exec $"[($rules)] ($command | str join ' ')"
 }
 
@@ -33,7 +33,7 @@ export def "win ls" [--all] {
 
   echo $ws
 
-  hyprctl clients -j 
+  hyprctl clients -j
   | from json
   | where $all or ($it.workspace != null and $it.workspace.id == $ws.id and $it.pinned == false)
   | rename --column { address: "id" }
@@ -101,8 +101,8 @@ export def "ws list" [] {
 
 export def "ws switch" [] {
   let ws = $in
-  let id = ($ws | get --ignore-errors id) 
-  
+  let id = ($ws | get --ignore-errors id)
+
   if $id == null or $id < 0 {
     hyprctl dispatch workspace $"name:($ws.name)"
   } else {

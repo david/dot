@@ -17,7 +17,7 @@ def main [] {
     wifi: (wifi | wifi render)
   }
 
-  loop { 
+  loop {
     let cols = (term size | get columns) / 4 | into int
     let strip = (
       [
@@ -25,7 +25,7 @@ def main [] {
         ($out.temp | fill --alignment center --width $cols)
         ($out.cpu | fill --alignment center --width $cols)
         ($out.wifi | fill --alignment center --width $cols)
-      ] 
+      ]
       | str join ""
       | fill --alignment center --width $cols
     )
@@ -38,9 +38,9 @@ def main [] {
 
     if $i mod 5 == 0 {
       $out = (
-        $out | merge { 
+        $out | merge {
           battery: (battery | battery render)
-          temp: (temp | temp render) 
+          temp: (temp | temp render)
         }
       )
     }
@@ -120,7 +120,7 @@ def wifi [] {
 
   if ($conn | is-not-empty) {
     $conn | first | get signal | into int
-  } 
+  }
 }
 
 def "wifi render" [] {
