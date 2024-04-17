@@ -53,6 +53,7 @@
   home.packages = with pkgs; [
     brave
     brightnessctl
+    dex
     fd
     google-chrome
     grimblast
