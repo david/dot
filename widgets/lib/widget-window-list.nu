@@ -4,7 +4,9 @@ use strx.nu
 use widget.nu
 use wm.nu
 
-const padx_size = 1;
+const PADX_SIZE = 1;
+const SHORTCUT_SIZE = 3;
+const SPACE_BTWN = 1;
 
 def main [] {
   render
@@ -20,8 +22,8 @@ def render [] {
   window | widget resize --rows ($list | length)
 
   let ncols = (term size | get columns)
-  let padx = ("" | fill --width $padx_size)
-  let max_width = $ncols - ($padx_size * 2) - 3
+  let padx = ("" | fill --width $PADX_SIZE)
+  let max_width = $ncols - ($PADX_SIZE * 2) - $SPACE_BTWN - $SHORTCUT_SIZE
 
   let active = (wm win)
 
@@ -61,13 +63,13 @@ def render [] {
               "   "
             }
 
-            $"(ansi erase_line)(
-              if $active != null and $win.id == $active.id {
-                $"(ansi default_reverse)($padx)($title)($accel)($padx)(ansi reset)"
-              } else {
-                $"($padx)(ansi $meta.fg)($title)($accel)(ansi reset)($padx)"
-              }
-            )"
+            let str = if $active != null and $win.id == $active.id {
+              $"(ansi default_reverse)($padx)($title) ($accel)($padx)(ansi reset)"
+            } else {
+              $"($padx)(ansi $meta.fg)($title) ($accel)(ansi reset)($padx)"
+            }
+
+            $"(ansi erase_line)($str)"
           }
         }
       }
