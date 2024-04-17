@@ -100,7 +100,7 @@ in {
         "$s, c, exec, wm run-if-empty ${discord}"
 
         "$s, d, togglespecialworkspace, devapp"
-        "$s, e, exec, ws.nu show dev"
+        "$s, e, workspace, 1"
         "$s, f, exec, ws run files"
         "$s, g, togglespecialworkspace, gitui"
         "$s, h, movefocus, l"
