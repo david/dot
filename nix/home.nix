@@ -41,6 +41,8 @@
         (builtins.readFile ../widgets/bin/widgetctl.nu);
     };
 
+    "${config.xdg.dataHome}/fonts".source = ../fonts;
+
     ".local/bin/wm".source = ../scripts/wm.nu;
     ".local/bin/ws".source = ../scripts/ws.nu;
 
