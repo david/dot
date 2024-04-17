@@ -7,10 +7,18 @@ Dev Desktop Plan
 - [ ] Gaps
 - [ ] Widgets
 
-## Speed up ws.nu actions
+## Ability to change color palette at runtime
 
-This likely means removing the code that is in `export-env` and moving it to
-a dedicated command.
+Triggered by keyboard shortcut
+
+- [ ] Brave
+- [ ] Kitty
+- [ ] Neovim
+- [ ] Widgets?
+
+## Disable laptop monitor using keyboard shortcut
+
+👆
 
 ## Widget visibility
 
