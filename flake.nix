@@ -607,7 +607,7 @@
                     "$s, n, exec, browse"
                     "$s, p, exec, ws.nu pull-request"
                     "$s, s, exec, ws run term"
-                    "$s, r, exec, ws.nu services"
+                    "$s, r, togglespecialworkspace, services"
                     "$s, u, togglespecialworkspace, music"
                     "$s, v, togglespecialworkspace, video"
                     "$s, w, togglespecialworkspace, web"
@@ -810,6 +810,7 @@
                     "special:music, on-created-empty:${music}, gapsout:96 480"
                     "special:video, on-created-empty:${video}, gapsout:96 480"
                     "special:plan, on-created-empty:browse, gapsout:16 16 16 604"
+                    "special:services, on-created-empty:ws run services, gapsout:16 16 16 604"
                     "special:web, on-created-empty:browse, gapsout:16 16 16 604"
                   ];
                 };
