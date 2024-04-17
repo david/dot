@@ -712,6 +712,10 @@
                     pseudotile = true;
                   };
 
+                  exec-once = [
+                    "widgetctl start"
+                  ];
+
                   general = {
                     allow_tearing = false;
 
