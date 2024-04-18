@@ -14,10 +14,14 @@ export def "main ui" [] {
 }
 
 export def main [] {
-  let cmd = if (which fz-open-local | is-not-empty) { "fz-open-local" } else { "fd" }
+  let cmd = if (which fz-open-local | is-not-empty) {
+    [ fz-open-local ]
+  } else {
+    [ fd --type f ]
+  }
 
   let choice = (
-    run-external $cmd
+    run-external ($cmd | first) ...($cmd | skip 1)
     | fzf --delimiter="\t" --scheme=path --tiebreak=length,end,index --with-nth=1
     | lines
     | last
