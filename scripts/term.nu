@@ -28,19 +28,23 @@ export def --wrapped main [
   )
 }
 
-export def "main fz" [...$command] {
+export def --wrapped "main pipe" [--group: string, ...$command] {
   # build the command used to produce the list of items that will be filtered,
   # since I couldn't find a way to have kitty redirect its stdin to a child process
-  let cmd = (
-    $command
-    | append [
-      "|" "fz"
-      "|" "save" "--raw" "--append" "$\"/dev/fd/($env.KITTY_STDIO_FORWARDED)\""
-    ]
-    | str join " "
-  )
+  let cmd = $"
+    let out = \(($command | str join ' ')\)
 
-  main --class "filter" --font-size 18 --padding 8 nu --commands $"($cmd)" | str trim
+    $out | save --append --raw $\"/dev/fd/\($env.KITTY_STDIO_FORWARDED\)\"
+  "
+
+  (
+    main 
+      --class "menu" 
+      --font-size 18 
+      --group=$group
+      --padding 8 
+      nu --commands $'($cmd)'
+  )
 }
 
 export def "main widget" [name: string] {

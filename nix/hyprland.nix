@@ -142,7 +142,7 @@ in {
         "$s, e, exec, ws switch code"
         "$s, e, exec, wm run-if-empty ws term nvim"
 
-        "$s, f, exec, fz-open ui"
+        "$s, f, exec, ws run fz-open ui"
 
         "$s, g, exec, ws switch gitui"
         "$s, g, exec, wm run-if-empty ws term lazygit"
@@ -260,8 +260,8 @@ in {
       };
 
       dwindle = {
+        default_split_ratio = 0.75;
         force_split = 1;
-        permanent_direction_override = true;
         preserve_split = true;
         pseudotile = true;
       };

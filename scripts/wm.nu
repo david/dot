@@ -56,7 +56,7 @@ export def "win list" [] {
   | insert height { |e| $e.size | last }
 }
 
-export def "win open" [--above, block: closure] {
+export def open [--above, block: closure] {
   let direction = if $above {
     "u"
   }
