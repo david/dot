@@ -21,7 +21,7 @@ def render [] {
   let list = (wm ws | wm win list)
   let root = (wm ws | ws meta | get root | str replace $env.HOME ~)
 
-  window | widget resize --rows ($list | length)
+  widget window window-list | widget resize --rows ($list | length)
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $PADX_SIZE)
@@ -92,8 +92,4 @@ def style [window: record] {
     ["nvim", _]                           => { icon: "󱃖 ", fg: "default" }
     _                                     => { icon: "  ", fg: "default" }
   }
-}
-
-def window [] {
-  widget window window-list
 }
