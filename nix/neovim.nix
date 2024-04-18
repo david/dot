@@ -210,7 +210,7 @@
       timeout = true;
       timeoutlen = 300;
       title = true;
-      titlestring = "%f";
+      titlestring = "%F";
       undofile = true;
       updatetime = 100;
       virtualedit = "block";

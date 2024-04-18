@@ -3,6 +3,7 @@
 use strx.nu
 use widget.nu
 use wm.nu
+use ws.nu
 
 const PADX_SIZE = 1;
 const SHORTCUT_SIZE = 3;
@@ -18,6 +19,7 @@ def render [] {
   print --no-newline (ansi cursor_off)
 
   let list = (wm ws | wm win list)
+  let root = (wm ws | ws meta | get root | str replace $env.HOME ~)
 
   window | widget resize --rows ($list | length)
 
@@ -39,9 +41,17 @@ def render [] {
         $g | first | get grouped | enumerate | each { |e|
           let win = ($list | where id == $e.item | first)
 
+          mut title = ($win.title | str replace $"($root)/" "")
+
+          $title = ($title | str replace $"($root)" ".")
+
+          if $title != $win.title {
+            $title = ($title | split row / | reverse | str join " ◀ ")
+          }
+
           if $win != null {
             let style = (style $win)
-            let title = [$style.icon, $win.title]
+            let title_str = [$style.icon, $title]
             | str join " "
             | strx truncate $max_width
             | fill --width $max_width
@@ -53,9 +63,9 @@ def render [] {
             }
 
             let str = if $active != null and $win.id == $active.id {
-              $"(ansi default_reverse)($padx)($title) ($accel)($padx)(ansi reset)"
+              $"(ansi default_reverse)($padx)($title_str) ($accel)($padx)(ansi reset)"
             } else {
-              $"($padx)(ansi $style.fg)($title) ($accel)(ansi reset)($padx)"
+              $"($padx)(ansi $style.fg)($title_str) ($accel)(ansi reset)($padx)"
             }
 
             $"(ansi erase_line)($str)"
