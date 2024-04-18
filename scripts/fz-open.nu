@@ -5,7 +5,7 @@ use wm.nu
 
 export def "main ui" [] {
   wm open --above {
-    let choice = (term pipe $env.PROCESS_PATH | str trim)
+    let choice = (term pipe --group menu $env.PROCESS_PATH | str trim)
 
     if ($choice | is-not-empty) {
       term --detach nvim $choice
