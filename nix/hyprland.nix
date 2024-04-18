@@ -34,7 +34,7 @@
   sensorWidget = {
     inherit (widget) x width;
 
-    y = dateWidget.y + dateWidget.height + spacing;
+    y = dateWidget.y + dateWidget.height;
     height = cellHeight + 4;
   };
 
@@ -48,7 +48,7 @@
   projectWidget = {
     inherit (widget) x width;
 
-    y = desktopWidget.y + desktopWidget.height + spacing;
+    y = desktopWidget.y + desktopWidget.height;
     height = cellHeight + 4;
   };
 
