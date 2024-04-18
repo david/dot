@@ -34,7 +34,7 @@ export def --wrapped "main pipe" [--group: string, ...$command] {
   let cmd = $"
     let out = \(($command | str join ' ')\)
 
-    $out | save --append --raw $\"/dev/fd/\($env.KITTY_STDIO_FORWARDED\)\"
+    $out | default '' | save --append --raw $\"/dev/fd/\($env.KITTY_STDIO_FORWARDED\)\"
   "
 
   (
