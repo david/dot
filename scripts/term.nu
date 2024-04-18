@@ -46,19 +46,3 @@ export def --wrapped "main pipe" [--group: string, ...$command] {
       nu --commands $'($cmd)'
   )
 }
-
-export def "main widget" [name: string] {
-  (
-    main
-      # TODO: this should be close to the rest of the configuration in Nix
-      --cell-size 140%
-      --class $"widget.($name)"
-      --detach
-      --font-size 16
-      --hold
-      --padding 0
-      --title $"widget.($name)"
-      # TODO: remove full path to widget
-      nu $"($env.HOME)/.local/share/widgets/widget-($name).nu"
-  )
-}

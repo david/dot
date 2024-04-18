@@ -4,8 +4,19 @@ use wm.nu
 
 def main [] {}
 
-export def start [widget] {
-  term widget $widget.name
+export def start [widget: record] {
+  (
+    term 
+      # TODO: this should be close to the rest of the configuration in Nix
+      --cell-size 140%
+      --class $"widget.($widget.name)"
+      --detach
+      --font-size 16
+      --hold
+      --padding 0
+      --title $"widget.($widget.name)"
+      nu $widget.path
+  )
 }
 
 export def stop [widget] {
