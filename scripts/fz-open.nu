@@ -4,13 +4,7 @@ use fz.nu
 use wm.nu
 
 export def "main ui" [] {
-  wm open --above {
-    let choice = (term pipe --group menu $env.PROCESS_PATH | str trim)
-
-    if ($choice | is-not-empty) {
-      term --detach nvim $choice
-    }
-  }
+  wm open --above { term --class menu --group menu $env.PROCESS_PATH }
 }
 
 export def main [] {
@@ -20,12 +14,12 @@ export def main [] {
     [ fd --type f ]
   }
 
-  let choice = (
-    run-external ($cmd | first) ...($cmd | skip 1)
-    | fzf --delimiter="\t" --scheme=path --tiebreak=length,end,index --with-nth=1
-    | lines
-    | last
+  run-external ($cmd | first) ...($cmd | skip 1) | (
+    fzf
+      --bind "enter:become(term --detach nvim {})"
+      --delimiter="\t"
+      --scheme=path
+      --tiebreak=length,end,index
+      --with-nth=1
   )
-
-  if ($choice | is-not-empty) { $choice }
 }
