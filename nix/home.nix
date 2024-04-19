@@ -55,7 +55,6 @@
   };
 
   home.packages = with pkgs; [
-    brave
     brightnessctl
     dex
     fd
@@ -73,6 +72,8 @@
     vorbis-tools
     wf-recorder
     wl-clipboard
+    vivaldi
+    vivaldi-ffmpeg-codecs
   ];
 
   home.pointerCursor = {
@@ -97,56 +98,6 @@
     enable = true;
     enableNushellIntegration = true;
     nix-direnv.enable = true;
-  };
-
-  programs.firefox = let
-    True = { Value = true; Status = "locked"; };
-    False = { Value = false; Status = "locked"; };
-  in {
-    enable = true;
-
-    policies = {
-      DisablePocket = true;
-
-      Preferences = {
-        "browser.sessionstore.resume_from_crash" = False;
-        "browser.translations.automaticallyPopup" = False;
-        "devtools.toolbox.host" = { Value = "window"; };
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = True;
-      };
-    };
-
-    profiles.default = {
-      id = 0;
-
-      isDefault = true;
-
-      userChrome = ''
-        #TabsToolbar { 
-          display: none; 
-        }
-      '';
-    };
-
-    profiles.discord = {
-      id = 1;
-
-      userChrome = ''
-        #TabsToolbar { 
-          display: none; 
-        }
-      '';
-    };
-
-    profiles.slack = {
-      id = 2;
-
-      userChrome = ''
-        #TabsToolbar { 
-          display: none; 
-        }
-      '';
-    };
   };
 
   programs.fzf.enable = true;
@@ -247,16 +198,16 @@
       enable = true;
 
       defaultApplications = {
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "x-scheme-handler/chrome" = "firefox.desktop";
-        "text/html" = "firefox.desktop";
-        "application/x-extension-htm" = "firefox.desktop";
-        "application/x-extension-html" = "firefox.desktop";
-        "application/x-extension-shtml" = "firefox.desktop";
-        "application/xhtml+xml" = "firefox.desktop";
-        "application/x-extension-xhtml" = "firefox.desktop";
-        "application/x-extension-xht" = "firefox.desktop";
+        "x-scheme-handler/http"         = "vivaldi.desktop";
+        "x-scheme-handler/https"        = "vivaldi.desktop";
+        "x-scheme-handler/chrome"       = "vivaldi.desktop";
+        "text/html"                     = "vivaldi.desktop";
+        "application/x-extension-htm"   = "vivaldi.desktop";
+        "application/x-extension-html"  = "vivaldi.desktop";
+        "application/x-extension-shtml" = "vivaldi.desktop";
+        "application/xhtml+xml"         = "vivaldi.desktop";
+        "application/x-extension-xhtml" = "vivaldi.desktop";
+        "application/x-extension-xht"   = "vivaldi.desktop";
       };
     };
   };

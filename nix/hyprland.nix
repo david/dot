@@ -1,8 +1,8 @@
 { colors, config, inputs, pkgs, ... }: let
   work = (builtins.fromJSON (builtins.readFile ../private.json)).work;
 
-  browse = "firefox";
-  browseApp = url: "firefox ${url}";
+  browse = "vivaldi";
+  browseApp = url: "vivaldi --app=${url}";
 
   col = {
     active = "rgba(${builtins.substring 1 7 colors.light2}ff)";
