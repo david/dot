@@ -179,7 +179,6 @@ in {
         "$ss, k, movewindoworgroup, u"
         "$ss, l, movewindoworgroup, r"
 
-        "$sc, g, workspace, name:game"
         "$sc, h, movefocus, l"
         "$sc, j, movefocus, d"
         "$sc, k, movefocus, u"
@@ -187,6 +186,7 @@ in {
         "$sc, s, exec, ws term"
 
         "$cas, a, workspace, name:code%%${work.projects.current.root}"
+        "$cas, g, workspace, name:game"
 
         ("$cas, h, exec, " + builtins.concatStringsSep " && " [
          "hyprctl keyword animation workspaces,1,3,default,slide"
