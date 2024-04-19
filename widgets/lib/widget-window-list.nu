@@ -46,7 +46,11 @@ def render [] {
           $title = ($title | str replace $"($root)" ".")
 
           if $title != $win.title {
-            $title = ($title | split row / | reverse | str join " ◀ ")
+            let segments = $title | split row / | reverse
+
+            if ($segments | length) > 1 {
+              $title = $"($segments | first) ◀◀ ($segments | skip 1 | str join ' ◀ ')"
+            }
           }
 
           if $win != null {
@@ -63,6 +67,8 @@ def render [] {
             }
 
             let str = if $active != null and $win.id == $active.id {
+              # widget format --style { padding-x: $padx } $"($title) ($accel)" 
+              # | widget highlight
               $"(ansi default_reverse)($padx)($title_str) ($accel)($padx)(ansi reset)"
             } else {
               $"($padx)(ansi $style.fg)($title_str) ($accel)(ansi reset)($padx)"
