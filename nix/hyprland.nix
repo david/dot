@@ -129,7 +129,7 @@ in {
       "$scs"  = "SUPER CONTROL SHIFT";
 
       bind = [
-        "$s, slash, exec, ws.nu search --new-window"
+        "$s, slash, exec, ws run fz-grep ui"
         "$s, semicolon, workspace, previous"
 
         "$s, 0, exec, notifyctl dismiss"
@@ -332,6 +332,7 @@ in {
         "pin, class:^widget\\."
 
         "group override deny, class:menu"
+        "nodim, class:preview"
 
         "nodim, class:search-current"
 

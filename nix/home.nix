@@ -29,6 +29,7 @@
   home.file = {
     ".local/bin/fz".source = ../scripts/fz.nu;
     ".local/bin/fz-open".source = ../scripts/fz-open.nu;
+    ".local/bin/fz-grep".source = ../scripts/fz-grep.nu;
     ".local/bin/mediactl".source = ../scripts/mediactl.nu;
     ".local/bin/notifyctl".source = ../scripts/notifyctl.nu;
     ".local/bin/term".source = ../scripts/term.nu;
