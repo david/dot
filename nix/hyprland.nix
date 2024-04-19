@@ -60,6 +60,7 @@
   };
 
   discord = browseApp "https://discord.com/channels/@me";
+  meet = browseApp "https://meet.google.com/landing?authuser=1";
   music = browseApp "https://music.youtube.com";
   slack = browseApp work.slack.url;
   video = browseApp "https://youtube.com";
@@ -365,7 +366,7 @@ in {
         "2, defaultName:code%%$HOME/sys"
         "special:discord, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${discord}"
         "special:slack, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${slack}"
-        "special:meet, on-created-empty:${browse} https://meet.google.com/landing?authuser=1"
+        "special:meet, on-created-empty:${meet}"
         "special:music, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${music}"
       ];
     };
