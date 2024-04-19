@@ -208,9 +208,9 @@ in {
          "hyprctl dispatch workspace +1"
         ])
 
+        "$cas, s, workspace, name:code%%$HOME/sys"
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
-        "$cas, y, workspace, 2"
 
         "$scas, e, exec, variety -t"
         "$scas, h, movetoworkspace, -1"
@@ -363,7 +363,6 @@ in {
         gapX = gap.left + (spacing * 2);
       in [
         "1, defaultName:code%%${work.projects.current.root}"
-        "2, defaultName:code%%$HOME/sys"
         "special:discord, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${discord}"
         "special:slack, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${slack}"
         "special:meet, on-created-empty:${meet}"
