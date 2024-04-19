@@ -22,11 +22,9 @@ export def "main open" [--socket: path, file: path, row: int, col: int] {
 }
 
 def main [--socket: path] {
-  let rg = "rg --column --line-number --no-heading --color=always --smart-case"
-
-  echo ""
-  | (
-    fzf --bind $"change:reload:\(($rg) {q} || true\)"
+  echo "" | (
+    fzf --bind $"change:reload:\(($env.PROCESS_PATH) search {q}\)"
+        --bind $"enter:execute-silent\(term --detach nvim '{1}' '+normal {2}G{3}|'\)"
         --bind $"focus:execute-silent\(($env.PROCESS_PATH) open --socket ($socket) '{1}' {2} {3}\)"
         --delimiter :
         --disabled
@@ -34,4 +32,8 @@ def main [--socket: path] {
   )
 }
 
+def "main search" [q: string] {
+  let r = $q | split row --regex "\\s*!!\\s*"
 
+  rg --column --line-number --no-heading --color=always --smart-case ($r | first) ...($r | skip 1)
+}
