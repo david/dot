@@ -180,7 +180,7 @@
     borderRadius = 4;
     borderSize = 1;
     font = "Iosevka Timbuktu 16";
-    height = 128;
+    height = 384;
     iconPath = "${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita";
     margin = "16";
     maxVisible = 16;
