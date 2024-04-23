@@ -335,8 +335,6 @@ in {
         "group override deny, class:menu"
         "nodim, class:preview"
 
-        "nodim, class:search-current"
-
         "group override deny, workspace:name:chat"
 
         "group set always, class:(.)"
