@@ -1,6 +1,34 @@
 use widgetctl.nu
 use wm.nu
 
+export def spread [] {
+  let strings: list<string> = $in
+
+  let padding = 1;
+  let cols = term size | get columns
+
+  let used_space = ($padding * 2) + (
+    $strings
+    | each { |e| $e | ansi strip | str trim | str length --grapheme-clusters }
+    | math sum
+  )
+
+  let pad = "" | fill --width $padding
+  let gap_count = ($strings | length) - 1
+  let free_space = $cols - $used_space
+  let gap_size = $free_space / $gap_count | math floor
+  let gap_offset = $free_space - ($gap_size * $gap_count)
+  let content = (
+    $strings
+    | drop
+    | each { |e| $"($e)('' | fill --width $gap_size)" }
+    | append [ ("" | fill --width $gap_offset) ($strings | last) ]
+    | str join ""
+  )
+
+  $"($pad)($content)($pad)"
+}
+
 export def fade [] {
   let text: string = $in
 

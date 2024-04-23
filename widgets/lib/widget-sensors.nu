@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-use widget.nu [fade nudge warn yell]
+use widget.nu [fade nudge spread warn yell]
 
 def main [] {
   sleep 0.1sec
@@ -18,17 +18,7 @@ def main [] {
   }
 
   loop {
-    let cols = (term size | get columns) / 4 | into int
-    let strip = (
-      [
-        ($out.battery | fill --alignment center --width $cols)
-        ($out.temp | fill --alignment center --width $cols)
-        ($out.cpu | fill --alignment center --width $cols)
-        ($out.wifi | fill --alignment center --width $cols)
-      ]
-      | str join ""
-      | fill --alignment center --width $cols
-    )
+    let strip = [ $out.battery, $out.temp, $out.cpu, $out.wifi ] | spread
 
     print --no-newline $"(tput cup 0 0)($strip)(ansi erase_line_from_cursor_to_end)"
 
@@ -52,6 +42,8 @@ def main [] {
     $i = $i + 1
 
     sleep 1sec
+
+    null
   }
 }
 
@@ -96,6 +88,7 @@ def "battery render" [] {
   let icon = match $batt.state {
     1 => "󱐋 "
     2 => "󰁹 "
+    4 => "󰛨 "
     _ => $batt.state
   }
 
