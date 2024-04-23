@@ -125,7 +125,12 @@
           lua-ls.enable = true;
           nil_ls.enable = true;
           nushell.enable = true;
-          # solargraph.enable = true;
+
+          solargraph = {
+            enable = true;
+            package = null;
+          };
+
           tailwindcss.enable = true;
           tsserver.enable = true;
         };
