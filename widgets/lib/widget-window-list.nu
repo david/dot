@@ -83,7 +83,12 @@ def render [] {
     | str join "\n"
   )
 
-  print --no-newline $"($out)(ansi clear_screen_from_cursor_to_end)"
+  if ($out | str trim | is-empty) {
+    print -n $"(ansi clear_screen)('∅' | fill --alignment center --width ($ncols - 1))"
+  } else {
+    print -n $"($out)(ansi clear_screen_from_cursor_to_end)"
+  }
+
 }
 
 def style [window: record] {
