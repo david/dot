@@ -23,7 +23,7 @@ export def --wrapped "main run" [...command] {
 }
 
 export def "main services" [] {
-  direnv exec . services
+  run direnv exec . services
 }
 
 export def --wrapped "main term" [--class: string, ...command] {
