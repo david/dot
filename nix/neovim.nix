@@ -37,6 +37,7 @@
       loaded_ruby_provider = 0;
       loaded_perl_provider = 0;
       loaded_python_provider = 0;
+      mapleader = " ";
     };
 
     keymaps = let
@@ -50,10 +51,13 @@
           };
         }) kms;
     in withDefaults [
-      { action = "q"; key = "m"; }
-      { action = "<cmd>q<cr>"; key = "q"; }
-      { action = "<cmd>m-2<cr>=="; key = "<c-k>"; }
-      { action = "<cmd>m+1<cr>=="; key = "<c-j>"; }
+      { key = "<leader><leader>"; action = "<cmd>nohlsearch<cr>"; }
+      { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
+      { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
+      { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
+
+      { key = "m";                action = "q"; }
+      { key = "q";                action = "<cmd>q<cr>"; }
     ];
 
     plugins = {
