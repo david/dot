@@ -19,7 +19,7 @@ def render [] {
   print --no-newline (ansi cursor_off)
 
   let list = (wm ws | wm win list)
-  let root = (wm ws | ws meta | get root | str replace $env.HOME ~)
+  let root = (wm ws | ws meta | get -i root | default . | path expand | str replace $env.HOME ~)
 
   widget window window-list | widget resize --rows ($list | length)
 
