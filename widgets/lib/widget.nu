@@ -26,7 +26,7 @@ export def spread [] {
     | math sum
   )
 
-  let pad = "" | fill --width $padding
+  let pad = "" | fill --width $padding --character " "
   let gap_count = ($strings | length) - 1
   let free_space = $cols - $used_space
   let gap_size = $free_space / $gap_count | math floor
@@ -34,8 +34,8 @@ export def spread [] {
   let content = (
     $strings
     | drop
-    | each { |e| $"($e)('' | fill --width $gap_size)" }
-    | append [ ("" | fill --width $gap_offset) ($strings | last) ]
+    | each { |e| $"($e)('' | fill --width $gap_size --character ' ')" }
+    | append [ ("" | fill --width $gap_offset --character " ") ($strings | last) ]
     | str join ""
   )
 

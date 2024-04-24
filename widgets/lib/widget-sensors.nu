@@ -107,13 +107,14 @@ def cpu [] {
 
 def "cpu render" [] {
   let val = $in
+  let pct = $"($val)" | fill --width 6 --character " "
 
   if $val > 90 {
-    $"  ($val) " | yell
+    $"  ($pct)" | yell
   } else if $val > 50 {
-    $"  ($val) " | warn
+    $"  ($pct)" | warn
   } else {
-    $"(' ' | fade) ($val)(' ' | fade)"
+    $"(' ' | fade) ($pct | str replace "" ('' | fade))"
   }
 }
 
@@ -124,7 +125,7 @@ def temp [] {
 def "temp render" [] {
   let val = $in
 
-  $"('󰔏 ' | fade) ($val)('󰔄 ' | fade)"
+  $"('󰔏 ' | fade) ($val)('󰔄' | fade)"
 }
 
 def wifi [] {
@@ -147,12 +148,12 @@ def "wifi render" [] {
   if ($val | is-empty) {
     "󱜡 "
   } else if $val < 25 {
-    $"󱜠  ($val) " | yell
+    $"󱜠  ($val)" | yell
   } else if $val < 50 {
-    $"󱜠  ($val) " | warn
+    $"󱜠  ($val)" | warn
   } else if $val < 75 {
-    $"󱜠  ($val) " | nudge
+    $"󱜠  ($val)" | nudge
   } else {
-    $"('󱜠 ' | fade) ($val)(' ' | fade)"
+    $"('󱜠 ' | fade) ($val)('' | fade)"
   }
 }
