@@ -141,7 +141,6 @@ in {
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
         "$s, e, exec, ws switch code"
-        "$s, e, exec, wm run-if-empty ws term nvim"
 
         "$s, f, exec, ws run fz-open ui"
 
