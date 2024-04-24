@@ -1,6 +1,19 @@
 use widgetctl.nu
 use wm.nu
 
+export def render [] {
+  let $out = $in
+
+  print --no-newline $"(ansi cursor_off)(tput cup 0 0)($out)(ansi erase_line_from_cursor_to_end)"
+}
+
+export def center [] {
+  let text = $in
+  let cols = term size | get columns
+
+  $text | fill --alignment center --width $cols --character " "
+}
+
 export def spread [] {
   let strings: list<string> = $in
 
