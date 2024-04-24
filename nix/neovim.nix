@@ -167,9 +167,19 @@
             src = inputs.tree-sitter-nu;
            })
         ];
+
+        indent = true;
       };
 
-      treesitter-textobjects.enable = true;
+      treesitter-textobjects = {
+        enable = true;
+
+        lspInterop.enable = true;
+        move.enable = true;
+        select.enable = true;
+        swap.enable = true;
+      };
+
       trouble.enable = true;
       which-key.enable = true;
       yanky = {
