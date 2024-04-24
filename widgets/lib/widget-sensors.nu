@@ -1,13 +1,9 @@
 #!/usr/bin/env nu
 
-use widget.nu [fade nudge spread warn yell]
+use widget.nu
 
 def main [] {
   sleep 0.1sec
-
-  print --no-newline (ansi cursor_off)
-
-  let cols = (term size | get columns)
 
   mut i = 0
   mut out = {
@@ -18,12 +14,10 @@ def main [] {
   }
 
   loop {
-    let strip = [ $out.battery, $out.temp, $out.cpu, $out.wifi ] | spread
-
-    print --no-newline $"(tput cup 0 0)($strip)(ansi erase_line_from_cursor_to_end)"
+    [ $out.battery, $out.temp, $out.cpu, $out.wifi ] | widget spread | widget render
 
     if $i mod 2 == 0 {
-      $out = ($out | merge { cpu: (cpu | cpu render)})
+      $out = ($out | merge { cpu: (cpu | cpu render) })
     }
 
     if $i mod 5 == 0 {
@@ -93,11 +87,11 @@ def "battery render" [] {
   }
 
   if $batt.charge < 25 {
-    $"($icon) ($batt.charge) " | yell
+    $"($icon) ($batt.charge)" | widget yell
   } else if $batt.charge < 50 {
-    $"($icon) ($batt.charge) " | warn
+    $"($icon) ($batt.charge)" | widget warn
   } else {
-    $"($icon | fade) ($batt.charge)(' ' | fade)"
+    $"($icon | widget fade) ($batt.charge)('' | widget fade)"
   }
 }
 
@@ -110,11 +104,11 @@ def "cpu render" [] {
   let pct = $"($val)" | fill --width 6 --character " "
 
   if $val > 90 {
-    $"  ($pct)" | yell
+    $"  ($pct)" | widget yell
   } else if $val > 50 {
-    $"  ($pct)" | warn
+    $"  ($pct)" | widget warn
   } else {
-    $"(' ' | fade) ($pct | str replace "" ('' | fade))"
+    $"(' ' | widget fade) ($pct | str replace "" ('' | widget fade))"
   }
 }
 
@@ -125,7 +119,7 @@ def temp [] {
 def "temp render" [] {
   let val = $in
 
-  $"('󰔏 ' | fade) ($val)('󰔄' | fade)"
+  $"('󰔏 ' | widget fade) ($val)('󰔄' | widget fade)"
 }
 
 def wifi [] {
@@ -148,12 +142,12 @@ def "wifi render" [] {
   if ($val | is-empty) {
     "󱜡 "
   } else if $val < 25 {
-    $"󱜠  ($val)" | yell
+    $"󱜠  ($val)" | widget yell
   } else if $val < 50 {
-    $"󱜠  ($val)" | warn
+    $"󱜠  ($val)" | widget warn
   } else if $val < 75 {
-    $"󱜠  ($val)" | nudge
+    $"󱜠  ($val)" | widget nudge
   } else {
-    $"('󱜠 ' | fade) ($val)('' | fade)"
+    $"('󱜠 ' | widget fade) ($val)('' | widget fade)"
   }
 }
