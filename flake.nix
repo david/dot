@@ -35,7 +35,6 @@
     nixos-hardware,
     nixpkgs,
     nixvim,
-    tree-sitter-nu,
     ...
   } @ inputs : let
     system = "x86_64-linux";
