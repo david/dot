@@ -56,9 +56,7 @@
 
   home.packages = with pkgs; [
     brightnessctl
-    dex
     fd
-    google-chrome
     grimblast
     libnotify
     manix
