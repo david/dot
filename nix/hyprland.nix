@@ -205,7 +205,7 @@ in {
         dim_inactive = true;
         dim_special = 0;
 
-        drop_shadow = true;
+        drop_shadow = false;
         shadow_range = 16;
         shadow_render_power = 2;
 
