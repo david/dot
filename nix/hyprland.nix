@@ -12,53 +12,6 @@
 
   spacing = 16;
 
-  cellHeight = 38;
-
-  gap = {
-    left = spacing * 38;
-    right = spacing * 38;
-  };
-
-  widget = {
-    x = spacing + 2;
-    width = gap.left - (spacing * 2) - 4;
-  };
-
-  dateWidget = {
-    inherit (widget) x width;
-
-    y = spacing;
-    height = cellHeight + 4;
-  };
-
-  sensorWidget = {
-    inherit (widget) x width;
-
-    y = dateWidget.y + dateWidget.height;
-    height = cellHeight + 4;
-  };
-
-  desktopWidget = {
-    inherit (widget) x width;
-
-    y = sensorWidget.y + sensorWidget.height + spacing;
-    height = cellHeight + 4;
-  };
-
-  projectWidget = {
-    inherit (widget) x width;
-
-    y = desktopWidget.y + desktopWidget.height;
-    height = cellHeight + 4;
-  };
-
-  windowListWidget = {
-    inherit (widget) x width;
-
-    y = projectWidget.y + projectWidget.height + spacing;
-    height = cellHeight * 9;
-  };
-
   discord = browseApp "https://discord.com/channels/@me";
   meet = browseApp "https://meet.google.com/landing?authuser=1";
   music = browseApp "https://music.youtube.com";
@@ -267,7 +220,7 @@ in {
       };
 
       exec-once = [
-        "widgetctl start"
+        "widget-bar ui"
       ];
 
       general = {
@@ -281,7 +234,7 @@ in {
         "col.nogroup_border_active" = col.active;
 
         gaps_in = 8;
-        gaps_out = "16,16,16,608";
+        gaps_out = 16;
 
         layout = "dwindle";
       };
@@ -324,46 +277,18 @@ in {
       ];
 
       windowrulev2 = [
-        "float, class:^widget."
-        "noborder, class:^widget\\."
-        "nodim, class:^widget\\."
-        "nofocus, class:^widget\\."
-        "noshadow, class:^widget\\."
-        "pin, class:^widget\\."
-
         "group override deny, class:menu"
         "nodim, class:preview"
 
-        "group override deny, workspace:name:chat"
-
         "group set always, class:(.)"
-      ] ++ [
-        # TODO: nix module?
-        "size ${toString dateWidget.width} ${toString dateWidget.height}, class:^widget\\.date"
-        "move ${toString dateWidget.x} ${toString dateWidget.y}, class:^widget\\.date"
-
-        "size ${toString sensorWidget.width} ${toString sensorWidget.height}, class:^widget\\.sensors"
-        "move ${toString sensorWidget.x} ${toString sensorWidget.y}, class:^widget\\.sensors"
-
-        "size ${toString desktopWidget.width} ${toString desktopWidget.height}, class:^widget\\.desktop"
-        "move ${toString desktopWidget.x} ${toString desktopWidget.y}, class:^widget\\.desktop"
-
-        "size ${toString projectWidget.width} ${toString projectWidget.height}, class:^widget\\.project"
-        "move ${toString projectWidget.x} ${toString projectWidget.y}, class:^widget\\.project"
-
-        "size ${toString windowListWidget.width} ${toString windowListWidget.height}, class:^widget\\.window-list"
-        "move ${toString windowListWidget.x} ${toString windowListWidget.y}, class:^widget\\.window-list"
       ];
 
-      workspace = let 
-        gapY = spacing * 4;
-        gapX = gap.left + (spacing * 2);
-      in [
+      workspace = [
         "1, defaultName:code%%${work.projects.current.root}"
-        "special:discord, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${discord}"
-        "special:slack, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${slack}"
+        "special:discord, on-created-empty:${discord}"
+        "special:slack, on-created-empty:${slack}"
         "special:meet, on-created-empty:${meet}"
-        "special:music, gapsout:${toString gapY} ${toString gapX}, on-created-empty:${music}"
+        "special:music, on-created-empty:${music}"
       ];
     };
   };

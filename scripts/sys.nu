@@ -11,7 +11,6 @@ export def prune [] {
 
 export def rebuild [] {
   sudo nixos-rebuild --flake $"path:($env.SYS_PATH)" switch
-  widgetctl restart
 }
 
 export def update [] {
@@ -21,4 +20,12 @@ export def update [] {
 export def upgrade [] {
   update
   rebuild
+}
+
+export def "glasses mode" [] {
+  hyprctl keyword monitor "eDP-1, disabled"
+}
+
+export def "builtin mode" [] {
+  hyprctl keyword monitor "eDP-1, 2880x1800, 0x0, 1"
 }
