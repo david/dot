@@ -18,7 +18,7 @@ def "main ui" [] {
       --override "modify_font cell_height 140%"
       --override "window_padding_width=8"
       --edge "left"
-      --columns 43
+      --columns 47
       $env.PROCESS_PATH
   )
 }
