@@ -136,7 +136,7 @@ in {
         "$sc, l, movefocus, r"
         "$sc, s, exec, ws term"
 
-        "$cas, a, workspace, name:code%%${work.projects.current.root}"
+        "$cas, a, workspace, 1"
         "$cas, g, workspace, name:game"
 
         ("$cas, h, exec, " + builtins.concatStringsSep " && " [
@@ -159,7 +159,7 @@ in {
          "hyprctl dispatch workspace +1"
         ])
 
-        "$cas, s, workspace, name:code%%$HOME/sys"
+        "$cas, s, workspace, 101"
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
 
