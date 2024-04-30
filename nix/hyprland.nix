@@ -115,10 +115,7 @@ in {
         "$s, r, exec, wm run-if-empty term ws services"
 
         "$s, u, togglespecialworkspace, music"
-        "$s, u, exec, wm run-if-empty ${music}"
-
-        "$s, v, workspace, name:video"
-        "$s, v, exec, wm run-if-empty ${video}"
+        "$s, v, togglespecialworkspace, video"
 
         "$s, w, exec, ws switch web"
         "$s, w, exec, wm run-if-empty ${browse}"
@@ -283,12 +280,21 @@ in {
         "group set always, class:(.)"
       ];
 
-      workspace = [
-        "1, defaultName:code%%${work.projects.current.root}"
-        "special:discord, on-created-empty:${discord}"
-        "special:slack, on-created-empty:${slack}"
+      workspace = let
+        panelGap = 514;
+        specialGap = (spacing * 40);
+        gap = toString spacing;
+        gapLeft = toString (specialGap - panelGap);
+        gapRight = toString specialGap;
+        gapY = toString (spacing * 4);
+      in [
+        "1, defaultName:code%%${work.projects.current.root}, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
+        "101, defaultName:code%%$HOME/sys, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
+        "special:discord, on-created-empty:${discord}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
+        "special:slack, on-created-empty:${slack}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:meet, on-created-empty:${meet}"
-        "special:music, on-created-empty:${music}"
+        "special:music, on-created-empty:${music}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
+        "special:video, on-created-empty:${video}"
       ];
     };
   };
