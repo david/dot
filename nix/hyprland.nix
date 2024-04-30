@@ -130,6 +130,7 @@ in {
         "$ss, k, movewindoworgroup, u"
         "$ss, l, movewindoworgroup, r"
 
+        "$sc, f, fullscreen"
         "$sc, h, movefocus, l"
         "$sc, j, movefocus, d"
         "$sc, k, movefocus, u"
@@ -168,7 +169,6 @@ in {
         "$scas, l, movetoworkspace, +1"
         "$scas, q, exit"
 
-        "$scs, f, fakefullscreen"
         "$scs, h, movegroupwindow, b"
         "$scs, j, movewindoworgroup, d"
         "$scs, k, movewindoworgroup, u"
