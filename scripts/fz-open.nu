@@ -8,16 +8,9 @@ export def "main ui" [] {
 }
 
 export def main [] {
-  let cmd = if (which fz-open-local | is-not-empty) {
-    [ fz-open-local ]
-  } else {
-    [ fd --type f ]
-  }
-
-  run-external ($cmd | first) ...($cmd | skip 1) | (
+  fd --type f | ^sort | (
     fzf
       --bind "enter:become(term --detach nvim {})"
-      --delimiter="\t"
       --scheme=path
       --tiebreak=length,end,index
       --with-nth=1
