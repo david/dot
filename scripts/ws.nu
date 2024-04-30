@@ -6,6 +6,17 @@ const SEP = "%%"
 
 export def main [] {}
 
+export def "main gitui" [] {
+  let ws = wm ws
+  let instance = (wm win list | where title == gitui and workspace.id == $ws.id)
+
+  if ($instance | length) > 0 {
+    wm focus ($instance | first)
+  } else {
+    run term --class gitui --title gitui lazygit
+  }
+}
+
 export def "main grep" [] {
   run fz grep
 }

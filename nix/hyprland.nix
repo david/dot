@@ -97,8 +97,7 @@ in {
 
         "$s, f, exec, ws run fz-open ui"
 
-        "$s, g, exec, ws switch gitui"
-        "$s, g, exec, wm run-if-empty ws term lazygit"
+        "$s, g, exec, ws gitui"
 
         "$s, h, movefocus, l"
         "$s, j, changegroupactive, f"
