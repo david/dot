@@ -161,7 +161,7 @@
   services.mako = {
     enable = true;
 
-    anchor = "bottom-left";
+    anchor = "top-right";
     backgroundColor = colors.dark0Hard;
     borderColor = colors.dark0;
     borderRadius = 4;
@@ -175,7 +175,7 @@
     progressColor = colors.yellowNeutral;
     sort = "+time";
     textColor = colors.light1;
-    width = 572;
+    width = 482;
   };
 
   xdg = {
