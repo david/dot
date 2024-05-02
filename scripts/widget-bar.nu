@@ -55,7 +55,7 @@ def --env render [data] {
   
   print -n (tput cup 2 0) (ansi erase_line_from_cursor_to_end)
 
-  if ($ws_branch | is-not-empty) {
+  if ($ws_name | is-not-empty) {
     print -n (tput cup 3 0) ([$ws_root, $ws_name] | spread)
     print -n (tput cup 4 0) ([$ws_branch, ""] | spread)
   }
