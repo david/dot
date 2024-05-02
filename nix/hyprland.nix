@@ -199,7 +199,7 @@ in {
         };
 
         dim_inactive = true;
-        dim_special = 0;
+        dim_special = 0.25;
 
         drop_shadow = false;
         shadow_range = 16;
