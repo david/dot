@@ -11,7 +11,7 @@ export def --wrapped main [
 ] {
   (
     kitty
-      --override $"window_padding_width=($padding | default 0)"
+      ...(if $padding != null { [ --override $"window_padding_width=($padding)" ] } else { [] })
       --override "forward_stdio=true"
       ...(
         if $opacity != null {

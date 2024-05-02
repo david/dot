@@ -56,7 +56,7 @@
       ) + " Symbols Nerd Font Mono";
 
       visual_bell_duration = "0.25";
-      window_padding_width = 4;
+      window_padding_width = "8 80";
     };
 
     theme = "Gruvbox Dark Hard";
