@@ -222,7 +222,7 @@ in {
       general = {
         allow_tearing = false;
 
-        border_size = 3;
+        border_size = 0;
 
         "col.active_border" = col.active;
         "col.inactive_border" = col.inactive;
