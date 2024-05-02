@@ -319,8 +319,10 @@ def style [window: record] {
     [_, $file] if $file ends-with ".nix"  => { icon: "󱄅 ", fg: "light_blue" }
     [_, $file] if $file ends-with ".nu"   => { icon: "nu", fg: "light_green" }
     [_, $file] if $file ends-with ".rb"   => { icon: " ", fg: "light_magenta" }
+    ["gitui", _]                          => { icon: " ", fg: "default" }
     ["kitty", _]                          => { icon: " ", fg: "default" }
     ["nvim", _]                           => { icon: "󱃖 ", fg: "default" }
+    ["services", _]                       => { icon: "󰒋 ", fg: "default" }
     _                                     => { icon: "  ", fg: "default" }
   }
 }

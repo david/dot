@@ -7,7 +7,9 @@ export def --wrapped "main run-if-empty" [...command: string] {
 }
 
 export def events [] {
-  nc -U $"/tmp/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock" | lines | split column >> name payload
+  nc -U $"/run/user/(id -u)/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock"
+  | lines
+  | split column >> name payload
 }
 
 export def focus [window: record] {
