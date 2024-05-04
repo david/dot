@@ -12,6 +12,11 @@
     hyprlock.url = "github:hyprwm/hyprlock";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
+    leap-spooky = {
+      flake = false;
+      url = "github:ggandor/leap-spooky.nvim";
+    };
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";

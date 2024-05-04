@@ -23,10 +23,19 @@
       };
     };
 
+    extraConfigLua = ''
+      require("leap-spooky").setup({})
+    '';
+
     extraPlugins = with pkgs.vimPlugins; [
       (pkgs.vimUtils.buildVimPlugin {
        name = "tree-sitter-nu";
        src = inputs.tree-sitter-nu;
+      })
+
+      (pkgs.vimUtils.buildVimPlugin {
+       name = "leap-spooky";
+       src = inputs.leap-spooky;
       })
 
       neodev-nvim
@@ -182,6 +191,7 @@
 
       trouble.enable = true;
       which-key.enable = true;
+
       yanky = {
         enable = true;
         ring.storage = "sqlite";
