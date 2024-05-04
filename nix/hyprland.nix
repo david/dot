@@ -117,19 +117,13 @@ in {
         "$s, w, exec, ws switch web"
         "$s, w, exec, wm run-if-empty ${browse}"
 
+        "$sc, f, fullscreen"
+        "$sc, s, exec, ws term"
+
         "$ss, f, togglefloating"
         "$ss, g, togglegroup"
-        "$ss, h, movewindoworgroup, l"
-        "$ss, j, movewindoworgroup, d"
-        "$ss, k, movewindoworgroup, u"
-        "$ss, l, movewindoworgroup, r"
-
-        "$sc, f, fullscreen"
-        "$sc, h, movefocus, l"
-        "$sc, j, movefocus, d"
-        "$sc, k, movefocus, u"
-        "$sc, l, movefocus, r"
-        "$sc, s, exec, ws term"
+        "$ss, j, movegroupwindow, f"
+        "$ss, k, movegroupwindow, b"
 
         "$cas, a, workspace, 1"
         "$cas, g, workspace, name:game"
@@ -163,10 +157,8 @@ in {
         "$scas, l, movetoworkspace, +1"
         "$scas, q, exit"
 
-        "$scs, h, movegroupwindow, b"
         "$scs, j, movewindoworgroup, d"
         "$scs, k, movewindoworgroup, u"
-        "$scs, l, movegroupwindow, f"
         "$scs, s, exec, kitty"
 
         "  , XF86AudioRaiseVolume, exec, mediactl vol up"
