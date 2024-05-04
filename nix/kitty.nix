@@ -11,6 +11,7 @@
       "super+o" = "load_config_file";
       "super+equal" = "change_font_size all +1.0";
       "super+minus" = "change_font_size all -1.0";
+      "ctrl+shift+f" = "kitten hints --type=linenum --linenum-action=os_window nvim {path} +{line}";
     };
 
     settings = {
