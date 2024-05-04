@@ -249,7 +249,7 @@ def "wifi render" [] {
   let pct = $"($val)" | fill --width 4 --character " "
 
   if ($val | is-empty) {
-    "󱜡      "
+    $"('󱜡 ' | fade) --('' | fade)"
   } else if $val < 25 {
     $"󱜠  ($pct)" | yell
   } else if $val < 50 {
