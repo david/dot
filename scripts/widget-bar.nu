@@ -25,12 +25,12 @@ def "main ui" [] {
     kitty
       +kitten panel
       --class "widget-bar"
+      --columns 47
+      --edge "left"
       --override "background_opacity=0.48"
       --override "font_size=16"
       --override "modify_font cell_height 140%"
       --override "window_padding_width=8"
-      --edge "left"
-      --columns 47
       $env.PROCESS_PATH
   )
 }
@@ -240,7 +240,6 @@ def "wifi render" [] {
     | lines
     | split column : in-use signal
     | where in-use == "*"
-
   )
 
   let val = if ($conn | is-not-empty) {
