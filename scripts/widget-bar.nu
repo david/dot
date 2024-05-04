@@ -363,6 +363,7 @@ def style [window: record] {
     ["kitty", _]                          => { icon: " ", fg: "default" }
     ["nvim", _]                           => { icon: "󱃖 ", fg: "default" }
     ["services", _]                       => { icon: "󰒋 ", fg: "default" }
+    ["shell", _]                          => { icon: " ", fg: "default" }
     _                                     => { icon: "  ", fg: "default" }
   }
 }

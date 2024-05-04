@@ -20,18 +20,24 @@ export def monitors [] {
   hyprctl monitors -j | from json
 }
 
-export def --wrapped run [
-  --geometry: record<x: int, y: int, width: int, height: int>
-  ...command
-] {
-  let rules = []
-  | append [
-    $"size ($geometry.width) ($geometry.height)"
-    $"move ($geometry.x) ($geometry.y)"
-  ]
-  | str join ";"
+export def run-or-focus [--with-title: string, --with-class: string, command: closure] {
+  let ws = ws
 
-  hyprctl dispatch exec $"[($rules)] ($command | str join ' ')"
+  let list = (
+    win list
+    | where { |e|
+      let w_class = ($with_class != null and $e.class == $with_class)
+      let w_title = ($with_title != null and $e.title == $with_title)
+
+      $e.workspace.id == $ws.id and ($w_title or $w_class)
+    }
+  )
+
+  if ($list | is-not-empty) {
+    focus ($list | first)
+  } else {
+    do $command
+  }
 }
 
 export def win [--class: string] {

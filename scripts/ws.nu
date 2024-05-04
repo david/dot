@@ -7,18 +7,15 @@ const SEP = "%%"
 export def main [] {}
 
 export def "main gitui" [] {
-  let ws = wm ws
-  let instance = (wm win list | where title == gitui and workspace.id == $ws.id)
-
-  if ($instance | length) > 0 {
-    wm focus ($instance | first)
-  } else {
-    run term --class gitui --title gitui lazygit
-  }
+  wm run-or-focus --with-class gitui { term --class gitui --title gitui ws run lazygit }
 }
 
 export def "main grep" [] {
   run fz grep
+}
+
+export def "main shell" [] {
+  wm run-or-focus --with-class shell { ws term --class shell }
 }
 
 export def "main switch" [name: string] {
@@ -34,7 +31,9 @@ export def --wrapped "main run" [...command] {
 }
 
 export def "main services" [] {
-  run direnv exec . services
+  wm run-or-focus --with-class services {
+    term --class services --title services ws run direnv exec . services
+  }
 }
 
 export def --wrapped "main term" [--class: string, ...command] {

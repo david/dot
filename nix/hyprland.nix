@@ -109,11 +109,8 @@ in {
         "$s, n, exec, ${browse}"
         "$s, p, exec, term nvim $HOME/sys/plan.md"
         "$s, o, togglespecialworkspace, discord"
-        "$s, s, exec, ws term"
-
-        "$s, r, exec, ws switch services"
-        "$s, r, exec, wm run-if-empty term ws services"
-
+        "$s, s, exec, ws shell"
+        "$s, r, exec, ws services"
         "$s, u, togglespecialworkspace, music"
         "$s, v, togglespecialworkspace, video"
 
