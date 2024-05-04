@@ -84,12 +84,6 @@ export def "win resize" [--height: int] {
   hyprctl dispatch resizewindowpixel $"exact ($window.width) ($height),address:($window.id)" o> /dev/null
 }
 
-export def "win switch" [] {
-  let window = $in
-
-  hyprctl dispatch focuswindow $"address:($window.id)"
-}
-
 export def ws [--id (-i): string, --name (-n): string] {
   if $name != null {
     hyprctl workspaces -j
