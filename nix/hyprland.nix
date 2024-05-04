@@ -297,5 +297,49 @@ in {
         "special:video, on-created-empty:${video}"
       ];
     };
+
+    extraConfig = let
+      buildItem = key: mapping: ''
+        bind = , ${key}, exec, ${mapping.command}
+        bind = , ${key}, exec, widget-bar echo clear
+        bind = , ${key}, submap, reset
+      '';
+
+      buildItems = submap:
+        builtins.concatStringsSep "\n" 
+          (builtins.map (k: buildItem k (builtins.getAttr k submap.items)) (builtins.attrNames submap.items));
+
+      buildSubmap = key: submap: ''
+        bind = $s, ${key}, exec, widget-bar echo --align center "🐧- ${key}"
+        bind = $s, ${key}, submap, ${submap.name}
+
+        submap = ${submap.name}
+
+        ${buildItems submap}
+
+        bind = , escape, exec, widget-bar echo clear
+        bind = , escape, submap, reset
+
+        submap = reset
+      '';
+
+      submaps = {
+        a = {
+          name = "launch";
+          items = {
+            b = { name = "bugs"; command = "ws bugs"; }; 
+            c = { name = "ci"; command = "ws ci"; }; 
+            d = { name = "devapp"; command = "ws devapp"; }; 
+            e = { name = "code"; command = "ws switch code"; }; 
+            g = { name = "gitui"; command = "ws gitui"; }; 
+            m = { name = "merge requests"; command = "ws merge-requests"; }; 
+            p = { name = "plan"; command = "ws plan"; }; 
+            r = { name = "services"; command = "ws services"; }; 
+            s = { name = "shell"; command = "ws shell"; }; 
+          };
+        };
+      };
+    in builtins.concatStringsSep "\n"
+         (builtins.map (k: buildSubmap k (builtins.getAttr k submaps)) (builtins.attrNames submaps));
   };
 }

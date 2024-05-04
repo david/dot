@@ -8,6 +8,14 @@ const PADX_SIZE = 1;
 const SHORTCUT_SIZE = 3;
 const SPACE_BTWN = 1;
 
+def "main echo" [--align (-a): string, body: string] {
+  { name: "echo", align: $align, body: $body } | remote send
+}
+
+def "main echo clear" [] {
+  { name: "echo", body: "" } | remote send
+}
+
 def "main ui" [] {
   (
     kitty
@@ -30,6 +38,7 @@ def --env main [] {
 
   [
     { time loop }
+    { remote loop }
     { event loop }
   ] | par-each { |block| do $block }
 }
@@ -38,6 +47,7 @@ def --env render [data] {
   let date = ($data | get -i date | default "")
   let battery = ($data | get -i battery | default "")
   let cpu = ($data | get -i cpu | default "")
+  let remote = ($data | get -i remote | default "")
   let temp = ($data | get -i temp | default "")
   let wifi = ($data | get -i wifi | default "")
   let wnd_list = ($data | get -i window-list | default "")
@@ -67,6 +77,36 @@ def --env render [data] {
 
     print -n (ansi clear_screen_from_cursor_to_end)
   }
+
+  if ($remote | is-not-empty) {
+    match $remote.name {
+      "echo" => { 
+        if ($remote.body | is-empty) {
+          print -n (tput cup 44 0) (ansi erase_line_from_cursor_to_end)
+        } else {
+          let body = match $remote.align {
+            "center" => { $remote.body | fill --alignment center --width (term size | get columns) }
+            _ => $remote.body
+          }
+
+          print -n (tput cup 44 0) $body
+        }
+      }
+    }
+  }
+}
+
+def "remote loop" [] {
+  let socket = $"/run/user/(id -u)/widget-bar.sock"
+
+  rm $socket
+
+  nc -Ulk $socket | lines | each { |l| render { remote: ($l | from json) } }
+}
+
+def "remote send" [] {
+  let obj = $in
+  $"($obj | to json --raw)\n" | nc -UN $"/run/user/(id -u)/widget-bar.sock"
 }
 
 def --env "event loop" [] {
