@@ -16,6 +16,10 @@ def "main echo clear" [] {
   { name: "echo", body: "" } | remote send
 }
 
+def "main shutdown" [] {
+  { name: "shutdown" } | remote send
+}
+
 def "main ui" [] {
   (
     kitty
@@ -92,6 +96,8 @@ def --env render [data] {
           print -n (tput cup 44 0) $body
         }
       }
+
+      "shutdown" => { exit }
     }
   }
 }
