@@ -5,8 +5,6 @@ use wm.nu
 use ws.nu
 
 const PADX_SIZE = 1;
-const SHORTCUT_SIZE = 3;
-const SPACE_BTWN = 1;
 
 def "main echo" [--align (-a): string, body: string] {
   { name: "echo", align: $align, body: $body } | remote send
@@ -267,7 +265,7 @@ def "window-list render" [] {
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $PADX_SIZE)
-  let max_width = $ncols - ($PADX_SIZE * 2) - $SPACE_BTWN - $SHORTCUT_SIZE
+  let max_width = $ncols - ($PADX_SIZE * 2)
 
   let active = (wm win)
 
@@ -300,16 +298,10 @@ def "window-list render" [] {
             | strx truncate $max_width
             | fill --width $max_width
 
-            let accel = if $e.index < 10 {
-              $"[($e.index)]"
-            } else {
-              "   "
-            }
-
             let str = if $active != null and $win.id == $active.id {
-              $"(ansi default_reverse)($padx)($title_str) ($accel)($padx)(ansi reset)"
+              $"(ansi default_reverse)($padx)($title_str)($padx)(ansi reset)"
             } else {
-              $"($padx)(ansi $style.fg)($title_str) ($accel)(ansi reset)($padx)"
+              $"($padx)(ansi $style.fg)($title_str)(ansi reset)($padx)"
             }
 
             $"(ansi erase_line)($str)"
