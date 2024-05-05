@@ -6,6 +6,12 @@ use ws.nu
 
 const PADX_SIZE = 1;
 
+export-env {
+  $env.bar = {
+    window-list-rows: 0
+  };
+};
+
 def "main echo" [--align (-a): string, body: string] {
   { name: "echo", align: $align, body: $body } | remote send
 }
@@ -33,7 +39,7 @@ def "main ui" [] {
   )
 }
 
-def --env main [] {
+def main [] {
   sleep 0.1sec
 
   print -n (ansi cursor_off)
@@ -45,7 +51,7 @@ def --env main [] {
   ] | par-each { |block| do $block }
 }
 
-def --env render [data] {
+def render [data] {
   let date = ($data | get -i date | default "")
   let battery = ($data | get -i battery | default "")
   let cpu = ($data | get -i cpu | default "")
@@ -76,8 +82,6 @@ def --env render [data] {
 
   if ($wnd_list | is-not-empty) {
     print -n (tput cup 6 0) $wnd_list
-
-    print -n (ansi clear_screen_from_cursor_to_end)
   }
 
   if ($remote | is-not-empty) {
@@ -113,7 +117,7 @@ def "remote send" [] {
   $"($obj | to json --raw)\n" | nc -UN $"/run/user/(id -u)/widget-bar.sock"
 }
 
-def --env "event loop" [] {
+def "event loop" [] {
   render {
     window-list: (window-list render)
     workspace-branch: (workspace branch render)
@@ -137,7 +141,7 @@ def --env "event loop" [] {
   }
 }
 
-def --env "time loop" [] {
+def "time loop" [] {
   mut i = 0
   mut sensors = {}
 
@@ -259,13 +263,17 @@ def "wifi render" [] {
   }
 }
 
-def "window-list render" [] {
+def --env "window-list render" [] {
   let list = (wm ws | wm win list)
   let root = (wm ws | ws meta | get -i root | default . | path expand | str replace $env.HOME ~)
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $PADX_SIZE)
   let max_width = $ncols - ($PADX_SIZE * 2)
+
+  let diff = ([(($env.bar | get window-list-rows) - ($list | length)) 0] | math max)
+
+  $env.bar = ($env.bar | merge { window-list-rows: ($list | length) })
 
   let active = (wm win)
 
@@ -310,13 +318,14 @@ def "window-list render" [] {
       }
     }
     | flatten
-    | str join "\n"
+    | append (generate " " { { out: " ", next: " " } } | first $diff)
+    | str join $"(ansi erase_line_from_cursor_to_end)\n"
   )
 
   if ($out | str trim | is-empty) {
     (" " | center)
   } else {
-    $out  
+    $"($out)(ansi erase_line_from_cursor_to_end)\n"
   }
 }
 
