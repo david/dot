@@ -6,12 +6,6 @@ use ws.nu
 
 const PADX_SIZE = 1;
 
-export-env {
-  $env.bar = {
-    window-list-rows: 0
-  };
-};
-
 def "main echo" [--align (-a): string, body: string] {
   { name: "echo", align: $align, body: $body } | remote send
 }
@@ -265,15 +259,12 @@ def "wifi render" [] {
 
 def --env "window-list render" [] {
   let list = (wm ws | wm win list)
+  let height = (wm win list | group-by workspace.id | values | each { |vs| $vs | length } | math max)
   let root = (wm ws | ws meta | get -i root | default . | path expand | str replace $env.HOME ~)
 
   let ncols = (term size | get columns)
   let padx = ("" | fill --width $PADX_SIZE)
   let max_width = $ncols - ($PADX_SIZE * 2)
-
-  let diff = ([(($env.bar | get window-list-rows) - ($list | length)) 0] | math max)
-
-  $env.bar = ($env.bar | merge { window-list-rows: ($list | length) })
 
   let active = (wm win)
 
@@ -318,14 +309,18 @@ def --env "window-list render" [] {
       }
     }
     | flatten
-    | append (generate " " { { out: " ", next: " " } } | first $diff)
-    | str join $"(ansi erase_line_from_cursor_to_end)\n"
+    | append (
+        generate "(ansi erase_line_from_cursor_to_end)" {
+          { out: $"(ansi erase_line_from_cursor_to_end)", next: $"(ansi erase_line_from_cursor_to_end)" }
+        } | first $height
+      )
+    | str join "\n"
   )
 
   if ($out | str trim | is-empty) {
     (" " | center)
   } else {
-    $"($out)(ansi erase_line_from_cursor_to_end)\n"
+    $"($out)\n"
   }
 }
 
