@@ -167,7 +167,10 @@
            })
         ];
 
+        incrementalSelection.enable = true;
         indent = true;
+
+        nixvimInjections = true;
       };
 
       treesitter-textobjects = {
