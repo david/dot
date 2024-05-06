@@ -18,7 +18,7 @@ export def main [] {
     | to csv --separator "\t" --noheaders
   )
 
-  let files = (fd --type f --exec bash -c $"echo '(ansi light_cyan) (ansi reset) {}\t{}\tfile'" | ^sort)
+  let files = (fd --type f --exec echo $"(ansi light_cyan) (ansi reset) {}\t{}\tfile" | ^sort)
 
   let raw_choice = (
     ($windows + $files) 
