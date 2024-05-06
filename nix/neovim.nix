@@ -103,7 +103,6 @@
       comment.enable = true;
 
       direnv.enable = true;
-      endwise.enable = true;
       fidget.enable = true;
       gitsigns.enable = true;
       leap.enable = true;
