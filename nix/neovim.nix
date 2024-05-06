@@ -102,14 +102,6 @@
 
       comment.enable = true;
 
-      copilot-cmp.enable = true;
-
-      copilot-lua = {
-        enable = true;
-        panel.enabled = false;
-        suggestion.enabled = false;
-      };
-
       direnv.enable = true;
       endwise.enable = true;
       fidget.enable = true;
