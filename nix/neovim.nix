@@ -63,7 +63,6 @@
       { key = "<leader><leader>"; action = "<cmd>nohlsearch<cr>"; }
       { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
       { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
-      { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
 
       { key = "m";                action = "q"; }
       { key = "q";                action = "<cmd>q<cr>"; }
