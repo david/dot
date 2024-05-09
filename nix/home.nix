@@ -44,6 +44,7 @@
   };
 
   home.packages = with pkgs; [
+    brave
     brightnessctl
     fd
     grimblast
