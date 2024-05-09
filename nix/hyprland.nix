@@ -116,8 +116,7 @@ in {
         "$s, u, togglespecialworkspace, music"
         "$s, v, togglespecialworkspace, video"
 
-        "$s, w, exec, ws switch web"
-        "$s, w, exec, wm run-if-empty ${browse}"
+        "$s, w, workspace, name:web"
 
         "$sc, f, fullscreen"
         "$sc, s, exec, ws term"
@@ -281,6 +280,7 @@ in {
       in [
         "1, defaultName:code%%${work.projects.current.root}, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
         "101, defaultName:code%%$HOME/sys, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
+        "name:web, on-created-empty:${browse}"
         "special:discord, on-created-empty:${discord}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:slack, on-created-empty:${slack}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:meet, on-created-empty:${meet}"
