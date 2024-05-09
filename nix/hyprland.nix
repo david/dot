@@ -273,13 +273,12 @@ in {
       workspace = let
         panelGap = 514;
         specialGap = (spacing * 40);
-        gap = toString spacing;
         gapLeft = toString (specialGap - panelGap);
         gapRight = toString specialGap;
         gapY = toString (spacing * 4);
       in [
-        "1, defaultName:code%%${work.projects.current.root}, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
-        "101, defaultName:code%%$HOME/sys, gapsout:${gap} ${toString panelGap} ${gap} ${gap}"
+        "1, defaultName:code%%${work.projects.current.root}"
+        "101, defaultName:code%%$HOME/sys"
         "name:web, on-created-empty:${browse}"
         "special:discord, on-created-empty:${discord}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:slack, on-created-empty:${slack}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
