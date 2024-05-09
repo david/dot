@@ -23,23 +23,25 @@ in {
   services.hypridle = {
     enable = true;
 
-    listeners = [
-      {
-        timeout = 300;
-        onTimeout = pkgs.lib.getExe config.programs.hyprlock.package;
-      }
+    settings = {
+      listener = [
+        {
+          timeout = 300;
+          onTimeout = pkgs.lib.getExe config.programs.hyprlock.package;
+        }
 
-      {
-        timeout = 360;
-        onTimeout = "hyprctl dispatch dpms off";
-        onResume = "hyprctl dispatch dpms on";
-      }
+        {
+          timeout = 360;
+          onTimeout = "hyprctl dispatch dpms off";
+          onResume = "hyprctl dispatch dpms on";
+        }
 
-      {
-        timeout = 600;
-        onTimeout = "systemctl suspend";
-      }
-    ];
+        {
+          timeout = 600;
+          onTimeout = "systemctl suspend";
+        }
+      ];
+    };
   };
 
   services.hyprpaper = let

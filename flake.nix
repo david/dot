@@ -32,7 +32,6 @@
 
   outputs = {
     hm,
-    hypridle,
     hyprland,
     hyprlock,
     hyprpaper,
@@ -72,7 +71,6 @@
             };
 
             home-manager.sharedModules = [
-              hypridle.homeManagerModules.default
               hyprlock.homeManagerModules.default
               hyprpaper.homeManagerModules.default
               nixvim.homeManagerModules.nixvim
