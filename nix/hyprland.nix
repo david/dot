@@ -59,6 +59,7 @@ in {
 
     settings = {
       "$touchpad_enabled" = true;
+      "$cwd" = "${work.projects.current.root}";
 
       animations = {
         enabled = true;
@@ -92,10 +93,10 @@ in {
 
         "$s, c, togglespecialworkspace, slack"
 
-        "$s, d, exec, ws switch devapp"
+        "$s, d, workspace, devapp%%$cwd"
         "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
 
-        "$s, e, exec, ws switch code"
+        "$s, e, workspace, code%%$cwd"
 
         "$s, f, exec, ws run fz-open ui"
 
@@ -127,6 +128,8 @@ in {
         "$ss, k, movegroupwindow, b"
 
         "$cas, a, workspace, 1"
+        "$cas, a, exec, wm set cwd ${work.projects.current.root}"
+
         "$cas, g, workspace, name:game"
 
         ("$cas, h, exec, " + builtins.concatStringsSep " && " [
@@ -150,6 +153,8 @@ in {
         ])
 
         "$cas, s, workspace, 101"
+        "$cas, s, exec, wm set cwd /home/david/sys"
+
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
 

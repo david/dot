@@ -6,6 +6,10 @@ export def --wrapped "main run-if-empty" [...command: string] {
   ws | ws if-empty { run-external ($command | first) ...($command | skip 1) }
 }
 
+export def "main set" [name: string, value: any] {
+  systemd-run --user hyprctl keyword $'$($name)' $value -r
+}
+
 export def events [] {
   nc -U $"/run/user/(id -u)/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock"
   | lines
