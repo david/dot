@@ -20,7 +20,7 @@ export def main [] {
 
   let files = (fd --type f --exec echo $"(ansi light_cyan) (ansi reset) {}\t{}\tfile" | ^sort)
 
-  let raw_choice = (($windows + $files) | fzf --delimiter "\t" --with-nth=1 --no-sort)
+  let raw_choice = (($windows + $files) | fzf --delimiter "\t" --tiebreak=end,length --with-nth=1 --no-sort)
 
   if ($raw_choice | is-empty) {
     return
