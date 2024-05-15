@@ -88,6 +88,38 @@
     nix-direnv.enable = true;
   };
 
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+
+    extraPackages = epkgs: with epkgs; [
+      avy
+      centered-cursor-mode
+      consult
+      corfu
+      embark
+      embark-consult
+      envrc
+      evil
+      evil-collection
+      evil-matchit
+      evil-surround
+      general
+      gruvbox-theme
+      helpful
+      lsp-mode
+      magit
+      nix-ts-mode
+      orderless
+      rainbow-delimiters
+      vertico
+      treesit-grammars.with-all-grammars
+      undo-fu
+      undo-fu-session
+      which-key
+    ];
+  };
+
   programs.fzf.enable = true;
 
   programs.gh = {

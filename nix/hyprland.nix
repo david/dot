@@ -98,7 +98,7 @@ in {
 
         "$s, e, workspace, code%%$cwd"
 
-        "$s, f, exec, ws run fz-open ui"
+        "$s, f, exec, ws run emacsclient --create-frame --alternate-editor=''"
 
         "$s, g, exec, ws gitui"
 

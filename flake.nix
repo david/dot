@@ -2,6 +2,11 @@
   description = "System flake";
 
   inputs = {
+    emacs = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hm = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +36,7 @@
   };
 
   outputs = {
+    emacs-overlay,
     hm,
     hyprland,
     hyprlock,
@@ -48,7 +54,10 @@
 
       config.allowUnfree = true;
 
-      overlays = [ neovim-nightly-overlay.overlay ];
+      overlays = [ 
+        emacs-overlay.overlay
+        neovim-nightly-overlay.overlay 
+      ];
     };
   in {
     nixosConfigurations = {
