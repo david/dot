@@ -36,6 +36,9 @@
   services.xserver = {
     enable = true;
 
+    desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
+
     xkb = {
       layout = "us";
       variant = "";
@@ -214,7 +217,7 @@
     autoLogin.enable = true;
     autoLogin.user = "david";
 
-    defaultSession = "hyprland";
+    defaultSession = "gnome";
   };
 
   fonts = {
