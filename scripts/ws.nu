@@ -55,8 +55,7 @@ export def --wrapped run [...command] {
 
   if $root != null { cd $root }
 
-  # `run-external ...$command` doesn't work, but this does
-  run-external ($command | first) ...($command | skip 1)
+  direnv exec . ...$command 
 }
 
 def "into wm-name" [] {

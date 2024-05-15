@@ -9,6 +9,10 @@ export def prune [] {
   nix-collect-garbage --delete-older-than 1d
 }
 
+export def reboot [] {
+  systemctl reboot
+}
+
 export def rebuild [] {
   sudo nixos-rebuild --flake $"path:($env.SYS_PATH)" switch
 }

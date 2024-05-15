@@ -25,10 +25,10 @@ def "main ui" [] {
       --class "widget-bar"
       --columns 47
       --edge "left"
-      --override "background_opacity=0.48"
+      --override "background_opacity=0"
       --override "font_size=16"
-      --override "modify_font cell_height 140%"
-      --override "window_padding_width=8"
+      --override "modify_font cell_height 160%"
+      --override "window_padding_width=12 24"
       $env.PROCESS_PATH
   )
 }
@@ -57,25 +57,29 @@ def render [data] {
   let ws_name = ($data | get -i workspace-name | default "")
   let ws_root = ($data | get -i workspace-root | default "")
 
+  # print -n (tput cup 0 0) ("" | fill --width (term size | get columns) --character ▂)
+
   if ($date | is-not-empty) { 
-    print -n (tput cup 0 0) ($date | center) 
+    print -n (tput cup 0 0) ($date | center | color bg)
   }
 
   if ($battery | is-not-empty) {
-    print -n (tput cup 1 0) ([$battery, $cpu, $wifi, $temp] | spread)
+    print -n (tput cup 1 0) ([$battery, $cpu, $wifi, $temp] | spread | color bg)
   }
-  
-  print -n (tput cup 2 0) (ansi erase_line_from_cursor_to_end)
+
+  # print -n (tput cup 2 0) (ansi erase_line_from_cursor_to_end)
+
+  print -n (tput cup 2 0) ("" | fill --width (term size | get columns) --character 🮀 | color bg --fg)
 
   if ($ws_name | is-not-empty) {
-    print -n (tput cup 3 0) ([$ws_root, $ws_name] | spread)
-    print -n (tput cup 4 0) ([$ws_branch, ""] | spread)
+    print -n (tput cup 3 0) ([$ws_root, $ws_name] | spread | color bg)
+    print -n (tput cup 4 0) ([$ws_branch, ""] | spread | color bg)
   }
 
-  print -n (tput cup 5 0) (ansi erase_line_from_cursor_to_end)
+  print -n (tput cup 5 0) ("" | fill --width (term size | get columns) --character 🮂 | color bg --fg)
 
   if ($wnd_list | is-not-empty) {
-    print -n (tput cup 6 0) $wnd_list
+    print -n (tput cup 6 0) ($wnd_list | color bg)
   }
 
   if ($remote | is-not-empty) {
@@ -101,7 +105,7 @@ def render [data] {
 def "remote loop" [] {
   let socket = $"/run/user/(id -u)/widget-bar.sock"
 
-  rm $socket
+  rm -f $socket
 
   nc -Ulk $socket | lines | each { |l| render { remote: ($l | from json) } }
 }
@@ -199,11 +203,11 @@ def "battery render" [] {
   let pct = ($"($charge)" | fill --width 4 --character " ")
 
   if $charge < 25 {
-    $"($icon) ($pct)" | yell
+    $"($icon) ($pct)" | color yell
   } else if $charge < 50 {
-    $"($icon) ($pct)" | warn
+    $"($icon) ($pct)" | color warn
   } else {
-    $"($icon | fade) ($pct | str replace '' ('' | fade))"
+    $"($icon | color fade) ($pct | str replace '' ('' | color fade))"
   }
 }
 
@@ -212,22 +216,22 @@ def "cpu render" [] {
   let pct = $"($val)" | fill --width 4 --character " "
 
   if $val > 90 {
-    $"  ($pct)" | yell
+    $"  ($pct)" | color yell
   } else if $val > 50 {
-      $"  ($pct)" | warn
+      $"  ($pct)" | color warn
   } else {
-    $"(' ' | fade) ($pct | str replace "" ('' | fade))"
+    $"(' ' | color fade) ($pct | str replace "" ('' | color fade))"
   }
 }
 
 def "date render" [] {
-  date now | format date $"%a, %b %-e ("//" | fade) %H:%M"
+  date now | format date $"%a, %b %-e ("//" | color fade) %H:%M"
 }
 
 def "temp render" [] {
   let val = (sys | get temp | where unit starts-with coretemp | get temp | into int | math max)
 
-  $"('󰔏 ' | fade) ($val)('󰔄' | fade)"
+  $"('󰔏 ' | color fade) ($val)('󰔄' | color fade)"
 }
 
 def "wifi render" [] {
@@ -245,15 +249,15 @@ def "wifi render" [] {
   let pct = $"($val)" | fill --width 4 --character " "
 
   if ($val | is-empty) {
-    $"('󱜡 ' | fade) --('' | fade)"
+    $"('󱜡 ' | color fade) --('' | color fade)"
   } else if $val < 25 {
-    $"󱜠  ($pct)" | yell
+    $"󱜠  ($pct)" | color yell
   } else if $val < 50 {
-    $"󱜠  ($pct)" | warn
+    $"󱜠  ($pct)" | color warn
   } else if $val < 75 {
-    $"󱜠  ($pct)" | nudge
+    $"󱜠  ($pct)" | color nudge
   } else {
-    $"('󱜠 ' | fade) ($pct | str replace '' ('' | fade))"
+    $"('󱜠 ' | color fade) ($pct | str replace '' ('' | color fade))"
   }
 }
 
@@ -298,9 +302,9 @@ def --env "window-list render" [] {
             | fill --width $max_width
 
             let str = if $active != null and $win.id == $active.id {
-              $"(ansi default_reverse)($padx)($title_str)($padx)(ansi reset)"
+              $"(ansi default_reverse)($padx)($title_str)($padx)(ansi reset)(ansi default)" | color bg
             } else {
-              $"($padx)(ansi $style.fg)($title_str)(ansi reset)($padx)"
+              $"($padx)(ansi $style.fg)($title_str)(ansi default)($padx)" | color bg
             }
 
             $"(ansi erase_line)($str)"
@@ -318,9 +322,9 @@ def --env "window-list render" [] {
   )
 
   if ($out | str trim | is-empty) {
-    (" " | center)
+    (" " | center | color bg)
   } else {
-    $"($out)\n"
+    $"($out | color bg)\n"
   }
 }
 
@@ -334,7 +338,7 @@ def "workspace branch render" [] {
     let branch = (git branch --show-current e> /dev/null | str trim)
 
     if ($branch | is-not-empty) {
-      $"(' ' | fade) ($branch | str trim)"
+      $"(' ' | color fade) ($branch | str trim)"
     } else {
       ""
     }
@@ -342,14 +346,14 @@ def "workspace branch render" [] {
 }
 
 def "workspace name render" [] {
-  $"('󰕮 ' | fade) (wm ws | ws meta | get name)"
+  $"('󰕮 ' | color fade) (wm ws | ws meta | get name)"
 }
 
 def "workspace root render" [] {
   let ws = (wm ws)
   let root = ($ws | ws meta | get --ignore-errors root)
 
-  $"(' ' | fade) ($root | str replace $"($env.HOME)/" "")"
+  $"(' ' | color fade) ($root | str replace $"($env.HOME)/" "")"
 }
 
 def style [window: record] {
@@ -404,26 +408,45 @@ export def spread [] {
   $"($pad)($content)($pad)"
 }
 
-export def fade [] {
+export def "color bg" [--fg] {
   let text: string = $in
 
-  $"(ansi grey)($text)(ansi reset)"
+  let format = if $fg {
+    { fg: "#1d1d1d" }
+  } else {
+    { bg: "#1d1d1d" }
+  }
+
+  let reset = if $fg {
+    (ansi default)
+  } else {
+    (ansi bg_default)
+  }
+
+  $"(ansi --escape $format)($text)($reset)"
 }
 
-export def nudge [] {
+export def "color fade" [] {
   let text: string = $in
 
-  $"(ansi light_yellow)($text)(ansi reset)"
+  $"(ansi grey)($text)(ansi default)"
 }
 
-export def yell [] {
+export def "color nudge" [] {
   let text: string = $in
 
-  $"(ansi red)($text)(ansi reset)"
+  $"(ansi light_yellow)($text)(ansi default)"
 }
 
-export def warn [] {
+export def "color warn" [] {
   let text: string = $in
 
-  $"(ansi yellow)($text)(ansi reset)"
+  $"(ansi yellow)($text)(ansi default)"
 }
+
+export def "color yell" [] {
+  let text: string = $in
+
+  $"(ansi red)($text)(ansi default)"
+}
+

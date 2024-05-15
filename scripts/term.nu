@@ -38,11 +38,11 @@ export def --wrapped "main pipe" [--group: string, ...$command] {
   "
 
   (
-    main 
-      --class "menu" 
-      --font-size 18 
+    main
+      --class "menu"
+      --font-size 18
       --group=$group
-      --padding 8 
+      --padding 8
       nu --commands $'($cmd)'
   )
 }

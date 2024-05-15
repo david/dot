@@ -7,7 +7,7 @@ export def --wrapped "main run-if-empty" [...command: string] {
 }
 
 export def "main set" [name: string, value: any] {
-  systemd-run --user hyprctl keyword $'$($name)' $value -r
+  hyprctl keyword $"$($name)" $value -r
 }
 
 export def events [] {
