@@ -80,8 +80,6 @@
             };
 
             home-manager.sharedModules = [
-              hyprlock.homeManagerModules.default
-              hyprpaper.homeManagerModules.default
               nixvim.homeManagerModules.nixvim
             ];
 

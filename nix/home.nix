@@ -47,6 +47,9 @@
     brave
     brightnessctl
     fd
+    gnome.gnome-tweaks
+    gnomeExtensions.backslide
+    gnomeExtensions.paperwm
     grimblast
     libnotify
     manix
@@ -104,11 +107,14 @@
       evil-collection
       evil-matchit
       evil-surround
+      flycheck
       general
       gruvbox-theme
       helpful
       lsp-mode
       magit
+      marginalia
+      mini-modeline
       nix-ts-mode
       orderless
       rainbow-delimiters
@@ -229,6 +235,25 @@
         "application/x-extension-xhtml" = "vivaldi.desktop";
         "application/x-extension-xht"   = "vivaldi.desktop";
       };
+    };
+
+    portal = {
+      enable = true;
+
+      config = {
+        common = {
+          default = [
+            "hyprland"
+            "gtk"
+          ];
+        };
+      };
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+
+      xdgOpenUsePortal = true;
     };
   };
 }

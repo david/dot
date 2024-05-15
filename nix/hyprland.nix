@@ -12,13 +12,18 @@
 
   spacing = 16;
 
+  devapp = "${browse} http://localhost:3000";
   discord = browseApp "https://discord.com/channels/@me";
   meet = browseApp "https://meet.google.com/landing?authuser=1";
   music = browseApp "https://music.youtube.com";
   slack = browseApp work.slack.url;
   video = browseApp "https://youtube.com";
 in {
-  programs.hyprlock.enable = true;
+  programs.hyprlock = {
+    enable = true;
+
+    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+  };
 
   services.hypridle = {
     enable = true;
@@ -48,8 +53,13 @@ in {
     bg = builtins.head (map toString (pkgs.lib.filesystem.listFilesRecursive ../backgrounds));
   in {
     enable = true;
-    preloads = [ bg ];
-    wallpapers = [ "eDP-1,${bg}" "DP-1,${bg}" ];
+
+    package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
+
+    settings = {
+      preload = [ bg ];
+      wallpaper = [ "eDP-1,${bg}" "DP-1,${bg}" ];
+    };
   };
 
   wayland.windowManager.hyprland = {
@@ -93,14 +103,12 @@ in {
 
         "$s, c, togglespecialworkspace, slack"
 
-        "$s, d, workspace, devapp%%$cwd"
-        "$s, d, exec, wm run-if-empty ${browse} http://localhost:3000"
-
-        "$s, e, workspace, code%%$cwd"
+        "$s, d, workspace, name:devapp%%$cwd"
+        "$s, e, workspace, name:code%%$cwd"
 
         "$s, f, exec, ws run emacsclient --create-frame --alternate-editor=''"
 
-        "$s, g, exec, ws gitui"
+        "$s, g, workspace, name:gitui%%$cwd"
 
         "$s, h, movefocus, l"
         "$s, j, changegroupactive, f"
@@ -113,7 +121,9 @@ in {
         "$s, p, exec, term nvim $HOME/sys/plan.md"
         "$s, o, togglespecialworkspace, discord"
         "$s, s, exec, ws shell"
-        "$s, r, exec, ws services"
+
+        "$s, r, workspace, name:services%%$cwd"
+
         "$s, u, togglespecialworkspace, music"
         "$s, v, togglespecialworkspace, video"
 
@@ -128,7 +138,7 @@ in {
         "$ss, k, movegroupwindow, b"
 
         "$cas, a, workspace, 1"
-        "$cas, a, exec, wm set cwd ${work.projects.current.root}"
+        "$cas, a, exec, sleep 1 && wm set cwd ${work.projects.current.root}"
 
         "$cas, g, workspace, name:game"
 
@@ -153,7 +163,7 @@ in {
         ])
 
         "$cas, s, workspace, 101"
-        "$cas, s, exec, wm set cwd /home/david/sys"
+        "$cas, s, exec, sleep 1 && wm set cwd /home/david/sys"
 
         "$cas, q, killactive"
         "$cas, w, exec, widgetctl toggle"
@@ -194,7 +204,7 @@ in {
         };
 
         dim_inactive = true;
-        dim_special = 0.25;
+        dim_special = 0.33;
 
         drop_shadow = false;
         shadow_range = 16;
@@ -225,7 +235,7 @@ in {
         "col.nogroup_border_active" = col.active;
 
         gaps_in = 8;
-        gaps_out = 16;
+        gaps_out = "17,34,17,0";
 
         layout = "dwindle";
       };
@@ -284,7 +294,12 @@ in {
       in [
         "1, defaultName:code%%${work.projects.current.root}"
         "101, defaultName:code%%$HOME/sys"
+
+        "name:devapp%%$cwd, on-created-empty:${devapp}"
+        "name:gitui%%$cwd, on-created-empty:term ws run lazygit"
+        "name:services%%$cwd, on-created-empty:term ws run services"
         "name:web, on-created-empty:${browse}"
+
         "special:discord, on-created-empty:${discord}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:slack, on-created-empty:${slack}, gapsout:${gapY} ${gapRight} ${gapY} ${gapLeft}"
         "special:meet, on-created-empty:${meet}"
