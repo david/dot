@@ -23,14 +23,17 @@
   (mode-line ((t (:background "#101010"))))
 
   :general
+  (:states '(normal visual)
+   "SPC"   nil)
+  (:states '(normal visual)
+   :prefix "SPC"
+   "SPC"   '(execute-extended-command :wk "M-x"))
   (:states 'normal
-   "SPC"   nil
    "s-j"   'next-buffer
    "s-k"   'previous-buffer
    "q"     'delete-frame)
   (:states 'normal
    :prefix "SPC"
-   "SPC"   '(execute-extended-command :wk "M-x")
    "Q"     '(save-buffers-kill-emacs :wk "quit"))
 
   :init
