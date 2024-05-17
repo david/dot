@@ -34,7 +34,8 @@
    :prefix "SPC"
    "0"     '(delete-window           :wk "close this window")
    "1"     '(delete-other-windows    :wk "keep this window")
-   "Q"     '(save-buffers-kill-emacs :wk "quit"))
+   "Q"     '(save-buffers-kill-emacs :wk "quit")
+   "s"     '(project-eshell          :wk "shell"))
 
   :init
   (recentf-mode 1))
