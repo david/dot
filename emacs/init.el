@@ -65,6 +65,27 @@
 (use-package centered-cursor-mode
   :init (global-centered-cursor-mode))
 
+(use-package consult
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "b"     '(consult-buffer         :wk "buffer")
+   "f"     '(consult-project-buffer :wk "find in project")
+   "F"     '(consult-buffer         :wk "find"))
+
+  :init
+  (setq +consult-source-project-files
+        `(:category file
+          :name "Project File"
+          :items ,(lambda ()
+                    (let ((in (project-files (project-current)))
+                          (dir (project-root (project-current)))
+                          out)
+                      (dolist (f in (reverse out))
+                        (setq out (cons (file-relative-name f dir) out)))))))
+
+  (add-to-list 'consult-project-buffer-sources '+consult-source-project-files))
+
 (use-package corfu
   :custom
   (corfu-auto t)
