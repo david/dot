@@ -40,6 +40,19 @@
   :init
   (recentf-mode 1))
 
+(use-package +help
+  :no-require t
+
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "h"  '(nil              :wk "help")
+   "hf" '(helpful-callable :wk "callable")
+   "hk" '(helpful-key      :wk "key")
+   "hi" '(consult-info     :wk "info")
+   "hm" '(consult-man      :wk "man")
+   "hv" '(helpful-variable :wk "variable")))
+
 (use-package centered-cursor-mode
   :init (global-centered-cursor-mode))
 
@@ -85,8 +98,6 @@
 
 (use-package evil-surround
   :hook (evil-mode . global-evil-surround-mode))
-
-(use-package helpful)
 
 (use-package lsp-mode
   :custom
