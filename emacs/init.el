@@ -53,6 +53,15 @@
    "hm" '(consult-man      :wk "man")
    "hv" '(helpful-variable :wk "variable")))
 
+(use-package +vc
+  :no-require t
+
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "v"     '(nil   :wk "vc")
+   "vv"    '(magit :wk "magit")))
+
 (use-package centered-cursor-mode
   :init (global-centered-cursor-mode))
 
