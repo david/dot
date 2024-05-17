@@ -9,8 +9,6 @@
   (auto-save-visited-interval 3)
   (auto-save-visited-mode t)
   (column-number-mode t)
-  (display-line-numbers-type 'relative)
-  (display-line-numbers-width 3)
   (indent-tabs-mode nil)
   (inhibit-startup-echo-area-message t)
   (inhibit-startup-message t)
@@ -31,7 +29,8 @@
   (:states 'normal
    "s-j"   'next-buffer
    "s-k"   'previous-buffer
-   "q"     'delete-frame)
+   "q"     'delete-frame
+   "s"     'evil-avy-goto-char-timer)
   (:states 'normal
    :prefix "SPC"
    "Q"     '(save-buffers-kill-emacs :wk "quit"))
@@ -105,7 +104,6 @@
 
 (use-package prog-mode
   :hook
-  (prog-mode . display-line-numbers-mode)
   (prog-mode . electric-pair-mode))
 
 (use-package rainbow-delimiters
