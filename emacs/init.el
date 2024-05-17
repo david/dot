@@ -29,10 +29,11 @@
   (:states 'normal
    "s-j"   'next-buffer
    "s-k"   'previous-buffer
-   "q"     'delete-frame
    "s"     'evil-avy-goto-char-timer)
   (:states 'normal
    :prefix "SPC"
+   "0"     '(delete-window           :wk "close this window")
+   "1"     '(delete-other-windows    :wk "keep this window")
    "Q"     '(save-buffers-kill-emacs :wk "quit"))
 
   :init
