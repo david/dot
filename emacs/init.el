@@ -186,6 +186,9 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package ruby-ts-mode
+  :mode ("\\.\\(?:rb\\)" "\\`Gemfile\\'"))
+
 (use-package undo-fu-session
   :init (undo-fu-session-global-mode 1))
 
