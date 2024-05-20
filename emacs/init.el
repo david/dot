@@ -6,6 +6,8 @@
 (use-package general)
 
 (use-package +core
+  :no-require t
+
   :custom
   (auto-save-no-message t)
   (auto-save-visited-interval 3)
