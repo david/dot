@@ -1,3 +1,5 @@
+(setq use-package-always-demand t)
+
 (use-package envrc
   :hook (emacs-startup . envrc-global-mode))
 
