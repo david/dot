@@ -163,6 +163,10 @@
 (use-package evil-surround
   :hook (evil-mode . global-evil-surround-mode))
 
+(use-package helpful
+  :init
+  (add-to-list 'display-buffer-alist '("\\`\\*helpful" . ((display-buffer-same-window)
+                                                          (reusable-frames . 0)))))
 (use-package inf-ruby
   :preface
   (defun +rails-console-development ()
