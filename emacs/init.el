@@ -13,6 +13,7 @@
   (auto-save-visited-interval 3)
   (auto-save-visited-mode t)
   (column-number-mode t)
+  (global-auto-revert-mode t)
   (indent-tabs-mode nil)
   (inhibit-startup-echo-area-message t)
   (inhibit-startup-message t)
