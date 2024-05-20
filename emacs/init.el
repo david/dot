@@ -163,6 +163,13 @@
 (use-package evil-surround
   :hook (evil-mode . global-evil-surround-mode))
 
+(use-package inf-ruby
+  :preface
+  (defun +rails-console-development ()
+    (interactive)
+    (let ((default-directory (project-root (project-current))))
+      (inf-ruby-console-run "rails console" "rails-development"))))
+
 (use-package lsp-mode
   :custom
   (lsp-warn-no-matched-clients nil)
