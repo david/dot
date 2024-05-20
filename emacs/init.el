@@ -192,5 +192,13 @@
 (use-package vertico
   :init (vertico-mode 1))
 
+(use-package web-mode
+  :custom
+  (web-mode-code-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-markup-indent-offset 2)
+
+  :mode "\\.html\\.erb\\'")
+
 (use-package which-key
   :init (which-key-mode 1))
