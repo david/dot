@@ -123,11 +123,7 @@
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package evil-collection
   :custom
-  (evil-collection-setup-minibuffer t)
-
-  :hook (evil-mode . evil-collection-init))
 
 (use-package evil
   :preface
@@ -142,6 +138,12 @@
   :init
   (evil-mode 1))
 
+(use-package evil-collection
+  :custom
+  (evil-collection-setup-minibuffer t)
+
+  :config
+  (evil-collection-init))
 (use-package evil-matchit
   :hook (evil-mode . global-evil-matchit-mode))
 
