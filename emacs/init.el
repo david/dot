@@ -100,6 +100,18 @@
   :init
   (global-corfu-mode 1))
 
+(use-package diff-hl
+  :custom
+  (diff-hl-show-staged-changes nil)
+
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "vs"    '(diff-hl-stage-dwim :wk "stage hunk(s)"))
+
+  :init
+  (global-diff-hl-mode))
+
 (use-package embark
   :custom
   (embark-indicators '(embark-minimal-indicator embark-highlight-indicator))
