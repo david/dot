@@ -204,6 +204,9 @@
   :init (undo-fu-session-global-mode 1))
 
 (use-package vertico
+  :custom
+  (vertico-cycle t)
+
   :init (vertico-mode 1))
 
 (use-package web-mode
