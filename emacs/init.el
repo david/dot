@@ -123,7 +123,9 @@
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package eshell
   :custom
+  (eshell-prefer-lisp-functions t))
 
 (use-package evil
   :preface
