@@ -17,7 +17,9 @@
   (inhibit-startup-echo-area-message t)
   (inhibit-startup-message t)
   (inhibit-startup-screen t)
+  (left-fringe-width 16)
   (make-backup-files nil)
+  (right-fringe-width 16)
   (ring-bell-function 'ignore)
 
   :custom-face
