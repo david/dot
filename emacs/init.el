@@ -155,6 +155,9 @@
   (evil-indent-plus-default-bindings))
 
 (use-package evil-matchit
+  :config
+  (evilmi-load-plugin-rules '(ruby-ts-mode) '(simple ruby))
+
   :hook (evil-mode . global-evil-matchit-mode))
 
 (use-package evil-surround
