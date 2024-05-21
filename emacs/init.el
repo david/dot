@@ -24,6 +24,8 @@
   (recentf-mode t)
   (right-fringe-width 16)
   (ring-bell-function 'ignore)
+  (save-place-mode t)
+  (savehist-mode t)
 
   :custom-face
   (default ((t (:background "#000000"))))
