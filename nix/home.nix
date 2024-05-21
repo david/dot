@@ -44,6 +44,7 @@
       evil-matchit
       evil-surround
       flycheck
+      forge
       general
       gruvbox-theme
       helpful
@@ -93,6 +94,13 @@
     };
   };
 
+  programs.gpg.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    enableBashIntegration = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
+  };
 
   stylix.targets.emacs.enable = false;
 }

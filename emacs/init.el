@@ -9,6 +9,7 @@
   :no-require t
 
   :custom
+  (auth-sources '("~/sys/secrets/authinfo.gpg"))
   (auto-save-no-message t)
   (auto-save-visited-interval 3)
   (auto-save-visited-mode t)
@@ -164,6 +165,10 @@
 
 (use-package evil-surround
   :hook (evil-mode . global-evil-surround-mode))
+
+(use-package forge
+  :custom
+  (forge-add-default-bindings nil))
 
 (use-package helpful
   :init
