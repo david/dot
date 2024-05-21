@@ -187,6 +187,15 @@
 
   :hook (prog-mode . lsp-deferred))
 
+(use-package magit
+  :general
+  (:keymaps '(magit-status-mode-map)
+   "SPC" nil)
+
+  :init
+  (dolist (regex '("\\`magit-revision:" "\\`magit-log:" "\\`magit:"))
+    (add-to-list 'display-buffer-alist `(,regex . ((display-buffer-same-window) (reusable-frames . 0))))))
+
 (use-package marginalia
   :init (marginalia-mode 1))
 
