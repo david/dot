@@ -38,8 +38,10 @@
    :prefix "SPC"
    "SPC"   '(execute-extended-command :wk "M-x"))
   (:states 'normal
+   "C-s"   'save-buffer
    "s-j"   'next-buffer
    "s-k"   'previous-buffer
+   "q"     'kill-this-buffer
    "s"     'evil-avy-goto-char-timer)
   (:states 'normal
    :prefix "SPC"
@@ -68,6 +70,7 @@
   (:states 'normal
    :prefix "SPC"
    "v"     '(nil   :wk "vc")
+   "vr"    '(vc-region-history :wk "region history")
    "vv"    '(magit :wk "magit")))
 
 (use-package centered-cursor-mode
@@ -77,9 +80,11 @@
   :general
   (:states 'normal
    :prefix "SPC"
+   "/"     '(consult-ripgrep        :wk "find text in project")
+   "F"     '(consult-buffer         :wk "find")
    "b"     '(consult-buffer         :wk "buffer")
    "f"     '(consult-project-buffer :wk "find in project")
-   "F"     '(consult-buffer         :wk "find"))
+   "y"     '(consult-imenu          :wk "imenu"))
 
   :init
   (setq +consult-source-project-files
