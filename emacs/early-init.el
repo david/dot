@@ -1,4 +1,4 @@
-(add-to-list 'default-frame-alist '(alpha-background . 0.8))
+(add-to-list 'default-frame-alist '(alpha-background . 75))
 (add-to-list 'default-frame-alist '(font . "Iosevka Timbuktu-20"))
 (add-to-list 'default-frame-alist '(undecorated . t))
 
