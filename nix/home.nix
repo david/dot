@@ -9,6 +9,7 @@
     fd
     gnome.gnome-tweaks
     gnomeExtensions.paperwm
+    gnomeExtensions.vitals
     gnomeExtensions.wallpaper-slideshow
     manix
     ripgrep
