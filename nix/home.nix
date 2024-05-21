@@ -8,8 +8,8 @@
     brave
     fd
     gnome.gnome-tweaks
-    gnomeExtensions.backslide
     gnomeExtensions.paperwm
+    gnomeExtensions.wallpaper-slideshow
     manix
     ripgrep
     wf-recorder
