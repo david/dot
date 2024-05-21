@@ -32,33 +32,46 @@
     package = pkgs.emacs-pgtk;
 
     extraPackages = epkgs: with epkgs; [
+      alchemist
       avy
       centered-cursor-mode
       consult
       corfu
+      diff-hl
+      elixir-mode
       embark
       embark-consult
       envrc
       evil
       evil-collection
+      evil-commentary
+      evil-easymotion
+      evil-goggles
+      evil-indent-plus
       evil-matchit
       evil-surround
       flycheck
       forge
       general
+      git-timemachine
       gruvbox-theme
       helpful
+      inf-ruby
+      lispyville
       lsp-mode
       magit
       marginalia
       mini-modeline
+      nerd-icons
       nix-ts-mode
       orderless
       rainbow-delimiters
+      rainbow-mode
       vertico
       treesit-grammars.with-all-grammars
       undo-fu
       undo-fu-session
+      web-mode
       which-key
     ];
   };
