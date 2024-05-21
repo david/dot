@@ -1,24 +1,4 @@
 { config, pkgs, ... }: {
-  gtk = {
-    enable = true;
-
-    cursorTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
-      size = 48;
-    };
-
-    iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-
-    theme = {
-      package = pkgs.gruvbox-gtk-theme;
-      name = "Gruvbox-Dark-BL-LB";
-    };
-  };
-
   home.file = {
     "${config.xdg.dataHome}/backgrounds".source = ../backgrounds;
     "${config.xdg.dataHome}/fonts".source = ../fonts;
@@ -37,13 +17,6 @@
     vivaldi
     vivaldi-ffmpeg-codecs
   ];
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.gnome.adwaita-icon-theme;
-    name = "Adwaita";
-    size = 48;
-  };
 
   home.stateVersion = "23.11";
 
@@ -121,4 +94,5 @@
   };
 
 
+  stylix.targets.emacs.enable = false;
 }
