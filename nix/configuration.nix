@@ -188,11 +188,9 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       substituters = [
-        "https://hyprland.cachix.org"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
       trusted-users = [ "root" "david" ];
@@ -206,11 +204,7 @@
       NIXOS_OZONE_WL = "1";
     };
 
-    pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
-
     systemPackages = [ ];
-
-    variables.EDITOR = "nvim";
   };
 
   services.fwupd.enable = true;
@@ -247,26 +241,5 @@
 
   services.upower.enable = true;
 
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  };
-
   system.stateVersion = "23.11";
-
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
 }
