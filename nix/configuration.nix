@@ -198,6 +198,23 @@
   };
 
   environment = {
+    gnome.excludePackages = (with pkgs; [
+      gedit
+      gnome-photos
+      gnome-tour
+    ]) ++ (with pkgs.gnome; [
+      atomix
+      cheese
+      epiphany
+      gnome-contacts
+      gnome-initial-setup
+      gnome-music
+      hitori
+      iagno
+      tali
+      yelp
+    ]);
+
     localBinInPath = true;
 
     sessionVariables = {
