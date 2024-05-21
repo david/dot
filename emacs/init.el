@@ -86,16 +86,18 @@
    "f"     '(consult-project-buffer :wk "find in project")
    "y"     '(consult-imenu          :wk "imenu"))
 
-  :init
+  :config
   (setq +consult-source-project-files
         `(:category file
           :name "Project File"
           :items ,(lambda ()
-                    (let ((in (project-files (project-current)))
-                          (dir (project-root (project-current)))
-                          out)
+                    (let* ((default-directory (consult--project-root))
+                           (in (process-lines "fd" "--color=never" "--strip-cwd-prefix=always" "--type=file"))
+                           out)
                       (dolist (f in (reverse out))
-                        (setq out (cons (file-relative-name f dir) out)))))))
+                        (setq out (cons (file-relative-name f) out)))))
+          :action ,(lambda (f)
+                     (find-file (file-name-concat (consult--project-root) f)))))
 
   (add-to-list 'consult-project-buffer-sources '+consult-source-project-files))
 
