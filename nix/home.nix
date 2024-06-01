@@ -54,10 +54,11 @@
 
   home.stateVersion = "23.11";
 
+  programs.bash.enable = true;
 
   programs.direnv = {
     enable = true;
-    enableNushellIntegration = true;
+    enableBashIntegration = true;
     nix-direnv.enable = true;
   };
 
