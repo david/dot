@@ -203,15 +203,11 @@
       gnome-photos
       gnome-tour
     ]) ++ (with pkgs.gnome; [
-      atomix
       cheese
       epiphany
       gnome-contacts
       gnome-initial-setup
       gnome-music
-      hitori
-      iagno
-      tali
       yelp
     ]);
 
@@ -225,6 +221,8 @@
   };
 
   services.fwupd.enable = true;
+
+  services.gnome.games.enable = false;
 
   services.displayManager = {
     autoLogin.enable = true;
