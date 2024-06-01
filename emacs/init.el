@@ -194,7 +194,10 @@
 
 (use-package forge
   :custom
-  (forge-add-default-bindings nil))
+  (forge-add-default-bindings nil)
+
+  :custom-face
+  (forge-pullreq-open ((t (:foreground "#458588")))))
 
 (use-package helpful
   :init
