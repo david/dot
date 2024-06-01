@@ -214,6 +214,7 @@
 
 (use-package lsp-mode
   :custom
+  (lsp-headerline-breadcrumb-enable nil)
   (lsp-warn-no-matched-clients nil)
 
   :hook (prog-mode . lsp-deferred))
