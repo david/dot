@@ -186,9 +186,9 @@
   :hook evil-mode)
 
 (use-package evil-goggles
-  :init
-  (evil-goggles-mode)
-  (evil-goggles-use-diff-faces))
+  :hook
+  (evil-mode
+   (evil-mode . evil-goggles-use-diff-faces)))
 
 (use-package evil-indent-plus
   :config
