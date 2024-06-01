@@ -60,6 +60,7 @@
       helpful
       inf-ruby
       lsp-mode
+      lsp-ui
       magit
       marginalia
       mini-modeline

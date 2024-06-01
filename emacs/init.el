@@ -213,6 +213,11 @@
 
   :hook (prog-mode . lsp-deferred))
 
+(use-package lsp-ui
+  :custom
+  (lsp-ui-doc-delay 1.5)
+  (lsp-ui-doc-show-with-cursor t))
+
 (use-package magit
   :general
   (:keymaps '(magit-status-mode-map)
