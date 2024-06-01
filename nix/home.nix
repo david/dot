@@ -97,8 +97,6 @@
       lsp-ui
       magit
       marginalia
-      mini-modeline
-      nerd-icons
       nix-ts-mode
       orderless
       rainbow-delimiters
