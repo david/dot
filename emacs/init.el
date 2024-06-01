@@ -261,7 +261,25 @@
   :custom
   (completion-styles '(orderless basic)))
 
+(use-package prodigy
+  :preface
+  (defun +prodigy-set-up-for-project ()
+    (hack-dir-local-variables-non-file-buffer)
+
+    (let (lst)
+      (setq prodigy-services
+            (dolist (srv prodigy-services lst)
+              (setq lst (cons (plist-put srv :cwd default-directory) lst)))))
+
+    (prodigy-refresh))
+
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "gr" '(prodigy :wk "services"))
+
   :hook
+  (prodigy-mode . +prodigy-set-up-for-project))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))

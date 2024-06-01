@@ -98,6 +98,7 @@
       marginalia
       nix-ts-mode
       orderless
+      prodigy
       rainbow-delimiters
       rainbow-mode
       smartparens
