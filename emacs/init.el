@@ -53,14 +53,19 @@
    "C-s"   'save-buffer
    "s-j"   'next-buffer
    "s-k"   'previous-buffer
-   "q"     'kill-this-buffer
-   "s"     'evil-avy-goto-char-timer)
+   "q"     'bury-buffer)
   (:states 'normal
    :prefix "SPC"
    "0"     '(delete-window           :wk "close this window")
    "1"     '(delete-other-windows    :wk "keep this window")
    "Q"     '(save-buffers-kill-emacs :wk "quit")
-   "s"     '(project-eshell          :wk "shell")))
+   "e"     '(nil                     :wk "eval")
+   "g"     '(nil :wk "go")
+   "s"     '(project-eshell          :wk "shell")
+   "w"     '(nil                     :wk "window")
+   "wd"    '(delete-frame            :wk "delete")
+   "wn"    '(make-frame-command      :wk "new")
+   "wo"    '(other-window            :wk "other")))
 
 (use-package +help
   :no-require t
@@ -83,7 +88,7 @@
    :prefix "SPC"
    "v"     '(nil   :wk "vc")
    "vr"    '(vc-region-history :wk "region history")
-   "vv"    '(magit :wk "magit")))
+   "vv"    '(magit-project-status :wk "magit")))
 
 (use-package centered-cursor-mode
   :init (global-centered-cursor-mode))
@@ -138,7 +143,9 @@
 
   :general
   (:states 'normal 
-   ";" 'embark-act))
+   ";" 'embark-act)
+  (:keymaps 'embark-symbol-map
+   "h" 'helpful-symbol))
 
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
@@ -157,6 +164,10 @@
   (evil-shift-width 2)
   (evil-undo-system 'undo-fu)
   (evil-want-minibuffer t)
+
+  :general
+  (:states 'normal
+   "s"     'evil-avy-goto-char-timer)
 
   :init
   (evil-mode 1))
