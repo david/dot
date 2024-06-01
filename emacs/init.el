@@ -206,6 +206,11 @@
     (interactive)
     (let ((default-directory (project-root (project-current))))
       (inf-ruby-console-run "rails console" "rails-development"))))
+(use-package js
+  :mode ("\\.\\(?:js\\)" . js-ts-mode))
+
+(use-package json-ts-mode
+  :mode ("\\.\\(?:json\\)"))
 
 (use-package lsp-mode
   :custom
