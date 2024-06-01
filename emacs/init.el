@@ -22,6 +22,16 @@
   (inhibit-startup-screen t)
   (left-fringe-width 16)
   (make-backup-files nil)
+  (mode-line-format '("%e"
+                      mode-line-front-space
+                      (:propertize
+                       ("" mode-line-modified mode-line-remote mode-line-window-dedicated)
+                       display (min-width (6.0)))
+                      mode-line-frame-identification mode-line-buffer-identification
+                      (project-mode-line project-mode-line-format) (vc-mode vc-mode) "  "
+                      mode-line-misc-info
+                      mode-line-format-right-align
+                      mode-line-position))
   (read-process-output-max (* 2 1024 1024))
   (recentf-mode t)
   (right-fringe-width 16)
@@ -143,6 +153,7 @@
   (setq evil-want-keybinding nil)
 
   :custom
+  (evil-mode-line-format nil)
   (evil-shift-width 2)
   (evil-undo-system 'undo-fu)
   (evil-want-minibuffer t)
