@@ -41,7 +41,6 @@
   };
 
   home.packages = with pkgs; [
-    brave
     fd
     gnome.gnome-tweaks
     manix
