@@ -205,10 +205,25 @@
                                                           (reusable-frames . 0)))))
 (use-package inf-ruby
   :preface
+  (defvar +rails-console-production-command)
+
   (defun +rails-console-development ()
     (interactive)
     (let ((default-directory (project-root (project-current))))
-      (inf-ruby-console-run "rails console" "rails-development"))))
+      (inf-ruby-console-run "rails console" "rails-development")))
+
+  (defun +rails-console-production ()
+    (interactive)
+    (let ((default-directory (project-root (project-current))))
+      (inf-ruby-console-run +rails-console-production-command "rails-production")))
+
+  :general
+  (:states 'normal
+   :prefix "SPC"
+   "g"     '(nil :wk "go")
+   "gd"    '(+rails-console-development :wk "dev console")
+   "gp"    '(+rails-console-production  :wk "prod console")))
+
 (use-package js
   :mode ("\\.\\(?:js\\)" . js-ts-mode))
 
