@@ -220,6 +220,8 @@
     systemPackages = [ ];
   };
 
+  programs.dconf.enable = true;
+
   services.fwupd.enable = true;
 
   services.gnome.games.enable = false;
