@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   stylix = {
-    image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
 
     cursor = {
@@ -8,6 +7,10 @@
       name = "Adwaita";
       size = 48;
     };
+
+    image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
+
+    polarity = "dark";
 
     targets.gnome.enable = true;
   };
