@@ -111,7 +111,7 @@
           :action ,(lambda (f)
                      (find-file (file-name-concat (consult--project-root) f)))))
 
-  (add-to-list 'consult-project-buffer-sources '+consult-source-project-files))
+  (setq consult-project-buffer-sources '(consult--source-project-buffer +consult-source-project-files)))
 
 (use-package corfu
   :custom
