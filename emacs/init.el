@@ -150,6 +150,9 @@
   :init
   (evil-mode 1))
 
+(use-package evil-cleverparens
+  :hook emacs-lisp-mode)
+
 (use-package evil-collection
   :custom
   (evil-collection-setup-minibuffer t)
@@ -218,15 +221,21 @@
   :custom
   (completion-styles '(orderless basic)))
 
-(use-package prog-mode
   :hook
-  (prog-mode . electric-pair-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package ruby-ts-mode
   :mode ("\\.\\(?:rb\\)" "\\`Gemfile\\'"))
+
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+
+  :hook
+  (prog-mode . smartparens-mode)
+  (emacs-lisp-mode . smartparens-strict-mode))
 
 (use-package undo-fu-session
   :init (undo-fu-session-global-mode 1))

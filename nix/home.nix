@@ -44,6 +44,7 @@
       embark-consult
       envrc
       evil
+      evil-cleverparens
       evil-collection
       evil-commentary
       evil-easymotion
@@ -58,7 +59,6 @@
       gruvbox-theme
       helpful
       inf-ruby
-      lispyville
       lsp-mode
       magit
       marginalia
@@ -68,6 +68,7 @@
       orderless
       rainbow-delimiters
       rainbow-mode
+      smartparens
       vertico
       treesit-grammars.with-all-grammars
       undo-fu
