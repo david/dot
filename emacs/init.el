@@ -157,6 +157,9 @@
   :config
   (evil-collection-init))
 
+(use-package evil-commentary
+  :hook evil-mode)
+
 (use-package evil-goggles
   :init
   (evil-goggles-mode)
