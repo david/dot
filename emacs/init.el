@@ -251,8 +251,7 @@
 
 (use-package lsp-ui
   :custom
-  (lsp-ui-doc-delay 1.5)
-  (lsp-ui-doc-show-with-cursor t))
+  (lsp-ui-doc-delay 1.5))
 
 (use-package magit
   :general
