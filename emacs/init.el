@@ -137,6 +137,9 @@
   :init
   (global-diff-hl-mode))
 
+(use-package elixir-ts-mode
+  :mode ("\\.\\(?:exs?\\)"))
+
 (use-package embark
   :custom
   (embark-indicators '(embark-minimal-indicator embark-highlight-indicator))
@@ -209,6 +212,9 @@
 
   :custom-face
   (forge-pullreq-open ((t (:foreground "#458588")))))
+
+(use-package heex-ts-mode
+  :mode ("\\.\\(?:heex\\)"))
 
 (use-package helpful
   :init

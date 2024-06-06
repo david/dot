@@ -12,8 +12,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixvim.url = "github:nix-community/nixvim";
 
     stylix.url = "github:danth/stylix";
   };
@@ -21,8 +25,10 @@
   outputs = {
     emacs-overlay,
     hm,
+    neovim-nightly-overlay,
     nixos-hardware,
     nixpkgs,
+    nixvim,
     stylix,
     ...
   } @ inputs : let
@@ -35,6 +41,7 @@
 
       overlays = [ 
         emacs-overlay.overlay
+        neovim-nightly-overlay.overlays.default
       ];
     };
   in {
@@ -52,6 +59,10 @@
           ./nix/configuration.nix
 
           hm.nixosModules.home-manager {
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 

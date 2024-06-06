@@ -220,6 +220,8 @@
     systemPackages = [ ];
   };
 
+  programs.bash.blesh.enable = true;
+
   programs.dconf.enable = true;
 
   services.fwupd.enable = true;

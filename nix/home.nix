@@ -1,4 +1,9 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./kitty.nix
+    ./nvim.nix
+  ];
+
   dconf.settings = {
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = ["<Super>c"]; # Slack
@@ -53,7 +58,14 @@
 
   home.stateVersion = "23.11";
 
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   programs.bash.enable = true;
+
+  programs.broot.enable = true;
 
   programs.direnv = {
     enable = true;
@@ -156,11 +168,20 @@
 
   programs.gpg.enable = true;
 
+  programs.lazygit = {
+    enable = true;
+  };
+
   services.gpg-agent = {
     enable = true;
     enableBashIntegration = true;
     pinentryPackage = pkgs.pinentry-gnome3;
   };
 
+  services.pueue = {
+    enable = true;
+  };
+
   stylix.targets.emacs.enable = false;
+  stylix.targets.kitty.variant256Colors = true;
 }
