@@ -10,6 +10,8 @@
 
     image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
 
+    opacity.terminal = 0.64;
+
     polarity = "dark";
 
     targets.gnome.enable = true;
