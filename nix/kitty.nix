@@ -54,7 +54,6 @@
 
     extraConfig = ''
       symbol_map U+26A1 Noto Color Emoji
-      background #101010
     '';
   };
 }
