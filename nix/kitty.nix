@@ -15,6 +15,8 @@
       enable_audio_bell = false;
       forward_stdio = true;
       hide_window_decorations = true;
+      initial_window_height = "50c";
+      initial_window_width = "166c";
       remember_window_size = false;
       scrollback_lines = 8192;
       scrollback_pager_history_size = 256;
