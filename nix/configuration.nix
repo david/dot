@@ -237,8 +237,9 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = [
-      pkgs.nerdfonts
+    fontDir.enable = true;
+    packages = with pkgs; [
+      (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ];
   };
 
