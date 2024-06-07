@@ -116,8 +116,8 @@
       rainbow-delimiters
       rainbow-mode
       smartparens
-      vertico
       treesit-grammars.with-all-grammars
+      vertico
       undo-fu
       undo-fu-session
       web-mode
