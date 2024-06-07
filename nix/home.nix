@@ -38,6 +38,11 @@
       trans-panel-opacity = "0.0";
       trans-use-custom-opacity = true;
     };
+
+    "org/gnome/shell/extensions/paperwm/keybindings" = {
+      cycle-width = ["<Control><Alt><Shift>i"];
+      cycle-width-backwards = ["<Control><Alt><Shift>u"];
+    };
   };
 
   home.file = {
