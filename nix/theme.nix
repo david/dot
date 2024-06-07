@@ -5,7 +5,7 @@
     cursor = {
       package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita";
-      size = 48;
+      size = 32;
     };
 
     image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
