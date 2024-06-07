@@ -20,7 +20,7 @@
       remember_window_size = false;
       scrollback_lines = 8192;
       scrollback_pager_history_size = 256;
-      shell_integration = "no-title";
+      shell = "bash --login";
 
       symbol_map = (
         builtins.concatStringsSep "," [
