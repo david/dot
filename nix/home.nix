@@ -6,14 +6,14 @@
 
   dconf.settings = {
     "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = ["<Super>c"]; # Slack
-      switch-to-application-2 = ["<Super>d"]; # Discord
-      switch-to-application-3 = ["<Super>e"]; # Emacs
-      switch-to-application-4 = ["<Super>w"]; # Browser
-      switch-to-application-5 = ["<Super>v"]; # Video
-      switch-to-application-6 = ["<Super>m"]; # Mail
+      switch-to-application-1 = ["<Control><Alt><Shift>c"]; # Slack
+      switch-to-application-2 = ["<Control><Alt><Shift>d"]; # Discord
+      switch-to-application-3 = ["<Control><Alt><Shift>e"]; # Editor
+      switch-to-application-4 = ["<Control><Alt><Shift>w"]; # Browser
+      switch-to-application-5 = ["<Control><Alt><Shift>v"]; # Video
+      switch-to-application-6 = ["<Control><Alt><Shift>m"]; # Mail
 
-      switch-input-source = ["<Shift><Control><Alt>semicolon"];
+      switch-input-source = ["<Control><Alt><Shift>semicolon"];
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
