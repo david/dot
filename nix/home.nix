@@ -230,4 +230,9 @@
 
   stylix.targets.emacs.enable = false;
   stylix.targets.kitty.variant256Colors = true;
+
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = false;
+  };
 }
