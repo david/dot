@@ -130,6 +130,10 @@
         cmp.enable = true;
       };
 
+      lualine = {
+        enable = true;
+      };
+
       mini = {
         enable = true;
 
