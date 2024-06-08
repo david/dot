@@ -49,8 +49,13 @@
       scrollback_pager_history_size = 256;
       shell = "bash --login";
       symbol_map = symbols + " Symbols Nerd Font Mono";
+      tab_bar_align = "center";
+      tab_bar_edge = "top";
+      tab_bar_margin_width = "2.0";
+      tab_bar_margin_height = "4.0 2.0";
+      tab_fade = "1";
       visual_bell_duration = "0.25";
-      window_padding_width = "4";
+      window_padding_width = "0 2";
     };
 
     extraConfig = ''
