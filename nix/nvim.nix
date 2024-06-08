@@ -17,11 +17,16 @@
 
       settings = {
         overrides = {
-          NormalFloat = {
-            bg = "#101010";
-          };
           NeoTreeNormal = { bg = "#282828"; };
           NeoTreeNormalNC = { bg = "#282828"; };
+          TelescopePreviewBorder = { fg = "#282828"; };
+          TelescopePreviewNormal = { bg = "#282828"; };
+          TelescopePromptBorder = { fg = "#504945"; };
+          TelescopePromptNormal = { bg = "#504945"; };
+          TelescopeResultsBorder = { fg = "#3c3836"; };
+          TelescopeResultsNormal = { bg = "#3c3836"; };
+          TelescopeSelection = { link = "Search"; };
+          TelescopeSelectionCaret = { link = "GruvboxYellowBold"; };
           WinSeparator = { bg = "#282828"; fg = "#282828"; };
         };
 
@@ -174,6 +179,20 @@
         extensions = {
           fzf-native.enable = true;
           undo.enable = true;
+        };
+
+        settings = {
+          defaults = {
+            borderchars = [ "█" "█" "█" "█" "█" "█" "█" "█" ];
+
+            layout_config = {
+              prompt_position = "top";
+            };
+
+            prompt_prefix = "  ";
+            selection_caret = "██";
+            sorting_strategy = "ascending";
+          };
         };
       };
 
