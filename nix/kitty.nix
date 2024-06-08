@@ -29,9 +29,12 @@
     enable = true;
 
     keybindings = {
+      "super+e" = "launch --type=tab --cwd=current direnv exec . nvim '+Telescope find_files'";
+      "super+g" = "launch --type=tab --cwd=current direnv exec . lazygit";
+      "super+h" = "previous_tab";
+      "super+l" = "next_tab";
       "super+o" = "load_config_file";
-      "super+equal" = "change_font_size all +1.0";
-      "super+minus" = "change_font_size all -1.0";
+      "super+s" = "launch --type=tab --cwd=current";
       "ctrl+shift+f" = "kitten hints --type=linenum --linenum-action=os_window nvim {path} +{line}";
     };
 
