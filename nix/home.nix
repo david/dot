@@ -5,6 +5,13 @@
   ];
 
   dconf.settings = {
+    "org/gnome/desktop/wm/keybindings" = {
+      close = [ "<Super><Control><Alt><Shift>q" ];
+      minimize = [ "<Control><Alt><Shift>q" ];
+      switch-to-workspace-left = [ "<Control><Alt><Shift>h" ];
+      switch-to-workspace-right = [ "<Control><Alt><Shift>l" ];
+    };
+
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = ["<Control><Alt><Shift>c"]; # Slack
       switch-to-application-2 = ["<Control><Alt><Shift>d"]; # Discord
@@ -37,11 +44,6 @@
 
       trans-panel-opacity = "0.0";
       trans-use-custom-opacity = true;
-    };
-
-    "org/gnome/shell/extensions/paperwm/keybindings" = {
-      cycle-width = ["<Control><Alt><Shift>i"];
-      cycle-width-backwards = ["<Control><Alt><Shift>u"];
     };
   };
 
@@ -199,7 +201,7 @@
     extensions = [
       { package = pkgs.gnomeExtensions.dash-to-panel; }
       { package = pkgs.gnomeExtensions.gsconnect; }
-      { package = pkgs.gnomeExtensions.paperwm; }
+      { package = pkgs.gnomeExtensions.tactile; }
       { package = pkgs.gnomeExtensions.vitals; }
       { package = pkgs.gnomeExtensions.wallpaper-slideshow; }
     ];
