@@ -172,6 +172,8 @@
         hideRootNode = true;
       };
 
+      neogit.enable = true;
+
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
       surround.enable = true;
