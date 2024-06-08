@@ -30,7 +30,7 @@
       panel-element-positions = builtins.toJSON {
         "0" = [
           { element = "showAppsButton";   visible = false; position = "stackedTL"; }
-          { element = "activitiesButton"; visible = false; position = "stackedTL"; }
+          { element = "activitiesButton"; visible = true; position = "stackedTL"; }
           { element = "leftBox";          visible = true;  position = "stackedTL"; }
           { element = "taskbar";          visible = false; position = "stackedTL"; }
           { element = "dateMenu";         visible = true;  position = "centerMonitor"; }
