@@ -247,6 +247,7 @@
       ignorecase = true;
       inccommand = "split";
       incsearch = true;
+      laststatus = 3;
       list = true;
       listchars = {
         tab = "⭾ ";
