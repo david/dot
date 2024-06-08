@@ -2,7 +2,9 @@
   programs.nixvim = {
     enable = true;
 
-    defaultEditor = true;
+    autoCmd = [
+      { event = "UIEnter"; pattern = "*"; command = "Neotree"; }
+    ];
 
     clipboard = {
       register = "unnamedplus";
@@ -18,11 +20,16 @@
           NormalFloat = {
             bg = "#101010";
           };
+          NeoTreeNormal = { bg = "#282828"; };
+          NeoTreeNormalNC = { bg = "#282828"; };
+          WinSeparator = { bg = "#282828"; fg = "#282828"; };
         };
 
         transparent_mode = true;
       };
     };
+
+    defaultEditor = true;
 
     extraPlugins = with pkgs.vimPlugins; [
       neodev-nvim
@@ -142,7 +149,21 @@
         };
       };
 
-      neo-tree.enable = true;
+      neo-tree = {
+        enable = true;
+
+        defaultSource = "buffers";
+
+        defaultComponentConfigs = {
+          indent = {
+            indentMarker = null;
+            lastIndentMarker = null;
+          };
+        };
+
+        hideRootNode = true;
+      };
+
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
       surround.enable = true;
