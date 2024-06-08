@@ -209,14 +209,19 @@
 
   programs.gpg.enable = true;
 
-  programs.lazygit = {
-    enable = true;
-  };
-
   services.gpg-agent = {
     enable = true;
     enableBashIntegration = true;
     pinentryPackage = pkgs.pinentry-gnome3;
+  };
+
+  programs.lazygit = {
+    enable = true;
+  };
+
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
   };
 
   services.pueue = {
