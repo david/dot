@@ -192,6 +192,28 @@
           undo.enable = true;
         };
 
+        keymaps = {
+          "<leader>/" = {
+            action = "live_grep";
+            options = { desc = "search"; };
+          };
+
+          "<leader>hg" = {
+            action = "highlights";
+            options = { desc = "highlights"; };
+          };
+
+          "<leader>hh" = {
+            action = "help_tags";
+            options = { desc = "tags"; };
+          };
+
+          "<leader>f" = {
+            action = "find_files";
+            options = { desc = "find file"; };
+          };
+        };
+
         settings = {
           defaults = {
             borderchars = [ "█" "█" "█" "█" "█" "█" "█" "█" ];
