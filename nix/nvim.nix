@@ -236,7 +236,6 @@
       autowrite = true;
       background = "dark";
       backup = false;
-      colorcolumn = [ 120 ];
       completeopt = [ "menu" "menuone" "noinsert" "preview" ];
       cursorline = true;
       cursorlineopt = "both";
