@@ -60,6 +60,12 @@
         }) kms;
     in withDefaults [
       { key = "<leader><leader>"; action = "<cmd>nohlsearch<cr>"; }
+      { key = "<leader>0";        action = "<C-w>q"; }
+      { key = "<leader>1";        action = "<C-w>_"; }
+      { key = "<leader>wh";       action = "<C-w>h"; }
+      { key = "<leader>wj";       action = "<C-w>j"; }
+      { key = "<leader>wk";       action = "<C-w>k"; }
+      { key = "<leader>wl";       action = "<C-w>l"; }
       { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
       { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
 
