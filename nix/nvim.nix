@@ -62,6 +62,7 @@
       { key = "<leader><leader>"; action = "<cmd>nohlsearch<cr>"; }
       { key = "<leader>0";        action = "<C-w>q"; }
       { key = "<leader>1";        action = "<C-w>_"; }
+      { key = "<leader>vv";       action = "<cmd>Neogit<cr>"; }
       { key = "<leader>wh";       action = "<C-w>h"; }
       { key = "<leader>wj";       action = "<C-w>j"; }
       { key = "<leader>wk";       action = "<C-w>k"; }
