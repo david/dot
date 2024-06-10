@@ -179,8 +179,11 @@
     enable = true;
   };
 
-  stylix.targets.emacs.enable = false;
-  stylix.targets.kitty.variant256Colors = true;
+  stylix.targets = {
+    emacs.enable = false;
+    gnome.enable = true;
+    kitty.variant256Colors = true;
+  };
 
   xdg.userDirs = {
     enable = true;
