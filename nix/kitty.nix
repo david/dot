@@ -30,7 +30,6 @@
 
     keybindings = {
       "super+e" = "launch --type=tab --cwd=current direnv exec . nvim '+Telescope find_files'";
-      "super+g" = "launch --type=tab --cwd=current direnv exec . lazygit";
       "super+h" = "previous_tab";
       "super+l" = "next_tab";
       "super+o" = "load_config_file";
