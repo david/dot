@@ -32,8 +32,8 @@
       "super+e" = "launch --type=tab --cwd=current direnv exec . nvim '+Telescope find_files'";
       "super+h" = "previous_tab";
       "super+l" = "next_tab";
+      "super+n" = "launch --type=tab --cwd=current";
       "super+o" = "load_config_file";
-      "super+s" = "launch --type=tab --cwd=current";
       "ctrl+shift+f" = "kitten hints --type=linenum --linenum-action=os_window nvim {path} +{line}";
     };
 
