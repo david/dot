@@ -181,7 +181,7 @@
       };
 
       neogit.enable = true;
-
+      nix.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
       schemastore.enable = true;
