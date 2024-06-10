@@ -250,6 +250,16 @@
         swap.enable = true;
       };
 
+
+      toggleterm = {
+        enable = true;
+
+        settings = {
+          open_mapping = "[[<d-t>]]";
+          size = 16;
+        };
+      };
+
       trouble.enable = true;
       which-key.enable = true;
 
