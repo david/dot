@@ -43,10 +43,6 @@
 
     opacity.terminal = 0.64;
 
-    override = {
-      base00 = "#282010";
-    };
-
     polarity = "dark";
 
     targets.gnome.enable = true;
