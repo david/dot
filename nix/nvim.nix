@@ -184,6 +184,7 @@
       nix.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
+      rainbow-delimiters.enable = true;
       schemastore.enable = true;
       surround.enable = true;
 
