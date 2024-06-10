@@ -17,6 +17,7 @@
 
       settings = {
         overrides = {
+          EndOfLine = { fg = "#282828"; };
           NeoTreeNormal = { bg = "#282828"; };
           NeoTreeNormalNC = { bg = "#282828"; };
           TelescopePreviewBorder = { fg = "#282828"; };
@@ -264,6 +265,7 @@
       };
 
       trouble.enable = true;
+      undotree.enable = true;
       which-key.enable = true;
 
       yanky = {
