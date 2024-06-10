@@ -141,6 +141,7 @@
 
           tailwindcss.enable = true;
           tsserver.enable = true;
+          yamlls.enable = true;
         };
       };
 
@@ -183,6 +184,7 @@
 
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
+      schemastore.enable = true;
       surround.enable = true;
 
       telescope = {
