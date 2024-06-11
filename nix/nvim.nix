@@ -2,10 +2,6 @@
   programs.nixvim = {
     enable = true;
 
-    autoCmd = [
-      { event = "UIEnter"; pattern = "*"; command = "Neotree"; }
-    ];
-
     clipboard = {
       register = "unnamedplus";
 
@@ -18,8 +14,6 @@
       settings = {
         overrides = {
           EndOfLine = { fg = "#282828"; };
-          NeoTreeNormal = { bg = "#282828"; };
-          NeoTreeNormalNC = { bg = "#282828"; };
           TelescopePreviewBorder = { fg = "#282828"; };
           TelescopePreviewNormal = { bg = "#282828"; };
           TelescopePromptBorder = { fg = "#504945"; };
@@ -166,21 +160,6 @@
         };
       };
 
-      neo-tree = {
-        enable = true;
-
-        defaultSource = "buffers";
-
-        defaultComponentConfigs = {
-          indent = {
-            indentMarker = null;
-            lastIndentMarker = null;
-          };
-        };
-
-        hideRootNode = true;
-      };
-
       neogit.enable = true;
       nix.enable = true;
       nvim-autopairs.enable = true;
@@ -224,8 +203,12 @@
             borderchars = [ "█" "█" "█" "█" "█" "█" "█" "█" ];
 
             layout_config = {
+              mirror = true;
+              preview_height = 0.5;
               prompt_position = "top";
             };
+
+            layout_strategy = "vertical";
 
             prompt_prefix = "  ";
             selection_caret = "██";
