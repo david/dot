@@ -51,7 +51,8 @@
                       (project-mode-line project-mode-line-format) (vc-mode vc-mode) "  "
                       mode-line-misc-info
                       mode-line-format-right-align
-                      mode-line-position))
+                      mode-line-position
+                      mode-line-end-spaces))
   (read-process-output-max (* 2 1024 1024))
   (recentf-mode t)
   (right-fringe-width 16)
