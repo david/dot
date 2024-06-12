@@ -18,11 +18,11 @@
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
-      switch-to-application-3 = [ "<Control><Alt><Shift>e" ]; # Editor
-      switch-to-application-4 = [ "<Control><Alt><Shift>w" ]; # Browser
-      switch-to-application-5 = [ "<Control><Alt><Shift>v" ]; # Video
-      switch-to-application-6 = [ "<Control><Alt><Shift>m" ]; # Mail
-      switch-to-application-7 = [ "<Control><Alt><Shift>s" ]; # Shell
+      switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
+      switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
+      switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
+      switch-to-application-6 = [ "<Control><Alt><Shift>s" ]; # Shell
+      switch-to-application-7 = [ "<Control><Alt><Shift>e" ]; # Editor
 
       switch-input-source = [ "<Super><Control><Alt><Shift>semicolon" ];
     };
