@@ -41,7 +41,7 @@
 
     image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
 
-    opacity.terminal = 0.90;
+    opacity.terminal = 0.80;
 
     polarity = "dark";
 
