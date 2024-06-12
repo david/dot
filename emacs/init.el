@@ -343,14 +343,11 @@
     (prodigy-refresh))
 
   :config
-  (setq prodigy-tags '((:name ar :cwd "/home/david/work/ar/trees/current")
-                       (:name hq :cwd "/home/david/work/hq/trees/current")
+  (setq prodigy-tags '((:name ar :cwd "/home/david/ar/trees/current")
+                       (:name hq :cwd "/home/david/hq/trees/current")
                        (:name mariadb
                         :command "direnv"
-                        :args ("exec" "."
-                               "mysqld"
-                               "--datadir=../../data/mariadb"
-                               "--socket=/tmp/mysql.sock"))
+                        :args ("exec" "." "mysqld" "--datadir=../../data/mariadb" "--socket=/tmp/mysql.sock"))
                        (:name postgres
                         :command "direnv"
                         :args ("exec" "." "postgres" "-D" "../../data/postgres" "-k" "../../tmp"))
