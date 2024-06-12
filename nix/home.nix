@@ -11,6 +11,10 @@
       switch-to-workspace-right = [ "<Control><Alt><Shift>l" ];
     };
 
+    "org/gnome/mutter" = {
+      center-new-windows = true;
+    };
+
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
