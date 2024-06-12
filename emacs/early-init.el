@@ -1,7 +1,7 @@
 (defvar +font-size-large 200)
 (defvar +font-size-medium 130)
 
-(add-to-list 'default-frame-alist '(alpha-background . 64))
+(add-to-list 'default-frame-alist '(alpha-background . 80))
 (add-to-list 'default-frame-alist '(undecorated . t))
 
 (blink-cursor-mode -1)
