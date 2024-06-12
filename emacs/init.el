@@ -61,9 +61,9 @@
   (savehist-mode t)
 
   :custom-face
-  (default ((t (:background "#000000" :font "Iosevka Timbuktu Medium" :height 125))))
-  (fringe ((t (:background "#101010"))))
-  (mode-line ((t (:background "#101010"))))
+  (default ((t (:background "#1d2021" :font "Iosevka Timbuktu" :height 120))))
+  (fringe ((t (:background "#282828"))))
+  (mode-line ((t (:background "#282828"))))
 
   :general
   (:states '(normal visual)
