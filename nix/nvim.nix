@@ -33,6 +33,7 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       neodev-nvim
+      telescope-project-nvim
       vim-repeat
     ];
 
@@ -75,6 +76,45 @@
     plugins = {
       auto-save.enable = true;
 
+      bufferline = {
+        enable = true;
+
+        showBufferCloseIcons = false;
+        showCloseIcon = false;
+
+        highlights = let
+          dark = {
+            bg = "#282828";
+            fg = "#282828";
+          };
+
+          light = {
+            fg = "#bdae93";
+            bg = "#bdae93";
+          };
+
+          selected = {
+            fg = "#282828";
+            bg = "#bdae93";
+          };
+
+          visible = {
+            bg = "#282828";
+          };
+        in {
+          background = visible;
+          bufferSelected = selected;
+          fill = dark;
+          indicatorSelected = light;
+          separator = dark;
+          separatorSelected = selected;
+          tab = visible;
+          tabSelected = selected;
+          tabSeparator = dark;
+          tabSeparatorSelected = light;
+        };
+      };
+
       cmp = {
         enable = true;
 
@@ -102,12 +142,14 @@
       cmp-cmdline-history.enable = true;
       cmp-git.enable = true;
       cmp-path.enable = true;
-
       comment.enable = true;
-
+      diffview.enable = true;
       direnv.enable = true;
+      endwise.enable = true;
       fidget.enable = true;
+      git-conflict.enable = true;
       gitsigns.enable = true;
+      indent-blankline.enable = true;
       leap.enable = true;
       lint.enable = true;
       luasnip.enable = true;
@@ -161,19 +203,32 @@
       };
 
       neogit.enable = true;
+
+      neotest = {
+        enable = true;
+
+        adapters = {
+          minitest.enable = true;
+        };
+      };
+
       nix.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
+      octo.enable = true;
       rainbow-delimiters.enable = true;
       schemastore.enable = true;
+      statuscol.enable = true;
       surround.enable = true;
 
       telescope = {
         enable = true;
 
+        enabledExtensions = [ "project" ];
+
         extensions = {
+          file-browser.enable = true;
           fzf-native.enable = true;
-          undo.enable = true;
         };
 
         keymaps = {
@@ -203,9 +258,11 @@
             borderchars = [ "█" "█" "█" "█" "█" "█" "█" "█" ];
 
             layout_config = {
-              mirror = true;
-              preview_height = 0.5;
-              prompt_position = "top";
+              vertical = {
+                mirror = true;
+                preview_height = 0.5;
+                prompt_position = "top";
+              };
             };
 
             layout_strategy = "vertical";
@@ -213,6 +270,9 @@
             prompt_prefix = "  ";
             selection_caret = "██";
             sorting_strategy = "ascending";
+          };
+
+          pickers = {
           };
         };
       };
@@ -237,12 +297,13 @@
         swap.enable = true;
       };
 
+      trim.enable = true;
 
       toggleterm = {
         enable = true;
 
         settings = {
-          open_mapping = "[[<d-t>]]";
+          open_mapping = "[[<d-s>]]";
           size = 16;
         };
       };
