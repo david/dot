@@ -13,7 +13,15 @@
   };
 
   networking = {
+    firewall = {
+      enable = true;
+
+      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    };
+
     hostName = "timbuktu";
+
     networkmanager.enable = true;
   };
 
@@ -179,7 +187,7 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 1d";
-    };  
+    };
 
     optimise.automatic = true;
 
