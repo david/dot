@@ -184,7 +184,7 @@
 
   nix = {
     gc = {
-      automatic = true;
+      automatic = false;
       dates = "weekly";
       options = "--delete-older-than 1d";
     };
@@ -231,6 +231,13 @@
   programs.bash.blesh.enable = true;
 
   programs.dconf.enable = true;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 3d --keep 3";
+    flake = "/home/david/sys";
+  };
 
   services.fwupd.enable = true;
 
