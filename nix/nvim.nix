@@ -66,8 +66,8 @@
       { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
       { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
 
-      { key = "<d-k>";            action = "<cmd>bprev<cr>"; }
-      { key = "<d-j>";            action = "<cmd>bnext<cr>"; }
+      { key = "<c-,>";            action = "<cmd>BufferLineCyclePrev<cr>"; }
+      { key = "<c-.>";            action = "<cmd>BufferLineCycleNext<cr>"; }
 
       { key = "m";                action = "q"; }
       { key = "q";                action = "<cmd>bdelete<cr>"; }
