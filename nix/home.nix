@@ -212,6 +212,7 @@
     enable = true;
 
     extensions = [
+      { package = pkgs.gnomeExtensions.burn-my-windows; }
       { package = pkgs.gnomeExtensions.dash-to-panel; }
       { package = pkgs.gnomeExtensions.gsconnect; }
       { package = pkgs.gnomeExtensions.tactile; }
