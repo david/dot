@@ -22,8 +22,9 @@
       switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
       switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
       switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
-      switch-to-application-6 = [ "<Control><Alt><Shift>s" ]; # Shell
-      switch-to-application-7 = [ "<Control><Alt><Shift>e" ]; # Editor
+      switch-to-application-6 = [ "<Control><Alt><Shift>u" ]; # AR
+      switch-to-application-7 = [ "<Control><Alt><Shift>i" ]; # HQ
+      switch-to-application-8 = [ "<Control><Alt><Shift>o" ]; # SYS
 
       switch-input-source = [ "<Super><Control><Alt><Shift>semicolon" ];
     };
@@ -233,6 +234,23 @@
     emacs.enable = false;
     gnome.enable = true;
     kitty.variant256Colors = true;
+  };
+
+  xdg.desktopEntries = {
+    ar = {
+      name = "AR";
+      exec = "kitty --class ar --directory /home/david/ar/trees/current";
+    };
+
+    hq = {
+      name = "HQ";
+      exec = "kitty --class hq --directory /home/david/hq/trees/current";
+    };
+
+    sys = {
+      name = "SYS";
+      exec = "kitty --class sys --directory /home/david/sys";
+    };
   };
 
   xdg.userDirs = {
