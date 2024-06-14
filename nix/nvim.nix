@@ -159,7 +159,17 @@
 
         servers = {
           cssls.enable = true;
-          eslint.enable = true;
+
+          elixirls = {
+            enable = true;
+            cmd = [ "elixir-ls" ];
+            package = null;
+          };
+
+          eslint = {
+            enable = true;
+            package = null;
+          };
 
           html = {
             enable = true;
@@ -176,8 +186,16 @@
             package = null;
           };
 
-          tailwindcss.enable = true;
-          tsserver.enable = true;
+          tailwindcss = {
+            enable = true;
+            package = null;
+          };
+
+          tsserver = {
+            enable = true;
+            package = null;
+          };
+
           yamlls.enable = true;
         };
       };
