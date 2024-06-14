@@ -63,11 +63,15 @@
       { key = "<leader>wj";       action = "<C-w>j"; }
       { key = "<leader>wk";       action = "<C-w>k"; }
       { key = "<leader>wl";       action = "<C-w>l"; }
+
       { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
       { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
 
       { key = "<c-,>";            action = "<cmd>BufferLineCyclePrev<cr>"; }
       { key = "<c-.>";            action = "<cmd>BufferLineCycleNext<cr>"; }
+
+      { key = "[c";               action = "<cmd>cprevious<cr>"; }
+      { key = "]c";               action = "<cmd>cnext<cr>"; }
 
       { key = "m";                action = "q"; }
       { key = "q";                action = "<cmd>bdelete<cr>"; }
