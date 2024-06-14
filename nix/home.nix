@@ -76,8 +76,6 @@
 
   programs.bash.enable = true;
 
-  programs.broot.enable = true;
-
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
