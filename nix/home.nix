@@ -169,6 +169,14 @@
     };
   };
 
+  programs.fish = {
+    enable = true;
+
+    interactiveShellInit = ''
+      fish_vi_key_bindings
+    '';
+  };
+
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
