@@ -75,7 +75,6 @@
 
   programs.atuin = {
     enable = true;
-    enableBashIntegration = true;
   };
 
   programs.bash.enable = true;
