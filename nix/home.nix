@@ -178,6 +178,10 @@
     pinentryPackage = pkgs.pinentry-gnome3;
   };
 
+  programs.lazygit = {
+    enable = true;
+  };
+
   programs.lsd = {
     enable = true;
     enableAliases = true;
