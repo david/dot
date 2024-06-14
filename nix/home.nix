@@ -24,8 +24,8 @@
       switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
       switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
       switch-to-application-6 = [ "<Control><Alt><Shift>u" ]; # AR
-      switch-to-application-7 = [ "<Control><Alt><Shift>i" ]; # HQ
-      switch-to-application-8 = [ "<Control><Alt><Shift>o" ]; # SYS
+      switch-to-application-8 = [ "<Control><Alt><Shift>i" ]; # SYS
+      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
 
       switch-input-source = [ "<Control><Alt><Shift>Tab" ];
     };
