@@ -10,6 +10,7 @@
       minimize = [ "<Control><Alt><Shift>q" ];
       switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
       switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
+      cycle-windows = [ "<Control><Alt><Shift>apostrophe" ];
     };
 
     "org/gnome/mutter" = {
@@ -26,7 +27,7 @@
       switch-to-application-7 = [ "<Control><Alt><Shift>i" ]; # HQ
       switch-to-application-8 = [ "<Control><Alt><Shift>o" ]; # SYS
 
-      switch-input-source = [ "<Super><Control><Alt><Shift>semicolon" ];
+      switch-input-source = [ "<Control><Alt><Shift>Tab" ];
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
@@ -35,7 +36,7 @@
       panel-element-positions = builtins.toJSON {
         "0" = [
           { element = "showAppsButton";   visible = false; position = "stackedTL"; }
-          { element = "activitiesButton"; visible = true; position = "stackedTL"; }
+          { element = "activitiesButton"; visible = true;  position = "stackedTL"; }
           { element = "leftBox";          visible = true;  position = "stackedTL"; }
           { element = "taskbar";          visible = false; position = "stackedTL"; }
           { element = "dateMenu";         visible = true;  position = "centerMonitor"; }
