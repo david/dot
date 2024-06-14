@@ -228,8 +228,6 @@
     systemPackages = [ ];
   };
 
-  programs.bash.blesh.enable = true;
-
   programs.dconf.enable = true;
 
   programs.nh = {
