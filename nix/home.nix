@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
+    ./kitty.nix
     ./nvim.nix
   ];
 
@@ -70,18 +71,6 @@
   ];
 
   home.stateVersion = "23.11";
-
-  programs.alacritty = {
-    enable = true;
-
-    settings = {
-      window = {
-        decorations = "None";
-        dynamic_padding = true;
-        padding = { x = 4; y = 4; };
-      };
-    };
-  };
 
   programs.atuin = {
     enable = true;
@@ -243,6 +232,7 @@
   stylix.targets = {
     emacs.enable = false;
     gnome.enable = true;
+    kitty.variant256Colors = true;
   };
 
   xdg.userDirs = {
