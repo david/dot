@@ -74,10 +74,6 @@
 
   home.stateVersion = "23.11";
 
-  programs.atuin = {
-    enable = true;
-  };
-
   programs.bash.enable = true;
 
   programs.broot.enable = true;
@@ -126,6 +122,10 @@
     interactiveShellInit = ''
       fish_vi_key_bindings
     '';
+  };
+
+  programs.fzf = {
+    enable = true;
   };
 
   programs.gh = {
