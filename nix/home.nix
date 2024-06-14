@@ -8,8 +8,8 @@
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super><Control><Alt><Shift>q" ];
       minimize = [ "<Control><Alt><Shift>q" ];
-      switch-to-workspace-left = [ "<Control><Alt><Shift>h" ];
-      switch-to-workspace-right = [ "<Control><Alt><Shift>l" ];
+      switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
+      switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
     };
 
     "org/gnome/mutter" = {
