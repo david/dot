@@ -14,20 +14,30 @@
     };
 
     "org/gnome/mutter" = {
-      center-new-windows = true;
+      center-new-windows = false;
     };
 
-    "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
-      switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
-      switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
-      switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
-      switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
-      switch-to-application-6 = [ "<Control><Alt><Shift>u" ]; # AR
-      switch-to-application-8 = [ "<Control><Alt><Shift>i" ]; # SYS
-      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
+    "org/gnome/shell" = {
+      enabled-extensions = [
+        "burn-my-windows@schneegans.github.com"
+        "dash-to-panel@jderose9.github.com"
+        "gsconnect@andyholmes.github.io"
+        "tactile@lundal.io"
+        "Vitals@CoreCoding.com"
+        "azwallpaper@azwallpaper.gitlab.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+      ];
+    };
 
-      switch-input-source = [ "<Control><Alt><Shift>Tab" ];
+    "org/gnome/shell/extensions/auto-move-windows" = {
+      application-list = [
+        "discord.desktop:1"
+        "slack.desktop:1"
+        "org.gnome.Geary.desktop:2"
+        "ar.desktop:3"
+        "sys.desktop:5"
+        "hq.desktop:7"
+      ];
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
@@ -51,6 +61,19 @@
 
       trans-panel-opacity = "0.0";
       trans-use-custom-opacity = true;
+    };
+
+    "org/gnome/shell/keybindings" = {
+      switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
+      switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
+      switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
+      switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
+      switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
+      switch-to-application-6 = [ "<Control><Alt><Shift>u" ]; # AR
+      switch-to-application-8 = [ "<Control><Alt><Shift>i" ]; # SYS
+      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
+
+      switch-input-source = [ "<Control><Alt><Shift>Tab" ];
     };
   };
 
