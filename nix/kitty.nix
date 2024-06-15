@@ -2,6 +2,9 @@
   home.file."${config.xdg.configHome}/kitty/default-session.conf".text = ''
     launch --title=shell
 
+    new_tab git
+    launch direnv exec . lazygit
+
     new_os_window editor
     launch nvim
   '';
@@ -73,7 +76,7 @@
       shell = "fish --login";
       symbol_map = symbols + " Symbols Nerd Font Mono";
       tab_bar_align = "center";
-      tab_bar_edge = "bottom";
+      tab_bar_edge = "top";
       tab_bar_margin_width = "0";
       tab_bar_margin_height = "4.0 0";
       tab_fade = "1";
