@@ -102,10 +102,8 @@
     discord
     fd
     gnome.gnome-tweaks
-    manix
     ripgrep
     slack
-    wf-recorder
     wl-clipboard
     vivaldi
     vivaldi-ffmpeg-codecs
