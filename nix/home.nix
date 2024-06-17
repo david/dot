@@ -59,7 +59,7 @@
 
       stockgs-keep-dash = true;
 
-      trans-panel-opacity = "0.0";
+      trans-panel-opacity = "0.75";
       trans-use-custom-opacity = true;
     };
 
