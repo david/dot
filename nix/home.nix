@@ -14,7 +14,7 @@
     };
 
     "org/gnome/mutter" = {
-      center-new-windows = false;
+      center-new-windows = true;
     };
 
     "org/gnome/shell" = {
