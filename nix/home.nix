@@ -8,9 +8,13 @@
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super><Control><Alt><Shift>q" ];
       minimize = [ "<Control><Alt><Shift>q" ];
+      move-to-workspace-left = [ "<Super><Control><Alt><Shift>comma" ];
+      move-to-workspace-right = [ "<Super><Control><Alt><Shift>period" ];
       switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
       switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
-      cycle-windows = [ "<Control><Alt><Shift>apostrophe" ];
+      cycle-windows = [ "<Control><Alt><Shift>l" ];
+      cycle-windows-backward = [ "<Control><Alt><Shift>h" ];
+    };
     };
 
     "org/gnome/mutter" = {
