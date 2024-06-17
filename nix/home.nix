@@ -15,6 +15,9 @@
       cycle-windows = [ "<Control><Alt><Shift>l" ];
       cycle-windows-backward = [ "<Control><Alt><Shift>h" ];
     };
+
+    "org/gnome/desktop/wm/preferences" = {
+      num-workspaces = 8;
     };
 
     "org/gnome/mutter" = {
