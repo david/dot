@@ -34,6 +34,16 @@
         "azwallpaper@azwallpaper.gitlab.com"
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
       ];
+
+      favorite-apps = [
+        "slack.desktop"
+        "discord.desktop"
+        "firefox.desktop"
+        "org.gnome.Geary.desktop"
+        "ar.desktop"
+        "sys.desktop"
+        "hq.desktop"
+      ];
     };
 
     "org/gnome/shell/extensions/auto-move-windows" = {
@@ -74,10 +84,9 @@
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
       switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
-      switch-to-application-4 = [ "<Control><Alt><Shift>v" ]; # Video
-      switch-to-application-5 = [ "<Control><Alt><Shift>m" ]; # Mail
-      switch-to-application-6 = [ "<Control><Alt><Shift>u" ]; # AR
-      switch-to-application-8 = [ "<Control><Alt><Shift>i" ]; # SYS
+      switch-to-application-4 = [ "<Control><Alt><Shift>m" ]; # Mail
+      switch-to-application-5 = [ "<Control><Alt><Shift>u" ]; # AR
+      switch-to-application-6 = [ "<Control><Alt><Shift>i" ]; # SYS
       switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
 
       switch-input-source = [ "<Control><Alt><Shift>Tab" ];
