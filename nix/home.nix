@@ -25,16 +25,6 @@
     };
 
     "org/gnome/shell" = {
-      enabled-extensions = [
-        "burn-my-windows@schneegans.github.com"
-        "dash-to-panel@jderose9.github.com"
-        "gsconnect@andyholmes.github.io"
-        "tactile@lundal.io"
-        "Vitals@CoreCoding.com"
-        "azwallpaper@azwallpaper.gitlab.com"
-        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-      ];
-
       favorite-apps = [
         "slack.desktop"
         "discord.desktop"
@@ -197,11 +187,21 @@
   programs.gnome-shell = {
     enable = true;
 
+    enabled-extensions = [
+      "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+      "azwallpaper@azwallpaper.gitlab.com"
+      "burn-my-windows@schneegans.github.com"
+      "dash-to-panel@jderose9.github.com"
+      "gsconnect@andyholmes.github.io"
+      "gTile@vibou"
+      "Vitals@CoreCoding.com"
+    ];
+
     extensions = [
       { package = pkgs.gnomeExtensions.burn-my-windows; }
       { package = pkgs.gnomeExtensions.dash-to-panel; }
       { package = pkgs.gnomeExtensions.gsconnect; }
-      { package = pkgs.gnomeExtensions.tactile; }
+      { package = pkgs.gnomeExtensions.gtile; }
       { package = pkgs.gnomeExtensions.vitals; }
       { package = pkgs.gnomeExtensions.wallpaper-slideshow; }
     ];
