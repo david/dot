@@ -1,87 +1,9 @@
 { config, pkgs, ... }: {
   imports = [
+    ./gnome.nix
     ./kitty.nix
     ./nvim.nix
   ];
-
-  dconf.settings = {
-    "org/gnome/desktop/wm/keybindings" = {
-      close = [ "<Super><Control><Alt><Shift>q" ];
-      minimize = [ "<Control><Alt><Shift>q" ];
-      move-to-workspace-left = [ "<Super><Control><Alt><Shift>comma" ];
-      move-to-workspace-right = [ "<Super><Control><Alt><Shift>period" ];
-      switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
-      switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
-      cycle-windows = [ "<Control><Alt><Shift>l" ];
-      cycle-windows-backward = [ "<Control><Alt><Shift>h" ];
-    };
-
-    "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 8;
-    };
-
-    "org/gnome/mutter" = {
-      center-new-windows = true;
-    };
-
-    "org/gnome/shell" = {
-      favorite-apps = [
-        "slack.desktop"
-        "discord.desktop"
-        "firefox.desktop"
-        "org.gnome.Geary.desktop"
-        "ar.desktop"
-        "sys.desktop"
-        "hq.desktop"
-      ];
-    };
-
-    "org/gnome/shell/extensions/auto-move-windows" = {
-      application-list = [
-        "discord.desktop:1"
-        "slack.desktop:1"
-        "org.gnome.Geary.desktop:2"
-        "ar.desktop:3"
-        "sys.desktop:5"
-        "hq.desktop:7"
-      ];
-    };
-
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      panel-positions = builtins.toJSON { "0" = "TOP"; };
-
-      panel-element-positions = builtins.toJSON {
-        "0" = [
-          { element = "showAppsButton";   visible = false; position = "stackedTL"; }
-          { element = "activitiesButton"; visible = true;  position = "stackedTL"; }
-          { element = "leftBox";          visible = true;  position = "stackedTL"; }
-          { element = "taskbar";          visible = false; position = "stackedTL"; }
-          { element = "dateMenu";         visible = true;  position = "centerMonitor"; }
-          { element = "centerBox";        visible = true;  position = "stackedBR"; }
-          { element = "rightBox";         visible = true;  position = "stackedBR"; }
-          { element = "systemMenu";       visible = true;  position = "stackedBR"; }
-          { element = "desktopButton";    visible = false; position = "stackedBR"; }
-        ];
-      };
-
-      stockgs-keep-dash = true;
-
-      trans-panel-opacity = "0.75";
-      trans-use-custom-opacity = true;
-    };
-
-    "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
-      switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
-      switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
-      switch-to-application-4 = [ "<Control><Alt><Shift>m" ]; # Mail
-      switch-to-application-5 = [ "<Control><Alt><Shift>u" ]; # AR
-      switch-to-application-6 = [ "<Control><Alt><Shift>i" ]; # SYS
-      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
-
-      switch-input-source = [ "<Control><Alt><Shift>Tab" ];
-    };
-  };
 
   home.file = {
     "${config.xdg.dataHome}/backgrounds".source = ../backgrounds;
@@ -91,7 +13,6 @@
   home.packages = with pkgs; [
     discord
     fd
-    gnome.gnome-tweaks
     ripgrep
     slack
     wl-clipboard
@@ -184,29 +105,6 @@
     };
   };
 
-  programs.gnome-shell = {
-    enable = true;
-
-    enabled-extensions = [
-      "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-      "azwallpaper@azwallpaper.gitlab.com"
-      "burn-my-windows@schneegans.github.com"
-      "dash-to-panel@jderose9.github.com"
-      "gsconnect@andyholmes.github.io"
-      "gTile@vibou"
-      "Vitals@CoreCoding.com"
-    ];
-
-    extensions = [
-      { package = pkgs.gnomeExtensions.burn-my-windows; }
-      { package = pkgs.gnomeExtensions.dash-to-panel; }
-      { package = pkgs.gnomeExtensions.gsconnect; }
-      { package = pkgs.gnomeExtensions.gtile; }
-      { package = pkgs.gnomeExtensions.vitals; }
-      { package = pkgs.gnomeExtensions.wallpaper-slideshow; }
-    ];
-  };
-
   programs.gpg.enable = true;
 
   services.gpg-agent = {
@@ -229,7 +127,6 @@
   };
 
   stylix.targets = {
-    gnome.enable = true;
     kitty.variant256Colors = true;
   };
 
