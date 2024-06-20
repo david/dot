@@ -68,6 +68,10 @@
         colorMoved = true;
       };
 
+      init = {
+        defaultBranch = "trunk";
+      };
+
       merge = {
         conflictstyle = "diff3";
       };
