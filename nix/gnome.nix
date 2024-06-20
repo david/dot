@@ -14,11 +14,13 @@
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 8;
+      num-workspaces = 10;
+      workspace-names = [ "chat" "mail" "ar 1" "ar 2" "sys 1" "sys 2" "hq 1" "hq 2" "ibms 1" "ibms 2" ];
     };
 
     "org/gnome/mutter" = {
       center-new-windows = true;
+      dynamic-workspaces = false;
     };
 
     "org/gnome/shell" = {
@@ -30,6 +32,7 @@
         "gsconnect@andyholmes.github.io"
         "gTile@vibou"
         "Vitals@CoreCoding.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
 
       favorite-apps = [
@@ -40,6 +43,7 @@
         "ar.desktop"
         "sys.desktop"
         "hq.desktop"
+        "ibms.desktop"
       ];
     };
 
@@ -51,6 +55,7 @@
         "ar.desktop:3"
         "sys.desktop:5"
         "hq.desktop:7"
+        "ibms.desktop:9"
       ];
     };
 
@@ -60,7 +65,7 @@
       panel-element-positions = builtins.toJSON {
         "0" = [
           { element = "showAppsButton";   visible = false; position = "stackedTL"; }
-          { element = "activitiesButton"; visible = true;  position = "stackedTL"; }
+          { element = "activitiesButton"; visible = false; position = "stackedTL"; }
           { element = "leftBox";          visible = true;  position = "stackedTL"; }
           { element = "taskbar";          visible = false; position = "stackedTL"; }
           { element = "dateMenu";         visible = true;  position = "centerMonitor"; }
@@ -77,6 +82,17 @@
       trans-use-custom-opacity = true;
     };
 
+    "org/gnome/shell/extensions/gtile" = {
+      autotile-1 = [ "<Shift><Control><Alt>1" ];
+      autotile-gridspec-1 = "cols(1d, 1)";
+
+      autotile-2 = [ "<Shift><Control><Alt>2" ];
+      autotile-gridspec-2 = "cols(1d, 8, 1d)";
+
+      autotile-3 = [ "<Shift><Control><Alt>3" ];
+      autotile-gridspec-3 = "cols(9d, 11)";
+    };
+
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
@@ -85,6 +101,7 @@
       switch-to-application-5 = [ "<Control><Alt><Shift>u" ]; # AR
       switch-to-application-6 = [ "<Control><Alt><Shift>i" ]; # SYS
       switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
+      switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # IBMS
 
       switch-input-source = [ "<Control><Alt><Shift>Tab" ];
     };
