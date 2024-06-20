@@ -103,23 +103,6 @@
     kitty.variant256Colors = true;
   };
 
-  xdg.desktopEntries = {
-    ar = {
-      name = "AR";
-      exec = "kitty --class ar --directory /home/david/ar/trees/current";
-    };
-
-    hq = {
-      name = "HQ";
-      exec = "kitty --class hq --directory /home/david/hq/trees/current";
-    };
-
-    sys = {
-      name = "SYS";
-      exec = "kitty --class sys --directory /home/david/sys";
-    };
-  };
-
   xdg.userDirs = {
     enable = true;
     createDirectories = false;

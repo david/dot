@@ -1,13 +1,94 @@
-{ config, ... }: {
-  home.file."${config.xdg.configHome}/kitty/default-session.conf".text = ''
-    launch --title=shell
+{ config, pkgs, ... }: let
+  ar = "${config.home.homeDirectory}/ar";
+  hq = "${config.home.homeDirectory}/hq";
+  ibms = "${config.home.homeDirectory}/ibms";
+  sys = "${config.home.homeDirectory}/sys";
+
+  denvx = "direnv exec . ";
+
+  lazy = pkgs.writeShellScript "lazy" ''
+    set -eo pipefail
+
+    sleep 1
+
+    PROMPT="Enter to run command, CTRL-C to quit: "
+    PAD_X=$(( ( $COLUMNS - $( echo -n $PROMPT | wc -c ) ) / 2 ))
+    PAD_Y=$(( ( $LINES / 2 ) - 2 ))
+
+    clear
+
+    tput cup $PAD_Y $PAD_X
+    read -p "$PROMPT" || break
+
+    clear
+
+    $@
+  '';
+
+  repeatedly = pkgs.writeShellScript "repeatedly" ''
+    set -eo pipefail
+
+    while true ; do
+      $@
+
+      read -p "Enter to reload, CTRL-C to quit: " || break
+    done
+  '';
+
+  default-session = cwd: let
+    launch = "launch --cwd=${cwd}";
+  in ''
+    new_tab cmd
+    ${launch}
 
     new_tab git
-    launch direnv exec . lazygit
+    ${launch} ${denvx} lazygit
 
     new_os_window editor
-    launch nvim
+    ${launch} ${denvx} nvim
   '';
+
+  rails-session = cwd: let
+    launch = "launch --cwd=${cwd}";
+  in ''
+    new_tab cmd
+    ${launch}
+
+    new_tab git
+    ${launch} ${denvx} lazygit
+
+    new_tab console: dev
+    ${launch} ${lazy} ${repeatedly} ${denvx} rails console
+
+    new_os_window editor
+    ${launch} ${denvx} nvim
+  '';
+
+  phx-session = cwd: let
+    launch = "launch --cwd=${cwd}";
+  in ''
+    new_tab editor
+    ${launch} ${denvx} nvim
+
+    new_os_window cmd
+    ${launch}
+
+    new_tab git
+    ${launch} ${denvx} lazygit
+
+    new_tab app
+    ${launch} ${repeatedly} ${denvx} iex -S mix phx.server
+
+    new_tab db
+    ${launch} ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
+  '';
+in {
+  home = {
+    file."${ar}/session.conf".text = rails-session "${ar}/trees/current";
+    file."${hq}/session.conf".text = phx-session "${hq}/trees/current";
+    file."${ibms}/session.conf".text = phx-session "${ibms}/trees/current";
+    file."${sys}/session.conf".text = default-session sys;
+  };
 
   programs.kitty = let
     symbols = builtins.concatStringsSep "," [
@@ -38,29 +119,20 @@
   in {
     enable = true;
 
-    keybindings = let
-      focusWindow = title: "focus-window --match 'title:${title} and state:parent_active'";
-      launch = title: command: "launch --title=${title} ${command}";
-      remote = command: "launch --allow-remote-control sh -c \"${command}\"";
-      editor = focusWindow "editor";
-      shell = remote "kitten @ ${focusWindow "shell"} || kitten @ ${launch "shell" ""}";
-    in {
+    keybindings = {
       "super+comma" = "previous_tab";
       "super+period" = "next_tab";
       "super+shift+q" = "toggle_layout stack";
-      "super+e" = "combine / goto_layout fat / ${editor}";
       "super+j" = "neighboring_window down";
       "super+k" = "neighboring_window up";
       "super+n" = "launch --type=tab --cwd=current";
       "super+o" = "load_config_file";
       "super+q" = "combine / next_window / goto_layout stack";
       "super+r" = "launch --allow-remote-control";
-      "super+s" = "combine / goto_layout fat / ${shell}";
     };
 
     settings = {
       cursor_blink_interval = 0;
-      startup_session = "default-session.conf";
       disable_ligatures = "cursor";
       enable_audio_bell = false;
       enabled_layouts = "stack, fat:bias=60";
@@ -68,24 +140,47 @@
       hide_window_decorations = true;
       inactive_text_alpha = "0.25";
       initial_window_height = "50c";
-      initial_window_width = "166c";
+      initial_window_width = "117c";
       narrow_symbols = symbols;
       remember_window_size = false;
       scrollback_lines = 8192;
       scrollback_pager_history_size = 256;
       shell = "fish --login";
       symbol_map = symbols + " Symbols Nerd Font Mono";
-      tab_bar_align = "center";
+      tab_bar_align = "left";
       tab_bar_edge = "top";
-      tab_bar_margin_width = "0";
+      tab_bar_margin_width = "4.0";
       tab_bar_margin_height = "4.0 0";
       tab_fade = "1";
       visual_bell_duration = "0.25";
-      window_padding_width = "0";
+      window_padding_width = "4";
     };
 
     extraConfig = ''
       symbol_map U+26A1 Noto Color Emoji
     '';
   };
+
+  xdg.desktopEntries = {
+    ar = {
+      name = "AR";
+      exec = "kitty --class ar --session ${ar}/session.conf";
+    };
+
+    ibms = {
+      name = "IBMS";
+      exec = "kitty --class ibms --session ${ibms}/session.conf";
+    };
+
+    hq = {
+      name = "HQ";
+      exec = "kitty --class hq --session ${hq}/session.conf";
+    };
+
+    sys = {
+      name = "SYS";
+      exec = "kitty --class sys --session ${sys}/session.conf";
+    };
+  };
+
 }
