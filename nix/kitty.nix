@@ -34,10 +34,10 @@
   default-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab cmd
+    new_tab 
     ${launch}
 
-    new_tab git
+    new_tab 
     ${launch} ${denvx} lazygit
 
     new_os_window editor
@@ -47,13 +47,13 @@
   rails-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab cmd
+    new_tab 
     ${launch}
 
-    new_tab git
+    new_tab 
     ${launch} ${denvx} lazygit
 
-    new_tab console: dev
+    new_tab   dev
     ${launch} ${lazy} ${repeatedly} ${denvx} rails console
 
     new_os_window editor
@@ -63,19 +63,16 @@
   phx-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab editor
-    ${launch} ${denvx} nvim
-
-    new_os_window cmd
+    new_tab 
     ${launch}
 
-    new_tab git
+    new_tab 
     ${launch} ${denvx} lazygit
 
-    new_tab app
+    new_tab 󰲌
     ${launch} ${repeatedly} ${denvx} iex -S mix phx.server
 
-    new_tab db
+    new_tab 
     ${launch} ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
   '';
 in {
@@ -148,12 +145,18 @@ in {
       tab_bar_margin_width = "4.0";
       tab_bar_margin_height = "4.0 0";
       tab_fade = "1";
+      tab_title_template = "\"{title} \"";
       visual_bell_duration = "0.25";
       window_padding_width = "4";
     };
 
     extraConfig = ''
+      active_tab_background #bdae93
+      active_tab_foreground #1d2021
+      inactive_tab_background #1d2021
+      inactive_tab_foreground #504945
       symbol_map U+26A1 Noto Color Emoji
+      tab_bar_background none
     '';
   };
 
@@ -178,5 +181,4 @@ in {
       exec = "kitty --class sys --session ${sys}/session.conf";
     };
   };
-
 }
