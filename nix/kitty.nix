@@ -56,6 +56,19 @@
     new_tab   dev
     ${launch} ${lazy} ${repeatedly} ${denvx} rails console
 
+    new_tab 󰲌
+    ${launch} ${repeatedly} ${denvx} rails server
+
+    new_tab 
+    enabled_layouts vertical
+    layout vertical
+
+    ${launch} ${repeatedly} ${denvx} mysqld --datadir=../../data/mariadb --socket=/tmp/mysql.sock
+    ${launch} ${repeatedly} ${denvx} redis-server --dir ../../data/redis
+    ${launch} ${repeatedly} ${denvx} yarn build --watch
+    ${launch} ${repeatedly} ${denvx} yarn build:css --watch
+    ${launch} ${repeatedly} ${denvx} bundle exec fakes3 -r ../../data/fakes3 -p 4567
+
     new_os_window editor
     ${launch} ${denvx} nvim
   '';
@@ -74,6 +87,9 @@
 
     new_tab 
     ${launch} ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
+
+    new_os_window
+    ${launch} ${repeatedly} ${denvx} nvim
   '';
 in {
   home = {
@@ -134,7 +150,6 @@ in {
       inactive_text_alpha = "0.25";
       initial_window_height = "50c";
       initial_window_width = "117c";
-      narrow_symbols = symbols;
       remember_window_size = false;
       scrollback_lines = 8192;
       scrollback_pager_history_size = 256;
