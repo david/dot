@@ -7,8 +7,6 @@
   denvx = "direnv exec . ";
 
   lazy = pkgs.writeShellScript "lazy" ''
-    set -eo pipefail
-
     sleep 1
 
     PROMPT="Enter to run command, CTRL-C to quit: "
@@ -26,8 +24,6 @@
   '';
 
   repeatedly = pkgs.writeShellScript "repeatedly" ''
-    set -eo pipefail
-
     while true ; do
       $@
 
