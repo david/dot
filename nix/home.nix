@@ -20,6 +20,11 @@
     vivaldi-ffmpeg-codecs
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   home.stateVersion = "23.11";
 
   programs.bash.enable = true;
