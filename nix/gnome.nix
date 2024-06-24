@@ -5,12 +5,12 @@
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super><Control><Alt><Shift>q" ];
       minimize = [ "<Control><Alt><Shift>q" ];
-      move-to-workspace-left = [ "<Super><Control><Alt><Shift>comma" ];
-      move-to-workspace-right = [ "<Super><Control><Alt><Shift>period" ];
+      move-to-workspace-left = [ "<Super><Control><Alt><Shift>h" ];
+      move-to-workspace-right = [ "<Super><Control><Alt><Shift>l" ];
       switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
       switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
-      cycle-windows = [ "<Control><Alt><Shift>l" ];
-      cycle-windows-backward = [ "<Control><Alt><Shift>h" ];
+      cycle-windows = [ "<Control><Alt><Shift>apostrophe" ];
+      cycle-windows-backward = [ "<Control><Alt><Shift>Tab" ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -84,13 +84,13 @@
     };
 
     "org/gnome/shell/extensions/gtile" = {
-      autotile-1 = [ "<Shift><Control><Alt>1" ];
-      autotile-gridspec-1 = "cols(1d, 1)";
+      autotile-1 = [ "<Shift><Control><Alt>8" ];
+      autotile-gridspec-1 = "cols(1)";
 
-      autotile-2 = [ "<Shift><Control><Alt>2" ];
+      autotile-2 = [ "<Shift><Control><Alt>7" ];
       autotile-gridspec-2 = "cols(1d, 8, 1d)";
 
-      autotile-3 = [ "<Shift><Control><Alt>3" ];
+      autotile-3 = [ "<Shift><Control><Alt>9" ];
       autotile-gridspec-3 = "cols(9d, 11)";
     };
 
@@ -103,8 +103,9 @@
       switch-to-application-6 = [ "<Control><Alt><Shift>i" ]; # SYS
       switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
       switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # IBMS
+      switch-to-application-9 = [ "<Control><Alt><Shift>v" ]; # Video
 
-      switch-input-source = [ "<Control><Alt><Shift>Tab" ];
+      switch-input-source = [ "<Control><Alt><Shift>Space" ];
     };
   };
 
