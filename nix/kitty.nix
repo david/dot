@@ -44,62 +44,41 @@
   default-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab 
-    ${launch}
-
     new_tab 
-    ${launch} ${denvx} lazygit
+    ${launch} ${repeatedly} ${denvx} lazygit
 
-    new_os_window editor
-    ${launch} ${denvx} nvim
+    new_tab
+    ${launch} --title=󱃖  ${repeatedly} ${denvx} nvim
+    ${launch} --title=
   '';
 
   rails-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab 
-    ${launch}
+    ${default-session cwd}
 
-    new_tab 
-    ${launch} ${denvx} lazygit
+    new_tab
+    ${launch} --title=󰣆  ${repeatedly} ${denvx} rails server
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} mysqld --datadir=../../data/mariadb --socket=/tmp/mysql.sock
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} redis-server --dir ../../data/redis
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build --watch
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build:css --watch
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} bundle exec fakes3 -r ../../data/fakes3 -p 4567
 
-    new_tab   dev
-    ${launch} ${lazy} ${repeatedly} ${denvx} rails console
-
-    new_tab 󰲌
-    ${launch} ${repeatedly} ${denvx} rails server
-
-    new_tab 
-    enabled_layouts vertical
-    layout vertical
-
-    ${launch} ${repeatedly} ${denvx} mysqld --datadir=../../data/mariadb --socket=/tmp/mysql.sock
-    ${launch} ${repeatedly} ${denvx} redis-server --dir ../../data/redis
-    ${launch} ${repeatedly} ${denvx} yarn build --watch
-    ${launch} ${repeatedly} ${denvx} yarn build:css --watch
-    ${launch} ${repeatedly} ${denvx} bundle exec fakes3 -r ../../data/fakes3 -p 4567
-
-    new_os_window editor
-    ${launch} ${denvx} nvim
+    new_tab
+    ${launch} --title='󰢩  stg' ${lazy} ${repeatedly} ${denvx} heroku run rails console -r staging
+    ${launch} --title='󰢩  prod' ${lazy} ${repeatedly} ${denvx} heroku run rails console -r production
+    ${launch} --title='󰢩  dev' ${lazy} ${repeatedly} ${denvx} rails console
   '';
 
   phx-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    new_tab 
-    ${launch}
+    ${default-session cwd}
 
-    new_tab 
-    ${launch} ${denvx} lazygit
-
-    new_tab 󰲌
-    ${launch} ${repeatedly} ${denvx} iex -S mix phx.server
-
-    new_tab 
-    ${launch} ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
-
-    new_os_window
-    ${launch} ${repeatedly} ${denvx} nvim
+    new_tab
+    ${launch} --title='󰢩  dev' ${repeatedly} ${denvx} iex -S mix phx.server
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
   '';
 in {
   home = {
@@ -142,12 +121,17 @@ in {
       "super+comma" = "previous_tab";
       "super+period" = "next_tab";
       "super+shift+q" = "toggle_layout stack";
+      "super+a" = "remote_control focus-window --match 'title:^󰣆 '";
+      "super+c" = "remote_control focus-window --match 'title:^󰢩  dev'";
+      "super+e" = "remote_control focus-window --match 'title:^󱃖 '";
+      "super+g" = "remote_control focus-tab --match 'title:^ '";
       "super+j" = "neighboring_window down";
       "super+k" = "neighboring_window up";
       "super+n" = "launch --type=tab --cwd=current";
       "super+o" = "load_config_file";
       "super+q" = "combine / next_window / goto_layout stack";
       "super+r" = "launch --allow-remote-control";
+      "super+s" = "remote_control focus-window --match 'title:^ '";
     };
 
     settings = {
