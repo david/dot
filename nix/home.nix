@@ -94,10 +94,6 @@
     enableAliases = true;
   };
 
-  services.pueue = {
-    enable = true;
-  };
-
   stylix.targets = {
     kitty.variant256Colors = true;
   };
