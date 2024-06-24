@@ -38,12 +38,13 @@
       favorite-apps = [
         "slack.desktop"
         "discord.desktop"
-        "firefox.desktop"
+        "vivaldi-stable.desktop"
         "org.gnome.Geary.desktop"
         "ar.desktop"
         "sys.desktop"
         "hq.desktop"
         "ibms.desktop"
+        "vivaldi-agimnkijcaahngcdmfeangaknmldooml-Default.desktop"
       ];
     };
 

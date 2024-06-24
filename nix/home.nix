@@ -1,6 +1,5 @@
 { config, pkgs, ... }: {
   imports = [
-    ./firefox.nix
     ./gnome.nix
     ./kitty.nix
     ./nvim.nix
