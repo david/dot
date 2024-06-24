@@ -137,8 +137,9 @@ in {
     settings = {
       cursor_blink_interval = 0;
       disable_ligatures = "cursor";
+      draw_minimal_borders = false;
       enable_audio_bell = false;
-      enabled_layouts = "stack, fat:bias=60";
+      enabled_layouts = "tall:mirrored=true";
       forward_stdio = true;
       hide_window_decorations = true;
       inactive_text_alpha = "0.25";
@@ -149,19 +150,20 @@ in {
       scrollback_pager_history_size = 256;
       shell = "fish --login";
       symbol_map = symbols + " Symbols Nerd Font Mono";
-      tab_bar_align = "left";
+      tab_bar_align = "center";
       tab_bar_edge = "top";
-      tab_bar_margin_width = "4.0";
-      tab_bar_margin_height = "4.0 0";
+      tab_bar_margin_height = "2.0 0";
       tab_fade = "1";
       tab_title_template = "\"{title} \"";
       visual_bell_duration = "0.25";
+      window_margin_width = "2 2";
       window_padding_width = "4";
     };
 
     extraConfig = ''
-      active_tab_background #bdae93
-      active_tab_foreground #1d2021
+      active_border_color #fabd2f
+      active_tab_background #1d2021
+      active_tab_foreground #bdae93
       inactive_tab_background #1d2021
       inactive_tab_foreground #504945
       symbol_map U+26A1 Noto Color Emoji
