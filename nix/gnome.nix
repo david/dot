@@ -14,8 +14,8 @@
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 10;
-      workspace-names = [ "chat" "mail" "ar 1" "ar 2" "sys 1" "sys 2" "hq 1" "hq 2" "ibms 1" "ibms 2" ];
+      num-workspaces = 3;
+      workspace-names = [ "chat" "dev" "net" ];
     };
 
     "org/gnome/mutter" = {
@@ -32,7 +32,6 @@
         "gsconnect@andyholmes.github.io"
         "gTile@vibou"
         "Vitals@CoreCoding.com"
-        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
 
       favorite-apps = [
@@ -52,11 +51,12 @@
       application-list = [
         "discord.desktop:1"
         "slack.desktop:1"
-        "org.gnome.Geary.desktop:2"
-        "ar.desktop:3"
-        "sys.desktop:5"
-        "hq.desktop:7"
-        "ibms.desktop:9"
+        "ar.desktop:2"
+        "sys.desktop:2"
+        "hq.desktop:2"
+        "ibms.desktop:2"
+        "vivaldi-stable.desktop:3"
+        "org.gnome.Geary.desktop:3"
       ];
     };
 
