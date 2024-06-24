@@ -63,11 +63,9 @@
       { key = "<leader>wk";       action = "<C-w>k"; }
       { key = "<leader>wl";       action = "<C-w>l"; }
 
-      { key = "<c-k>";            action = "<cmd>m-2<cr>=="; }
-      { key = "<c-j>";            action = "<cmd>m+1<cr>=="; }
-
-      { key = "<c-,>";            action = "<cmd>BufferLineCyclePrev<cr>"; }
-      { key = "<c-.>";            action = "<cmd>BufferLineCycleNext<cr>"; }
+      { key = "<c-,>";            action = "<cmd>bprevious<cr>"; }
+      { key = "<c-.>";            action = "<cmd>bnext<cr>"; }
+      { key = "<c-s>";            action = "<cmd>w<cr>=="; }
 
       { key = "[c";               action = "<cmd>cprevious<cr>"; }
       { key = "]c";               action = "<cmd>cnext<cr>"; }
@@ -120,6 +118,20 @@
 
       lsp = {
         enable = true;
+
+        keymaps = {
+          diagnostic = {
+            "]e" = "goto_next";
+            "[e" = "goto_prev";
+          };
+
+          lspBuf = {
+            "K" = "hover";
+            "gd" = "definition";
+          };
+
+          silent = true;
+        };
 
         servers = {
           cssls.enable = true;
@@ -231,6 +243,11 @@
           "<leader>f" = {
             action = "find_files";
             options = { desc = "find file"; };
+          };
+
+          "<d-f>" = {
+            action = "buffers";
+            options = { desc = "find buffer"; };
           };
         };
 
