@@ -118,6 +118,10 @@ in {
     enable = true;
 
     keybindings = {
+      "control+alt+shift+h" = "neighboring_window left";
+      "control+alt+shift+j" = "neighboring_window down";
+      "control+alt+shift+k" = "neighboring_window up";
+      "control+alt+shift+l" = "neighboring_window right";
       "super+comma" = "previous_tab";
       "super+period" = "next_tab";
       "super+shift+q" = "toggle_layout stack";
@@ -125,8 +129,10 @@ in {
       "super+c" = "remote_control focus-window --match 'title:^󰢩  dev'";
       "super+e" = "remote_control focus-window --match 'title:^󱃖 '";
       "super+g" = "remote_control focus-tab --match 'title:^ '";
+      "super+h" = "neighboring_window left";
       "super+j" = "neighboring_window down";
       "super+k" = "neighboring_window up";
+      "super+l" = "neighboring_window right";
       "super+n" = "launch --type=tab --cwd=current";
       "super+o" = "load_config_file";
       "super+q" = "combine / next_window / goto_layout stack";
