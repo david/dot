@@ -79,45 +79,6 @@
     plugins = {
       auto-save.enable = true;
 
-      bufferline = {
-        enable = true;
-
-        showBufferCloseIcons = false;
-        showCloseIcon = false;
-
-        highlights = let
-          dark = {
-            bg = "#282828";
-            fg = "#282828";
-          };
-
-          light = {
-            fg = "#bdae93";
-            bg = "#bdae93";
-          };
-
-          selected = {
-            fg = "#282828";
-            bg = "#bdae93";
-          };
-
-          visible = {
-            bg = "#282828";
-          };
-        in {
-          background = visible;
-          bufferSelected = selected;
-          fill = dark;
-          indicatorSelected = light;
-          separator = dark;
-          separatorSelected = selected;
-          tab = visible;
-          tabSelected = selected;
-          tabSeparator = dark;
-          tabSeparatorSelected = light;
-        };
-      };
-
       cmp = {
         enable = true;
 
