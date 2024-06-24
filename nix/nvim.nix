@@ -195,7 +195,6 @@
       nix.enable = true;
       nvim-autopairs.enable = true;
       nvim-colorizer.enable = true;
-      octo.enable = true;
       rainbow-delimiters.enable = true;
       schemastore.enable = true;
       statuscol.enable = true;
