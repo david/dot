@@ -7,16 +7,26 @@
   denvx = "direnv exec . ";
 
   lazy = pkgs.writeShellScript "lazy" ''
+    COMMAND_COLOR="\033[1;32m"
+    PROMPT_COLOR="\033[0;37m"
+    NC="\033[0m" # No Color
+
     sleep 1
 
-    PROMPT="Enter to run command, CTRL-C to quit: "
-    PAD_X=$(( ( $COLUMNS - $( echo -n $PROMPT | wc -c ) ) / 2 ))
-    PAD_Y=$(( ( $LINES / 2 ) - 2 ))
+    COMMAND="$*"
+    COMMAND_PAD_X=$(( ( $COLUMNS - $( echo -n $COMMAND | wc -c ) ) / 2 ))
+    COMMAND_PAD_Y=$(( ( $LINES / 2 ) - 3 ))
+    PROMPT="Enter to run, CTRL-C to quit: "
+    PROMPT_PAD_X=$(( ( $COLUMNS - $( echo -n $PROMPT | wc -c ) ) / 2 ))
+    PROMPT_PAD_Y=$(( ( $LINES / 2 ) - 2 ))
 
     clear
 
-    tput cup $PAD_Y $PAD_X
-    read -p "$PROMPT" || break
+    tput cup $COMMAND_PAD_Y $COMMAND_PAD_X
+    echo -e "$COMMAND_COLOR$COMMAND"
+    tput cup $PROMPT_PAD_Y $PROMPT_PAD_X
+    echo -en "$PROMPT_COLOR$PROMPT$NC"
+    read || break
 
     clear
 
