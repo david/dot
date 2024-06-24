@@ -92,6 +92,13 @@
 
       autotile-3 = [ "<Shift><Control><Alt>9" ];
       autotile-gridspec-3 = "cols(9d, 11)";
+
+      insets-primary-bottom = 12;
+      insets-primary-left = 8;
+      insets-primary-right = 8;
+      insets-primary-top = 12;
+
+      show-icon = false;
     };
 
     "org/gnome/shell/keybindings" = {
