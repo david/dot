@@ -180,7 +180,9 @@
         enable = true;
 
         modules = {
+          ai = {};
           align = {};
+          splitjoin = {};
         };
       };
 
