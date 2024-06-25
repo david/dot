@@ -104,6 +104,12 @@
       show-icon = false;
     };
 
+    "org/gnome/shell/extensions/vitals" = {
+      fixed-widths = false;
+      hot-sensors = ["_system_load_1m_" "__temperature_max__" "_memory_usage_" "_processor_usage_"];
+      show-memory = true;
+    };
+
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
