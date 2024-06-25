@@ -5,10 +5,7 @@
     ./nvim.nix
   ];
 
-  home.file = {
-    "${config.xdg.dataHome}/backgrounds".source = ../backgrounds;
-    "${config.xdg.dataHome}/fonts".source = ../fonts;
-  };
+  home.file."${config.xdg.dataHome}/fonts".source = ../fonts;
 
   home.packages = with pkgs; [
     discord

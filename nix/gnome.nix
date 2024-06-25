@@ -29,7 +29,6 @@
     "org/gnome/shell" = {
       enabled-extensions = [
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-        "azwallpaper@azwallpaper.gitlab.com"
         "burn-my-windows@schneegans.github.com"
         "dash-to-panel@jderose9.github.com"
         "gsconnect@andyholmes.github.io"
@@ -132,9 +131,45 @@
       { package = gnomeExtensions.gsconnect; }
       { package = gnomeExtensions.gtile; }
       { package = gnomeExtensions.vitals; }
-      { package = gnomeExtensions.wallpaper-slideshow; }
     ];
   };
 
   stylix.targets.gnome.enable = true;
+
+  systemd.user = let
+    changeBackground = pkgs.writeShellScript "change-background" ''
+      set -eo pipefail
+
+      DCONF=${pkgs.dconf}/bin/dconf
+      BASE=/org/gnome/desktop/background
+      FILE="'file://$(fd . ${../backgrounds} | shuf --head-count 1)'"
+
+      $DCONF write $BASE/picture-uri $FILE
+      $DCONF write $BASE/picture-uri-dark $FILE
+    '';
+
+    interval = "5m";
+  in {
+    services.random-background = {
+      Unit = {
+        Description = "GNOME background switcher";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = changeBackground;
+        IOSchedulingClass = "idle";
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+    };
+
+    timers.random-background = {
+      Unit = { Description = "GNOME background switcher"; };
+      Timer = { OnUnitActiveSec = interval; };
+      Install = { WantedBy = [ "timers.target" ]; };
+    };
+  };
 }
