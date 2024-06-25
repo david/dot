@@ -11,6 +11,9 @@
       switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
       cycle-windows = [ "<Control><Alt><Shift>apostrophe" ];
       cycle-windows-backward = [ "<Control><Alt>apostrophe" ];
+
+      switch-input-source = [ "<Control><Alt><Shift>space" ];
+      switch-input-source-backward = [ "<Control><Alt>space" ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -111,8 +114,6 @@
       switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
       switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # IBMS
       switch-to-application-9 = [ "<Control><Alt><Shift>v" ]; # Video
-
-      switch-input-source = [ "<Control><Alt><Shift>Space" ];
     };
   };
 
