@@ -168,7 +168,7 @@ in {
     };
 
     extraConfig = ''
-      active_border_color #fabd2f
+      active_border_color #bdae93
       active_tab_background #1d2021
       active_tab_foreground #bdae93
       inactive_tab_background #1d2021
