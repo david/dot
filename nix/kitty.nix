@@ -50,6 +50,7 @@
 
     new_tab
     ${launch} --title=󱃖  ${repeatedly} ${denvx} nvim
+    focus
     ${launch} --title=
   '';
 
