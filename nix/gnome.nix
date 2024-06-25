@@ -17,8 +17,8 @@
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 3;
-      workspace-names = [ "chat" "dev" "net" ];
+      num-workspaces = 6;
+      workspace-names = [ "chat" "net" "ar" "sys" "ibms" "hq" ];
     };
 
     "org/gnome/mutter" = {
@@ -43,8 +43,8 @@
         "org.gnome.Geary.desktop"
         "ar.desktop"
         "sys.desktop"
-        "hq.desktop"
         "ibms.desktop"
+        "hq.desktop"
         "vivaldi-agimnkijcaahngcdmfeangaknmldooml-Default.desktop"
       ];
     };
@@ -53,12 +53,12 @@
       application-list = [
         "discord.desktop:1"
         "slack.desktop:1"
-        "ar.desktop:2"
-        "sys.desktop:2"
-        "hq.desktop:2"
-        "ibms.desktop:2"
-        "vivaldi-stable.desktop:3"
-        "org.gnome.Geary.desktop:3"
+        "vivaldi-stable.desktop:2"
+        "org.gnome.Geary.desktop:2"
+        "ar.desktop:3"
+        "sys.desktop:4"
+        "ibms.desktop:5"
+        "hq.desktop:6"
       ];
     };
 
@@ -112,12 +112,12 @@
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ "<Control><Alt><Shift>c" ]; # Slack
       switch-to-application-2 = [ "<Control><Alt><Shift>d" ]; # Discord
-      switch-to-application-3 = [ "<Control><Alt><Shift>w" ]; # Browser
+      switch-to-application-3 = [ "<Control><Alt><Shift>y" ]; # Browser
       switch-to-application-4 = [ "<Control><Alt><Shift>m" ]; # Mail
       switch-to-application-5 = [ "<Control><Alt><Shift>u" ]; # AR
       switch-to-application-6 = [ "<Control><Alt><Shift>i" ]; # SYS
-      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # HQ
-      switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # IBMS
+      switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # IBMS
+      switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # HQ
       switch-to-application-9 = [ "<Control><Alt><Shift>v" ]; # Video
     };
   };
