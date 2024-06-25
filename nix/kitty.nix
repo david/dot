@@ -138,7 +138,7 @@ in {
     settings = {
       cursor_blink_interval = 0;
       disable_ligatures = "cursor";
-      draw_minimal_borders = false;
+      draw_minimal_borders = true;
       enable_audio_bell = false;
       enabled_layouts = "tall:mirrored=true";
       forward_stdio = true;
@@ -153,16 +153,17 @@ in {
       symbol_map = symbols + " Symbols Nerd Font Mono";
       tab_bar_align = "center";
       tab_bar_edge = "top";
-      tab_bar_margin_height = "2.0 0";
+      tab_bar_margin_height = "6.0 6.0";
       tab_fade = "1";
       tab_title_template = "\"{title} \"";
       visual_bell_duration = "0.25";
-      window_margin_width = "2 2";
-      window_padding_width = "4";
+      window_border_width = "2";
+      window_padding_width = "4 6";
     };
 
     extraConfig = ''
       active_border_color #bdae93
+      inactive_border_color #504945
       active_tab_background #1d2021
       active_tab_foreground #bdae93
       inactive_tab_background #1d2021
