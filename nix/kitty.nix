@@ -66,11 +66,6 @@
     ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build --watch
     ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build:css --watch
     ${launch} --title=󰒋  ${repeatedly} ${denvx} bundle exec fakes3 -r ../../data/fakes3 -p 4567
-
-    new_tab
-    ${launch} --title='󰢩  stg' ${lazy} ${repeatedly} ${denvx} heroku run rails console -r staging
-    ${launch} --title='󰢩  prod' ${lazy} ${repeatedly} ${denvx} heroku run rails console -r production
-    ${launch} --title='󰢩  dev' ${lazy} ${repeatedly} ${denvx} rails console
   '';
 
   phx-session = cwd: let
@@ -128,7 +123,6 @@ in {
       "super+period" = "next_tab";
       "super+shift+q" = "toggle_layout stack";
       "super+a" = "remote_control focus-window --match 'title:^󰣆 '";
-      "super+c" = "remote_control focus-window --match 'title:^󰢩  dev'";
       "super+e" = "remote_control focus-window --match 'title:^󱃖 '";
       "super+g" = "remote_control focus-tab --match 'title:^ '";
       "super+h" = "neighboring_window left";
