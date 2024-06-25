@@ -13,6 +13,7 @@
   home.packages = with pkgs; [
     discord
     fd
+    grc
     ripgrep
     slack
     wl-clipboard
@@ -43,8 +44,17 @@
     interactiveShellInit = ''
       set fish_greeting
 
+      set --global hydro_multiline true
+
       fish_vi_key_bindings
     '';
+
+    plugins = with pkgs.fishPlugins; [
+      { name = "done" ; src = done.src; }
+      { name = "fzf-fish" ; src = fzf-fish.src; }
+      { name = "grc" ; src = grc.src; }
+      { name = "hydro" ; src = hydro.src; }
+    ];
   };
 
   programs.fzf = {
