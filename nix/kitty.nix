@@ -6,18 +6,27 @@
 
   denvx = "direnv exec . ";
 
+  repeatedly = pkgs.writeShellScript "repeatedly" ''
+    while true ; do
+      $@
+
+      read -p "Enter to reload, CTRL-C to quit: " || break
+    done
+  '';
+
   lazy = pkgs.writeShellScript "lazy" ''
     COMMAND_COLOR="\033[1;32m"
     PROMPT_COLOR="\033[0;37m"
-    NC="\033[0m" # No Color
+    NC="\033[0m"
 
     sleep 1
 
-    COMMAND="$*"
-    COMMAND_PAD_X=$(( ( $COLUMNS - $( echo -n $COMMAND | wc -c ) ) / 2 ))
+    COMMAND=$(echo "$*" | sed 's|${repeatedly} ||')
+    COMMAND_PAD_X=$(( ( $COLUMNS - $( echo -n "$COMMAND" | wc -c ) ) / 2 ))
     COMMAND_PAD_Y=$(( ( $LINES / 2 ) - 3 ))
+
     PROMPT="Enter to run, CTRL-C to quit: "
-    PROMPT_PAD_X=$(( ( $COLUMNS - $( echo -n $PROMPT | wc -c ) ) / 2 ))
+    PROMPT_PAD_X=$(( ( $COLUMNS - $( echo -n "$PROMPT" | wc -c ) ) / 2 ))
     PROMPT_PAD_Y=$(( ( $LINES / 2 ) - 2 ))
 
     clear
@@ -31,14 +40,6 @@
     clear
 
     $@
-  '';
-
-  repeatedly = pkgs.writeShellScript "repeatedly" ''
-    while true ; do
-      $@
-
-      read -p "Enter to reload, CTRL-C to quit: " || break
-    done
   '';
 
   default-session = cwd: let
