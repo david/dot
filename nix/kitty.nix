@@ -150,8 +150,8 @@ in {
       forward_stdio = true;
       hide_window_decorations = true;
       inactive_text_alpha = "0.25";
-      initial_window_height = "50c";
-      initial_window_width = "117c";
+      initial_window_height = "48c";
+      initial_window_width = "230c";
       remember_window_size = false;
       scrollback_lines = 8192;
       scrollback_pager_history_size = 256;
