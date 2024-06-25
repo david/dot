@@ -86,21 +86,24 @@
     };
 
     "org/gnome/shell/extensions/gtile" = {
-      autotile-1 = [ "<Shift><Control><Alt>8" ];
+      autotile-1 = [ "<Shift><Control><Alt>7" ];
       autotile-gridspec-1 = "cols(1)";
 
-      autotile-2 = [ "<Shift><Control><Alt>7" ];
-      autotile-gridspec-2 = "cols(1d, 8, 1d)";
+      autotile-2 = [];
 
       autotile-3 = [ "<Shift><Control><Alt>9" ];
-      autotile-gridspec-3 = "cols(9d, 11)";
+      autotile-gridspec-3 = "cols(49d, 51)";
+
+      global-auto-tiling = true;
 
       insets-primary-bottom = 12;
-      insets-primary-left = 8;
-      insets-primary-right = 8;
+      insets-primary-left = 12;
+      insets-primary-right = 12;
       insets-primary-top = 12;
 
       show-icon = false;
+
+      window-spacing = 6;
     };
 
     "org/gnome/shell/extensions/vitals" = {
