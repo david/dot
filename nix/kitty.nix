@@ -51,7 +51,6 @@
     new_tab
     ${launch} --title=󱃖  ${repeatedly} ${denvx} nvim
     focus
-    ${launch} --title=
   '';
 
   rails-session = cwd: let
@@ -59,30 +58,33 @@
   in ''
     ${default-session cwd}
 
+    ${launch} --title=
+
     new_tab
     ${launch} --title=󰣆  ${repeatedly} ${denvx} rails server
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} mysqld --datadir=../../data/mariadb --socket=/tmp/mysql.sock
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} redis-server --dir ../../data/redis
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build --watch
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} yarn build:css --watch
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} bundle exec fakes3 -r ../../data/fakes3 -p 4567
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} nix run path:.#srv
   '';
 
   phx-session = cwd: let
     launch = "launch --cwd=${cwd}";
   in ''
-    ${default-session cwd}
+  ${default-session cwd}
+
+    ${launch} --title=󰢩  ${repeatedly} ${denvx} iex -S mix phx.server
 
     new_tab
-    ${launch} --title='󰢩  dev' ${repeatedly} ${denvx} iex -S mix phx.server
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} postgres -D ../../data/postgres -k ../../tmp
+    ${launch} --title=󰒋  ${repeatedly} ${denvx} nix run .#srv
   '';
 in {
   home = {
     file."${ar}/session.conf".text = rails-session "${ar}/trees/current";
     file."${hq}/session.conf".text = phx-session "${hq}/trees/current";
     file."${ibms}/session.conf".text = phx-session "${ibms}/trees/current";
-    file."${sys}/session.conf".text = default-session sys;
+    file."${sys}/session.conf".text = ''
+      ${default-session sys}
+
+      launch --cwd=${sys} --title=
+    '';
   };
 
   programs.kitty = let
