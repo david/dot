@@ -10,7 +10,7 @@
       switch-to-workspace-left = [ "<Control><Alt><Shift>comma" ];
       switch-to-workspace-right = [ "<Control><Alt><Shift>period" ];
       cycle-windows = [ "<Control><Alt><Shift>apostrophe" ];
-      cycle-windows-backward = [ "<Control><Alt><Shift>Tab" ];
+      cycle-windows-backward = [ "<Control><Alt>apostrophe" ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
