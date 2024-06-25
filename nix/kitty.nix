@@ -130,9 +130,6 @@ in {
       "super+k" = "neighboring_window up";
       "super+l" = "neighboring_window right";
       "super+n" = "launch --type=tab --cwd=current";
-      "super+o" = "load_config_file";
-      "super+q" = "combine / next_window / goto_layout stack";
-      "super+r" = "launch --allow-remote-control";
       "super+s" = "remote_control focus-window --match 'title:^ '";
     };
 
