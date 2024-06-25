@@ -179,27 +179,27 @@ in {
   };
 
   xdg.desktopEntries = let
-    kitty = name:
-      "kitty --class ${name} --single-instance --instance-group ${name} --session ${name}/session.conf";
+    kitty = name: dir:
+      "kitty --class ${name} --single-instance --instance-group ${name} --session ${dir}/session.conf";
   in {
     ar = {
       name = "AR";
-      exec = kitty "ar";
+      exec = kitty "ar" ar;
     };
 
     ibms = {
       name = "IBMS";
-      exec = kitty "ibms";
+      exec = kitty "ibms" ibms;
     };
 
     hq = {
       name = "HQ";
-      exec = kitty "hq";
+      exec = kitty "hq" hq;
     };
 
     sys = {
       name = "SYS";
-      exec = kitty "sys";
+      exec = kitty "sys" sys;
     };
   };
 }
