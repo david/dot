@@ -129,7 +129,7 @@ in {
       "super+j" = "neighboring_window down";
       "super+k" = "neighboring_window up";
       "super+l" = "neighboring_window right";
-      "super+n" = "launch --type=tab --cwd=current";
+      "super+n" = "launch --cwd=current";
       "super+s" = "remote_control focus-window --match 'title:^ '";
     };
 
