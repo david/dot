@@ -29,7 +29,6 @@
     "org/gnome/shell" = {
       enabled-extensions = [
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-        "burn-my-windows@schneegans.github.com"
         "dash-to-panel@jderose9.github.com"
         "gsconnect@andyholmes.github.io"
         "gTile@vibou"
@@ -129,7 +128,6 @@
     enable = true;
 
     extensions = with pkgs; [
-      { package = gnomeExtensions.burn-my-windows; }
       { package = gnomeExtensions.dash-to-panel; }
       { package = gnomeExtensions.gsconnect; }
       { package = gnomeExtensions.gtile; }
