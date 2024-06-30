@@ -269,9 +269,6 @@
             selection_caret = "██";
             sorting_strategy = "ascending";
           };
-
-          pickers = {
-          };
         };
       };
 
@@ -309,11 +306,6 @@
       trouble.enable = true;
       undotree.enable = true;
       which-key.enable = true;
-
-      yanky = {
-        enable = true;
-        ring.storage = "sqlite";
-      };
     };
 
     opts = {
