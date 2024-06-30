@@ -110,10 +110,6 @@
     enableAliases = true;
   };
 
-  stylix.targets = {
-    kitty.variant256Colors = true;
-  };
-
   xdg.userDirs = {
     enable = true;
     createDirectories = false;

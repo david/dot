@@ -173,6 +173,8 @@ in {
     '';
   };
 
+  stylix.targets.kitty.variant256Colors = true;
+
   xdg.desktopEntries = let
     kitty = name: dir:
       "kitty --class ${name} --single-instance --instance-group ${name} --session ${dir}/session.conf";
