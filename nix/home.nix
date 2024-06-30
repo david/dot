@@ -117,6 +117,10 @@
   programs.lsd = {
     enable = true;
     enableAliases = true;
+
+    settings = {
+      icons.separator = "  ";
+    };
   };
 
   xdg.userDirs = {
