@@ -7,7 +7,7 @@
     cursor = {
       package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita";
-      size = 32;
+      size = 24;
     };
 
     fonts = {
@@ -17,18 +17,18 @@
       };
 
       monospace = {
-        package = pkgs.dejavu_fonts;
+        package = pkgs.cantarell-fonts;
         name = "Iosevka Timbuktu";
       };
 
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans Condensed";
+        package = pkgs.cantarell-fonts;
+        name = "Cantarell";
       };
 
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif Condensed";
+        package = pkgs.cantarell-fonts;
+        name = "Cantarell";
       };
 
       sizes = {
@@ -41,7 +41,10 @@
 
     image = builtins.head (pkgs.lib.filesystem.listFilesRecursive ../backgrounds);
 
-    opacity.terminal = 0.9;
+    opacity = {
+      desktop = 0.5;
+      terminal = 0.9;
+    };
 
     polarity = "dark";
 

@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
-    ./gnome.nix
-    ./kitty.nix
+    ./hyprland.nix
     ./nvim.nix
   ];
 
@@ -53,6 +52,12 @@
       { name = "grc" ; src = grc.src; }
       { name = "hydro" ; src = hydro.src; }
     ];
+  };
+
+  programs.foot = {
+    enable = true;
+
+    settings.main.shell = "${pkgs.fish}/bin/fish";
   };
 
   programs.fzf = {

@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, ... }: {
   boot = {
     loader = {
       systemd-boot = {
@@ -39,18 +39,6 @@
     LC_PAPER = "pt_PT.UTF-8";
     LC_TELEPHONE = "pt_PT.UTF-8";
     LC_TIME = "pt_PT.UTF-8";
-  };
-
-  services.xserver = {
-    enable = true;
-
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
   };
 
   # Enable CUPS to print documents.
@@ -120,29 +108,14 @@
   };
 
   environment = {
-    gnome.excludePackages = (with pkgs; [
-      gedit
-      gnome-photos
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
-      cheese
-      epiphany
-      gnome-contacts
-      gnome-initial-setup
-      gnome-music
-      yelp
-    ]);
-
     localBinInPath = true;
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };
-
-    systemPackages = [ ];
   };
 
-  programs.dconf.enable = true;
+  programs.hyprland.enable = true;
 
   programs.nh = {
     enable = true;
@@ -153,13 +126,16 @@
 
   services.fwupd.enable = true;
 
-  services.gnome.games.enable = false;
-
   services.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = "david";
 
-    defaultSession = "gnome";
+    defaultSession = "hyprland";
+
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
   };
 
   fonts = {
