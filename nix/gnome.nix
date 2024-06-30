@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   home.packages = with pkgs.gnome; [ gnome-tweaks ];
 
   dconf.settings = {
@@ -24,12 +24,15 @@
     "org/gnome/mutter" = {
       center-new-windows = true;
       dynamic-workspaces = false;
+      overlay-key = [];
     };
 
     "org/gnome/shell" = {
       enabled-extensions = [
+        "arcmenu@arcmenu.com"
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
         "dash-to-panel@jderose9.github.com"
+        "forge@jmmaranan.com"
         "gsconnect@andyholmes.github.io"
         "gTile@vibou"
         "Vitals@CoreCoding.com"
@@ -46,6 +49,12 @@
         "hq.desktop"
         "vivaldi-agimnkijcaahngcdmfeangaknmldooml-Default.desktop"
       ];
+    };
+
+    "org/gnome/shell/extensions/arcmenu" = {
+      arcmenu-hotkey = [];
+      menu-button-appearance = "None";
+      runner-hotkey = [ "<Shift><Control><Alt>a" ];
     };
 
     "org/gnome/shell/extensions/auto-move-windows" = {
@@ -84,25 +93,63 @@
       trans-use-custom-opacity = true;
     };
 
-    "org/gnome/shell/extensions/gtile" = {
-      autotile-1 = [ "<Shift><Control><Alt>7" ];
-      autotile-gridspec-1 = "cols(1)";
+    "org/gnome/shell/extensions/forge" = {
+      auto-split-enabled = false;
+      float-always-on-top-enabled = false;
+      focus-border-toggle = true;
+      move-pointer-focus-enabled = true;
+      preview-hint-enabled = false;
+      quick-settings-enabled = true;
+      showtab-decoration-enabled = true;
+      stacked-tiling-mode-enabled = true;
+      tabbed-tiling-mode-enabled = true;
+      tiling-mode-enabled = true;
+      window-gap-hidden-on-single = false;
+      window-gap-size = lib.hm.gvariant.mkUint32 4;
+      window-gap-size-increment = lib.hm.gvariant.mkUint32 2;
+    };
 
-      autotile-2 = [];
-
-      autotile-3 = [ "<Shift><Control><Alt>9" ];
-      autotile-gridspec-3 = "cols(49d, 51)";
-
-      global-auto-tiling = true;
-
-      insets-primary-bottom = 12;
-      insets-primary-left = 12;
-      insets-primary-right = 12;
-      insets-primary-top = 12;
-
-      show-icon = false;
-
-      window-spacing = 6;
+    "org/gnome/shell/extensions/forge/keybindings" = {
+      con-split-horizontal = [];
+      con-split-layout-toggle = [ "<Shift><Control><Alt>w" ];
+      con-split-vertical = [];
+      con-stacked-layout-toggle = [ "<Shift><Control><Alt>s" ];
+      con-tabbed-layout-toggle = [ "<Shift><Control><Alt>t" ];
+      con-tabbed-showtab-decoration-toggle = [];
+      focus-border-toggle = [];
+      prefs-open = [];
+      prefs-tiling-toggle = [];
+      window-focus-down = [ "<Shift><Control><Alt>j" ];
+      window-focus-left = [ "<Shift><Control><Alt>h" ];
+      window-focus-right = [ "<Shift><Control><Alt>l" ];
+      window-focus-up = [ "<Shift><Control><Alt>k" ];
+      window-gap-size-decrease = [];
+      window-gap-size-increase = [];
+      window-move-down = [];
+      window-move-left = [];
+      window-move-right = [];
+      window-move-up = [];
+      window-resize-bottom-decrease = [];
+      window-resize-bottom-increase = [];
+      window-resize-left-decrease = [];
+      window-resize-left-increase = [];
+      window-resize-right-decrease = [];
+      window-resize-right-increase = [];
+      window-resize-top-decrease = [];
+      window-resize-top-increase = [];
+      window-snap-center = [];
+      window-snap-one-third-left = [];
+      window-snap-one-third-right = [];
+      window-snap-two-third-left = [];
+      window-snap-two-third-right = [];
+      window-swap-down = [ "<Super><Shift><Control><Alt>j" ];
+      window-swap-left = [ "<Super><Shift><Control><Alt>h" ];
+      window-swap-right = [ "<Super><Shift><Control><Alt>l" ];
+      window-swap-up = [ "<Super><Shift><Control><Alt>k" ];
+      window-swap-last-active = [];
+      window-toggle-always-float = [];
+      window-toggle-float = [];
+      workspace-active-tile-toggle = [];
     };
 
     "org/gnome/shell/extensions/vitals" = {
@@ -121,6 +168,7 @@
       switch-to-application-7 = [ "<Control><Alt><Shift>o" ]; # IBMS
       switch-to-application-8 = [ "<Control><Alt><Shift>p" ]; # HQ
       switch-to-application-9 = [ "<Control><Alt><Shift>v" ]; # Video
+      toggle-application-view = [];
     };
   };
 
@@ -128,9 +176,10 @@
     enable = true;
 
     extensions = with pkgs; [
+      { package = gnomeExtensions.arcmenu; }
       { package = gnomeExtensions.dash-to-panel; }
+      { package = gnomeExtensions.forge; }
       { package = gnomeExtensions.gsconnect; }
-      { package = gnomeExtensions.gtile; }
       { package = gnomeExtensions.vitals; }
     ];
   };
