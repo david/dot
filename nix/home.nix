@@ -20,6 +20,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    FLAKE = "/home/david/sys";
     VISUAL = "nvim";
   };
 
