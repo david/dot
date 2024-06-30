@@ -6,6 +6,8 @@
 
   denvx = "direnv exec . ";
 
+  launch = "launch --cwd=current";
+
   repeatedly = pkgs.writeShellScript "repeatedly" ''
     while true ; do
       $@
@@ -42,48 +44,44 @@
     $@
   '';
 
-  default-session = cwd: let
-    launch = "launch --cwd=${cwd}";
-  in ''
-    new_tab 
-    ${launch} ${repeatedly} ${denvx} lazygit
+  default-session = ''
+    new_os_window
+    ${launch} --os-window-class console ${repeatedly} ${denvx} lazygit
 
-    new_tab
-    ${launch} --title=󱃖  ${repeatedly} ${denvx} nvim
+    new_os_window
+    ${launch} --os-window-class editor ${repeatedly} ${denvx} nvim
     focus
   '';
 
-  rails-session = cwd: let
-    launch = "launch --cwd=${cwd}";
-  in ''
-    ${default-session cwd}
+  rails-session = ''
+    ${default-session}
 
-    ${launch} --title=
+    new_os_window
+    ${launch} --os-window-class console ${repeatedly} ${denvx} rails server
 
-    new_tab
-    ${launch} --title=󰣆  ${repeatedly} ${denvx} rails server
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} nix run path:.#srv
+    new_os_window
+    ${launch} --os-window-class console ${repeatedly} ${denvx} nix run path:.#srv
   '';
 
-  phx-session = cwd: let
-    launch = "launch --cwd=${cwd}";
-  in ''
-  ${default-session cwd}
+  phx-session = ''
+    ${default-session}
 
-    ${launch} --title=󰢩  ${repeatedly} ${denvx} iex -S mix phx.server
+    new_os_window
+    ${launch} --os-window-class console ${repeatedly} ${denvx} iex -S mix phx.server
 
-    new_tab
-    ${launch} --title=󰒋  ${repeatedly} ${denvx} nix run .#srv
+    new_os_window
+    ${launch} --os-window-class console  ${repeatedly} ${denvx} nix run .#srv
   '';
 in {
   home = {
-    file."${ar}/session.conf".text = rails-session "${ar}/trees/current";
-    file."${hq}/session.conf".text = phx-session "${hq}/trees/current";
-    file."${ibms}/session.conf".text = phx-session "${ibms}/trees/current";
+    file."${ar}/session.conf".text = rails-session;
+    file."${hq}/session.conf".text = phx-session;
+    file."${ibms}/session.conf".text = phx-session;
     file."${sys}/session.conf".text = ''
-      ${default-session sys}
+      ${default-session}
 
-      launch --cwd=${sys} --title=
+      new_os_window
+      ${launch} --os-window-class console
     '';
   };
 
@@ -177,7 +175,8 @@ in {
 
   xdg.desktopEntries = let
     kitty = name: dir:
-      "kitty --class ${name} --single-instance --instance-group ${name} --session ${dir}/session.conf";
+      "kitty --os-window-class ${name} --single-instance --instance-group ${name}" +
+      "  --directory ${dir} --session ${dir}/session.conf";
   in {
     ar = {
       name = "AR";
