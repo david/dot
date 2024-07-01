@@ -260,7 +260,7 @@
 
       windowrulev2 = [
         "group set always, class:(shell)"
-        "group set always, class:(shell)"
+        "group set always, class:(vivaldi-stable)"
         "group deny, class:(editor)"
       ];
 
