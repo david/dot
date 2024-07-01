@@ -1,9 +1,22 @@
 { config, pkgs, ... }: {
-  imports = [
-    ./waybar.nix
+  home.packages = with pkgs; [
+    hyprland-per-window-layout
   ];
 
-  programs.bemenu.enable = true;
+  home.file."${config.xdg.configHome}/hyprland-per-window-layout/options.toml" = {
+    text = ''
+      keyboards = [
+        "zsa-technology-labs-ergodox-ez",
+      ]
+
+      [[default_layouts]]
+      1 = [
+        "Slack",
+        "discord",
+      ]
+    '';
+  };
+
   programs.hyprlock.enable = true;
 
   services.hypridle = {
@@ -30,20 +43,7 @@
     };
   };
 
-  services.hyprpaper = let
-    bg = builtins.head (map toString (pkgs.lib.filesystem.listFilesRecursive ../backgrounds));
-  in {
-    enable = true;
-
-    settings = {
-      preload = [ bg ];
-      wallpaper = [ "DP-1,${bg}" ];
-    };
-  };
-
-  services.mako = {
-    enable = true;
-  };
+  services.hyprpaper.enable = true;
 
   wayland.windowManager.hyprland = let
     dirs = {
@@ -54,8 +54,9 @@
     };
 
     browser = "vivaldi";
+    browserApp = url: "vivaldi --app=${url}";
     colors = (import ./colors.nix);
-    rgba = c: "rgba(${colors.hex(c)}aa)";
+    rgba = c: "rgba(${colors.hex(c)}bb)";
 
     terminal = { class ? null, cwd ? null, cmd ? null }: let
       classArg = if class != null then "--app-id=${class}" else "";
@@ -94,23 +95,16 @@
       "$scs"  = "SUPER CONTROL SHIFT";
 
       bind = [
-        "$s, period, changegroupactive, b"
-        "$s, comma, changegroupactive, f"
+        "$s, period, changegroupactive, f"
+        "$s, comma, changegroupactive, b"
 
-        "$s, c, togglespecialworkspace, slack"
-        "$s, d, workspace, name:devapp%%$cwd"
-        "$s, e, workspace, name:code%%$cwd"
-        "$s, g, workspace, name:gitui%%$cwd"
+        "$s, c, workspace, 1"
         "$s, h, movefocus, l"
         "$s, j, movefocus, d"
         "$s, k, movefocus, u"
         "$s, l, movefocus, r"
-        "$s, m, togglespecialworkspace, meet"
-        "$s, o, togglespecialworkspace, discord"
-        "$s, r, workspace, name:services%%$cwd"
-        "$s, u, togglespecialworkspace, music"
-        "$s, v, togglespecialworkspace, video"
         "$s, w, workspace, name:web"
+        "$s, v, workspace, 2"
 
         "$sc, f, fullscreen"
 
@@ -123,6 +117,8 @@
         "$cas, period, workspace, +1"
         "$cas, comma, workspace, -1"
 
+        "$cas, c, workspace, 1"
+        "$cas, v, workspace, 2"
         "$cas, i, workspace, 5"
         "$cas, u, workspace, 105"
         "$cas, o, workspace, 205"
@@ -161,8 +157,12 @@
         # "$s, mouse:273, resizewindow"
       ];
 
+      binds = {
+        workspace_back_and_forth = true;
+      };
+
       decoration = {
-        rounding = 2;
+        rounding = 0;
 
         blur = {
           enabled = false;
@@ -170,13 +170,17 @@
           passes = 2;
         };
 
+        "col.shadow" = rgba colors.dark2;
+
         dim_inactive = true;
         dim_strength = 0.25;
         dim_special = 0.33;
 
-        drop_shadow = false;
-        shadow_range = 16;
-        shadow_render_power = 2;
+        drop_shadow = true;
+
+        shadow_offset = "1, 1";
+        shadow_range = 12;
+        shadow_render_power = 4;
       };
 
       dwindle = {
@@ -188,6 +192,7 @@
       exec-once = [
         "slack"
         "discord"
+        "${pkgs.hyprland-per-window-layout}/bin/hyprland-per-window-layout"
       ];
 
       general = {
@@ -198,6 +203,7 @@
         "col.active_border" = rgba colors.orangeBright;
         "col.inactive_border" = rgba colors.dark0Hard;
         "col.nogroup_border_active" = rgba colors.orangeBright;
+        "col.nogroup_border" = rgba colors.dark0Hard;
 
         gaps_in = 6;
         gaps_out = 12;
@@ -254,10 +260,17 @@
 
       windowrulev2 = [
         "group set always, class:(shell)"
+        "group set always, class:(shell)"
         "group deny, class:(editor)"
       ];
 
       workspace = [
+        "1, name:chat"
+        "2, name:video, on-created-empty:${browserApp "https://youtube.com"}"
+
+        "4, default:true, name:git-sys, on-created-empty:${
+          terminal { cwd = dirs.sys; class = "git"; cmd = "direnv exec . lazygit"; }
+        }"
         "5, default:true, name: dev-sys, on-created-empty:${
           pkgs.writeShellScript "sys-session" ''
             ${editor dirs.sys} &
@@ -275,14 +288,19 @@
           ''
         }"
 
+        "204, default:true, name:git-ibms, on-created-empty:${
+          terminal { cwd = dirs.ibms; class = "git"; cmd = "direnv exec . lazygit"; }
+        }"
         "205, default:true, name:dev-ibms, on-created-empty:${
           pkgs.writeShellScript "ibms-session" ''
             ${editor dirs.ibms} &
             sleep 0.5
             ${shell dirs.ibms} &
+            ${terminal { cwd = dirs.ibms; class = "shell"; cmd = "nix run .#srv"; }} &
             ${terminal { cwd = dirs.ibms; class = "shell"; cmd = "iex -S mix phx.server"; }} &
-          ''
+            ''
         }"
+        "206, default:true, name:git-ibms, on-created-empty:${browser} http://localhost:4000"
 
         "305, default:true, name:dev-ibms, on-created-empty:${
           pkgs.writeShellScript "hq-session" ''
@@ -300,4 +318,40 @@
 
   stylix.targets.bemenu.fontSize = 12;
   stylix.targets.hyprland.enable = false;
+
+  systemd.user = let
+    changeBackground = let
+      hyprpaper = "hyprctl hyprpaper";
+    in pkgs.writeShellScript "change-background" ''
+      set -eo pipefail
+
+      FILE="$(fd . ${../backgrounds} | shuf --head-count 1)"
+
+      ${hyprpaper} unload unused
+      ${hyprpaper} preload $FILE
+      ${hyprpaper} wallpaper "DP-1,$FILE"
+    '';
+  in {
+    services.random-background = {
+      Unit = {
+        Description = "Background switcher";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = changeBackground;
+        IOSchedulingClass = "idle";
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+    };
+
+    timers.random-background = {
+      Unit = { Description = "Background switcher timer"; };
+      Timer = { OnUnitActiveSec = "5m"; };
+      Install = { WantedBy = [ "timers.target" ]; };
+    };
+  };
 }

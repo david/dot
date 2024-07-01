@@ -3,6 +3,7 @@
 in {
   programs.waybar = let
     fade = s: "<span foreground=\"${colors.light4}\">${s}</span>";
+    disable = s: "<span foreground=\"${colors.dark4}\">${s}</span>";
     small = s: "<span size=\"small\">${s}</span>";
     pct = fade (small "%");
   in {
@@ -13,7 +14,16 @@ in {
         height = 20;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "bluetooth" "battery" "cpu" "temperature" "memory" "tray" ];
+        modules-right = [
+          "battery"
+          "cpu"
+          "temperature"
+          "language"
+          "bluetooth"
+          "network"
+          "tray"
+          "custom/sep"
+        ];
         output = [ "DP-1" ];
         spacing = 16;
 
@@ -21,6 +31,13 @@ in {
           format = "${fade "󰂑 "} {capacity}${pct}";
           format-discharging = "${fade "󰂌 "} {capacity}${pct}";
           format-charging = "${fade " "} {capacity}${pct}";
+        };
+
+        bluetooth = {
+          format-connected = "󰂱";
+          format-disabled = "󰂲";
+          format-on= "󰂯";
+          format-off= disable "󰂯";
         };
 
         clock = {
@@ -31,8 +48,11 @@ in {
           format = "${fade " "} {usage}${pct}";
         };
 
+        "custom/sep" = {
+          format = "  ";
+        };
+
         "hyprland/workspaces" = {
-          active-only = true;
           format = "{name}";
         };
 
@@ -40,8 +60,18 @@ in {
           format = "${fade "󰍛 "} {percentage}${pct}";
         };
 
+        network = {
+          format-disconnected = "󰖪 ";
+          format-linked = "󱚵 ";
+          format-wifi = "󰖩 ";
+        };
+
         temperature = {
-          format = "${fade "󰔏 "} {temperatureC}${fade (small "󰔄 ")} ";
+          format = "${fade "󰔏 "} {temperatureC}${fade (small "󰔄")} ";
+        };
+
+        tray = {
+          spacing = 24;
         };
       };
     };
@@ -50,15 +80,6 @@ in {
       * {
         font-family: "Symbols Nerd Font Mono", Cantarell;
         font-weight: bold;
-      }
-
-      #hyprland-workspaces {
-        border: 0;
-      }
-
-      window#waybar {
-        padding-left: 12px;
-        padding-right: 12px;
       }
     '';
 
