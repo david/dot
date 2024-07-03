@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./kitty.nix
+  ];
+
   home.packages = with pkgs; [
     fd
     grc

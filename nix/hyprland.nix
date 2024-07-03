@@ -1,4 +1,41 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: let
+  browser = "vivaldi";
+  browserApp = url: "vivaldi --app=${url}";
+
+  colors = (import ./colors.nix);
+
+  wsChat = 1;
+  wsVideo = 2;
+
+  wsDev = 5;
+  wsGit = 4;
+  wsWeb = 6;
+
+  groupSys  = 100;
+  groupAr   = 200;
+  groupIbms = 300;
+  groupHq   = 400;
+
+  groupWs = groupIndex: wsIndex: toString(groupIndex + wsIndex);
+
+  sysWs  = groupWs groupSys;
+  arWs   = groupWs groupAr;
+  ibmsWs = groupWs groupIbms;
+  hqWs   = groupWs groupHq;
+
+  nextWs = ws:
+    pkgs.writeShellScript "next-ws" ''
+      set -eo pipefail
+
+      CURR_WS=$(hyprctl activeworkspace -j | jq .id)
+      NEXT_WS=$(( (($CURR_WS / 100) * 100) + ${toString(ws)}))
+
+      hyprctl dispatch workspace $NEXT_WS
+    '';
+
+  phxApp   = "${browser} http://localhost:4000";
+  railsApp = "${browser} http://localhost:3000";
+in {
   home.packages = with pkgs; [
     hyprland-per-window-layout
   ];
@@ -87,19 +124,15 @@
       sys = "${config.home.homeDirectory}/sys";
     };
 
-    browser = "vivaldi";
-    browserApp = url: "vivaldi --app=${url}";
-    colors = (import ./colors.nix);
-    rgba = c: "rgba(${colors.hex(c)}bb)";
+    rgba = c: "rgba(${colors.hex(c)}ee)";
 
-    terminal = { class ? null, cwd ? null, cmd ? null }: let
-      classArg = if class != null then "--app-id=${class}" else "";
-      cwdArg = if cwd != null then "--working-directory=${cwd}" else "";
-      cmdArg = if cmd != null then "direnv exec . ${cmd}" else "";
-    in "foot ${classArg} ${cwdArg} ${cmdArg}";
-
-    shell = cwd: terminal { class = "shell"; cwd = cwd; };
-    editor = cwd: terminal { class = "editor"; cmd = "nvim"; cwd = cwd; };
+    kitty = { class ? null, cmd ? "", cwd, session ? null }: let
+      classOpt = if class != null then "--class ${class}" else "";
+      sessionOpt = if session != null then
+        "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
+      else
+        "";
+    in "kitty --directory ${cwd} ${classOpt} ${sessionOpt} ${cmd}";
   in {
     enable = true;
 
@@ -132,64 +165,42 @@
         "$s, period, changegroupactive, f"
         "$s, comma, changegroupactive, b"
 
-        "$s, c, workspace, 1"
-        "$s, h, movefocus, l"
-        "$s, j, movefocus, d"
-        "$s, k, movefocus, u"
-        "$s, l, movefocus, r"
-        "$s, w, workspace, name:web"
-        "$s, v, workspace, 2"
+        "$s, g, togglegroup"
 
-        "$sc, f, fullscreen"
+        "$s, i, exec, ${nextWs wsDev}"
+        "$s, u, exec, ${nextWs wsGit}"
+        "$s, o, exec, ${nextWs wsWeb}"
 
-        "$ss, g, togglegroup"
+        "$s, q, killactive"
+
+        "$s,  h, movefocus, l"
         "$ss, h, movewindoworgroup, l"
+        "$s,  j, movefocus, d"
         "$ss, j, movewindoworgroup, d"
+        "$s,  k, movefocus, u"
         "$ss, k, movewindoworgroup, u"
+        "$s,  l, movefocus, r"
         "$ss, l, movewindoworgroup, r"
 
         "$cas, period, workspace, +1"
         "$cas, comma, workspace, -1"
 
-        "$cas, c, workspace, 1"
-        "$cas, v, workspace, 2"
-        "$cas, i, workspace, 5"
-        "$cas, u, workspace, 105"
-        "$cas, o, workspace, 205"
+        "$cas, c, workspace, ${toString wsChat}"
+        "$cas, v, workspace, ${toString wsVideo}"
 
-        ("$cas, h, exec, " + builtins.concatStringsSep " && " [
-         "hyprctl keyword animation workspaces,1,3,default,slide"
-         "hyprctl dispatch workspace -1"
-        ])
+        "$cas, u, workspace, ${sysWs wsDev}"
+        "$cas, i, workspace, ${arWs wsDev}"
+        "$cas, o, workspace, ${ibmsWs wsDev}"
+        "$cas, p, workspace, ${hqWs wsDev}"
 
-        ("$cas, j, exec, " + builtins.concatStringsSep " && " [
-         "hyprctl keyword animation workspaces,1,3,default,slidevert"
-         "hyprctl dispatch workspace +2"
-        ])
-
-        ("$cas, k, exec, " + builtins.concatStringsSep " && " [
-         "hyprctl keyword animation workspaces,1,3,default,slidevert"
-         "hyprctl dispatch workspace -2"
-        ])
-
-        ("$cas, l, exec, " + builtins.concatStringsSep " && " [
-         "hyprctl keyword animation workspaces,1,3,default,slide"
-         "hyprctl dispatch workspace +1"
-        ])
-
-        "$cas, q, killactive"
-        "$cas, s, exec, ${terminal { class = "shell"; }}"
-        "$cas, y, exec, ${browser}"
-
-        "$scas, h, movetoworkspace, -1"
-        "$scas, l, movetoworkspace, +1"
         "$scas, q, exit"
+
+        ", Xf86AudioRaiseVolume , exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", Xf86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", Xf86AudioMute , exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ];
 
-      bindm = [
-        "$s, mouse:272, movewindow"
-        # "$s, mouse:273, resizewindow"
-      ];
+      bindm = [ "$s, mouse:272, movewindow" ];
 
       binds = {
         workspace_back_and_forth = true;
@@ -218,7 +229,7 @@
       };
 
       dwindle = {
-        force_split = 1;
+        force_split = 2;
         preserve_split = true;
         pseudotile = true;
       };
@@ -226,7 +237,7 @@
       exec-once = [
         "slack"
         "discord"
-        "${pkgs.hyprland-per-window-layout}/bin/hyprland-per-window-layout"
+        "hyprland-per-window-layout"
       ];
 
       general = {
@@ -299,51 +310,40 @@
       ];
 
       workspace = [
-        "1, name:chat"
-        "2, name:video, on-created-empty:${browserApp "https://youtube.com"}"
+        "1, defaultName:󰭹"
+        "2, defaultName:󰗃, on-created-empty:${browserApp "https://youtube.com"}"
 
-        "4, default:true, name:git-sys, on-created-empty:${
-          terminal { cwd = dirs.sys; class = "git"; cmd = "direnv exec . lazygit"; }
+        "${sysWs wsGit}, default:true, defaultName:󰊢  sys, on-created-empty:${
+          kitty { cwd = dirs.sys; class = "git"; cmd = "lazygit"; }
         }"
-        "5, default:true, name: dev-sys, on-created-empty:${
-          pkgs.writeShellScript "sys-session" ''
-            ${editor dirs.sys} &
-            sleep 0.5
-            ${shell dirs.sys} &
-          ''
+        "${sysWs wsDev}, default:true, defaultName:  sys, on-created-empty:${
+          kitty { cwd = dirs.sys; session = "sys"; }
         }"
+        "${sysWs wsWeb}, default:true, defaultName:󰖟  sys, on-created-empty:${railsApp}"
 
-        "105, default:true, name:dev-ar, on-created-empty:${
-          pkgs.writeShellScript "ar-session" ''
-            ${editor dirs.ar} &
-            sleep 0.5
-            ${shell dirs.ar} &
-            ${terminal { cwd = dirs.ar; class = "shell"; cmd = "nix run .#srv"; }} &
-          ''
+        "${arWs wsGit}, defaultName:󰊢  ar, on-created-empty:${
+          kitty { cwd = dirs.ar; class = "git"; cmd = "lazygit"; }
         }"
+        "${arWs wsDev}, defaultName:  ar, on-created-empty:${
+          kitty { cwd = dirs.ar; session = "rails"; }
+        }"
+        "${arWs wsWeb}, defaultName:󰖟  ar, on-created-empty:${railsApp}"
 
-        "204, default:true, name:git-ibms, on-created-empty:${
-          terminal { cwd = dirs.ibms; class = "git"; cmd = "direnv exec . lazygit"; }
+        "${ibmsWs wsGit}, defaultName:󰊢  ibms, on-created-empty:${
+          kitty { cwd = dirs.ibms; class = "git"; cmd = "lazygit"; }
         }"
-        "205, default:true, name:dev-ibms, on-created-empty:${
-          pkgs.writeShellScript "ibms-session" ''
-            ${editor dirs.ibms} &
-            sleep 0.5
-            ${shell dirs.ibms} &
-            ${terminal { cwd = dirs.ibms; class = "shell"; cmd = "nix run .#srv"; }} &
-            ${terminal { cwd = dirs.ibms; class = "shell"; cmd = "iex -S mix phx.server"; }} &
-            ''
+        "${ibmsWs wsDev}, defaultName:  ibms, on-created-empty:${
+          kitty { cwd = dirs.ibms; session = "phx"; }
         }"
-        "206, default:true, name:git-ibms, on-created-empty:${browser} http://localhost:4000"
+        "${ibmsWs wsWeb}, defaultName:󰖟  ibms, on-created-empty:${phxApp}"
 
-        "305, default:true, name:dev-ibms, on-created-empty:${
-          pkgs.writeShellScript "hq-session" ''
-            ${editor dirs.hq} &
-            sleep 0.5
-            ${shell dirs.hq} &
-            ${terminal { cwd = dirs.hq; class = "shell"; cmd = "iex -S mix phx.server"; }} &
-          ''
+        "${hqWs wsGit}, defaultName:󰊢  hq, on-created-empty:${
+          kitty { cwd = dirs.hq; class = "git"; cmd = "lazygit"; }
         }"
+        "${hqWs wsDev}, defaultName:  hq, on-created-empty:${
+          kitty { cwd = dirs.hq; session = "phx"; }
+        }"
+        "${hqWs wsWeb}, defaultName:󰖟  hq, on-created-empty:${phxApp}"
       ];
     };
 
