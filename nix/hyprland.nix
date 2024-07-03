@@ -17,7 +17,41 @@
     '';
   };
 
-  programs.hyprlock.enable = true;
+  programs.hyprlock = {
+    enable = true;
+
+    settings = {
+      general = {
+        grace = 60;
+      };
+
+      background = [
+        {
+          color = "rgb(${colors.hex(colors.bg)})";
+          blur_passes = 0;
+        }
+      ];
+
+      input-field = [
+        {
+          dots_center = true;
+          fade_on_empty = false;
+          font_color = "rgb(${colors.hex(colors.fg)})";
+          halign = "center";
+          hide_input = false;
+          inner_color = "rgb(${colors.hex(colors.bg)})";
+          monitor = "";
+          outer_color = "rgb(${colors.hex(colors.fg)})";
+          outline_thickness = 3;
+          placeholder_text = "";
+          position = "0, 10";
+          shadow_size = 0;
+          size = "200, 50";
+          valign = "center";
+        }
+      ];
+    };
+  };
 
   services.hypridle = {
     enable = true;
