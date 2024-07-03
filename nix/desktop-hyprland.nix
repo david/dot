@@ -37,4 +37,8 @@
     enable = true;
     sort = "+time";
   };
+
+  home.packages = [ pkgs.playerctl ];
+
+  services.playerctld.enable = true;
 }
