@@ -4,12 +4,11 @@
 
   colors = (import ./colors.nix);
 
-  wsChat = 1;
+  wsChat  = 1;
   wsVideo = 2;
-
-  wsDev = 5;
-  wsGit = 4;
-  wsWeb = 6;
+  wsDev   = 5;
+  wsGit   = 4;
+  wsWeb   = 6;
 
   groupSys  = 100;
   groupAr   = 200;
@@ -125,14 +124,6 @@ in {
     };
 
     rgba = c: "rgba(${colors.hex(c)}ee)";
-
-    kitty = { class ? null, cmd ? "", cwd, session ? null }: let
-      classOpt = if class != null then "--class ${class}" else "";
-      sessionOpt = if session != null then
-        "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
-      else
-        "";
-    in "kitty --directory ${cwd} ${classOpt} ${sessionOpt} ${cmd}";
   in {
     enable = true;
 
@@ -313,40 +304,35 @@ in {
         "group deny, class:(editor)"
       ];
 
-      workspace = [
+      workspace = let
+        kitty = { class ? null, cmd ? "", cwd, session ? null }: let
+          classOpt = if class != null then "--class ${class}" else "";
+          sessionOpt = if session != null then
+            "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
+          else
+            "";
+        in "kitty --directory ${cwd} ${classOpt} ${sessionOpt} ${cmd}";
+
+        kittyGit = cwd: kitty { cwd = cwd; class = "git"; cmd = "lazygit"; };
+        kittyDev = cwd: session: kitty { inherit cwd session; };
+      in [
         "1, defaultName:󰭹"
         "2, defaultName:󰗃, on-created-empty:${browserApp "https://youtube.com"}"
 
-        "${sysWs wsGit}, default:true, defaultName:󰊢  sys, on-created-empty:${
-          kitty { cwd = dirs.sys; class = "git"; cmd = "lazygit"; }
-        }"
-        "${sysWs wsDev}, default:true, defaultName:  sys, on-created-empty:${
-          kitty { cwd = dirs.sys; session = "sys"; }
-        }"
-        "${sysWs wsWeb}, default:true, defaultName:󰖟  sys, on-created-empty:${railsApp}"
+        "${sysWs wsGit}, defaultName:󰊢  sys, on-created-empty:${kittyGit dirs.sys}"
+        "${sysWs wsDev}, defaultName:  sys, on-created-empty:${kittyDev dirs.sys "sys"}"
+        "${sysWs wsWeb}, defaultName:󰖟  sys, on-created-empty:${browser}"
 
-        "${arWs wsGit}, defaultName:󰊢  ar, on-created-empty:${
-          kitty { cwd = dirs.ar; class = "git"; cmd = "lazygit"; }
-        }"
-        "${arWs wsDev}, defaultName:  ar, on-created-empty:${
-          kitty { cwd = dirs.ar; session = "rails"; }
-        }"
+        "${arWs wsGit}, defaultName:󰊢  ar, on-created-empty:${kittyGit dirs.ar}"
+        "${arWs wsDev}, defaultName:  ar, on-created-empty:${kittyDev dirs.ar "rails"}"
         "${arWs wsWeb}, defaultName:󰖟  ar, on-created-empty:${railsApp}"
 
-        "${ibmsWs wsGit}, defaultName:󰊢  ibms, on-created-empty:${
-          kitty { cwd = dirs.ibms; class = "git"; cmd = "lazygit"; }
-        }"
-        "${ibmsWs wsDev}, defaultName:  ibms, on-created-empty:${
-          kitty { cwd = dirs.ibms; session = "phx"; }
-        }"
+        "${ibmsWs wsGit}, defaultName:󰊢  ibms, on-created-empty:${kittyGit dirs.ibms}"
+        "${ibmsWs wsDev}, defaultName:  ibms, on-created-empty:${kittyDev dirs.ibms "phx"}"
         "${ibmsWs wsWeb}, defaultName:󰖟  ibms, on-created-empty:${phxApp}"
 
-        "${hqWs wsGit}, defaultName:󰊢  hq, on-created-empty:${
-          kitty { cwd = dirs.hq; class = "git"; cmd = "lazygit"; }
-        }"
-        "${hqWs wsDev}, defaultName:  hq, on-created-empty:${
-          kitty { cwd = dirs.hq; session = "phx"; }
-        }"
+        "${hqWs wsGit}, defaultName:󰊢  hq, on-created-empty:${kittyGit dirs.hq}"
+        "${hqWs wsDev}, defaultName:  hq, on-created-empty:${kittyDev dirs.hq "phx"}"
         "${hqWs wsWeb}, defaultName:󰖟  hq, on-created-empty:${phxApp}"
       ];
     };
