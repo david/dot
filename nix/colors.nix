@@ -1,4 +1,7 @@
 rec {
+  bg = dark0Hard;
+  fg = light0;
+
   dark0Hard     = "#1d2021";
   dark0         = "#282828";
   dark0Soft     = "#32302f";
@@ -44,8 +47,6 @@ rec {
   yellowBright  = "#fabd2f";
   yellowFaded   = "#b57614";
   yellowNeutral = "#d79921";
-
-  bg = dark0Hard;
 
   hex = color: builtins.substring 1 9999 color;
 }

@@ -12,6 +12,7 @@ in {
     settings = {
       mainBar = {
         height = 20;
+
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -24,6 +25,7 @@ in {
           "tray"
           "custom/sep"
         ];
+
         output = [ "DP-1" ];
         spacing = 16;
 
@@ -41,7 +43,7 @@ in {
         };
 
         clock = {
-          format = "{:%a, %b %e  •  %H:%M}";
+          format = "{:%a, %b %e  ${fade "•"}  %H:%M}";
         };
 
         cpu = {
@@ -49,10 +51,11 @@ in {
         };
 
         "custom/sep" = {
-          format = "  ";
+          format = " ";
         };
 
         "hyprland/workspaces" = {
+          active-only = true;
           format = "{name}";
         };
 
