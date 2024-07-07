@@ -4,8 +4,8 @@
     ./waybar.nix
   ];
 
-  programs.bemenu.enable = true;
   programs.hyprlock.enable = true;
+  programs.tofi.enable = true;
 
   services.hypridle = {
     enable = true;
