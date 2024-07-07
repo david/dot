@@ -20,8 +20,6 @@
     interactiveShellInit = ''
       set fish_greeting
 
-      set --global hydro_multiline true
-
       fish_vi_key_bindings
     '';
 
@@ -29,7 +27,6 @@
       { name = "done" ; src = done.src; }
       { name = "fzf-fish" ; src = fzf-fish.src; }
       { name = "grc" ; src = grc.src; }
-      { name = "hydro" ; src = hydro.src; }
     ];
   };
 
@@ -51,6 +48,19 @@
 
     settings = {
       icons.separator = "  ";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableTransience = true;
+
+    settings = {
+      fill = {
+        symbol = "─";
+      };
+
+      format = "$fill $directory $fill\n$character";
     };
   };
 }
