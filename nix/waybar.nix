@@ -1,10 +1,10 @@
-{ ... }: let
+{ lib, ... }: let
   colors = (import ./colors.nix);
 in {
   programs.waybar = let
     fade = s: "<span foreground=\"${colors.light4}\">${s}</span>";
     disable = s: "<span foreground=\"${colors.dark4}\">${s}</span>";
-    small = s: "<span size=\"small\">${s}</span>";
+    small = s: "<sub>${s}</sub>";
     pct = fade (small "%");
   in {
     enable = true;
@@ -13,9 +13,7 @@ in {
       mainBar = {
         height = 20;
 
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "clock" ];
-        modules-right = [
+        modules-left = [
           "battery"
           "cpu"
           "temperature"
@@ -23,8 +21,9 @@ in {
           "bluetooth"
           "network"
           "tray"
-          "custom/sep"
         ];
+        modules-center = [ "hyprland/workspaces" ];
+        modules-right = [ "clock" ];
 
         output = [ "DP-1" ];
         spacing = 16;
@@ -50,12 +49,7 @@ in {
           format = "${fade " "} {usage}${pct}";
         };
 
-        "custom/sep" = {
-          format = " ";
-        };
-
         "hyprland/workspaces" = {
-          active-only = true;
           format = "{name}";
         };
 
@@ -79,10 +73,46 @@ in {
       };
     };
 
-    style = ''
+    style = lib.mkAfter ''
       * {
         font-family: "Symbols Nerd Font Mono", Cantarell;
+        font-size: 13;
         font-weight: bold;
+        padding: 0;
+      }
+
+      .modules-center #workspaces button,
+      .modules-center #workspaces button.active,
+      .modules-center #workspaces button.focused {
+        border-bottom: 0;
+      }
+
+      .modules-left, .modules-right {
+        padding: 8px 0;
+      }
+
+      .modules-left {
+        padding: 0;
+        padding-left: 12px;
+      }
+
+      .modules-right {
+        padding-right: 12px;
+      }
+
+      window#waybar {
+        padding: 4px 16px;
+      }
+
+      #workspaces button {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      #workspaces button.active {
+        border-radius: 0;
+        color: ${colors.bg};
+        background-color: ${colors.fg};
       }
     '';
 
