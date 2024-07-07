@@ -4,36 +4,52 @@
 
   colors = (import ./colors.nix);
 
-  wsChat  = 1;
-  wsVideo = 2;
-  wsDev   = 5;
-  wsGit   = 4;
-  wsWeb   = 6;
+  workspaces = {
+    perGroup = { dev = 5; git = 4; web = 6; };
 
-  groupSys  = 100;
-  groupAr   = 200;
-  groupIbms = 300;
-  groupHq   = 400;
+    discord = { name = "󰙯"; };
+    slack   = { name = ""; };
+    video   = { name = ""; };
+  };
 
-  groupWs = groupIndex: wsIndex: toString(groupIndex + wsIndex);
+  wsIndex = group: wsName:
+    toString(group.index + workspaces.perGroup.${wsName});
 
-  sysWs  = groupWs groupSys;
-  arWs   = groupWs groupAr;
-  ibmsWs = groupWs groupIbms;
-  hqWs   = groupWs groupHq;
+    groups = let
+    home = config.home.homeDirectory;
+  in {
+    sys  = { index = 0; name = "sys"; cwd = "${home}/sys"; };
+    ar   = { index = 100; name = "ar"; cwd = "${home}/ar/trees/current"; };
+    ibms = { index = 200; name = "ibms"; cwd = "${home}/ibms/trees/current"; };
+    hq   = { index = 300; name = "hq"; cwd = "${home}/hq/trees/current"; };
+  };
 
-  nextWs = ws:
-    pkgs.writeShellScript "next-ws" ''
-      set -eo pipefail
+  nextWs = pkgs.writeShellScript "next-ws" ''
+    set -eo pipefail
 
-      CURR_WS=$(hyprctl activeworkspace -j | jq .id)
-      NEXT_WS=$(( (($CURR_WS / 100) * 100) + ${toString(ws)}))
+    CURR_WS=$(hyprctl activeworkspace -j | jq .id)
+    CURR_GRP=$(( $CURR_WS / 100 * 100 ))
+    NEXT_WS=$(( $CURR_GRP + $1 ))
 
-      hyprctl dispatch workspace $NEXT_WS
-    '';
+    hyprctl dispatch workspace $NEXT_WS
+  '';
 
   phxApp   = "${browser} http://localhost:4000";
   railsApp = "${browser} http://localhost:3000";
+
+  monitor = {
+    xreal = { x = 1920; y = 1080; };
+  };
+
+  gaps = rec {
+    outer = 12;
+    inner = (outer / 2);
+
+    chat = {
+      x = (monitor.xreal.x / 4);
+      y = (outer * 3);
+    };
+  };
 in {
   home.packages = with pkgs; [
     hyprland-per-window-layout
@@ -89,40 +105,7 @@ in {
     };
   };
 
-  services.hypridle = {
-    enable = true;
-
-    settings = {
-      listener = [
-        {
-          timeout = 120;
-          on-timeout = pkgs.lib.getExe config.programs.hyprlock.package;
-        }
-
-        {
-          timeout = 240;
-          onTimeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-
-        {
-          timeout = 480;
-          on-timeout = "systemctl suspend";
-        }
-      ];
-    };
-  };
-
-  services.hyprpaper.enable = true;
-
   wayland.windowManager.hyprland = let
-    dirs = {
-      ar = "${config.home.homeDirectory}/ar/trees/current";
-      hq = "${config.home.homeDirectory}/hq/trees/current";
-      ibms = "${config.home.homeDirectory}/ibms/trees/current";
-      sys = "${config.home.homeDirectory}/sys";
-    };
-
     rgba = c: "rgba(${colors.hex(c)}ee)";
   in {
     enable = true;
@@ -158,9 +141,9 @@ in {
 
         "$s, g, togglegroup"
 
-        "$s, i, exec, ${nextWs wsDev}"
-        "$s, u, exec, ${nextWs wsGit}"
-        "$s, o, exec, ${nextWs wsWeb}"
+        "$s, i, exec, ${nextWs} ${toString workspaces.perGroup.dev}"
+        "$s, u, exec, ${nextWs} ${toString workspaces.perGroup.git}"
+        "$s, o, exec, ${nextWs} ${toString workspaces.perGroup.web}"
 
         "$s, q, killactive"
 
@@ -176,13 +159,15 @@ in {
         "$cas, period, workspace, +1"
         "$cas, comma, workspace, -1"
 
-        "$cas, c, workspace, ${toString wsChat}"
-        "$cas, v, workspace, ${toString wsVideo}"
+        "$cas, a, exec, tofi-run"
+        "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
+        "$cas, d, togglespecialworkspace, ${workspaces.discord.name}"
+        "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
 
-        "$cas, u, workspace, ${sysWs wsDev}"
-        "$cas, i, workspace, ${arWs wsDev}"
-        "$cas, o, workspace, ${ibmsWs wsDev}"
-        "$cas, p, workspace, ${hqWs wsDev}"
+        "$cas, u, workspace, ${wsIndex groups.sys "dev"}"
+        "$cas, i, workspace, ${wsIndex groups.ar "dev"}"
+        "$cas, o, workspace, ${wsIndex groups.ibms "dev"}"
+        "$cas, p, workspace, ${wsIndex groups.hq "dev"}"
 
         "$scas, q, exit"
 
@@ -245,8 +230,8 @@ in {
         "col.nogroup_border_active" = rgba colors.orangeBright;
         "col.nogroup_border" = rgba colors.dark0Hard;
 
-        gaps_in = 6;
-        gaps_out = 12;
+        gaps_in = gaps.inner;
+        gaps_out = gaps.outer;
 
         layout = "dwindle";
       };
@@ -299,6 +284,8 @@ in {
       ];
 
       windowrulev2 = [
+        "workspace special:, class:(Slack)"
+        "workspace special:󰙯, class:(discord)"
         "group set always, class:(shell)"
         "group set always, class:(vivaldi-stable)"
         "group deny, class:(editor)"
@@ -307,33 +294,35 @@ in {
       workspace = let
         kitty = { class ? null, cmd ? "", cwd, session ? null }: let
           classOpt = if class != null then "--class ${class}" else "";
-          sessionOpt = if session != null then
-            "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
-          else
-            "";
+          sessionOpt =
+            if session != null then
+              "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
+            else
+              "";
         in "kitty --directory ${cwd} ${classOpt} ${sessionOpt} ${cmd}";
 
         kittyGit = cwd: kitty { cwd = cwd; class = "git"; cmd = "lazygit"; };
         kittyDev = cwd: session: kitty { inherit cwd session; };
       in [
-        "1, defaultName:󰭹"
-        "2, defaultName:󰗃, on-created-empty:${browserApp "https://youtube.com"}"
+        "special:${workspaces.video.name}, on-created-empty:${browserApp "https://youtube.com"}"
+        "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
+        "special:${workspaces.discord.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
 
-        "${sysWs wsGit}, defaultName:󰊢  sys, on-created-empty:${kittyGit dirs.sys}"
-        "${sysWs wsDev}, defaultName:  sys, on-created-empty:${kittyDev dirs.sys "sys"}"
-        "${sysWs wsWeb}, defaultName:󰖟  sys, on-created-empty:${browser}"
+        "${wsIndex groups.sys "git"}, defaultName:󰊢  sys, on-created-empty:${kittyGit groups.sys.cwd}"
+        "${wsIndex groups.sys "dev"}, defaultName:  sys, on-created-empty:${kittyDev groups.sys.cwd "sys"}"
+        "${wsIndex groups.sys "web"}, defaultName:󰖟  sys, on-created-empty:${browser}"
 
-        "${arWs wsGit}, defaultName:󰊢  ar, on-created-empty:${kittyGit dirs.ar}"
-        "${arWs wsDev}, defaultName:  ar, on-created-empty:${kittyDev dirs.ar "rails"}"
-        "${arWs wsWeb}, defaultName:󰖟  ar, on-created-empty:${railsApp}"
+        "${wsIndex groups.ar "git"}, defaultName:󰊢  ar, on-created-empty:${kittyGit groups.ar.cwd}"
+        "${wsIndex groups.ar "dev"}, defaultName:  ar, on-created-empty:${kittyDev groups.ar.cwd "rails"}"
+        "${wsIndex groups.ar "web"}, defaultName:󰖟  ar, on-created-empty:${railsApp}"
 
-        "${ibmsWs wsGit}, defaultName:󰊢  ibms, on-created-empty:${kittyGit dirs.ibms}"
-        "${ibmsWs wsDev}, defaultName:  ibms, on-created-empty:${kittyDev dirs.ibms "phx"}"
-        "${ibmsWs wsWeb}, defaultName:󰖟  ibms, on-created-empty:${phxApp}"
+        "${wsIndex groups.ibms "git"}, defaultName:󰊢  ibms, on-created-empty:${kittyGit groups.ibms.cwd}"
+        "${wsIndex groups.ibms "dev"}, defaultName:  ibms, on-created-empty:${kittyDev groups.ibms.cwd "phx"}"
+        "${wsIndex groups.ibms "web"}, defaultName:󰖟  ibms, on-created-empty:${phxApp}"
 
-        "${hqWs wsGit}, defaultName:󰊢  hq, on-created-empty:${kittyGit dirs.hq}"
-        "${hqWs wsDev}, defaultName:  hq, on-created-empty:${kittyDev dirs.hq "phx"}"
-        "${hqWs wsWeb}, defaultName:󰖟  hq, on-created-empty:${phxApp}"
+        "${wsIndex groups.hq "git"}, defaultName:󰊢  hq, on-created-empty:${kittyGit groups.hq.cwd}"
+        "${wsIndex groups.hq "dev"}, defaultName:  hq, on-created-empty:${kittyDev groups.hq.cwd "phx"}"
+        "${wsIndex groups.hq "web"}, defaultName:󰖟  hq, on-created-empty:${phxApp}"
       ];
     };
 
