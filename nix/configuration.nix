@@ -126,15 +126,24 @@
 
   services.fwupd.enable = true;
 
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = "david";
+  services.greetd = let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+    session = "${pkgs.hyprland}/bin/Hyprland";
+    username = "david";
+  in {
+    enable = true;
 
-    defaultSession = "hyprland";
+    settings = {
+      initial_session = {
+        command = "${session}";
+        user = "${username}";
+      };
 
-    sddm = {
-      enable = true;
-      wayland.enable = true;
+      default_session = {
+        command = "${tuigreet} --greeting 'Timbuktu'" +
+        " --asterisks --remember --remember-user-session --time --cmd ${session}";
+        user = "greeter";
+      };
     };
   };
 
