@@ -62,9 +62,10 @@ in {
       ]
 
       [[default_layouts]]
-      1 = [
-        "Slack",
-        "discord",
+      2 = [
+        "editor",
+        "git",
+        "shell",
       ]
     '';
   };
@@ -258,7 +259,7 @@ in {
 
       input = {
         kb_layout = "us, us";
-        kb_variant = ", intl";
+        kb_variant = "intl,";
 
         follow_mouse = 1;
 
