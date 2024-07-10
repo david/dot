@@ -22,6 +22,7 @@
     ar     = { index = 100; name = "r"; cwd = "${home}/ar/trees/current"; };
     ibms   = { index = 200; name = "i"; cwd = "${home}/ibms/trees/current"; };
     hq     = { index = 300; name = "h"; cwd = "${home}/hq/trees/current"; };
+    sys-ng = { index = 300; name = "n"; cwd = "${home}/sys-ng"; };
   };
 
   nextWs = pkgs.writeShellScript "next-ws" ''
@@ -166,6 +167,7 @@ in {
         "$cas, g, workspace, ${workspaces.palia.index}"
         "$cas, h, workspace, ${wsIndex groups.hq "dev"}"
         "$cas, i, workspace, ${wsIndex groups.ibms "dev"}"
+        "$cas, n, workspace, ${wsIndex groups.sys-ng "dev"}"
         "$cas, r, workspace, ${wsIndex groups.ar "dev"}"
         "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
         "$cas, y, workspace, ${wsIndex groups.sys "dev"}"
@@ -324,6 +326,10 @@ in {
         "${wsIndex groups.hq "git"}, defaultName:${groups.hq.name}/g, on-created-empty:${kittyGit groups.hq.cwd}"
         "${wsIndex groups.hq "dev"}, defaultName:${groups.hq.name}/e, on-created-empty:${kittyDev groups.hq.cwd "phx"}"
         "${wsIndex groups.hq "web"}, defaultName:${groups.hq.name}/w, on-created-empty:${phxApp}"
+
+        "${wsIndex groups.sys-ng "git"}, defaultName:${groups.sys-ng.name}/g, on-created-empty:${kittyGit groups.sys-ng.cwd}"
+        "${wsIndex groups.sys-ng "dev"}, defaultName:${groups.sys-ng.name}/e, on-created-empty:${kittyDev groups.sys-ng.cwd "phx"}"
+        "${wsIndex groups.sys-ng "web"}, defaultName:${groups.sys-ng.name}/w, on-created-empty:${phxApp}"
       ];
     };
 
