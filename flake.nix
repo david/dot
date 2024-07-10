@@ -29,10 +29,6 @@
       inherit system;
 
       config.allowUnfree = true;
-
-      overlays = [
-        neovim-nightly-overlay.overlays.default
-      ];
     };
   in {
     nixosConfigurations = {
@@ -48,7 +44,13 @@
           stylix.nixosModules.stylix
           ./nix/configuration.nix
 
+          { nixpkgs.overlays = [ neovim-nightly-overlay.overlays.default ]; }
+
           hm.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
