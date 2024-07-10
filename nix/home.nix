@@ -16,7 +16,9 @@
   ];
 
   home.sessionVariables = {
+    EDITOR = "nvim";
     FLAKE = "/home/david/sys";
+    VISUAL = "nvim";
   };
 
   home.stateVersion = "23.11";
