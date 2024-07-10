@@ -140,11 +140,11 @@ in {
         "$s, period, changegroupactive, f"
         "$s, comma, changegroupactive, b"
 
-        "$s, g, togglegroup"
+        "$sc, g, togglegroup"
 
-        "$s, i, exec, ${nextWs} ${toString workspaces.perGroup.dev}"
-        "$s, u, exec, ${nextWs} ${toString workspaces.perGroup.git}"
-        "$s, o, exec, ${nextWs} ${toString workspaces.perGroup.web}"
+        "$s, e, exec, ${nextWs} ${toString workspaces.perGroup.dev}"
+        "$s, g, exec, ${nextWs} ${toString workspaces.perGroup.git}"
+        "$s, w, exec, ${nextWs} ${toString workspaces.perGroup.web}"
 
         "$s, q, killactive"
 
@@ -163,12 +163,12 @@ in {
 
         "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$cas, d, togglespecialworkspace, ${workspaces.discord.name}"
+        "$cas, g, workspace, ${workspaces.palia.index}"
+        "$cas, h, workspace, ${wsIndex groups.hq "dev"}"
+        "$cas, i, workspace, ${wsIndex groups.ibms "dev"}"
+        "$cas, r, workspace, ${wsIndex groups.ar "dev"}"
         "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
-
-        "$cas, u, workspace, ${wsIndex groups.sys "dev"}"
-        "$cas, i, workspace, ${wsIndex groups.ar "dev"}"
-        "$cas, o, workspace, ${wsIndex groups.ibms "dev"}"
-        "$cas, p, workspace, ${wsIndex groups.hq "dev"}"
+        "$cas, y, workspace, ${wsIndex groups.sys "dev"}"
 
         "$scas, q, exit"
 
