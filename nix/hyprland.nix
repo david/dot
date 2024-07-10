@@ -158,8 +158,8 @@ in {
 
         "$cas, period, workspace, +1"
         "$cas, comma, workspace, -1"
+        "$cas, a, exec, tofi-drun | xargs hyprctl dispatch exec"
 
-        "$cas, a, exec, tofi-run"
         "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$cas, d, togglespecialworkspace, ${workspaces.discord.name}"
         "$cas, v, togglespecialworkspace, ${workspaces.video.name}"

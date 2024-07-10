@@ -9,6 +9,7 @@
   home.file."${config.xdg.dataHome}/fonts".source = ../fonts;
 
   home.packages = with pkgs; [
+    dex
     discord
     slack
     vivaldi
