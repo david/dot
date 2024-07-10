@@ -305,9 +305,9 @@ in {
         kittyGit = cwd: kitty { cwd = cwd; class = "git"; cmd = "lazygit"; };
         kittyDev = cwd: session: kitty { inherit cwd session; };
       in [
-        "special:${workspaces.video.name}, on-created-empty:${browserApp "https://youtube.com"}"
-        "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
         "special:${workspaces.discord.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
+        "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
+        "special:${workspaces.video.name}, on-created-empty:${browserApp "https://youtube.com"}"
 
         "${wsIndex groups.sys "git"}, defaultName:${groups.sys.name}/g, on-created-empty:${kittyGit groups.sys.cwd}"
         "${wsIndex groups.sys "dev"}, defaultName:${groups.sys.name}/e, on-created-empty:${kittyDev groups.sys.cwd "sys"}"
