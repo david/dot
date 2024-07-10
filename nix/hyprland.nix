@@ -18,10 +18,10 @@
     groups = let
     home = config.home.homeDirectory;
   in {
-    sys  = { index = 0; name = "sys"; cwd = "${home}/sys"; };
-    ar   = { index = 100; name = "ar"; cwd = "${home}/ar/trees/current"; };
-    ibms = { index = 200; name = "ibms"; cwd = "${home}/ibms/trees/current"; };
-    hq   = { index = 300; name = "hq"; cwd = "${home}/hq/trees/current"; };
+    sys    = { index = 0;   name = "y"; cwd = "${home}/sys"; };
+    ar     = { index = 100; name = "r"; cwd = "${home}/ar/trees/current"; };
+    ibms   = { index = 200; name = "i"; cwd = "${home}/ibms/trees/current"; };
+    hq     = { index = 300; name = "h"; cwd = "${home}/hq/trees/current"; };
   };
 
   nextWs = pkgs.writeShellScript "next-ws" ''
@@ -308,21 +308,21 @@ in {
         "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
         "special:${workspaces.discord.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
 
-        "${wsIndex groups.sys "git"}, defaultName:󰊢  sys, on-created-empty:${kittyGit groups.sys.cwd}"
-        "${wsIndex groups.sys "dev"}, defaultName:  sys, on-created-empty:${kittyDev groups.sys.cwd "sys"}"
-        "${wsIndex groups.sys "web"}, defaultName:󰖟  sys, on-created-empty:${browser}"
+        "${wsIndex groups.sys "git"}, defaultName:${groups.sys.name}/g, on-created-empty:${kittyGit groups.sys.cwd}"
+        "${wsIndex groups.sys "dev"}, defaultName:${groups.sys.name}/e, on-created-empty:${kittyDev groups.sys.cwd "sys"}"
+        "${wsIndex groups.sys "web"}, defaultName:${groups.sys.name}/w, on-created-empty:${browser}"
 
-        "${wsIndex groups.ar "git"}, defaultName:󰊢  ar, on-created-empty:${kittyGit groups.ar.cwd}"
-        "${wsIndex groups.ar "dev"}, defaultName:  ar, on-created-empty:${kittyDev groups.ar.cwd "rails"}"
-        "${wsIndex groups.ar "web"}, defaultName:󰖟  ar, on-created-empty:${railsApp}"
+        "${wsIndex groups.ar "git"}, defaultName:${groups.ar.name}/g, on-created-empty:${kittyGit groups.ar.cwd}"
+        "${wsIndex groups.ar "dev"}, defaultName:${groups.ar.name}/e, on-created-empty:${kittyDev groups.ar.cwd "rails"}"
+        "${wsIndex groups.ar "web"}, defaultName:${groups.ar.name}/w, on-created-empty:${railsApp}"
 
-        "${wsIndex groups.ibms "git"}, defaultName:󰊢  ibms, on-created-empty:${kittyGit groups.ibms.cwd}"
-        "${wsIndex groups.ibms "dev"}, defaultName:  ibms, on-created-empty:${kittyDev groups.ibms.cwd "phx"}"
-        "${wsIndex groups.ibms "web"}, defaultName:󰖟  ibms, on-created-empty:${phxApp}"
+        "${wsIndex groups.ibms "git"}, defaultName:${groups.ibms.name}/g, on-created-empty:${kittyGit groups.ibms.cwd}"
+        "${wsIndex groups.ibms "dev"}, defaultName:${groups.ibms.name}/e, on-created-empty:${kittyDev groups.ibms.cwd "phx"}"
+        "${wsIndex groups.ibms "web"}, defaultName:${groups.ibms.name}/w, on-created-empty:${phxApp}"
 
-        "${wsIndex groups.hq "git"}, defaultName:󰊢  hq, on-created-empty:${kittyGit groups.hq.cwd}"
-        "${wsIndex groups.hq "dev"}, defaultName:  hq, on-created-empty:${kittyDev groups.hq.cwd "phx"}"
-        "${wsIndex groups.hq "web"}, defaultName:󰖟  hq, on-created-empty:${phxApp}"
+        "${wsIndex groups.hq "git"}, defaultName:${groups.hq.name}/g, on-created-empty:${kittyGit groups.hq.cwd}"
+        "${wsIndex groups.hq "dev"}, defaultName:${groups.hq.name}/e, on-created-empty:${kittyDev groups.hq.cwd "phx"}"
+        "${wsIndex groups.hq "web"}, defaultName:${groups.hq.name}/w, on-created-empty:${phxApp}"
       ];
     };
 
