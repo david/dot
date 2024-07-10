@@ -77,6 +77,7 @@ in {
     enable = true;
 
     keybindings = {
+      "super+f" = "launch --cwd=current --type os-window --os-window-class editor nvim";
       "super+s" = "launch --cwd=current --type os-window --os-window-class shell";
     };
 
