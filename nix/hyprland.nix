@@ -158,8 +158,8 @@ in {
         "$s,  l, movefocus, r"
         "$ss, l, movewindoworgroup, r"
 
-        "$cas, period, workspace, +1"
         "$cas, comma, workspace, -1"
+        "$cas, period, workspace, +1"
         "$cas, a, exec, tofi-drun | xargs hyprctl dispatch exec"
 
         "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
