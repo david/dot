@@ -34,7 +34,7 @@ in {
     ${serversWindow}
 
     new_os_window
-    os_window_class console
+    os_window_class shell
     launch --cwd=current ${denvx} rails s
 
     ${nvimWindow}
