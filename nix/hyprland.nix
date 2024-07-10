@@ -15,14 +15,14 @@
   wsIndex = group: wsName:
     toString(group.index + workspaces.perGroup.${wsName});
 
-    groups = let
+  groups = let
     home = config.home.homeDirectory;
   in {
-    sys    = { index = 0;   name = "y"; cwd = "${home}/sys"; };
-    ar     = { index = 100; name = "r"; cwd = "${home}/ar/trees/current"; };
-    ibms   = { index = 200; name = "i"; cwd = "${home}/ibms/trees/current"; };
-    hq     = { index = 300; name = "h"; cwd = "${home}/hq/trees/current"; };
-    sys-ng = { index = 300; name = "n"; cwd = "${home}/sys-ng"; };
+    sys    = { index = 0;   name = "y"; defaultWs = "5"; cwd = "${home}/sys"; };
+    ar     = { index = 100; name = "r"; defaultWs = "105"; cwd = "${home}/ar/trees/current"; };
+    ibms   = { index = 200; name = "i"; defaultWs = "205"; cwd = "${home}/ibms/trees/current"; };
+    hq     = { index = 300; name = "h"; defaultWs = "305"; cwd = "${home}/hq/trees/current"; };
+    sys-ng = { index = 400; name = "n"; defaultWs = "405"; cwd = "${home}/sys-ng"; };
   };
 
   emacsHere = pkgs.writeShellScript "emacs-here" ''
@@ -172,10 +172,10 @@ in {
         "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$cas, d, togglespecialworkspace, ${workspaces.discord.name}"
         "$cas, g, workspace, ${workspaces.palia.index}"
-        "$cas, h, workspace, ${wsIndex groups.hq "dev"}"
-        "$cas, i, workspace, ${wsIndex groups.ibms "dev"}"
-        "$cas, n, workspace, ${wsIndex groups.sys-ng "dev"}"
-        "$cas, r, workspace, ${wsIndex groups.ar "dev"}"
+        "$cas, h, workspace, ${groups.hq.defaultWs}"
+        "$cas, i, workspace, ${groups.ibms.defaultWs}"
+        "$cas, n, workspace, ${groups.sys-ng.defaultWs}"
+        "$cas, r, workspace, ${groups.ar.defaultWs}"
         "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
         "$cas, y, workspace, ${wsIndex groups.sys "dev"}"
 
