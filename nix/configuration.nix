@@ -160,13 +160,10 @@
       rcloneConfigFile = "/etc/nixos/secrets/rclone.conf";
       repositoryFile = "/etc/nixos/secrets/restic-repo";
       passwordFile = "/etc/nixos/secrets/restic-passwd";
-      paths = [
-        "/home"
-	"/etc/nixos"
-      ];
+      paths = [ "/home/david" ];
       timerConfig = {
-        OnCalendar = "23:05";
-	RandomizedDelaySec = "5h";
+        OnUnitActiveSec = "6h";
+        RandomizedDelaySec = "5h";
       };
     };
   };
