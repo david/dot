@@ -150,7 +150,7 @@
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
-    packages = with pkgs; [
+    packages = [
       (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ];
   };
