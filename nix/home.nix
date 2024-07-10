@@ -2,6 +2,7 @@
   imports = [
     ./desktop-hyprland.nix
     ./dev.nix
+    ./emacs.nix
     ./nvim.nix
     ./terminal.nix
   ];
@@ -17,9 +18,7 @@
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
     FLAKE = "/home/david/sys";
-    VISUAL = "nvim";
   };
 
   home.stateVersion = "23.11";
