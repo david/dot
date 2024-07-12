@@ -318,6 +318,5 @@ in {
     systemd.enable = true;
   };
 
-  stylix.targets.bemenu.fontSize = 12;
   stylix.targets.hyprland.enable = false;
 }
