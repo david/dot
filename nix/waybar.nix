@@ -17,13 +17,15 @@ in {
           "battery"
           "cpu"
           "temperature"
+        ];
+        modules-center = [ "hyprland/workspaces" ];
+        modules-right = [
           "language"
           "bluetooth"
           "network"
           "tray"
+          "clock"
         ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "clock" ];
 
         output = [ "DP-1" ];
         spacing = 16;
