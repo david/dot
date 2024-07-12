@@ -33,9 +33,11 @@
   (display-buffer-alist '(("\\`\\*compilation\\*\\'" . ((display-buffer-reuse-window
                                                          display-buffer-pop-up-frame)
                                                         (reusable-frames . t)))))
+  (display-line-numbers-type 'relative)
   (frame-resize-pixelwise t)
   (gc-cons-threshold 100000000)
   (global-auto-revert-mode t)
+  (global-display-line-numbers-mode t)
   (indent-tabs-mode nil)
   (inhibit-startup-echo-area-message t)
   (inhibit-startup-message t)
