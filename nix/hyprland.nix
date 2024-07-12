@@ -120,14 +120,11 @@ in {
       "$scs"  = "SUPER CONTROL SHIFT";
 
       bind = [
-        "$s, period, changegroupactive, f"
-        "$s, comma, changegroupactive, b"
+        "$s, comma, workspace, -1"
+        "$s, period, workspace, +1"
 
-        "$sc, g, togglegroup"
-
-        "$s, e, exec, ${nextWs} ${toString workspaces.perGroup.dev}"
-        "$s, g, exec, ${nextWs} ${toString workspaces.perGroup.git}"
-        "$s, w, exec, ${nextWs} ${toString workspaces.perGroup.web}"
+        "$s, c, togglespecialworkspace, ${workspaces.slack.name}"
+        "$s, d, togglespecialworkspace, ${workspaces.discord.name}"
 
         "$s, q, killactive"
 
@@ -140,19 +137,21 @@ in {
         "$s,  l, movefocus, r"
         "$ss, l, movewindoworgroup, r"
 
-        "$cas, comma, workspace, -1"
-        "$cas, period, workspace, +1"
+        "$sc, period, changegroupactive, f"
+        "$sc, comma, changegroupactive, b"
+        "$sc, g, togglegroup"
+
+        "$cas, comma, workspace, e-1"
+        "$cas, period, workspace, e+1"
         "$cas, a, exec, tofi-drun | xargs hyprctl dispatch exec"
 
-        "$cas, c, togglespecialworkspace, ${workspaces.slack.name}"
-        "$cas, d, togglespecialworkspace, ${workspaces.discord.name}"
         "$cas, g, workspace, ${workspaces.palia.index}"
-        "$cas, h, workspace, ${groups.hq.defaultWs}"
-        "$cas, i, workspace, ${groups.ibms.defaultWs}"
-        "$cas, n, workspace, ${groups.sys-ng.defaultWs}"
-        "$cas, r, workspace, ${groups.ar.defaultWs}"
+        "$cas, i, workspace, ${groups.ar.defaultWs}"
+        "$cas, o, workspace, ${groups.sys-ng.defaultWs}"
+        "$cas, p, workspace, ${groups.hq.defaultWs}"
+        "$cas, u, workspace, ${wsIndex groups.sys "dev"}"
         "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
-        "$cas, y, workspace, ${wsIndex groups.sys "dev"}"
+        "$cas, y, workspace, ${groups.ibms.defaultWs}"
 
         "$scas, q, exit"
 
