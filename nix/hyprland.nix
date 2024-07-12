@@ -125,6 +125,7 @@ in {
 
         "$s, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$s, d, togglespecialworkspace, ${workspaces.discord.name}"
+        "$s, e, exec, ${emacsHere}"
 
         "$s, q, killactive"
 
