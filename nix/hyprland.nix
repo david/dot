@@ -26,9 +26,20 @@
   };
 
   emacsHere = pkgs.writeShellScript "emacs-here" ''
-    SOCKET="$(realpath --relative-base $HOME $1 | sed "s|/trees/current||")-current"
+    WORKSPACE=$(hyprctl activeworkspace -j | jq .id)
+    WORKGROUP=$(( $WORKSPACE / 100 * 100 ))
 
-    cd $1
+    case $WORKGROUP in
+      ${toString groups.sys.index}) ROOT=${groups.sys.cwd} ;;
+      ${toString groups.ar.index}) ROOT=${groups.ar.cwd} ;;
+      ${toString groups.ibms.index}) ROOT=${groups.ibms.cwd} ;;
+      ${toString groups.hq.index}) ROOT=${groups.hq.cwd} ;;
+      ${toString groups.sys-ng.index}) ROOT=${groups.sys-ng.cwd} ;;
+    esac
+
+    SOCKET="$(realpath --relative-base $HOME $ROOT | sed "s|/trees/current||")-current"
+
+    cd $ROOT
     emacsclient --create-frame --alternate-editor "" --socket-name $SOCKET
   '';
 
@@ -283,23 +294,23 @@ in {
         "special:${workspaces.video.name}, on-created-empty:${browserApp "https://youtube.com"}"
 
         "${wsIndex groups.sys "git"}, defaultName:${groups.sys.name}/g, on-created-empty:${kittyGit groups.sys.cwd}"
-        "${wsIndex groups.sys "dev"}, defaultName:${groups.sys.name}/e, on-created-empty:${emacsHere} ${groups.sys.cwd}"
+        "${wsIndex groups.sys "dev"}, defaultName:${groups.sys.name}/e, on-created-empty:${emacsHere}"
         "${wsIndex groups.sys "web"}, defaultName:${groups.sys.name}/w, on-created-empty:${browser}"
 
         "${wsIndex groups.ar "git"}, defaultName:${groups.ar.name}/g, on-created-empty:${kittyGit groups.ar.cwd}"
-        "${wsIndex groups.ar "dev"}, defaultName:${groups.ar.name}/e, on-created-empty:${emacsHere} ${groups.ar.cwd}"
+        "${wsIndex groups.ar "dev"}, defaultName:${groups.ar.name}/e, on-created-empty:${emacsHere}"
         "${wsIndex groups.ar "web"}, defaultName:${groups.ar.name}/w, on-created-empty:${railsApp}"
 
         "${wsIndex groups.ibms "git"}, defaultName:${groups.ibms.name}/g, on-created-empty:${kittyGit groups.ibms.cwd}"
-        "${wsIndex groups.ibms "dev"}, defaultName:${groups.ibms.name}/e, on-created-empty:${emacsHere} ${groups.ibms.cwd}"
+        "${wsIndex groups.ibms "dev"}, defaultName:${groups.ibms.name}/e, on-created-empty:${emacsHere}"
         "${wsIndex groups.ibms "web"}, defaultName:${groups.ibms.name}/w, on-created-empty:${phxApp}"
 
         "${wsIndex groups.hq "git"}, defaultName:${groups.hq.name}/g, on-created-empty:${kittyGit groups.hq.cwd}"
-        "${wsIndex groups.hq "dev"}, defaultName:${groups.hq.name}/e, on-created-empty:${emacsHere} ${groups.hq.cwd}"
+        "${wsIndex groups.hq "dev"}, defaultName:${groups.hq.name}/e, on-created-empty:${emacsHere}"
         "${wsIndex groups.hq "web"}, defaultName:${groups.hq.name}/w, on-created-empty:${phxApp}"
 
         "${wsIndex groups.sys-ng "git"}, defaultName:${groups.sys-ng.name}/g, on-created-empty:${kittyGit groups.sys-ng.cwd}"
-        "${wsIndex groups.sys-ng "dev"}, defaultName:${groups.sys-ng.name}/e, on-created-empty:${emacsHere} ${groups.sys-ng.cwd}"
+        "${wsIndex groups.sys-ng "dev"}, defaultName:${groups.sys-ng.name}/e, on-created-empty:${emacsHere}"
         "${wsIndex groups.sys-ng "web"}, defaultName:${groups.sys-ng.name}/w, on-created-empty:${phxApp}"
       ];
     };
