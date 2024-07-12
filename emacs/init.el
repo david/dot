@@ -326,6 +326,8 @@
 (use-package marginalia
   :init (marginalia-mode 1))
 
+(use-package nerd-icons)
+
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
 
