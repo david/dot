@@ -345,40 +345,4 @@ in {
 
   stylix.targets.bemenu.fontSize = 12;
   stylix.targets.hyprland.enable = false;
-
-  systemd.user = let
-    changeBackground = let
-      hyprpaper = "hyprctl hyprpaper";
-    in pkgs.writeShellScript "change-background" ''
-      set -eo pipefail
-
-      FILE="$(fd . ${../backgrounds} | shuf --head-count 1)"
-
-      ${hyprpaper} unload unused
-      ${hyprpaper} preload $FILE
-      ${hyprpaper} wallpaper "DP-1,$FILE"
-    '';
-  in {
-    services.random-background = {
-      Unit = {
-        Description = "Background switcher";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "oneshot";
-        ExecStart = changeBackground;
-        IOSchedulingClass = "idle";
-      };
-
-      Install = { WantedBy = [ "graphical-session.target" ]; };
-    };
-
-    timers.random-background = {
-      Unit = { Description = "Background switcher timer"; };
-      Timer = { OnUnitActiveSec = "5m"; };
-      Install = { WantedBy = [ "timers.target" ]; };
-    };
-  };
 }
