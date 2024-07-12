@@ -304,6 +304,7 @@
 (use-package lsp-mode
   :custom
   (lsp-elixir-server-command '("elixir-ls"))
+  (lsp-elixir-dialyzer-enabled nil)
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-warn-no-matched-clients nil)
 
