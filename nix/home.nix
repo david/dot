@@ -2,7 +2,6 @@
   imports = [
     ./desktop-hyprland.nix
     ./dev.nix
-    ./emacs.nix
     ./nvim.nix
     ./terminal.nix
   ];
