@@ -279,8 +279,11 @@
 
         grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
 
-        incrementalSelection.enable = true;
-        indent = true;
+        settings = {
+          highlight.enable = true;
+          incrementalSelection.enable = true;
+          indent.enable = true;
+        };
 
         nixvimInjections = true;
       };
