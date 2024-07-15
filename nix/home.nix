@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
-    ./desktop-hyprland.nix
+    ./hyprdesktop.nix
     ./dev.nix
     ./nvim.nix
     ./terminal.nix
