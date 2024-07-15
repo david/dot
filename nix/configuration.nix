@@ -72,8 +72,6 @@
     pulse.enable = true;
   };
 
-  sound.enable = true;
-
   users = {
     groups.plugdev.name = "plugdev";
 
