@@ -10,20 +10,25 @@ in {
     enable = true;
 
     settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        lock_cmd = "pidof hyprlock || hyprlock";
+      };
+
       listener = [
         {
-          timeout = 120;
-          on-timeout = "${pkgs.hyprlock}/bin/hyprlock";
-        }
-
-        {
-          timeout = 240;
+          timeout = 150;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
 
         {
-          timeout = 480;
+          timeout = 300;
+          on-timeout = "${pkgs.hyprlock}/bin/hyprlock";
+        }
+
+        {
+          timeout = 450;
           on-timeout = "systemctl suspend";
         }
       ];
@@ -72,7 +77,22 @@ in {
 
   services.mako = {
     enable = true;
+    font = lib.mkForce "Cantarell 10, Symbols Nerd Font 10";
     sort = "+time";
+
+    extraConfig = ''
+      [app-name=which-key]
+      anchor=bottom-right
+      border-size=0
+      format=%s\n%b
+      group-by=app-name
+      height=256
+      margin=0
+      markup=1
+      outer-margin=0
+      text-alignment=center
+      width=384
+    '';
   };
 
   home.packages = [ pkgs.playerctl ];

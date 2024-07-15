@@ -4,54 +4,92 @@
 
   colors = (import ./colors.nix);
 
+  workspacesPerGroup = 10;
+
   workspaces = {
-    perGroup = { dev = 5; git = 4; web = 6; };
-
-    discord = { name = "󰙯"; };
-    slack   = { name = ""; };
-    video   = { name = ""; };
+    discord = { name = "discord"; };
+    slack   = { name = "slack"; };
+    video   = { name = "video"; };
   };
-
-  wsIndex = group: wsName:
-    toString(group.index + workspaces.perGroup.${wsName});
 
   groups = let
+    dev = { icon = " "; index = 5; name = "dev"; };
+    web = { icon = "󰖟 "; index = 6; name = "web"; };
     home = config.home.homeDirectory;
+
+    mkWorkspaces = grpIndex: {
+      dev = dev // {
+        cmd = "${nvimHere} & ${kittyHere}";
+        index = toString (dev.index + grpIndex);
+      };
+
+      web = web // {
+        cmd = browser;
+        index = toString (web.index + grpIndex);
+      };
+    };
+
+    mkGroup = index: let
+      i = workspacesPerGroup * index;
+    in { index = i; } // mkWorkspaces i;
   in {
-    sys    = { index = 0;   name = "y"; defaultWs = "5"; cwd = "${home}/sys"; };
-    ar     = { index = 100; name = "r"; defaultWs = "105"; cwd = "${home}/ar/trees/current"; };
-    ibms   = { index = 200; name = "i"; defaultWs = "205"; cwd = "${home}/ibms/trees/current"; };
-    hq     = { index = 300; name = "h"; defaultWs = "305"; cwd = "${home}/hq/trees/current"; };
-    sys-ng = { index = 400; name = "n"; defaultWs = "405"; cwd = "${home}/sys-ng"; };
+    sys = mkGroup 1 // {
+      cwd = "${home}/sys";
+      name = "sys";
+    };
+
+    ar = let
+      g = mkGroup 2;
+    in g // {
+      cwd = "${home}/ar/trees/current";
+      name = "ar";
+
+      web = g.web // { cmd = railsApp; };
+    };
+
+    sysng = let
+      g = mkGroup 3;
+    in g // {
+      cwd = "${home}/sys-ng";
+      name = "sys-ng";
+
+      web = g.web // { cmd = phxApp; };
+    };
+
+    ibms = let
+      g = mkGroup 4;
+    in g // {
+      cwd = "${home}/ibms/trees/current";
+      name = "ibms";
+
+      web = g.web // { cmd = phxApp; };
+    };
   };
 
-  emacsHere = pkgs.writeShellScript "emacs-here" ''
+  kittyHere = let
+    wspg = toString workspacesPerGroup;
+  in pkgs.writeShellScript "kitty-here" ''
     WORKSPACE=$(hyprctl activeworkspace -j | jq .id)
-    WORKGROUP=$(( $WORKSPACE / 100 * 100 ))
+    WORKGROUP=$(( $WORKSPACE / ${wspg} * ${wspg} ))
 
     case $WORKGROUP in
-      ${toString groups.sys.index}) ROOT=${groups.sys.cwd} ;;
-      ${toString groups.ar.index}) ROOT=${groups.ar.cwd} ;;
-      ${toString groups.ibms.index}) ROOT=${groups.ibms.cwd} ;;
-      ${toString groups.hq.index}) ROOT=${groups.hq.cwd} ;;
-      ${toString groups.sys-ng.index}) ROOT=${groups.sys-ng.cwd} ;;
+    ${builtins.concatStringsSep ""
+      (builtins.map (
+        key: let
+          group = groups.${key};
+        in ''
+          ${toString group.index})
+            GNAME=${key}
+            GCWD=${group.cwd}
+            ;;
+          ''
+        ) (builtins.attrNames groups))}
     esac
 
-    SOCKET="$(realpath --relative-base $HOME $ROOT | sed "s|/trees/current||")-current"
-
-    cd $ROOT
-    emacsclient --create-frame --alternate-editor "" --socket-name $SOCKET
+    kitty --directory $GCWD --single-instance --instance-group $GNAME $*
   '';
 
-  nextWs = pkgs.writeShellScript "next-ws" ''
-    set -eo pipefail
-
-    CURR_WS=$(hyprctl activeworkspace -j | jq .id)
-    CURR_GRP=$(( $CURR_WS / 100 * 100 ))
-    NEXT_WS=$(( $CURR_GRP + $1 ))
-
-    hyprctl dispatch workspace $NEXT_WS
-  '';
+  nvimHere = "${kittyHere} --class nvim nvim";
 
   phxApp   = "${browser} http://localhost:4000";
   railsApp = "${browser} http://localhost:3000";
@@ -82,15 +120,17 @@ in {
 
       [[default_layouts]]
       2 = [
-        "editor",
-        "git",
-        "shell",
+        "nvim",
+        "kitty",
       ]
     '';
   };
 
   wayland.windowManager.hyprland = let
-    rgba = c: "rgba(${colors.hex(c)}ee)";
+    activeColor = "rgba(${colors.hex colors.yellowBright}dd)";
+    inactiveColor = "rgba(${colors.hex colors.light2}dd)";
+    activeBorder = "${activeColor} rgba(${colors.hex colors.orangeBright}dd) 90deg";
+    inactiveBorder = "${inactiveColor} rgba(${colors.hex colors.dark3}dd) 90deg";
   in {
     enable = true;
 
@@ -98,16 +138,15 @@ in {
       animations = {
         enabled = true;
 
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-
         animation = [
-          "windows, 1, 3, myBezier, popin 90%"
-          "windowsOut, 1, 3, default, popin 90%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 3, default"
+          "windows, 1, 5, default, popin 90%"
+          "windowsMove, 1, 5, default, slide"
+          "border, 1, 5, default"
+          "borderangle, 1, 5, default"
+          "fade, 1, 5, default"
+          "layers, 1, 5, default, fade"
           "workspaces, 1, 3, default, slide"
-          "specialWorkspace, 1, 3, myBezier, slidevert"
+          "specialWorkspace, 1, 3, default, slidevert"
         ];
       };
 
@@ -122,37 +161,40 @@ in {
       bind = [
         "$s, comma, workspace, -1"
         "$s, period, workspace, +1"
+        "$s, semicolon, workspace, previous"
+
+        "$s, e, exec, ${nvimHere}"
+        "$s, s, exec, ${kittyHere}"
 
         "$s, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$s, d, togglespecialworkspace, ${workspaces.discord.name}"
-        "$s, e, exec, ${emacsHere}"
+        "$s, v, togglespecialworkspace, ${workspaces.video.name}"
+
+        "$s, h, movefocus, l"
+        "$s, j, movefocus, d"
+        "$s, k, movefocus, u"
+        "$s, l, movefocus, r"
 
         "$s, q, killactive"
 
-        "$s,  h, movefocus, l"
         "$ss, h, movewindoworgroup, l"
-        "$s,  j, movefocus, d"
         "$ss, j, movewindoworgroup, d"
-        "$s,  k, movefocus, u"
         "$ss, k, movewindoworgroup, u"
-        "$s,  l, movefocus, r"
         "$ss, l, movewindoworgroup, r"
 
         "$sc, period, changegroupactive, f"
         "$sc, comma, changegroupactive, b"
         "$sc, g, togglegroup"
 
+        "$cas, i, workspace, ${groups.ar.dev.index}"
+        "$cas, o, workspace, ${groups.sysng.dev.index}"
+        "$cas, u, workspace, ${groups.sys.dev.index}"
+        "$cas, y, workspace, ${groups.ibms.dev.index}"
+
         "$cas, comma, workspace, e-1"
         "$cas, period, workspace, e+1"
-        "$cas, a, exec, tofi-drun | xargs hyprctl dispatch exec"
 
-        "$cas, g, workspace, ${workspaces.palia.index}"
-        "$cas, i, workspace, ${groups.ar.defaultWs}"
-        "$cas, o, workspace, ${groups.sys-ng.defaultWs}"
-        "$cas, p, workspace, ${groups.hq.defaultWs}"
-        "$cas, u, workspace, ${wsIndex groups.sys "dev"}"
-        "$cas, v, togglespecialworkspace, ${workspaces.video.name}"
-        "$cas, y, workspace, ${groups.ibms.defaultWs}"
+        "$cas, a, exec, tofi-drun | xargs hyprctl dispatch exec"
 
         "$scas, q, exit"
 
@@ -180,13 +222,15 @@ in {
           passes = 2;
         };
 
-        "col.shadow" = rgba colors.dark2;
+        "col.shadow" = "rgba(${colors.hex colors.dark1}cc)";
 
         dim_inactive = true;
-        dim_strength = 0.25;
+        dim_strength = 0.05;
         dim_special = 0.33;
 
         drop_shadow = true;
+
+        inactive_opacity = 0.9;
 
         shadow_offset = "1, 1";
         shadow_range = 12;
@@ -210,10 +254,10 @@ in {
 
         border_size = 3;
 
-        "col.active_border" = rgba colors.orangeBright;
-        "col.inactive_border" = rgba colors.dark0Hard;
-        "col.nogroup_border_active" = rgba colors.orangeBright;
-        "col.nogroup_border" = rgba colors.dark0Hard;
+        "col.active_border" = activeBorder;
+        "col.inactive_border" = inactiveBorder;
+        "col.nogroup_border_active" = activeBorder;
+        "col.nogroup_border" = inactiveBorder;
 
         gaps_in = gaps.inner;
         gaps_out = gaps.outer;
@@ -226,18 +270,19 @@ in {
       };
 
       group = {
-        "col.border_active" = rgba colors.purpleBright;
-        "col.border_inactive" = rgba colors.purpleFaded;
+        "col.border_active" = activeBorder;
+        "col.border_inactive" = inactiveBorder;
 
         groupbar = {
           enabled = true;
 
-          "col.active" = rgba colors.purpleBright;
-          "col.inactive" = rgba colors.purpleFaded;
+          "col.active" = activeColor;
+          "col.inactive" = inactiveColor;
 
-          font_family = "Cantarell";
+          font_family = "Cantarell:style=Extra Bold";
           font_size = 10;
-          height = 22;
+          height = 20;
+          text_color = "rgb(${colors.hex colors.dark0})";
         };
       };
 
@@ -269,50 +314,25 @@ in {
       ];
 
       windowrulev2 = [
-        "workspace special:, class:(Slack)"
-        "workspace special:󰙯, class:(discord)"
-        "group set always, class:(shell)"
+        "workspace special:slack, class:(Slack)"
+        "workspace special:discord, class:(discord)"
+        "group set always, class:(kitty)"
         "group set always, class:(vivaldi-stable)"
-        "group deny, class:(editor)"
+        "group barred, class:(nvim)"
       ];
 
-      workspace = let
-        kitty = { class ? null, cmd ? "", cwd, session ? null }: let
-          classOpt = if class != null then "--class ${class}" else "";
-          sessionOpt =
-            if session != null then
-              "--session ${config.xdg.configHome}/kitty/sessions/${session}.conf"
-            else
-              "";
-        in "kitty --directory ${cwd} ${classOpt} ${sessionOpt} ${cmd}";
-
-        kittyGit = cwd: kitty { cwd = cwd; class = "git"; cmd = "lazygit"; };
-        kittyDev = cwd: session: kitty { inherit cwd session; };
-      in [
-        "special:${workspaces.discord.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
-        "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x},"
+      workspace = [
+        "special:${workspaces.discord.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x}"
+        "special:${workspaces.slack.name}, gapsout:${toString gaps.chat.y} ${toString gaps.chat.x}"
         "special:${workspaces.video.name}, on-created-empty:${browserApp "https://youtube.com"}"
-
-        "${wsIndex groups.sys "git"}, defaultName:${groups.sys.name}/g, on-created-empty:${kittyGit groups.sys.cwd}"
-        "${wsIndex groups.sys "dev"}, defaultName:${groups.sys.name}/e, on-created-empty:${emacsHere}"
-        "${wsIndex groups.sys "web"}, defaultName:${groups.sys.name}/w, on-created-empty:${browser}"
-
-        "${wsIndex groups.ar "git"}, defaultName:${groups.ar.name}/g, on-created-empty:${kittyGit groups.ar.cwd}"
-        "${wsIndex groups.ar "dev"}, defaultName:${groups.ar.name}/e, on-created-empty:${emacsHere}"
-        "${wsIndex groups.ar "web"}, defaultName:${groups.ar.name}/w, on-created-empty:${railsApp}"
-
-        "${wsIndex groups.ibms "git"}, defaultName:${groups.ibms.name}/g, on-created-empty:${kittyGit groups.ibms.cwd}"
-        "${wsIndex groups.ibms "dev"}, defaultName:${groups.ibms.name}/e, on-created-empty:${emacsHere}"
-        "${wsIndex groups.ibms "web"}, defaultName:${groups.ibms.name}/w, on-created-empty:${phxApp}"
-
-        "${wsIndex groups.hq "git"}, defaultName:${groups.hq.name}/g, on-created-empty:${kittyGit groups.hq.cwd}"
-        "${wsIndex groups.hq "dev"}, defaultName:${groups.hq.name}/e, on-created-empty:${emacsHere}"
-        "${wsIndex groups.hq "web"}, defaultName:${groups.hq.name}/w, on-created-empty:${phxApp}"
-
-        "${wsIndex groups.sys-ng "git"}, defaultName:${groups.sys-ng.name}/g, on-created-empty:${kittyGit groups.sys-ng.cwd}"
-        "${wsIndex groups.sys-ng "dev"}, defaultName:${groups.sys-ng.name}/e, on-created-empty:${emacsHere}"
-        "${wsIndex groups.sys-ng "web"}, defaultName:${groups.sys-ng.name}/w, on-created-empty:${phxApp}"
-      ];
+      ] ++ (
+        builtins.concatMap (k: let
+          g = groups.${k};
+        in [
+          "${g.dev.index}, defaultName:  ${g.name}, on-created-empty: ${g.dev.cmd}"
+          "${g.web.index}, defaultName:󰖟  ${g.name}, on-created-empty: ${g.web.cmd}"
+        ]) (builtins.attrNames groups)
+      );
     };
 
     systemd.enable = true;
