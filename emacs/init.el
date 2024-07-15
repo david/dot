@@ -32,7 +32,10 @@
   (column-number-mode t)
   (display-buffer-alist '(("\\`\\*compilation\\*\\'" . ((display-buffer-reuse-window
                                                          display-buffer-pop-up-frame)
-                                                        (reusable-frames . t)))))
+                                                        (reusable-frames . t)))
+                          ("\\(\\*Man\\|\\*rails-\\|\\*Alchemist\\)" . ((display-buffer-reuse-window
+                                                                         display-buffer-same-window)
+                                                                        (reusable-frames . t)))))
   (display-line-numbers-type 'relative)
   (frame-resize-pixelwise t)
   (gc-cons-threshold 100000000)
@@ -59,6 +62,7 @@
   (recentf-mode t)
   (right-fringe-width 16)
   (ring-bell-function 'ignore)
+  (safe-local-variable-directories '("/home/david/ar/"))
   (save-place-mode t)
   (savehist-mode t)
 
@@ -283,7 +287,7 @@
   (defun +rails-console-production ()
     (interactive)
     (let ((default-directory (project-root (project-current))))
-      (inf-ruby-console-run (concat "heroku run rails console --app " (getenv "APP_NAME_PROD"))
+      (inf-ruby-console-run (concat "heroku run rails console --app " +heroku-app-name-production)
                             "rails-production")))
 
   :general
