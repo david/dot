@@ -89,7 +89,7 @@
     kitty --directory $GCWD --single-instance --instance-group $GNAME $*
   '';
 
-  nvimHere = "${kittyHere} --class nvim nvim";
+  nvimHere = "${kittyHere} --class nvim-manual nvim";
 
   phxApp   = "${browser} http://localhost:4000";
   railsApp = "${browser} http://localhost:3000";
@@ -314,11 +314,12 @@ in {
       ];
 
       windowrulev2 = [
-        "workspace special:slack, class:(Slack)"
-        "workspace special:discord, class:(discord)"
-        "group set always, class:(kitty)"
-        "group set always, class:(vivaldi-stable)"
-        "group barred, class:(nvim)"
+        "workspace special:slack, class:^(Slack)$"
+        "workspace special:discord, class:^(discord)$"
+        "group set always, class:^(kitty)$"
+        "group set always, class:^(vivaldi-stable)$"
+        "group new, class:^(nvim)$"
+        "group set always, class:^(nvim-manual)$"
       ];
 
       workspace = [
