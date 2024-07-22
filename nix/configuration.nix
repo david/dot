@@ -41,6 +41,18 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
+  services.xserver = {
+    enable = true;
+
+    desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
+
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -106,14 +118,29 @@
   };
 
   environment = {
+    gnome.excludePackages = (with pkgs; [
+      cheese
+      epiphany
+      gedit
+      gnome-photos
+      gnome-tour
+      yelp
+    ]) ++ (with pkgs.gnome; [
+      gnome-contacts
+      gnome-initial-setup
+      gnome-music
+    ]);
+
     localBinInPath = true;
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };
+
+    systemPackages = [ ];
   };
 
-  programs.hyprland.enable = true;
+  programs.dconf.enable = true;
 
   programs.nh = {
     enable = true;
@@ -124,25 +151,13 @@
 
   services.fwupd.enable = true;
 
-  services.greetd = let
-    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-    session = "${pkgs.hyprland}/bin/Hyprland";
-    username = "david";
-  in {
-    enable = true;
+  services.gnome.games.enable = false;
 
-    settings = {
-      initial_session = {
-        command = "${session}";
-        user = "${username}";
-      };
+  services.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = "david";
 
-      default_session = {
-        command = "${tuigreet} --greeting 'Timbuktu'" +
-        " --asterisks --remember --remember-user-session --time --cmd ${session}";
-        user = "greeter";
-      };
-    };
+    defaultSession = "gnome";
   };
 
   fonts = {
@@ -169,4 +184,9 @@
   services.upower.enable = true;
 
   system.stateVersion = "23.11";
+
+  virtualisation = {
+    libvirtd.enable = true;
+    podman.enable = true;
+  };
 }

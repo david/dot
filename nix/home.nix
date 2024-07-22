@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
-    ./hyprdesktop.nix
+    ./gnome.nix
+    # ./hyprdesktop.nix
     ./dev.nix
     ./nvim.nix
     ./terminal.nix
@@ -11,7 +12,9 @@
   home.packages = with pkgs; [
     dex
     discord
+    distrobox
     slack
+    tofi
     vivaldi
     vivaldi-ffmpeg-codecs
   ];
