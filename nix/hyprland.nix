@@ -47,11 +47,11 @@
       web = g.web // { cmd = railsApp; };
     };
 
-    sysng = let
+    habitat = let
       g = mkGroup 3;
     in g // {
-      cwd = "${home}/sys-ng";
-      name = "sys-ng";
+      cwd = "${home}/habitat";
+      name = "habitat";
 
       web = g.web // { cmd = phxApp; };
     };
@@ -89,7 +89,9 @@
     kitty --directory $GCWD --single-instance --instance-group $GNAME $*
   '';
 
+  gitHere = "${kittyHere} lazygit";
   nvimHere = "${kittyHere} --class nvim-manual nvim";
+  srvHere = "${kittyHere} direnv exec . nix run .#srv";
 
   phxApp   = "${browser} http://localhost:4000";
   railsApp = "${browser} http://localhost:3000";
@@ -159,35 +161,36 @@ in {
       "$scs"  = "SUPER CONTROL SHIFT";
 
       bind = [
-        "$s, comma, workspace, -1"
-        "$s, period, workspace, +1"
+        "$s, comma, changegroupactive, b"
+        "$s, period, changegroupactive, f"
         "$s, semicolon, workspace, previous"
-
-        "$s, e, exec, ${nvimHere}"
-        "$s, s, exec, ${kittyHere}"
 
         "$s, c, togglespecialworkspace, ${workspaces.slack.name}"
         "$s, d, togglespecialworkspace, ${workspaces.discord.name}"
-        "$s, v, togglespecialworkspace, ${workspaces.video.name}"
-
+        "$s, e, exec, ${nvimHere}"
+        "$s, g, exec, ${gitHere}"
         "$s, h, movefocus, l"
         "$s, j, movefocus, d"
         "$s, k, movefocus, u"
         "$s, l, movefocus, r"
-
         "$s, q, killactive"
+        "$s, r, exec, ${srvHere}"
+        "$s, s, exec, ${kittyHere}"
+        "$s, v, togglespecialworkspace, ${workspaces.video.name}"
+        "$s, w, togglespecialworkspace, ${workspaces.video.name}"
 
+        "$ss, f, fullscreen"
+        "$ss, g, togglegroup"
         "$ss, h, movewindoworgroup, l"
         "$ss, j, movewindoworgroup, d"
         "$ss, k, movewindoworgroup, u"
         "$ss, l, movewindoworgroup, r"
 
-        "$sc, period, changegroupactive, f"
-        "$sc, comma, changegroupactive, b"
-        "$sc, g, togglegroup"
+        "$sc, comma, workspace, -1"
+        "$sc, period, workspace, +1"
 
         "$cas, i, workspace, ${groups.ar.dev.index}"
-        "$cas, o, workspace, ${groups.sysng.dev.index}"
+        "$cas, o, workspace, ${groups.habitat.dev.index}"
         "$cas, u, workspace, ${groups.sys.dev.index}"
         "$cas, y, workspace, ${groups.ibms.dev.index}"
 

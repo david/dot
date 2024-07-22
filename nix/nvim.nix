@@ -196,7 +196,6 @@
         modules = {
           ai = {};
           align = {};
-          splitjoin = {};
         };
       };
 
@@ -298,16 +297,6 @@
       };
 
       trim.enable = true;
-
-      toggleterm = {
-        enable = true;
-
-        settings = {
-          open_mapping = "[[<d-s>]]";
-          size = 16;
-        };
-      };
-
       trouble.enable = true;
       undotree.enable = true;
       which-key.enable = true;

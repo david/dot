@@ -14,17 +14,17 @@ in {
         height = 20;
 
         modules-left = [
+          "hyprland/workspaces"
           "battery"
           "cpu"
           "temperature"
         ];
-        modules-center = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
         modules-right = [
           "language"
           "bluetooth"
           "network"
           "tray"
-          "clock"
         ];
 
         output = [ "DP-1" ];
@@ -52,6 +52,7 @@ in {
         };
 
         "hyprland/workspaces" = {
+          active-only = true;
           format = "{name}";
         };
 
@@ -95,7 +96,7 @@ in {
 
       .modules-left {
         padding: 0;
-        padding-left: 12px;
+        padding-left: 0;
       }
 
       .modules-right {
