@@ -29,8 +29,11 @@
     enable = true;
 
     keybindings = {
-      "super+f" = "launch --cwd=current --type os-window --os-window-class editor nvim";
-      "super+s" = "launch --cwd=current --type os-window --os-window-class shell";
+      "super+e" = "launch --cwd=current --type tab nvim";
+      "super+g" = "launch --cwd=current --type tab lazygit";
+      "super+s" = "launch --cwd=current --type tab";
+      "super+," = "previous_tab";
+      "super+." = "next_tab";
     };
 
     settings = {
@@ -47,6 +50,4 @@
       window_padding_width = "4 6";
     };
   };
-
-  stylix.targets.kitty.variant256Colors = true;
 }
