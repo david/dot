@@ -149,8 +149,9 @@
     flake = "/home/david/sys";
   };
 
-  services.fwupd.enable = true;
+  programs.steam.enable = true;
 
+  services.fwupd.enable = true;
 
   services.displayManager = {
     autoLogin.enable = true;
