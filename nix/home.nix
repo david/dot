@@ -15,6 +15,7 @@
     slack
     vivaldi
     vivaldi-ffmpeg-codecs
+    zoxide
   ] ++ [ inputs.neovim-nightly-overlay.packages.${pkgs.system}.default ];
 
   home.sessionVariables = {
