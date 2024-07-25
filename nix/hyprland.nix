@@ -341,6 +341,4 @@ in {
 
     systemd.enable = true;
   };
-
-  stylix.targets.hyprland.enable = false;
 }

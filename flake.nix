@@ -10,7 +10,6 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -18,7 +17,6 @@
     neovim-nightly-overlay,
     nixos-hardware,
     nixpkgs,
-    stylix,
     ...
   } @ inputs : let
     system = "x86_64-linux";
@@ -43,7 +41,6 @@
         modules = [
           ./nix/hardware-configuration.nix
           nixos-hardware.nixosModules.tuxedo-infinitybook-pro14-gen7
-          stylix.nixosModules.stylix
           ./nix/configuration.nix
 
           { nixpkgs.overlays = [ neovim-nightly-overlay.overlays.default ]; }
@@ -58,8 +55,6 @@
 
             home-manager.users.david = import ./nix/home.nix;
           }
-
-          ./nix/theme.nix
         ];
       };
     };
