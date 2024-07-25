@@ -151,7 +151,6 @@
 
   services.fwupd.enable = true;
 
-  services.gnome.games.enable = false;
 
   services.displayManager = {
     autoLogin.enable = true;
