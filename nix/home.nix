@@ -1,9 +1,8 @@
-{ config, pkgs, ... }: {
+{ config, inputs, pkgs, ... }: {
   imports = [
     ./gnome.nix
     # ./hyprdesktop.nix
     ./dev.nix
-    ./nvim.nix
     ./terminal.nix
   ];
 
@@ -16,7 +15,7 @@
     slack
     vivaldi
     vivaldi-ffmpeg-codecs
-  ];
+  ] ++ [ inputs.neovim-nightly-overlay.packages.${pkgs.system}.default ];
 
   home.sessionVariables = {
     FLAKE = "/home/david/sys";
