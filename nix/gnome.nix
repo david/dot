@@ -2,24 +2,44 @@
   home.packages = with pkgs; [ gnome-tweaks ];
 
   dconf.settings = {
+    "org/gnome/Geary" = {
+      run-in-background = true;
+      single-key-shortcuts = true;
+    };
+
+    "org/gnome/desktop/input-sources" = {
+      sources = [
+        (lib.gvariant.mkTuple ["xkb" "us"])
+        (lib.gvariant.mkTuple ["xkb" "us+intl"])
+      ];
+    };
+
+    "org/gnome/desktop/interface" = {
+      show-battery-percentage = false;
+    };
+
     "org/gnome/desktop/wm/keybindings" = {
       close = [];
-      minimize = [ "<Super>Return" ];
-      move-to-workspace-left = [];
-      move-to-workspace-right = [];
-      switch-to-workspace-left = [];
-      switch-to-workspace-right = [];
       cycle-windows = [];
       cycle-windows-backward = [];
-
-      switch-input-source = [ "<Control><Alt><Shift>apostrophe" ];
+      minimize = [ "<Super><Shift>q" ];
+      move-to-workspace-left = [];
+      move-to-workspace-right = [];
       switch-input-source-backward = [ "<Control><Alt>apostrophe" ];
+      switch-input-source = [ "<Control><Alt><Shift>apostrophe" ];
+      switch-to-workspace-left = [];
+      switch-to-workspace-right = [];
     };
 
     "org/gnome/mutter" = {
+      action-double-click-titlebar = "none";
       center-new-windows = true;
       dynamic-workspaces = true;
       overlay-key = [];
+    };
+
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-temperature = lib.gvariant.mkUint32 4096;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -29,12 +49,11 @@
     "org/gnome/shell" = {
       enabled-extensions = [
         "arcmenu@arcmenu.com"
-        "blur-my-shell@aunetx"
         "gsconnect@andyholmes.github.io"
         "just-perfection-desktop@just-perfection"
         "paperwm@paperwm.github.com"
-        "useless-gaps@pimsnel.com"
         "monitor@astraext.github.io"
+        "trayIconsReloaded@selfmade.pl"
       ];
 
       favorite-apps = [
@@ -42,11 +61,6 @@
         "discord.desktop"
         "vivaldi-stable.desktop"
         "org.gnome.Geary.desktop"
-        "ar.desktop"
-        "sys.desktop"
-        "ibms.desktop"
-        "hq.desktop"
-        "vivaldi-agimnkijcaahngcdmfeangaknmldooml-Default.desktop"
       ];
     };
 
@@ -54,6 +68,18 @@
       arcmenu-hotkey = [];
       menu-button-appearance = "None";
       runner-hotkey = [ "<Super>a" ];
+    };
+
+    "org/gnome/shell/extensions/astra-monitor" = {
+      panel-box = "left";
+      panel-box-order = -1;
+    };
+
+    "org/gnome/shell/extensions/just-perfection" = {
+      animation = 4;
+      notification-banner-position = 0;
+      panel-indicator-padding-size = 16;
+      startup-status = 0;
     };
 
     "org/gnome/shell/extensions/paperwm" = {
@@ -65,6 +91,7 @@
       selection-border-size = 3;
       show-focus-mode-icon = false;
       show-open-position-icon = false;
+      show-window-position-bar = false;
       vertical-margin = 16;
       vertical-margin-bottom = 16;
       window-gap = 16;
@@ -72,11 +99,11 @@
 
     "org/gnome/shell/extensions/paperwm/keybindings" = {
       center-horizontally = [];
-      close-window = [ "<Control><Alt><Shift>q" ];
-      move-down = [ "<Shift><Super>j" ];
+      close-window = [ "<Super>q" ];
+      move-down-workspace = [ "<Shift><Super>j" ];
       move-left = [ "<Shift><Super>h" ];
       move-right = [ "<Shift><Super>l" ];
-      move-up = [ "<Shift><Super>k" ];
+      move-up-workspace = [ "<Shift><Super>k" ];
       new-window = [ "<Control><Alt><Shift>n" ];
       switch-down = [];
       switch-down-or-else-workspace = [ "<Super>j" ];
@@ -110,10 +137,23 @@
       name = "sys";
     };
 
-    "workspaces/21ee9f1a-dc96-40b0-bfaa-f20184fb76c1" = {
+    "org/gnome/shell/extensions/paperwm/workspaces/21ee9f1a-dc96-40b0-bfaa-f20184fb76c1" = {
       directory = "/home/david/ibms/trees/current";
       index = 2;
       name = "ibms";
+    };
+
+    "org/gnome/shell/extensions/vitals" = {
+      fixed-widths = true;
+      hot-sensors = [ "_battery_percentage_" "_processor_usage_" "_temperature_acpi_thermal zone_" ];
+      icon-style = 1;
+      show-battery = true;
+      show-fan = false;
+      show-memory = false;
+      show-network = false;
+      show-storage = false;
+      show-system = false;
+      show-voltage = false;
     };
 
     "org/gnome/shell/keybindings" = {
@@ -132,16 +172,13 @@
 
     extensions = with pkgs; [
       { package = gnomeExtensions.arcmenu; }
-      { package = gnomeExtensions.astra-monitor; }
-      { package = gnomeExtensions.blur-my-shell; }
+      { package = gnomeExtensions.appindicator; }
       { package = gnomeExtensions.gsconnect; }
       { package = gnomeExtensions.just-perfection; }
-      { package = gnomeExtensions.pano; }
       { package = gnomeExtensions.paperwm; }
+      { package = gnomeExtensions.vitals; }
     ];
   };
-
-  stylix.targets.gnome.enable = true;
 
   systemd.user = let
     changeBackground = pkgs.writeShellScript "change-background" ''
