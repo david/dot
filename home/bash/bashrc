@@ -1,0 +1,27 @@
+# Commands that should be applied only for interactive shells.
+[[ $- == *i* ]] || return
+
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+export GPG_TTY="$(tty)"
+
+set -o vi
+
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+alias ls=lsd
+
+if [[ ! -v BASH_COMPLETION_VERSINFO ]]; then
+  . "/nix/store/q0zgchbbyrnhihb8z5n2fv7ygpv0fq79-bash-completion-2.14.0/etc/profile.d/bash_completion.sh"
+fi
+
+eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
+eval "$(starship init bash --print-full-init)"
+eval "$(direnv hook bash)"
+eval "$(dircolors ~/sys/dircolors)"
