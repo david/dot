@@ -31,6 +31,16 @@
       ];
     };
   in {
+
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = with pkgs; [
+        gnumake
+        gcc
+        lua-language-server
+        stylua
+      ];
+    };
+
     nixosConfigurations = {
       timbuktu = nixpkgs.lib.nixosSystem {
         inherit system;
