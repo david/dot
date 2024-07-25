@@ -13,6 +13,7 @@
     foot
     neovide
     slack
+    stow
     vivaldi
     vivaldi-ffmpeg-codecs
     zoxide
