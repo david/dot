@@ -11,6 +11,7 @@
 
   home.packages = with pkgs; [
     discord
+    foot
     neovide
     slack
     vivaldi

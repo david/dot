@@ -30,12 +30,6 @@
     ];
   };
 
-  programs.foot = {
-    enable = true;
-
-    settings.main.shell = "${pkgs.fish}/bin/fish";
-  };
-
   programs.fzf = {
     enable = true;
   };
