@@ -1,10 +1,17 @@
 # Commands that should be applied only for interactive shells.
 [[ $- == *i* ]] || return
 
+. "/etc/profiles/per-user/david/share/blesh/ble.sh"
+
 HISTFILESIZE=100000
 HISTSIZE=10000
 
 export GPG_TTY="$(tty)"
+
+EDITOR=nvim
+VISUAL=nvim
+
+export EDITOR VISUAL
 
 set -o vi
 
@@ -25,3 +32,5 @@ eval "$(zoxide init bash)"
 eval "$(starship init bash --print-full-init)"
 eval "$(direnv hook bash)"
 eval "$(dircolors ~/sys/dircolors)"
+
+[[ ${BLE_VERSION-} ]] && ble-attach

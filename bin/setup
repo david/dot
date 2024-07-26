@@ -4,4 +4,5 @@ set -e
 
 stow -R -d ~/sys -t ~/.config config
 
-ln -sf ~/sys/home/bash/bashrc ~/.bashrc
+ln -sf ~/sys/bash/bashrc ~/.bashrc
+ln -sf ~/sys/bash/bash_profile ~/.bash_profile

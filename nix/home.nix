@@ -3,26 +3,30 @@
     ./gnome.nix
     # ./hyprdesktop.nix
     ./dev.nix
-    ./terminal.nix
   ];
 
   home.file."${config.xdg.dataHome}/fonts".source = ../fonts;
 
   home.packages = with pkgs; [
+    bat
+    blesh
+    btop
     discord
-    foot
+    fd
     fzf
+    grc
+    lsd
     neovide
+    ripgrep
     slack
+    starship
     stow
     vivaldi
     vivaldi-ffmpeg-codecs
+    wezterm
+    wl-clipboard
     zoxide
   ] ++ [ inputs.neovim-nightly-overlay.packages.${pkgs.system}.default ];
-
-  home.sessionVariables = {
-    FLAKE = "/home/david/sys";
-  };
 
   home.stateVersion = "23.11";
 
