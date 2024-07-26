@@ -170,6 +170,7 @@ require("lazy").setup({
     },
 
     { "direnv/direnv.vim" },
+    { "echasnovski/mini.ai", version = "*", main = "mini.ai", opts = {} },
 
     {
       "ellisonleao/gruvbox.nvim",
