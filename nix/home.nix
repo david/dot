@@ -2,7 +2,6 @@
   imports = [
     ./gnome.nix
     # ./hyprdesktop.nix
-    ./dev.nix
   ];
 
   home.file."${config.xdg.dataHome}/fonts".source = ../fonts;
@@ -11,10 +10,14 @@
     bat
     blesh
     btop
+    delta
     discord
     fd
     fzf
+    gh
+    git
     grc
+    lazygit
     lsd
     neovide
     ripgrep
