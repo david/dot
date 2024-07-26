@@ -88,6 +88,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    require("session_manager").load_session()
+  end,
+})
+
 require("lazy").setup({
   install = { colorscheme = { "gruvbox" } },
   checker = { enabled = true },
