@@ -249,6 +249,10 @@ require("lazy").setup({
     },
 
     {
+      "gbprod/yanky.nvim",
+    },
+
+    {
       "ggandor/flit.nvim",
       opts = {
         multiline = false,
