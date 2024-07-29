@@ -1,4 +1,4 @@
-format = "$fill $directory $fill\n$character"
+format = "$fill $directory$fill\n$character"
 
 [fill]
 symbol = "─"
