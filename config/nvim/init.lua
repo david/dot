@@ -149,6 +149,7 @@ require("lazy").setup({
     {
       "akinsho/bufferline.nvim",
       version = "*",
+      lazy = false,
       dependencies = "nvim-tree/nvim-web-devicons",
       keys = {
         { "<D-,>", "<cmd>BufferLineCyclePrev<cr>" },
