@@ -3,3 +3,6 @@
 .cache
 .config
 .local
+.bash_history
+.bash_profile
+.bashrc
