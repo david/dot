@@ -1,0 +1,154 @@
+#!/bin/bash
+
+PACKAGES_PRE_SETUP=(
+  base-devel
+  git
+)
+
+PACKAGES=(
+  atuin
+  bat
+  blesh-git
+  fd
+  fzf
+  git-delta
+  github-cli
+  lazygit
+  lsd
+  neovide
+  noto-fonts-emoji
+  ripgrep
+  shared-mime-info
+  starship
+  ttf-nerd-fonts-symbols-mono
+  wezterm
+  wl-clipboard
+  zoxide
+)
+
+set -euo pipefail
+
+SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
+SYS_DIR=$(realpath $SCRIPT_DIR/..)
+
+function _fix-libs {
+  pushd /usr/lib
+
+  sudo ln -sf libassuan.so libassuan.so.0
+  sudo ln -sf libncursesw.so.6 libncurses.so.6
+
+  popd
+}
+
+function _install-packages-pre-setup {
+  sudo pacman -Syu --noconfirm --needed ${PACKAGES_PRE_SETUP[@]}
+}
+
+function _install-packages {
+  yay -Syu --noconfirm --needed ${PACKAGES[@]}
+}
+
+function _install-yay {
+  [[ -z $(which yay 2>/dev/null) ]] || return 0
+
+  pushd ~/.cache
+
+  rm -fr yay-bin
+
+  git clone https://aur.archlinux.org/yay-bin.git
+  cd yay-bin
+  makepkg -si
+
+  popd
+}
+
+function _install-mise {
+  if [[ -z $(which mise 2>/dev/null) ]] ; then
+    curl https://mise.run | sh
+  else
+    mise use -g usage
+  fi
+}
+
+function _install-rc {
+  local source=$(realpath $1)
+  local target=$2
+
+  if [[ -a $target && ! -h $target ]] ; then
+    echo "$target is not a symlink!" > /dev/stderr
+    return 0
+  fi
+
+  ln -sf $source $target
+}
+
+function _install-config {
+  local source=$1
+  local name=$(basename $source)
+  local config=~/.config/$name
+
+  if [[ -f $source ]] ; then
+    _install-rc $source $config
+  elif [[ -d $source ]] ; then
+    mkdir -p $config
+
+    for f in $source/* ; do
+      _install-rc $f $config/$(basename $f)
+    done
+  fi
+}
+
+function _install-configs {
+  pushd $SYS_DIR
+
+  _install-rc ./bash/bashrc $HOME/.bashrc
+  _install-rc ./bash/bash_profile $HOME/.bash_profile
+
+  for e in $(realpath config)/* ; do
+    _install-config $e
+  done
+
+  popd
+}
+
+function _install-fonts {
+  mkdir -p ~/.local/share/fonts
+
+  cp $SYS_DIR/fonts/* ~/.local/share/fonts
+}
+
+PROCESS_COMPOSE_URL="https://raw.githubusercontent.com/F1bonacc1/process-compose/main/scripts/get-pc.sh"
+
+function _install-process-compose {
+  [[ -z "$(which process-compose 2>/dev/null)" ]] || return 0
+
+  sh -c "$(curl --location $PROCESS_COMPOSE_URL)" -- -d -b ~/.local/bin
+}
+
+function _install-home-dirs {
+  mkdir -p ~/.config ~/.local/share ~/.cache
+}
+
+function create {
+  distrobox create \
+    --image archlinux:latest \
+    --name $1 \
+    --home $(realpath $HOME/$1)
+}
+
+function post-create {
+  _fix-libs
+  _install-packages-pre-setup
+  _install-home-dirs
+  _install-yay
+  _install-mise
+}
+
+function config {
+  _install-packages
+  _install-configs
+  _install-fonts
+  _install-process-compose
+}
+
+$@
