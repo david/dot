@@ -1,2 +1,5 @@
 /.direnv/
 /secrets/
+.cache
+.config
+.local
