@@ -1,5 +1,8 @@
 function timbuktu/vim-load-hook {
   bleopt keymap_vi_mode_show=
+
+  ble-bind -m vi_nmap --cursor 2
+  ble-bind -m vi_imap --cursor 6
 }
 
 ble-face auto_complete="fg=242"
