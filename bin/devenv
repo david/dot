@@ -16,6 +16,7 @@ PACKAGES=(
   lazygit
   lsd
   neovide
+  neovim-git
   noto-fonts-emoji
   ripgrep
   shared-mime-info
@@ -92,8 +93,8 @@ function _install-config {
   elif [[ -d $source ]] ; then
     mkdir -p $config
 
-    for f in $source/* ; do
-      _install-rc $f $config/$(basename $f)
+    for f in $(ls $source) ; do
+      _install-rc $source/$f $config/$f
     done
   fi
 }
@@ -104,8 +105,10 @@ function _install-configs {
   _install-rc ./bash/bashrc $HOME/.bashrc
   _install-rc ./bash/bash_profile $HOME/.bash_profile
 
-  for e in $(realpath config)/* ; do
-    _install-config $e
+  local config=$(realpath config)
+
+  for e in $(ls $config) ; do
+    _install-config $config/$e
   done
 
   popd
