@@ -561,6 +561,7 @@ require("lazy").setup({
             "markdown_inline",
             "regex",
             "ruby",
+            "terraform",
             "vim",
             "vimdoc",
           },
