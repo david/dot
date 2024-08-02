@@ -258,7 +258,7 @@ require("lazy").setup({
         require("which-key").add({
           { "<leader>c", group = "Code" },
           { "<leader>d", group = "Document" },
-          { "<leader>h", group = "Help" },
+          { "<leader>H", group = "Help" },
           { "<leader>r", group = "Refactor" },
           { "<leader>w", group = "Workspace" },
         })
