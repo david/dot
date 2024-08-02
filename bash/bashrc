@@ -23,9 +23,10 @@ shopt -s checkjobs
 
 alias ls=lsd
 
-eval "$(fzf --bash)"
-eval "$(zoxide init bash)"
-eval "$(starship init bash --print-full-init)"
 eval "$(dircolors ~/.config/dircolors)"
+
+eval "$(atuin init bash)"
+eval "$(starship init bash --print-full-init)"
+eval "$(zoxide init bash)"
 
 [[ ${BLE_VERSION-} ]] && ble-attach
