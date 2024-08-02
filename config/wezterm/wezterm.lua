@@ -1,4 +1,5 @@
 local wt = require("wezterm")
+local act = wt.action
 local config = {}
 
 config.window_background_opacity = 0.9
@@ -25,6 +26,12 @@ config.window_frame = {
   active_titlebar_bg = "#1d2021",
   font = wt.font("Iosevka Timbuktu", { stretch = "Condensed", weight = "Regular" }),
   font_size = 10.0
+}
+
+config.keys = {
+  { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
+  { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
+  { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
 }
 
 return config
