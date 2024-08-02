@@ -95,7 +95,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 require("lazy").setup({
-  install = { colorscheme = { "gruvbox" } },
   checker = { enabled = true },
 
   spec = {
