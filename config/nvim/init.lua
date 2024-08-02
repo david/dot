@@ -470,7 +470,9 @@ require("lazy").setup({
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
       keys = {
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Open file" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+        { "<leader>Hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
+        { "<leader>Hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         {
           "<leader>p",
