@@ -41,7 +41,7 @@ function _fix-libs {
   popd
 }
 
-function _install-packages-pre-setup {
+function _install-packages-pre-yay {
   sudo pacman -Syu --noconfirm --needed ${PACKAGES_PRE_SETUP[@]}
 }
 
@@ -145,7 +145,7 @@ function create {
 
 function post-create {
   _fix-libs
-  _install-packages-pre-setup
+  _install-packages-pre-yay
   _install-home-dirs
   _install-yay
   _install-mise
