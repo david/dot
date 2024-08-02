@@ -47,7 +47,6 @@ vim.opt.cursorlineopt = "both"
 vim.opt.expandtab = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.foldmethod = "marker"
-vim.opt.guifont = "Iosevka Timbuktu:h12"
 vim.opt.hidden = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
