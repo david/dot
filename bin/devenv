@@ -115,8 +115,6 @@ function _install-configs {
 }
 
 function _install-fonts {
-  mkdir -p ~/.local/share/fonts
-
   cp $SYS_DIR/fonts/* ~/.local/share/fonts
 }
 
@@ -129,7 +127,13 @@ function _install-process-compose {
 }
 
 function _install-home-dirs {
-  mkdir -p ~/.config ~/.local/share ~/.cache
+  mkdir -p \
+    ~/.config \
+    ~/.config/bash_profile.d \
+    ~/.config/bashrc.d \
+    ~/.local/share/fonts \
+    ~/.cache \
+    ~/.config/bash_profile.d
 }
 
 function create {
