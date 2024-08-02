@@ -17,9 +17,13 @@ config.colors = {
 }
 
 config.font = wt.font("Iosevka Timbuktu")
+config.font_size = 11.0
+config.initial_cols = 119
 config.show_new_tab_button_in_tab_bar = false
 config.use_fancy_tab_bar = true
+
 config.window_decorations = "RESIZE"
+config.window_padding = { top = 8, right = 8, bottom = 8, left = 8 }
 
 config.window_frame = {
   inactive_titlebar_bg = "#1d2021",
