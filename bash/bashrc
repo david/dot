@@ -29,4 +29,6 @@ eval "$(atuin init bash)"
 eval "$(starship init bash --print-full-init)"
 eval "$(zoxide init bash)"
 
+eval "$(~/.local/bin/mise activate bash)"
+
 [[ ${BLE_VERSION-} ]] && ble-attach
