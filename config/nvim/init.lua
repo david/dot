@@ -173,20 +173,22 @@ require("lazy").setup({
       priority = 1000,
       opts = {
         contrast = "hard",
+
         overrides = {
           EndOfLine = { fg = "#282828" },
           WinSeparator = { bg = "#282828", fg = "#282828" },
 
+          NotifyBackground  = { bg = "#3c3836" },
           NotifyERRORBorder = { fg = "#3c3836", bg = "#3c3836" },
           NotifyWARNBorder  = { fg = "#3c3836", bg = "#3c3836" },
           NotifyINFOBorder  = { fg = "#3c3836", bg = "#3c3836" },
           NotifyDEBUGBorder = { fg = "#3c3836", bg = "#3c3836" },
           NotifyTRACEBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyERRORBody = { bg = "#3c3836" },
-          NotifyWARNBody  = { bg = "#3c3836" },
-          NotifyINFOBody  = { bg = "#3c3836" },
-          NotifyDEBUGBody = { bg = "#3c3836" },
-          NotifyTRACEBody = { bg = "#3c3836" },
+          NotifyERRORBody   = { bg = "#3c3836" },
+          NotifyWARNBody    = { bg = "#3c3836" },
+          NotifyINFOBody    = { bg = "#3c3836" },
+          NotifyDEBUGBody   = { bg = "#3c3836" },
+          NotifyTRACEBody   = { bg = "#3c3836" },
 
           TelescopePreviewBorder  = { fg = "#282828", bg = "#282828" },
           TelescopePreviewNormal  = { bg = "#282828" },
@@ -197,6 +199,8 @@ require("lazy").setup({
           TelescopeSelection      = { bg = "#fabd2f", fg = "#3c3836" },
           TelescopeSelectionCaret = { bg = "#fabd2f", fg = "#fabd2f" },
         },
+
+        transparent_mode = true,
       },
     },
 
@@ -234,8 +238,10 @@ require("lazy").setup({
         {
           "rcarriga/nvim-notify",
           opts = {
+            background_color = "NotifyBackground",
             render = "wrapped-compact",
             stages = "fade",
+            top_down = false,
           },
         },
       },
