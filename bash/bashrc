@@ -31,6 +31,4 @@ eval "$(zoxide init bash)"
 
 eval "$(~/.local/bin/mise activate bash)"
 
-[[ -f ~/.bashrc.devenv ]] && source ~/.bashrc.devenv
-
 [[ ${BLE_VERSION-} ]] && ble-attach
