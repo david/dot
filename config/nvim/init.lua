@@ -146,40 +146,6 @@ require("lazy").setup({
     },
 
     {
-      "akinsho/bufferline.nvim",
-      version = "*",
-      lazy = false,
-      dependencies = "nvim-tree/nvim-web-devicons",
-      keys = {
-        { "<D-h>", "<cmd>BufferLineCyclePrev<cr>" },
-        { "<D-l>", "<cmd>BufferLineCycleNext<cr>" },
-      },
-      config = function()
-        local bl = require("bufferline")
-
-        bl.setup({
-          highlights = {
-            background = { fg = "#7c6f64", bg = "#1d2021" },
-            buffer = { fg = "#7c6f64", bg = "#1d2021" },
-            buffer_selected = { fg = "#3c3836", bg = "#d5c4a1" },
-            buffer_visible = { fg = "#bdae93", bg = "#504945" },
-            fill = { fg = "#7c6f64", bg = "#1d2021" },
-            indicator_selected = { fg = "#d5c4a1", bg = "#d5c4a1" },
-            indicator_visible = { fg = "#504945", bg = "#504945" },
-            separator = { fg = "#504945", bg = "#1d2021" },
-            separator_selected = { fg = "#d5c4a1", bg = "#d5c4a1" },
-            separator_visible = { fg = "#928374", bg = "#928374" },
-          },
-          options = {
-            show_close_icon = false,
-            show_buffer_close_icons = false,
-            style_preset = bl.style_preset.no_italic,
-          },
-        })
-      end,
-    },
-
-    {
       "akinsho/git-conflict.nvim",
       version = "*",
       dependencies = "nvim-tree/nvim-web-devicons",
