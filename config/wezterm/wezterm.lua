@@ -2,7 +2,6 @@ local wt = require("wezterm")
 local act = wt.action
 local config = {}
 
-config.window_background_opacity = 0.9
 config.color_scheme = "GruvboxDarkHard"
 
 config.colors = {
@@ -22,8 +21,8 @@ config.initial_cols = 119
 config.show_new_tab_button_in_tab_bar = false
 config.use_fancy_tab_bar = true
 
+config.window_background_opacity = 0.9
 config.window_decorations = "RESIZE"
-config.window_padding = { top = 8, right = 8, bottom = 8, left = 8 }
 
 config.window_frame = {
   inactive_titlebar_bg = "#1d2021",
@@ -37,5 +36,6 @@ config.keys = {
   { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
   { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
 }
+config.window_padding = { top = 8, right = 8, bottom = 8, left = 8 }
 
 return config
