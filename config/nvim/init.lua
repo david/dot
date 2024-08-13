@@ -161,7 +161,12 @@ require("lazy").setup({
       end,
     },
 
-    { "echasnovski/mini.ai", version = "*", main = "mini.ai", opts = {} },
+    {
+      "echasnovski/mini.nvim", version = "*", config = function()
+        require("mini.ai").setup({})
+        require("mini.files").setup({})
+      end
+    },
 
     {
       "ellisonleao/gruvbox.nvim",
