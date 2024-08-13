@@ -19,6 +19,16 @@ config.font = wt.font("Iosevka Timbuktu")
 config.font_size = 11.0
 config.initial_cols = 119
 config.hide_tab_bar_if_only_one_tab = true
+
+config.keys = {
+  { key = "e", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = { "nvim" } }) },
+  { key = "e", mods = "SUPER|CTRL", action = act.SpawnCommandInNewWindow({ args = { "nvim" } }) },
+  { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
+  { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
+  { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
+  { key = "n", mods = "SUPER|CTRL", action = act.SpawnWindow },
+}
+
 config.show_new_tab_button_in_tab_bar = false
 config.use_fancy_tab_bar = true
 
@@ -32,11 +42,6 @@ config.window_frame = {
   font_size = 10.0
 }
 
-config.keys = {
-  { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
-  { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
-  { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
-}
 config.window_padding = { top = 8, right = 8, bottom = 8, left = 8 }
 
 return config
