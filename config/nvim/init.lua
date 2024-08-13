@@ -586,6 +586,9 @@ require("lazy").setup({
           use_signcolumn = true,
         },
         mappings_disable_default = true,
+        suppress_missing_scope = {
+          projects_v2 = true,
+        },
       },
     },
 
