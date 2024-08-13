@@ -13,11 +13,13 @@ PACKAGES=(
   fzf
   git-delta
   github-cli
+  glibc-locales
   lazygit
   lsd
   neovide
   neovim-git
   noto-fonts-emoji
+  openssl
   ripgrep
   shared-mime-info
   starship
@@ -35,8 +37,8 @@ SYS_DIR=$(realpath $SCRIPT_DIR/..)
 function _fix-libs {
   pushd /usr/lib
 
-  sudo ln -sf libassuan.so libassuan.so.0
-  sudo ln -sf libncursesw.so.6 libncurses.so.6
+  sudo ln -s libassuan.so libassuan.so.0
+  sudo ln -s libncursesw.so.6 libncurses.so.6
 
   popd
 }
@@ -66,9 +68,11 @@ function _install-yay {
 function _install-mise {
   if [[ -z $(which mise 2>/dev/null) ]] ; then
     curl https://mise.run | sh
-  else
-    mise use -g usage
   fi
+
+  eval "$(mise activate bash)"
+
+  mise use -g usage
 }
 
 function _install-rc {
@@ -102,9 +106,6 @@ function _install-config {
 function _install-configs {
   pushd $SYS_DIR
 
-  _install-rc ./bash/bashrc $HOME/.bashrc
-  _install-rc ./bash/bash_profile $HOME/.bash_profile
-
   local config=$(realpath config)
 
   for e in $(ls $config) ; do
@@ -136,6 +137,16 @@ function _install-home-dirs {
     ~/.config/bash_profile.d
 }
 
+function _install-bash-config {
+  cat <<EOF > ~/.bashrc
+source ~/../sys/bash/bashrc
+EOF
+
+  cat <<EOF > ~/.bash_profile
+source ~/../sys/bash/bash_profile
+EOF
+}
+
 function create {
   distrobox create \
     --image archlinux:latest \
@@ -147,6 +158,7 @@ function post-create {
   _fix-libs
   _install-packages-pre-yay
   _install-home-dirs
+  _install-bash-config
   _install-yay
   _install-mise
 }
