@@ -20,7 +20,7 @@ defmodule Sys.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:habitat, path: Path.join(System.user_home(), "../habitat")}
+      {:habitat, path: Path.join([System.user_home(), "..", "habitat", "trees", "trunk"])}
     ]
   end
 end
