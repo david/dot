@@ -465,8 +465,8 @@ require("lazy").setup({
       },
       keys = {
         { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-        { "<leader>Hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
-        { "<leader>Hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
+        { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
+        { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo history" },
         { "<leader>z", "<cmd>Telescope zoxide list<cr>", desc = "Visit known directory" },
