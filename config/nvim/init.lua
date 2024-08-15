@@ -458,6 +458,7 @@ require("lazy").setup({
       lazy = false,
       dependencies = {
         { "debugloop/telescope-undo" },
+        { "jvgrootveld/telescope-zoxide" },
         { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         { "nvim-telescope/telescope-ui-select.nvim" },
@@ -468,6 +469,7 @@ require("lazy").setup({
         { "<leader>Hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo history" },
+        { "<leader>z", "<cmd>Telescope zoxide list<cr>", desc = "Visit known directory" },
       },
       config = function()
         require("telescope").setup({
@@ -486,6 +488,19 @@ require("lazy").setup({
               require("telescope.themes").get_dropdown(),
             },
 
+            zoxide = {
+              mappings = {
+                ["<C-b>"] = {
+                  keepinsert = true,
+                  action = function(selection)
+                    require("telescope").extensions.file_browser.file_browser({
+                      cwd = selection.path,
+                      folder_browser = true
+                    })
+                  end
+                },
+              }
+            }
           },
         })
 
@@ -493,6 +508,7 @@ require("lazy").setup({
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("undo")
+        require("telescope").load_extension("zoxide")
       end,
     },
 
