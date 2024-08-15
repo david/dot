@@ -1,60 +1,72 @@
 defmodule Blueprints do
-  def config do
+  def containers do
     [
-      %{
+      container(%{
         name: "habitat",
-        os: :archlinux,
-        home: devenvs_path("habitat"),
         packages: packages() ++ ["elixir"],
-        files: files()
-      },
-      %{
+      }),
+      container(%{
         name: "sys",
-        os: :archlinux,
-        home: devenvs_path("sys"),
-        packages: packages(),
-        files: files()
-      }
+        packages: packages() ++ ["elixir"],
+      })
     ]
   end
 
-  defp devenvs_path(name) do
-    Path.join([System.user_home(), "..", name])
+  defp container(opts) do
+    Map.merge(
+      opts,
+      %{
+        exports: exports(),
+        files: files(),
+        home: devenv_path(opts.name),
+        os: :archlinux,
+        packages: Map.get(opts, :packages, packages())
+      }
+    )
+  end
+
+  defp devenv_path(name) do
+    [System.user_home(), "..", name] |> Path.join() |> Path.expand()
+  end
+
+  defp exports do
+    [
+      "wezterm"
+    ]
   end
 
   defp files do
     %{
-      "files/dircolors" => "~/.config/dircolors"
+      "~/.config/dircolors" => "files/dircolors",
+      "~/.config/gh" => "files/gh",
+      "~/.local/share/fonts" => "fonts",
+      "~/.config/nvim" => "files/nvim",
+      "~/.config/starship.toml" => "files/starship.toml"
     }
   end
 
   defp packages do
     [
       "atuin",
+      "base-devel",
+      "bash",
       "bat",
       "fd",
+      "fzf",
+      "git",
       "git-delta",
-      {"github-cli",
-       files: %{
-         "files/gh" => "~/.config/gh"
-       }},
+      "github-cli",
       "glibc-locales",
       "lazygit",
       "lsd",
-      {"neovim",
-       files: %{
-         "files/neovim" => "~/.config/nvim"
-       }},
+      "neovim",
       "noto-fonts-emoji",
       "ripgrep",
-      {"starship",
-       files: %{
-         "files/starship.toml" => "~/.config/starship.toml"
-       }},
+      "starship",
       "ttf-nerd-fonts-symbols-mono",
       "wl-clipboard",
       "zoxide",
-      {"wezterm", export: true}
+      "wezterm"
     ]
   end
 end
