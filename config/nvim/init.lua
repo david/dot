@@ -458,6 +458,7 @@ require("lazy").setup({
       lazy = false,
       dependencies = {
         { "debugloop/telescope-undo" },
+        { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
@@ -488,6 +489,7 @@ require("lazy").setup({
           },
         })
 
+        require("telescope").load_extension("file_browser")
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("undo")
