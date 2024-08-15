@@ -3,11 +3,11 @@ defmodule Blueprints do
     [
       container(%{
         name: "habitat",
-        packages: packages() ++ ["elixir"],
+        packages: packages() ++ ["elixir"]
       }),
       container(%{
         name: "sys",
-        packages: packages() ++ ["elixir"],
+        packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
       })
     ]
   end
