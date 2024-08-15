@@ -459,7 +459,6 @@ require("lazy").setup({
       dependencies = {
         { "debugloop/telescope-undo" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        { "nvim-telescope/telescope-project.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
       keys = {
@@ -467,18 +466,9 @@ require("lazy").setup({
         { "<leader>Hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
         { "<leader>Hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
-        {
-          "<leader>p",
-          function()
-            require("telescope").extensions.project.project({ display_type = "full" })
-          end,
-          desc = "Open project",
-        },
         { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo history" },
       },
       config = function()
-        local project_actions = require("telescope._extensions.project.actions")
-
         require("telescope").setup({
           defaults = {
             borderchars = { "█", "█", "█", "█", "█", "█", "█", "█" },
@@ -494,21 +484,11 @@ require("lazy").setup({
             ["ui-select"] = {
               require("telescope.themes").get_dropdown(),
             },
-            project = {
-              base_dirs = {
-                "~/ar/trees",
-                "~/ibms/trees",
-              },
 
-              on_project_selected = function(prompt_bufnr)
-                project_actions.change_working_directory(prompt_bufnr, false)
-              end,
-            },
           },
         })
 
         require("telescope").load_extension("fzf")
-        require("telescope").load_extension("project")
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("undo")
       end,
