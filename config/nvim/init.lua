@@ -457,6 +457,7 @@ require("lazy").setup({
       "nvim-telescope/telescope.nvim",
       lazy = false,
       dependencies = {
+        { "debugloop/telescope-undo" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         { "nvim-telescope/telescope-project.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
@@ -473,6 +474,7 @@ require("lazy").setup({
           end,
           desc = "Open project",
         },
+        { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo history" },
       },
       config = function()
         local project_actions = require("telescope._extensions.project.actions")
@@ -508,6 +510,7 @@ require("lazy").setup({
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("project")
         require("telescope").load_extension("ui-select")
+        require("telescope").load_extension("undo")
       end,
     },
 
