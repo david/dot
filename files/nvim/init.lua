@@ -156,10 +156,12 @@ require("lazy").setup({
     },
 
     {
-      "echasnovski/mini.nvim", version = "*", config = function()
+      "echasnovski/mini.nvim",
+      version = "*",
+      config = function()
         require("mini.ai").setup({})
         require("mini.files").setup({})
-      end
+      end,
     },
 
     {
@@ -172,25 +174,25 @@ require("lazy").setup({
           EndOfLine = { fg = "#282828" },
           WinSeparator = { bg = "#282828", fg = "#282828" },
 
-          NotifyBackground  = { bg = "#3c3836" },
+          NotifyBackground = { bg = "#3c3836" },
           NotifyERRORBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyWARNBorder  = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyINFOBorder  = { fg = "#3c3836", bg = "#3c3836" },
+          NotifyWARNBorder = { fg = "#3c3836", bg = "#3c3836" },
+          NotifyINFOBorder = { fg = "#3c3836", bg = "#3c3836" },
           NotifyDEBUGBorder = { fg = "#3c3836", bg = "#3c3836" },
           NotifyTRACEBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyERRORBody   = { bg = "#3c3836" },
-          NotifyWARNBody    = { bg = "#3c3836" },
-          NotifyINFOBody    = { bg = "#3c3836" },
-          NotifyDEBUGBody   = { bg = "#3c3836" },
-          NotifyTRACEBody   = { bg = "#3c3836" },
+          NotifyERRORBody = { bg = "#3c3836" },
+          NotifyWARNBody = { bg = "#3c3836" },
+          NotifyINFOBody = { bg = "#3c3836" },
+          NotifyDEBUGBody = { bg = "#3c3836" },
+          NotifyTRACEBody = { bg = "#3c3836" },
 
-          TelescopePreviewBorder  = { fg = "#282828", bg = "#282828" },
-          TelescopePreviewNormal  = { bg = "#282828" },
-          TelescopePromptBorder   = { bg = "#504945", fg = "#504945" },
-          TelescopePromptNormal   = { bg = "#504945" },
-          TelescopeResultsBorder  = { bg = "#3c3836", fg = "#3c3836" },
-          TelescopeResultsNormal  = { bg = "#3c3836" },
-          TelescopeSelection      = { bg = "#fabd2f", fg = "#3c3836" },
+          TelescopePreviewBorder = { fg = "#282828", bg = "#282828" },
+          TelescopePreviewNormal = { bg = "#282828" },
+          TelescopePromptBorder = { bg = "#504945", fg = "#504945" },
+          TelescopePromptNormal = { bg = "#504945" },
+          TelescopeResultsBorder = { bg = "#3c3836", fg = "#3c3836" },
+          TelescopeResultsNormal = { bg = "#3c3836" },
+          TelescopeSelection = { bg = "#fabd2f", fg = "#3c3836" },
           TelescopeSelectionCaret = { bg = "#fabd2f", fg = "#fabd2f" },
         },
 
@@ -496,12 +498,12 @@ require("lazy").setup({
                   action = function(selection)
                     require("telescope").extensions.file_browser.file_browser({
                       cwd = selection.path,
-                      folder_browser = true
+                      folder_browser = true,
                     })
-                  end
+                  end,
                 },
-              }
-            }
+              },
+            },
           },
         })
 
@@ -607,7 +609,7 @@ require("lazy").setup({
       },
       opts = {
         format_on_save = {
-          timeout_ms = 500,
+          timeout_ms = 1000,
           lsp_fallback = true,
         },
         formatters_by_ft = {
