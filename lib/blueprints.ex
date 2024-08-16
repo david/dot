@@ -20,9 +20,9 @@ defmodule Blueprints do
       %{
         exports: exports(),
         files: files(),
-        home: devenv_path(opts.name),
         os: :archlinux,
-        packages: Map.get(opts, :packages, packages())
+        packages: Map.get(opts, :packages, packages()),
+        root: devenv_path(opts.name),
       }
     )
   end
