@@ -1,15 +1,17 @@
 defmodule Blueprints do
   def containers do
     [
-      container(%{
+      %{
         name: "habitat",
         packages: packages() ++ ["elixir"]
-      }),
-      container(%{
+      },
+      %{
         name: "sys",
         packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
-      })
+      },
+      %{name: "test"}
     ]
+    |> Enum.map(&container/1)
   end
 
   defp container(opts) do
