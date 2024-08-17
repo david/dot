@@ -19,10 +19,13 @@ defmodule Blueprints do
       opts,
       %{
         exports: exports(),
+        features: %{
+          bash: true
+        },
         files: files(),
         os: :archlinux,
         packages: Map.get(opts, :packages, packages()),
-        root: devenv_path(opts.name),
+        root: devenv_path(opts.name)
       }
     )
   end
@@ -39,11 +42,8 @@ defmodule Blueprints do
 
   defp files do
     %{
-      "~/.config/dircolors" => "files/dircolors",
-      "~/.config/gh" => "files/gh",
-      "~/.local/share/fonts" => "fonts",
-      "~/.config/nvim" => "files/nvim",
-      "~/.config/starship.toml" => "files/starship.toml"
+      "files/**" => "~/.config",
+      "fonts/*" => "~/.local/share/fonts"
     }
   end
 
@@ -51,7 +51,6 @@ defmodule Blueprints do
     [
       "atuin",
       "base-devel",
-      "bash",
       "bat",
       "fd",
       "fzf",
