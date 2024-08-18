@@ -20,7 +20,9 @@ defmodule Blueprints do
       %{
         exports: exports(),
         features: %{
-          bash: true
+          atuin: true,
+          bash: true,
+          zoxide: true
         },
         files: files(),
         os: :archlinux,
@@ -41,10 +43,10 @@ defmodule Blueprints do
   end
 
   defp files do
-    %{
-      "files/**" => "~/.config",
-      "fonts/*" => "~/.local/share/fonts"
-    }
+    [
+      {"files/**", "~/.config"},
+      {"fonts/*", "~/.local/share/fonts"}
+    ]
   end
 
   defp packages do
