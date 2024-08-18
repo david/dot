@@ -11,8 +11,8 @@ config.colors = {
       fg_color = "#3c3836",
     },
 
-    background = "#1d2021"
-  }
+    background = "#1d2021",
+  },
 }
 
 config.font = wt.font("Iosevka Timbuktu")
@@ -23,6 +23,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.keys = {
   { key = "e", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = { "nvim" } }) },
   { key = "e", mods = "SUPER|CTRL", action = act.SpawnCommandInNewWindow({ args = { "nvim" } }) },
+  { key = "g", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = { "lazygit" } }) },
   { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
   { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
   { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
@@ -39,7 +40,7 @@ config.window_frame = {
   inactive_titlebar_bg = "#1d2021",
   active_titlebar_bg = "#1d2021",
   font = wt.font("Iosevka Timbuktu", { stretch = "Condensed", weight = "Regular" }),
-  font_size = 10.0
+  font_size = 10.0,
 }
 
 config.window_padding = { top = 8, right = 8, bottom = 8, left = 8 }
