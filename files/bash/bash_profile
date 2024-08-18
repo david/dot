@@ -1,4 +1,0 @@
-[[ -f ~/.bash_profile.devenv ]] && source ~/.bash_profile.devenv
-[[ -f ~/.bashrc ]] && source ~/.bashrc
-
-# vim:ft=bash

@@ -25,7 +25,6 @@ alias ls=lsd
 
 eval "$(dircolors ~/.config/dircolors)"
 
-eval "$(atuin init bash)"
 eval "$(starship init bash --print-full-init)"
 eval "$(zoxide init bash)"
 
