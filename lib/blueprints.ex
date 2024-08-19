@@ -27,13 +27,9 @@ defmodule Blueprints do
         files: files(),
         os: :archlinux,
         packages: Map.get(opts, :packages, packages()),
-        root: devenv_path(opts.name)
+        root: [System.user_home(), "..", opts.name] |> Path.join() |> Path.expand()
       }
     )
-  end
-
-  defp devenv_path(name) do
-    [System.user_home(), "..", name] |> Path.join() |> Path.expand()
   end
 
   defp exports do
