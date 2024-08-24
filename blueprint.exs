@@ -50,7 +50,6 @@ defmodule Blueprints do
 
   defp files do
     [
-      {"containers/ar/files/**", "~/.config"},
       {"files/**", "~/.config"},
       {"fonts/*", "~/.local/share/fonts"}
     ]
