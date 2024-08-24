@@ -16,8 +16,8 @@ config.colors = {
 }
 
 config.font = wt.font("Iosevka Timbuktu")
-config.font_size = 11.0
-config.initial_cols = 119
+config.font_size = 13.0
+config.initial_cols = 126
 config.hide_tab_bar_if_only_one_tab = true
 
 config.keys = {
