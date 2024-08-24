@@ -1,8 +1,6 @@
 # Commands that should be applied only for interactive shells.
 [[ $- == *i* ]] || return
 
-source "/usr/share/blesh/ble.sh" --noattach
-
 HISTFILESIZE=100000
 HISTSIZE=10000
 
@@ -29,5 +27,3 @@ eval "$(starship init bash --print-full-init)"
 eval "$(zoxide init bash)"
 
 eval "$(~/.local/bin/mise activate bash)"
-
-[[ ${BLE_VERSION-} ]] && ble-attach
