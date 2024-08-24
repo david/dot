@@ -168,37 +168,48 @@ require("lazy").setup({
     {
       "ellisonleao/gruvbox.nvim",
       priority = 1000,
-      opts = {
-        contrast = "hard",
+      config = function()
+        local overrides
 
-        overrides = {
-          EndOfLine = { fg = "#282828" },
-          WinSeparator = { bg = "#282828", fg = "#282828" },
+        if vim.o.background == "dark" then
+          overrides = {
+            EndOfLine = { fg = "#282828" },
+            WinSeparator = { bg = "#282828", fg = "#282828" },
 
-          NotifyBackground = { bg = "#3c3836" },
-          NotifyERRORBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyWARNBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyINFOBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyDEBUGBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyTRACEBorder = { fg = "#3c3836", bg = "#3c3836" },
-          NotifyERRORBody = { bg = "#3c3836" },
-          NotifyWARNBody = { bg = "#3c3836" },
-          NotifyINFOBody = { bg = "#3c3836" },
-          NotifyDEBUGBody = { bg = "#3c3836" },
-          NotifyTRACEBody = { bg = "#3c3836" },
+            NotifyBackground = { bg = "#504945" },
+            NotifyERRORBorder = { fg = "#504945", bg = "#504945" },
+            NotifyWARNBorder = { fg = "#504945", bg = "#504945" },
+            NotifyINFOBorder = { fg = "#504945", bg = "#504945" },
+            NotifyDEBUGBorder = { fg = "#504945", bg = "#504945" },
+            NotifyTRACEBorder = { fg = "#504945", bg = "#504945" },
+            NotifyERRORBody = { bg = "#504945" },
+            NotifyWARNBody = { bg = "#504945" },
+            NotifyINFOBody = { bg = "#504945" },
+            NotifyDEBUGBody = { bg = "#504945" },
+            NotifyTRACEBody = { bg = "#504945" },
 
-          TelescopePreviewBorder = { fg = "#282828", bg = "#282828" },
-          TelescopePreviewNormal = { bg = "#282828" },
-          TelescopePromptBorder = { bg = "#504945", fg = "#504945" },
-          TelescopePromptNormal = { bg = "#504945" },
-          TelescopeResultsBorder = { bg = "#3c3836", fg = "#3c3836" },
-          TelescopeResultsNormal = { bg = "#3c3836" },
-          TelescopeSelection = { bg = "#fabd2f", fg = "#3c3836" },
-          TelescopeSelectionCaret = { bg = "#fabd2f", fg = "#fabd2f" },
-        },
+            TelescopePreviewBorder = { fg = "#282828", bg = "#282828" },
+            TelescopePreviewNormal = { bg = "#282828" },
+            TelescopePreviewTitle = { bg = "#282828", fg = "#282828" },
+            TelescopePromptBorder = { bg = "#504945", fg = "#504945" },
+            TelescopePromptNormal = { bg = "#504945" },
+            TelescopePromptTitle = { bg = "#504945", fg = "#504945" },
+            TelescopeResultsBorder = { bg = "#3c3836", fg = "#3c3836" },
+            TelescopeResultsNormal = { bg = "#3c3836" },
+            TelescopeResultsTitle = { bg = "#3c3836", fg = "#3c3836" },
+            TelescopeSelection = { bg = "#fabd2f", fg = "#3c3836" },
+            TelescopeSelectionCaret = { bg = "#fabd2f", fg = "#fabd2f" },
+          }
+        else
+          overrides = {}
+        end
 
-        transparent_mode = true,
-      },
+        require("gruvbox").setup({
+          contrast = "hard",
+          overrides = overrides,
+          transparent_mode = true,
+        })
+      end,
     },
 
     {
