@@ -1,11 +1,3 @@
-/.direnv/
-/secrets/
-.cache
-.config
-.local
-.bash_history
-.bash_profile
-.bashrc
 # The directory Mix will write compiled artifacts to.
 /_build/
 
