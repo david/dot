@@ -37,7 +37,6 @@ defmodule Blueprints do
   defp programs do
     [
       :atuin,
-      :mise,
       :starship,
       :zoxide
     ]
