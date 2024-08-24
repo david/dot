@@ -22,8 +22,3 @@ shopt -s checkjobs
 alias ls=lsd
 
 eval "$(dircolors ~/.config/dircolors)"
-
-eval "$(starship init bash --print-full-init)"
-eval "$(zoxide init bash)"
-
-eval "$(~/.local/bin/mise activate bash)"
