@@ -26,8 +26,8 @@ config.keys = {
   { key = "g", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = { "lazygit" } }) },
   { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
   { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
-  { key = "n", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "n", mods = "SUPER|CTRL", action = act.SpawnWindow },
+  { key = "s", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
+  { key = "s", mods = "SUPER|CTRL", action = act.SpawnWindow },
 }
 
 config.show_new_tab_button_in_tab_bar = false
