@@ -488,13 +488,11 @@ require("lazy").setup({
       config = function()
         require("telescope").setup({
           defaults = {
-            borderchars = { "█", "█", "█", "█", "█", "█", "█", "█" },
             layout_config = {
               vertical = { mirror = true, preview_height = 0.5, prompt_position = "top" },
             },
             layout_strategy = "vertical",
             prompt_prefix = "  ",
-            selection_caret = "██",
             sorting_strategy = "ascending",
           },
           extensions = {
