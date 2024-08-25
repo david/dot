@@ -15,8 +15,9 @@ config.colors = {
   },
 }
 
-config.font = wt.font("Iosevka Timbuktu")
-config.font_size = 13.0
+config.freetype_load_target = "HorizontalLcd"
+config.font = wt.font("JetBrains Mono")
+config.font_size = 11.5
 config.initial_cols = 126
 config.hide_tab_bar_if_only_one_tab = true
 
@@ -30,6 +31,8 @@ config.keys = {
   { key = "s", mods = "SUPER|CTRL", action = act.SpawnWindow },
 }
 
+config.line_height = 1.05
+
 config.show_new_tab_button_in_tab_bar = false
 config.use_fancy_tab_bar = true
 
@@ -39,7 +42,7 @@ config.window_decorations = "RESIZE"
 config.window_frame = {
   inactive_titlebar_bg = "#1d2021",
   active_titlebar_bg = "#1d2021",
-  font = wt.font("Iosevka Timbuktu", { stretch = "Condensed", weight = "Regular" }),
+  font = wt.font("JetBrains Mono", { stretch = "Condensed", weight = "Regular" }),
   font_size = 10.0,
 }
 
