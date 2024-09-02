@@ -26,7 +26,9 @@ config.keys = {
   { key = "e", mods = "SUPER|CTRL", action = act.SpawnCommandInNewWindow({ args = { "nvim" } }) },
   { key = "g", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = { "lazygit" } }) },
   { key = "h", mods = "SUPER", action = act.ActivateTabRelative(-1) },
+  { key = "h", mods = "SUPER|CTRL", action = act.MoveTabRelative(-1) },
   { key = "l", mods = "SUPER", action = act.ActivateTabRelative(1) },
+  { key = "l", mods = "SUPER|CTRL", action = act.MoveTabRelative(1) },
   { key = "s", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
   { key = "s", mods = "SUPER|CTRL", action = act.SpawnWindow },
 }
