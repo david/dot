@@ -1,6 +1,17 @@
 defmodule Sys.Blueprint do
   use Habitat.Blueprint
 
+  defp container(opts) do
+    Map.merge(
+      opts,
+      %{
+        modules: modules() ++ Map.get(opts, :modules, []),
+        os: :tumbleweed,
+        root: Path.join("/var/home/david", to_string(opts.id))
+      }
+    )
+  end
+
   def containers do
     Enum.map(
       [
@@ -143,20 +154,5 @@ defmodule Sys.Blueprint do
      [
        default: true
      ]}
-  end
-
-  defp container(opts) do
-    Map.merge(
-      opts,
-      %{
-        # missing:
-        # elasticsearch via tarball (aur?)
-        # make glibc-locale, man-db, base-devel installable without appearing in :packages
-        # brew install f1bonacc1/tap/process-compose
-        modules: modules() ++ Map.get(opts, :modules, []),
-        os: :tumbleweed,
-        root: Path.join("/var/home/david", to_string(opts.id))
-      }
-    )
   end
 end
