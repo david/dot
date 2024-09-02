@@ -1,80 +1,148 @@
-defmodule Blueprints do
+defmodule Sys.Blueprint do
+  use Habitat.Blueprint
+
   def containers do
     Enum.map(
       [
         %{
-          name: "ar",
-          packages: packages() ++ ["heroku", "opentofu"],
-          programs: [
+          id: :ar,
+          modules: [
+            :heroku,
             mysql: "8.0",
             nodejs: [
               package_manager: :yarn,
               version: "18"
             ],
             ruby: "3.3"
-          ],
-          files: files()
-        },
-        %{
-          name: "habitat",
-          packages: packages() ++ ["elixir"]
-        },
-        %{
-          name: "sys",
-          packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
-        },
-        %{
-          name: "test",
-          programs: [
-            mysql: "8.0"
           ]
+        },
+        %{
+          id: :habitat
+          # packages: packages() ++ ["elixir"]
+        },
+        %{
+          id: :sys
+          # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
+        },
+        %{
+          id: :test
         }
       ],
       &container/1
     )
   end
 
-  defp programs do
+  defp modules do
     [
-      :atuin,
-      :starship,
-      :zoxide
+      atuin(),
+      :bash,
+      :bat,
+      :fd,
+      :fzf,
+      gh(),
+      :git,
+      :git_delta,
+      :lazygit,
+      lsd(),
+      neovim(),
+      :ripgrep,
+      starship(),
+      :wl_clipboard,
+      :zoxide,
+      zsh()
     ]
   end
 
-  defp exports do
-    [
-      "wezterm"
-    ]
+  defp atuin do
+    {:atuin,
+     [
+       config: [
+         enter_accept: true,
+         inline_height: 16,
+         keymap_mode: "vim-insert",
+         keymap_cursor: %{
+           "vim_insert" => "steady-bar",
+           "vim_normal" => "steady-block"
+         },
+         daemon: [
+           enabled: false
+         ],
+         sync: [
+           records: true
+         ]
+       ]
+     ]}
   end
 
-  defp files do
-    [
-      {"files/**", "~/.config"},
-      {"fonts/*", "~/.local/share/fonts"}
-    ]
+  defp gh do
+    {:github_cli,
+     [
+       config: [
+         git_protocol: "https",
+         version: "1"
+       ]
+     ]}
   end
 
-  defp packages do
-    [
-      "base-devel",
-      "bat",
-      "fd",
-      "fzf",
-      "git",
-      "git-delta",
-      "github-cli",
-      "glibc-locales",
-      "lazygit",
-      "lsd",
-      "neovim",
-      "noto-fonts-emoji",
-      "ripgrep",
-      "shared-mime-info",
-      "ttf-nerd-fonts-symbols-mono",
-      "wl-clipboard",
-      "wezterm"
-    ]
+  defp lsd do
+    {:lsd,
+     [
+       alias: :default,
+       config: [
+         classic: false,
+         icons: [
+           separator: "  "
+         ],
+         sorting: [
+           dir_grouping: "first"
+         ]
+       ]
+     ]}
+  end
+
+  defp neovim do
+    {:neovim,
+     [
+       config: path("config/nvim")
+     ]}
+  end
+
+  defp starship do
+    {:starship,
+     [
+       config: [
+         format: "$fill $directory $git_branch$fill\\n$character",
+         directory: [
+           before_repo_root_style: "white",
+           repo_root_style: "cyan",
+           style: "bold yellow",
+           truncate_to_repo: false,
+           truncation_length: 30
+         ],
+         fill: [
+           symbol: "─"
+         ],
+         git_branch: [
+           format: "[$symbol$branch]($style) ",
+           style: "cyan"
+         ]
+       ]
+     ]}
+  end
+
+  defp wezterm do
+    {:wezterm,
+     [
+       config: path("config/wezterm"),
+       export: true
+     ]}
+  end
+
+  defp zsh do
+    {:zsh,
+     [
+       default: true
+     ]}
   end
 
   defp container(opts) do
@@ -85,13 +153,9 @@ defmodule Blueprints do
         # elasticsearch via tarball (aur?)
         # make glibc-locale, man-db, base-devel installable without appearing in :packages
         # brew install f1bonacc1/tap/process-compose
-        exports: exports(),
-        programs: programs() ++ Map.get(opts, :programs, []),
-        files: Map.get(opts, :files, files()),
-        os: Habitat.OS.ArchLinux,
-        packages: Map.get(opts, :packages, packages()),
-        root: [System.user_home(), "..", opts.name] |> Path.join() |> Path.expand(),
-        shells: [:zsh, :bash]
+        modules: modules() ++ Map.get(opts, :modules, []),
+        os: :tumbleweed,
+        root: Path.join("/var/home/david", to_string(opts.id))
       }
     )
   end

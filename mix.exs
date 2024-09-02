@@ -13,14 +13,14 @@ defmodule Sys.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger, :habitat]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:habitat, path: Path.join([System.user_home(), "..", "habitat", "trees", "trunk"])}
+      {:habitat, path: Path.join(["/var/home/david/habitat", "trees", "trunk"])}
     ]
   end
 end
