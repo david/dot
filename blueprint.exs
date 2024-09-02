@@ -34,9 +34,6 @@ defmodule Sys.Blueprint do
         %{
           id: :sys
           # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
-        },
-        %{
-          id: :test
         }
       ],
       &container/1
