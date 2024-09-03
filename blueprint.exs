@@ -1,64 +1,72 @@
 defmodule Sys.Blueprint do
   use Habitat.Blueprint
 
-  defp container(opts) do
-    Map.merge(
-      opts,
-      %{
-        modules: modules() ++ Map.get(opts, :modules, []),
-        os: :tumbleweed,
-        root: Path.join("/var/home/david", to_string(opts.id))
-      }
-    )
-  end
+  @os :tumbleweed
 
   def containers do
-    Enum.map(
-      [
-        %{
-          id: :ar,
-          modules: [
-            :heroku,
-            mysql: "8.0",
-            nodejs: [
-              package_manager: :yarn,
-              version: "18"
-            ],
-            ruby: "3.3"
-          ]
-        },
-        %{
-          id: :habitat
-          # packages: packages() ++ ["elixir"]
-        },
-        %{
-          id: :sys
-          # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
-        }
-      ],
-      &container/1
-    )
+    [ar(), habitat(), sys()]
   end
 
-  defp modules do
-    [
-      atuin(),
-      :bash,
-      :bat,
-      :fd,
-      :fzf,
-      gh(),
-      :git,
-      :git_delta,
-      :lazygit,
-      lsd(),
-      neovim(),
-      :ripgrep,
-      starship(),
-      :wl_clipboard,
-      :zoxide,
-      zsh()
-    ]
+  def ar do
+    %{
+      id: :ar,
+      os: @os,
+      root: root(:ar),
+      modules:
+        modules([
+          :heroku,
+          mysql: "8.0",
+          nodejs: [
+            package_manager: :yarn,
+            version: "18"
+          ],
+          ruby: "3.3"
+        ])
+    }
+  end
+
+  def habitat do
+    %{
+      id: :habitat,
+      os: @os,
+      root: root(:habitat),
+      modules: modules()
+      # packages: packages() ++ ["elixir"]
+    }
+  end
+
+  def sys do
+    %{
+      id: :sys,
+      os: @os,
+      root: root(:sys),
+      modules: modules()
+      # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
+    }
+  end
+
+  defp modules(custom \\ []) do
+    custom ++
+      [
+        atuin(),
+        :bash,
+        :bat,
+        :fd,
+        :fish,
+        :fzf,
+        gh(),
+        :git,
+        :git_delta,
+        :lazygit,
+        lsd(),
+        neovim(),
+        :ripgrep,
+        starship(),
+        wezterm(),
+        :wl_clipboard,
+        :zoxide,
+        :zsh
+      ]
   end
 
   defp atuin do
@@ -146,10 +154,7 @@ defmodule Sys.Blueprint do
      ]}
   end
 
-  defp zsh do
-    {:zsh,
-     [
-       default: true
-     ]}
+  def root(id) do
+    "/var/home/david/#{id}"
   end
 end
