@@ -15,6 +15,8 @@ config.colors = {
   },
 }
 
+config.default_prog = { "fish" }
+
 config.freetype_load_target = "HorizontalLcd"
 config.font = wt.font("JetBrains Mono")
 config.font_size = 11.5
