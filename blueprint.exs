@@ -12,6 +12,7 @@ defmodule Sys.Blueprint do
       id: :ar,
       os: @os,
       root: root(:ar),
+      editing_mode: :vi,
       modules:
         modules(:ar, [
           :heroku,
@@ -28,6 +29,7 @@ defmodule Sys.Blueprint do
   def habitat do
     %{
       id: :habitat,
+      editing_mode: :vi,
       os: @os,
       root: root(:habitat),
       modules: modules(:habitat)
@@ -38,6 +40,7 @@ defmodule Sys.Blueprint do
   def sys do
     %{
       id: :sys,
+      editing_mode: :vi,
       os: @os,
       root: root(:sys),
       modules: modules(:sys)
