@@ -64,8 +64,7 @@ defmodule Sys.Blueprint do
         starship(id),
         wezterm(),
         :wl_clipboard,
-        :zoxide,
-        :zsh
+        :zoxide
       ]
   end
 
