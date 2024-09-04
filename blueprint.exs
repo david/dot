@@ -13,7 +13,7 @@ defmodule Sys.Blueprint do
       os: @os,
       root: root(:ar),
       modules:
-        modules([
+        modules(:ar, [
           :heroku,
           mysql: "8.0",
           nodejs: [
@@ -30,7 +30,7 @@ defmodule Sys.Blueprint do
       id: :habitat,
       os: @os,
       root: root(:habitat),
-      modules: modules()
+      modules: modules(:habitat)
       # packages: packages() ++ ["elixir"]
     }
   end
@@ -40,12 +40,12 @@ defmodule Sys.Blueprint do
       id: :sys,
       os: @os,
       root: root(:sys),
-      modules: modules()
+      modules: modules(:sys)
       # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
     }
   end
 
-  defp modules(custom \\ []) do
+  defp modules(id, custom \\ []) do
     custom ++
       [
         atuin(),
@@ -61,7 +61,7 @@ defmodule Sys.Blueprint do
         lsd(),
         neovim(),
         :ripgrep,
-        starship(),
+        starship(id),
         wezterm(),
         :wl_clipboard,
         :zoxide,
@@ -123,24 +123,54 @@ defmodule Sys.Blueprint do
      ]}
   end
 
-  defp starship do
+  defp starship(id) do
+    bg = "#3c3836"
+    before_root = "[󰋜 $before_root_path]($before_repo_root_style)"
+    repo = "[󰔱 $repo_root]($repo_root_style)"
+    path = "[$path]($style)"
+    ro = "[$read_only]($read_only_style)"
+    sep = "[ ∙ ](fg:white bg:#{bg})"
+    spc = "[ ](bg:#{bg})"
+
     {:starship,
      [
        config: [
-         format: "$fill $directory $git_branch$fill\\n$character",
+         format:
+           "$fill[](#{bg})#{spc}$directory$git_branch$git_status#{spc}[](#{bg})$fill\\n$character",
          directory: [
-           before_repo_root_style: "white",
-           repo_root_style: "cyan",
-           style: "bold yellow",
+           before_repo_root_style: "fg:bright-yellow bg:#{bg}",
+           repo_root_format: "#{before_root}#{sep}#{repo}#{sep}#{path}#{ro}",
+           repo_root_style: "fg:bright-purple bg:#{bg}",
+           style: "green",
            truncate_to_repo: false,
            truncation_length: 30
          ],
+         "directory.substitutions": [
+           "'~/'": "#{id}",
+           "'trees/'": ""
+         ],
          fill: [
-           symbol: "─"
+           symbol: "─",
+           style: bg
          ],
          git_branch: [
-           format: "[$symbol$branch]($style) ",
-           style: "cyan"
+           format: "[$symbol$branch]($style)",
+           style: "fg:bright-green bg:#{bg}",
+           symbol: "󰘬 "
+         ],
+         git_status: [
+           format: "[:](fg:white bg:#{bg})[$all_status$ahead_behind]($style)",
+           style: "fg:bold bright-green bg:#{bg}",
+           ahead: "󰜝",
+           behind: "󰜙",
+           conflicted: "",
+           diverged: " ",
+           deleted: "",
+           modified: "",
+           renamed: "",
+           staged: "",
+           stashed: "",
+           up_to_date: "✓"
          ]
        ]
      ]}
