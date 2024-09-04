@@ -33,6 +33,10 @@ config.keys = {
   { key = "l", mods = "SUPER|CTRL", action = act.MoveTabRelative(1) },
   { key = "s", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
   { key = "s", mods = "SUPER|CTRL", action = act.SpawnWindow },
+  { key = 'u', mods = 'SUPER|CTRL', action = wt.action.CharSelect {
+    copy_on_select = true,
+    copy_to = 'ClipboardAndPrimarySelection',
+  }},
 }
 
 config.line_height = 1.05
