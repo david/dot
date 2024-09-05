@@ -42,7 +42,11 @@ defmodule Sys.Blueprint do
       editing_mode: :vi,
       os: @os,
       root: root(:sys),
-      modules: modules(:sys)
+      modules:
+        modules(:sys, [
+          :lua_language_server,
+          :lua_stylua
+        ])
     }
   end
 
