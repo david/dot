@@ -65,6 +65,7 @@ defmodule Sys.Blueprint do
         :lazygit,
         lsd(),
         neovim(),
+        :readline,
         :ripgrep,
         starship(id),
         wezterm(),
