@@ -33,7 +33,6 @@ defmodule Sys.Blueprint do
       os: @os,
       root: root(:habitat),
       modules: modules(:habitat)
-      # packages: packages() ++ ["elixir"]
     }
   end
 
@@ -44,7 +43,6 @@ defmodule Sys.Blueprint do
       os: @os,
       root: root(:sys),
       modules: modules(:sys)
-      # packages: packages() ++ ["elixir", "stylua", "lua-language-server"]
     }
   end
 
