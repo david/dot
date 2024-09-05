@@ -159,7 +159,8 @@ defmodule Sys.Blueprint do
            symbol: "󰘬 "
          ],
          git_status: [
-           format: "[:](fg:white bg:#{bg})[$all_status$ahead_behind]($style)",
+           format:
+             "[\\\\[](fg:white bg:#{bg})[$all_status$ahead_behind]($style)[\\\\]](fg:white bg:#{bg})",
            style: "fg:bold bright-green bg:#{bg}",
            ahead: "󰜝",
            behind: "󰜙",
