@@ -1,196 +1,190 @@
 defmodule Sys.Blueprint do
   use Habitat.Blueprint
 
-  @os :tumbleweed
+  @home "/var/home/david"
 
-  def containers do
-    [ar(), habitat(), sys()]
+  def host do
+    %{
+      os: :bluefin,
+      root: @home,
+      xdg: [
+        user_dirs: false
+      ]
+    }
   end
 
-  def ar do
+  def container(id, opts \\ []) do
     %{
-      id: :ar,
-      os: @os,
-      root: root(:ar),
-      editing_mode: :vi,
-      modules:
-        modules(:ar, [
+      id: id,
+      root: Path.join(@home, to_string(id)),
+      shell: :fish,
+      service_manager: :process_compose,
+      editing: [
+        style: :vi,
+        initial_mode: :insert,
+        cursor: [
+          shape: [
+            insert: :bar,
+            normal: :box
+          ]
+        ]
+      ],
+      files: [
+        {"~/.local/bin/dev", link("scripts/dev")}
+      ],
+      modules: modules(id) ++ Keyword.get(opts, :modules, []),
+      packages:
+        [
+          "fd",
+          "gh",
+          "lazygit",
+          "ripgrep"
+        ] ++ Keyword.get(opts, :packages, [])
+    }
+  end
+
+  def containers do
+    [
+      container(
+        :ar,
+        modules: [
+          :brave,
           :heroku,
-          mysql: "8.0",
           nodejs: [
             package_manager: :yarn,
             version: "18"
           ],
+          mysql: "8.0",
           ruby: "3.3"
-        ])
-    }
+        ],
+        packages: [
+          "opentofu"
+        ]
+      ),
+      container(:church, packages: ["nushell"]),
+      container(:habitat, packages: ["elixir"]),
+      container(:habitat_boxes),
+      container(:sys,
+        packages: [
+          "elixir",
+          "lua-language-server",
+          "stylua"
+        ]
+      )
+    ]
   end
 
-  def habitat do
-    %{
-      id: :habitat,
-      editing_mode: :vi,
-      os: @os,
-      root: root(:habitat),
-      modules: modules(:habitat)
-    }
-  end
-
-  def sys do
-    %{
-      id: :sys,
-      editing_mode: :vi,
-      os: @os,
-      root: root(:sys),
-      modules:
-        modules(:sys, [
-          :lua_language_server,
-          :lua_stylua
-        ])
-    }
-  end
-
-  defp modules(id, custom \\ []) do
-    custom ++
-      [
-        atuin(),
-        :bash,
-        :bat,
-        :fd,
-        :fish,
-        :fzf,
-        gh(),
-        :git,
-        :git_delta,
-        :lazygit,
-        lsd(),
-        neovim(),
-        :readline,
-        :ripgrep,
-        starship(id),
-        wezterm(),
-        :wl_clipboard,
-        :zoxide
+  defp modules(id) do
+    [
+      :bat,
+      :delta,
+      :direnv,
+      :fzf,
+      :readline,
+      :zoxide,
+      atuin: atuin(),
+      lsd: lsd(),
+      neovim: [
+        config: link("config/nvim/init.lua")
+      ],
+      starship: starship(id),
+      wezterm: [
+        config: link("config/wezterm/wezterm.lua"),
+        export: true
       ]
+    ]
   end
 
   defp atuin do
-    {:atuin,
-     [
-       config: [
-         enter_accept: true,
-         inline_height: 16,
-         keymap_mode: "vim-insert",
-         keymap_cursor: %{
-           "vim_insert" => "steady-bar",
-           "vim_normal" => "steady-block"
-         },
-         daemon: [
-           enabled: false
-         ],
-         sync: [
-           records: true
-         ]
-       ]
-     ]}
-  end
-
-  defp gh do
-    {:github_cli,
-     [
-       config: [
-         git_protocol: "https",
-         version: "1"
-       ]
-     ]}
+    [
+      config: [
+        enter_accept: true,
+        inline_height: 16,
+        keymap_mode: "vim-insert",
+        keymap_cursor: %{
+          "vim_insert" => "steady-bar",
+          "vim_normal" => "steady-block"
+        },
+        daemon: [
+          enabled: false
+        ],
+        sync: [
+          records: true
+        ]
+      ]
+    ]
   end
 
   defp lsd do
-    {:lsd,
-     [
-       alias: :default,
-       config: [
-         classic: false,
-         icons: [
-           separator: "  "
-         ],
-         sorting: [
-           dir_grouping: "first"
-         ]
-       ]
-     ]}
-  end
-
-  defp neovim do
-    {:neovim,
-     [
-       config: path("config/nvim")
-     ]}
+    [
+      alias: :default,
+      config: [
+        classic: false,
+        icons: [
+          separator: "  "
+        ],
+        sorting: [
+          dir_grouping: "first"
+        ]
+      ]
+    ]
   end
 
   defp starship(id) do
     bg = "#3c3836"
-    before_root = "[󰋜 $before_root_path]($before_repo_root_style)"
+    before_root = "[$before_root_path]($before_repo_root_style)"
     repo = "[󰔱 $repo_root]($repo_root_style)"
     path = "[$path]($style)"
     ro = "[$read_only]($read_only_style)"
     sep = "[ ∙ ](fg:white bg:#{bg})"
     spc = "[ ](bg:#{bg})"
 
-    {:starship,
-     [
-       config: [
-         format:
-           "$fill[](#{bg})#{spc}$directory$git_branch$git_status#{spc}[](#{bg})$fill\\n$character",
-         directory: [
-           before_repo_root_style: "fg:bright-yellow bg:#{bg}",
-           repo_root_format: "#{before_root}#{sep}#{repo}#{sep}#{path}#{ro}",
-           repo_root_style: "fg:bright-purple bg:#{bg}",
-           style: "green",
-           truncate_to_repo: false,
-           truncation_length: 30
-         ],
-         "directory.substitutions": [
-           "'~/'": "#{id}",
-           "'trees/'": ""
-         ],
-         fill: [
-           symbol: "─",
-           style: bg
-         ],
-         git_branch: [
-           format: "[$symbol$branch]($style)",
-           style: "fg:bright-green bg:#{bg}",
-           symbol: "󰘬 "
-         ],
-         git_status: [
-           format:
-             "[\\\\[](fg:white bg:#{bg})[$all_status$ahead_behind]($style)[\\\\]](fg:white bg:#{bg})",
-           style: "fg:bold bright-green bg:#{bg}",
-           ahead: "󰜝",
-           behind: "󰜙",
-           conflicted: "",
-           diverged: " ",
-           deleted: "",
-           modified: "",
-           renamed: "",
-           staged: "",
-           stashed: "",
-           up_to_date: "✓"
-         ]
-       ]
-     ]}
-  end
+    no_repo_root = "[󰋜 #{id}]($before_repo_root_style)"
+    no_repo_path = "[$path]($style)"
 
-  defp wezterm do
-    {:wezterm,
-     [
-       config: path("config/wezterm"),
-       export: true
-     ]}
-  end
-
-  def root(id) do
-    "/var/home/david/#{id}"
+    [
+      config: [
+        format:
+          "$fill[](#{bg})#{spc}$directory$git_branch$git_status#{spc}[](#{bg})$fill\\n$character",
+        directory: [
+          before_repo_root_style: "fg:bright-yellow bg:#{bg}",
+          format: "#{no_repo_root}#{no_repo_path}",
+          repo_root_format: "#{before_root}#{sep}#{repo}#{path}#{ro}#{sep}",
+          repo_root_style: "fg:bright-purple bg:#{bg}",
+          style: "fg:green bg:#{bg}",
+          truncate_to_repo: false,
+          truncation_length: 30
+        ],
+        "directory.substitutions": [
+          "'~/'": "󰋜 #{id}",
+          "'~'": ""
+        ],
+        fill: [
+          symbol: "─",
+          style: bg
+        ],
+        git_branch: [
+          format: "[$symbol$branch]($style)",
+          style: "fg:bright-green bg:#{bg}",
+          symbol: "󰘬 "
+        ],
+        git_status: [
+          format:
+            "[\\\\[](fg:white bg:#{bg})[$all_status$ahead_behind]($style)[\\\\]](fg:white bg:#{bg})",
+          style: "fg:bold bright-green bg:#{bg}",
+          ahead: "󰜝",
+          behind: "󰜙",
+          conflicted: "",
+          diverged: " ",
+          deleted: "",
+          modified: "",
+          renamed: "",
+          staged: "",
+          stashed: "",
+          untracked: "",
+          up_to_date: "✓"
+        ]
+      ]
+    ]
   end
 end
