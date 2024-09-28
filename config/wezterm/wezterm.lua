@@ -41,26 +41,22 @@ config.font = wt.font("JetBrains Mono")
 config.font_size = 11.0
 config.warn_about_missing_glyphs = false
 
-config.initial_cols = 208
+config.initial_cols = 120
 
 config.keys = {
   {
     key = "e",
     mods = "SUPER",
-    action = act.SplitPane({
-      direction = "Right",
-      command = { args = direnv({ "nvim" }) },
-      size = { Percent = 57 },
-    }),
+    action = act.SpawnCommandInNewTab({ args = direnv({ "nvim" }) }),
   },
-  { key = "g", mods = "SUPER", action = act.SpawnCommandInNewTab({
+  {
+    key = "e",
+    mods = "SUPER|CTRL",
+    action = act.SpawnCommandInNewWindow({ args = direnv({ "nvim" }) }),
+  },
+  { key = "g", mods = "SUPER", action = act.SpawnCommandInNewWindow({
     args = shell({ "lazygit" }),
   }) },
-
-  { key = "h", mods = "SUPER", action = act.ActivatePaneDirection("Left") },
-  { key = "j", mods = "SUPER", action = act.ActivatePaneDirection("Down") },
-  { key = "k", mods = "SUPER", action = act.ActivatePaneDirection("Up") },
-  { key = "l", mods = "SUPER", action = act.ActivatePaneDirection("Right") },
 
   { key = "q", mods = "SUPER", action = act.CloseCurrentPane({ confirm = false }) },
 
@@ -68,15 +64,7 @@ config.keys = {
   { key = ",", mods = "SUPER|CTRL", action = act.MoveTabRelative(-1) },
   { key = ".", mods = "SUPER", action = act.ActivateTabRelative(1) },
   { key = ".", mods = "SUPER|CTRL", action = act.MoveTabRelative(1) },
-  {
-    key = "s",
-    mods = "SUPER",
-    action = act.SplitPane({
-      direction = "Left",
-      command = { args = shell() },
-      size = { Percent = 43 },
-    }),
-  },
+  { key = "s", mods = "SUPER", action = act.SpawnCommandInNewTab({ args = shell() }) },
   {
     key = "u",
     mods = "SUPER|CTRL",
@@ -115,6 +103,7 @@ config.keys = {
 config.line_height = 1.05
 
 config.show_new_tab_button_in_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
 config.tab_max_width = 64
 config.use_fancy_tab_bar = false
