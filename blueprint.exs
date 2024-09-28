@@ -3,17 +3,23 @@ defmodule Sys.Blueprint do
 
   @home "/var/home/david"
 
-  def host do
-    %{
-      os: :bluefin,
-      root: @home,
-      xdg: [
-        user_dirs: false
-      ]
-    }
+  def hosts do
+    [
+      %{
+        name: "timbuktu",
+        os: :bluefin,
+        root: @home,
+        containers: Enum.map(containers(), &container/1),
+        xdg: [
+          user_dirs: false
+        ]
+      }
+    ]
   end
 
-  def container(id, opts \\ []) do
+  defp container(opts) do
+    id = Map.get(opts, :id)
+
     %{
       id: id,
       root: Path.join(@home, to_string(id)),
@@ -32,21 +38,21 @@ defmodule Sys.Blueprint do
       files: [
         {"~/.local/bin/dev", link("scripts/dev")}
       ],
-      modules: modules(id) ++ Keyword.get(opts, :modules, []),
+      modules: modules(id) ++ Map.get(opts, :modules, []),
       packages:
         [
           "fd",
           "gh",
           "lazygit",
           "ripgrep"
-        ] ++ Keyword.get(opts, :packages, [])
+        ] ++ Map.get(opts, :packages, [])
     }
   end
 
-  def containers do
+  defp containers do
     [
-      container(
-        :ar,
+      %{
+        id: :ar,
         modules: [
           :brave,
           :heroku,
@@ -60,17 +66,18 @@ defmodule Sys.Blueprint do
         packages: [
           "opentofu"
         ]
-      ),
-      container(:church, packages: ["nushell"]),
-      container(:habitat, packages: ["elixir"]),
-      container(:habitat_boxes),
-      container(:sys,
+      },
+      %{id: :church, packages: ["nushell"]},
+      %{id: :habitat, packages: ["elixir"]},
+      %{id: :habitat_boxes},
+      %{
+        id: :sys,
         packages: [
           "elixir",
           "lua-language-server",
           "stylua"
         ]
-      )
+      }
     ]
   end
 
