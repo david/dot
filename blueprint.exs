@@ -7,7 +7,6 @@ defmodule Sys.Blueprint do
     [
       %{
         name: "timbuktu",
-        os: :bluefin,
         root: @home,
         containers: Enum.map(containers(), &container/1),
         xdg: [
