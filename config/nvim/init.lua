@@ -444,6 +444,11 @@ require("lazy").setup({
           },
         })
 
+        lsp.elixirls.setup({
+          cmd = { "elixir-ls" },
+          capabilities = capabilities,
+        })
+
         lsp.solargraph.setup({
           capabilities = capabilities,
         })
