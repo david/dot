@@ -5,21 +5,21 @@ defmodule Sys.Blueprint do
 
   def hosts do
     [
-      %{
+      [
         name: "timbuktu",
         root: @home,
         containers: Enum.map(containers(), &container/1),
         xdg: [
           user_dirs: false
         ]
-      }
+      ]
     ]
   end
 
   defp container(opts) do
-    id = Map.get(opts, :id)
+    id = Keyword.get(opts, :id)
 
-    %{
+    [
       id: id,
       root: Path.join(@home, to_string(id)),
       shell: :fish,
@@ -36,23 +36,23 @@ defmodule Sys.Blueprint do
       files: [
         {"~/.local/bin/dev", link("scripts/dev")}
       ],
-      modules: modules(id) ++ Map.get(opts, :modules, []),
+      modules: modules(id) ++ Keyword.get(opts, :modules, []),
       packages:
         [
           "fd",
           "gh",
           "lazygit",
           "ripgrep"
-        ] ++ Map.get(opts, :packages, []),
-      service_manager: Map.get(opts, :service_manager),
+        ] ++ Keyword.get(opts, :packages, []),
+      service_manager: Keyword.get(opts, :service_manager),
       # TODO: We shouldn't have to remember to copy all this information manually
-      services: Map.get(opts, :services)
-    }
+      services: Keyword.get(opts, :services)
+    ]
   end
 
   defp containers do
     [
-      %{
+      [
         id: :ar,
         modules: [
           :brave,
@@ -72,11 +72,11 @@ defmodule Sys.Blueprint do
           css: [command: "yarn run build:css --watch"],
           js: [command: "yarn run build --watch"]
         ]
-      },
-      %{id: :church, packages: ["nushell"]},
-      %{id: :habitat, packages: ["elixir", "elixir-ls"]},
-      %{id: :habitat_boxes},
-      %{
+      ],
+      [id: :church, packages: ["nushell"]],
+      [id: :habitat, packages: ["elixir", "elixir-ls"]],
+      [id: :habitat_boxes],
+      [
         id: :sys,
         packages: [
           "elixir",
@@ -84,7 +84,7 @@ defmodule Sys.Blueprint do
           "lua-language-server",
           "stylua"
         ]
-      }
+      ]
     ]
   end
 
