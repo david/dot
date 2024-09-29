@@ -23,7 +23,6 @@ defmodule Sys.Blueprint do
       id: id,
       root: Path.join(@home, to_string(id)),
       shell: :fish,
-      service_manager: :process_compose,
       editing: [
         style: :vi,
         initial_mode: :insert,
@@ -44,7 +43,10 @@ defmodule Sys.Blueprint do
           "gh",
           "lazygit",
           "ripgrep"
-        ] ++ Map.get(opts, :packages, [])
+        ] ++ Map.get(opts, :packages, []),
+      service_manager: Map.get(opts, :service_manager),
+      # TODO: We shouldn't have to remember to copy all this information manually
+      services: Map.get(opts, :services)
     }
   end
 
@@ -64,15 +66,21 @@ defmodule Sys.Blueprint do
         ],
         packages: [
           "opentofu"
+        ],
+        service_manager: :process_compose,
+        services: [
+          css: [command: "yarn run build:css --watch"],
+          js: [command: "yarn run build --watch"]
         ]
       },
       %{id: :church, packages: ["nushell"]},
-      %{id: :habitat, packages: ["elixir"]},
+      %{id: :habitat, packages: ["elixir", "elixir-ls"]},
       %{id: :habitat_boxes},
       %{
         id: :sys,
         packages: [
           "elixir",
+          "elixir-ls",
           "lua-language-server",
           "stylua"
         ]
