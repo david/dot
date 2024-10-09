@@ -1,0 +1,29 @@
+[core]
+  pager = "delta"
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !gh auth git-credential
+
+[credential "https://github.com"]
+  helper =
+  helper = !gh auth git-credential
+
+[delta]
+  hyperlinks = true
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  true-color = "always"
+
+[diff]
+  colorMoved = true
+
+[init]
+  defaultBranch = "trunk"
+
+[interactive]
+  diffFilter = "delta --color-only"
+
+[merge]
+  conflictstyle = "diff3"
