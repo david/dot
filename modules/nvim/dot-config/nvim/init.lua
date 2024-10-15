@@ -11,7 +11,7 @@ vim.opt.autowrite = true
 vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
-vim.opt.completeopt = { "menu", "menuone", "noinsert", "preview" }
+
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "both"
 vim.opt.expandtab = true
