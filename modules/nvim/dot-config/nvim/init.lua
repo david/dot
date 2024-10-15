@@ -5,18 +5,6 @@ vim.g.loaded_ruby_provider = 0
 
 vim.g.mapleader = " "
 
-if vim.g.neovide then
-  vim.opt.guifont = "Iosevka Timbuktu:h11"
-
-  vim.g.neovide_cursor_animation_length = 0.1
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_padding_top = 8
-  vim.g.neovide_padding_bottom = 8
-  vim.g.neovide_padding_left = 8
-  vim.g.neovide_padding_right = 8
-  vim.g.neovide_transparency = 0.9
-end
-
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.autowrite = true
