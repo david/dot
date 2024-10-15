@@ -136,7 +136,6 @@ require("lazy").setup({
       version = "*",
       config = function()
         require("mini.ai").setup({})
-        require("mini.files").setup({})
       end,
     },
 
@@ -449,8 +448,6 @@ require("lazy").setup({
       lazy = false,
       dependencies = {
         { "debugloop/telescope-undo" },
-        { "jvgrootveld/telescope-zoxide" },
-        { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
@@ -476,28 +473,12 @@ require("lazy").setup({
             ["ui-select"] = {
               require("telescope.themes").get_dropdown(),
             },
-
-            zoxide = {
-              mappings = {
-                ["<C-b>"] = {
-                  keepinsert = true,
-                  action = function(selection)
-                    require("telescope").extensions.file_browser.file_browser({
-                      cwd = selection.path,
-                      folder_browser = true,
-                    })
-                  end,
-                },
-              },
-            },
           },
         })
 
-        require("telescope").load_extension("file_browser")
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("undo")
-        require("telescope").load_extension("zoxide")
       end,
     },
 
