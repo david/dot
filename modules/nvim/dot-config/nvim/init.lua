@@ -129,6 +129,8 @@ require("lazy").setup({
       end,
     },
 
+    { "direnv/direnv.vim" },
+
     {
       "echasnovski/mini.nvim",
       version = "*",
