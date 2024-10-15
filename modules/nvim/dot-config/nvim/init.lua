@@ -123,13 +123,6 @@ require("lazy").setup({
     },
 
     {
-      "altermo/ultimate-autopair.nvim",
-      event = { "InsertEnter" },
-      branch = "v0.6",
-      opts = {},
-    },
-
-    {
       "akinsho/git-conflict.nvim",
       version = "*",
       dependencies = "nvim-tree/nvim-web-devicons",
@@ -385,6 +378,7 @@ require("lazy").setup({
             local client = vim.lsp.get_client_by_id(event.data.client_id)
             if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
               local highlight_augroup = vim.api.nvim_create_augroup("timbuktu-lsp-highlight", { clear = false })
+
               vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                 buffer = event.buf,
                 group = highlight_augroup,
@@ -411,8 +405,11 @@ require("lazy").setup({
           end,
         })
 
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+        local capabilities = vim.tbl_deep_extend(
+          "force",
+          vim.lsp.protocol.make_client_capabilities(),
+          require("cmp_nvim_lsp").default_capabilities()
+        )
 
         lsp.lua_ls.setup({
           capabilities = capabilities,
@@ -620,6 +617,20 @@ require("lazy").setup({
           },
         },
       },
+    },
+
+    {
+      "windwp/nvim-autopairs",
+      event = { "InsertEnter" },
+      config = function()
+        require("nvim-autopairs").setup({})
+
+        local autopairs = require("nvim-autopairs.completion.cmp")
+        local cmp = require("cmp")
+
+        cmp.event:on("confirm_done", autopairs.on_confirm_done())
+      end,
+      dependencies = { "hrsh7th/nvim-cmp" },
     },
 
     { "windwp/nvim-ts-autotag", event = { "InsertEnter" }, opts = {} },
