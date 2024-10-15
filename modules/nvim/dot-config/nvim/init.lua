@@ -49,6 +49,10 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
+vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
+
+vim.keymap.set("n", "<C-k>", "<cmd>bprevious<cr>")
+vim.keymap.set("n", "<C-j>", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("n", "m", "q")
@@ -258,9 +262,8 @@ require("lazy").setup({
       "ggandor/leap.nvim",
       dependencies = "tpope/vim-repeat",
       keys = {
-        { "gs", "<Plug>(leap-backward)", desc = "Leap backward", mode = { "x" } },
-        { "s", "<Plug>(leap-forward)", desc = "Leap forward", mode = { "n", "x", "o" } },
-        { "S", "<Plug>(leap-backward)", desc = "Leap backward", mode = { "n", "o" } },
+        { "s", "<Plug>(leap-forward)", desc = "Leap forward", mode = { "n" } },
+        { "S", "<Plug>(leap-backward)", desc = "Leap backward", mode = { "n" } },
       },
     },
 
@@ -374,14 +377,14 @@ require("lazy").setup({
               vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
-            map("gD", vim.lsp.buf.declaration, "Go to declaration")
-            map("gI", require("telescope.builtin").lsp_implementations, "Go to implementation")
-            map("gd", require("telescope.builtin").lsp_definitions, "Go to definition")
-            map("gr", require("telescope.builtin").lsp_references, "Go to references")
-            map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+            local builtin = require("telescope.builtin")
+
+            map("gd", builtin.lsp_definitions, "Go to definition")
+            map("gr", builtin.lsp_references, "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-            map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document symbols")
-            map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+            map("<leader>ds", builtin.lsp_document_symbols, "Document symbols")
+            map("<leader>wd", builtin.diagnostics, "Workspace Symbols")
+            map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -469,10 +472,13 @@ require("lazy").setup({
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
       keys = {
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+        { "<leader>//", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+        { "<leader>/r", "<cmd>Telescope resume<cr>", desc = "Resume search" },
+        { "<leader><leader>", "<cmd>Telescope buffers<cr>", desc = "Open file" },
+        { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
         { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
-        { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
+        { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
         { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo history" },
         { "<leader>z", "<cmd>Telescope zoxide list<cr>", desc = "Visit known directory" },
       },
@@ -568,12 +574,13 @@ require("lazy").setup({
               lsp_fallback = true,
             })
           end,
+          mode = "",
           desc = "Format buffer",
         },
       },
       opts = {
         format_on_save = {
-          timeout_ms = 1000,
+          timeout_ms = 500,
           lsp_fallback = true,
         },
         formatters_by_ft = {
