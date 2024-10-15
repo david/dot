@@ -11,7 +11,6 @@ vim.opt.autowrite = true
 vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
-vim.opt.clipboard = "unnamedplus"
 vim.opt.completeopt = { "menu", "menuone", "noinsert", "preview" }
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "both"
@@ -45,6 +44,10 @@ vim.opt.titlestring = "%F"
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
+
+vim.schedule(function()
+  vim.opt.clipboard = "unnamedplus"
+end)
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
