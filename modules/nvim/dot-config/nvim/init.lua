@@ -231,18 +231,19 @@ require("lazy").setup({
 
     {
       "folke/which-key.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("which-key").setup({})
-
-        require("which-key").add({
+      event = "VimEnter",
+      opts = {
+        icons = {
+          mappings = true,
+        },
+        spec = {
           { "<leader>c", group = "Code" },
           { "<leader>d", group = "Document" },
-          { "<leader>H", group = "Help" },
+          { "<leader>h", group = "Help" },
           { "<leader>r", group = "Refactor" },
           { "<leader>w", group = "Workspace" },
-        })
-      end,
+        },
+      },
     },
 
     {
