@@ -354,6 +354,15 @@ require("lazy").setup({
     },
 
     {
+      "mizlan/iswap.nvim",
+      keys = {
+        { "gx", "<cmd>ISwapNodeWith<cr>", desc = "Toggle single line/multiline" },
+        { "gX", "<cmd>ISwapNode<cr>", desc = "Toggle single line/multiline" },
+      },
+      opts = {},
+    },
+
+    {
       "neovim/nvim-lspconfig",
       config = function()
         local lsp = require("lspconfig")
