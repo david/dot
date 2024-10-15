@@ -428,7 +428,7 @@ require("lazy").setup({
           capabilities = capabilities,
         })
 
-        lsp.solargraph.setup({
+        lsp.ruby_lsp.setup({
           capabilities = capabilities,
         })
       end,
