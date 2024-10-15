@@ -335,6 +335,8 @@ require("lazy").setup({
 
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
+    { "okuuva/auto-save.nvim", lazy = false, opts = {} },
+
     {
       "mfussenegger/nvim-lint",
       event = { "BufReadPre", "BufNewFile" },
