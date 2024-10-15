@@ -106,17 +106,6 @@ require("lazy").setup({
     },
 
     {
-      "Shatur/neovim-session-manager",
-      config = function()
-        local config = require("session_manager.config")
-
-        require("session_manager").setup({
-          autoload_mode = config.AutoloadMode.Disabled,
-        })
-      end,
-    },
-
-    {
       "Wansmer/treesj",
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       keys = {
@@ -272,12 +261,9 @@ require("lazy").setup({
     },
 
     {
-      "gbprod/yanky.nvim",
-    },
-
-    {
       "ggandor/flit.nvim",
       opts = {
+        labeled_modes = "nv",
         multiline = false,
       },
     },
