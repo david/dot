@@ -1,0 +1,25 @@
+[diff]
+  colorMoved = true
+
+[merge]
+  conflictStyle = "diff3"
+
+[rerere]
+  enabled = true
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
+
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+[core]
+  pager = "delta"
+
+[delta]
+  hyperlinks = true
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  true-color = "always"
+
+[interactive]
+  diffFilter = "delta --color-only"

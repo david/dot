@@ -1,0 +1,44 @@
+format = "$fill[](#3c3836)[ ](bg:#3c3836)$env_var$directory$git_branch$git_status[ ](bg:#3c3836)[](#3c3836)$fill\n$character"
+
+[directory]
+before_repo_root_style = "fg:bright-yellow bg:#3c3836"
+format = "($before_repo_root_style)[$path]($style)"
+repo_root_format = "[$before_root_path]($before_repo_root_style)[ ∙ ](fg:white bg:#3c3836)[󰔱 $repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ∙ ](fg:white bg:#3c3836)"
+repo_root_style = "fg:bright-purple bg:#3c3836"
+style = "fg:green bg:#3c3836"
+truncate_to_repo = false
+truncation_length = 30
+
+[directory.substitutions]
+'~/trees/' = ""
+'~' = ""
+
+[env_var.CONTAINER_ID]
+format = "[$symbol$env_value]($style)"
+style = "fg:bright-yellow bg:#3c3836"
+symbol = "󰋜 "
+variable = "CONTAINER_ID"
+
+[fill]
+symbol = "─"
+style = "#3c3836"
+
+[git_branch]
+format = "[$symbol$branch]($style)"
+style = "fg:bright-green bg:#3c3836"
+symbol = "󰘬 "
+
+[git_status]
+format = "[\\[](fg:white bg:#3c3836)[$all_status$ahead_behind]($style)[\\]](fg:white bg:#3c3836)"
+style = "fg:bold bright-green bg:#3c3836"
+ahead = "󰜝"
+behind = "󰜙"
+conflicted = ""
+diverged = " "
+deleted = ""
+modified = ""
+renamed = ""
+staged = ""
+stashed = ""
+untracked = ""
+up_to_date = "✓"
