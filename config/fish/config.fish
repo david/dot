@@ -20,5 +20,6 @@ if status is-interactive
 
   atuin init fish | source
   direnv hook fish | source
+  starship init fish | source
   zoxide init fish | source
 end
