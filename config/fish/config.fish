@@ -1,11 +1,14 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
-/home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+set -l BREW_HOME /home/linuxbrew/.linuxbrew
+
+$BREW_HOME/bin/brew shellenv | source
 
 set -U fish_greeting ""
 
-fish_add_path --prepend --path /home/linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin
+fish_add_path --prepend --path $BREW_HOME/lib/ruby/gems/3.3.0/bin
+fish_add_path --prepend --path $HOME/.local/bin
 
 if status is-interactive
   set fish_cursor_default block
@@ -13,10 +16,10 @@ if status is-interactive
 
   fish_vi_key_bindings
 
-  alias ls=lsd
-  alias ll="ls -l"
-  alias la="ls -a"
-  alias lla="ls -la"
+  alias ls lsd
+  alias ll "ls -l"
+  alias la "ls -a"
+  alias lla "ls -la"
 
   atuin init fish | source
   direnv hook fish | source
