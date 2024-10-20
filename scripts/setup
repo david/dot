@@ -1,0 +1,34 @@
+#!/bin/bash
+
+PROJECTS="ar sys"
+
+set -euo pipefail
+
+if [[ -v CONTAINER_ID ]] ; then
+  >&2 echo "This script must be run outside a container"
+  exit 1
+fi
+
+SYS_DIR=$( realpath $( dirname ${BASH_SOURCE[0]} )/.. )
+PROJECT_BASE=$HOME/Projects
+
+cd $SYS_DIR
+
+function link {
+  [[ -v 1 ]] || exit 1
+
+  local config=$1
+
+  if [[ -e $config && ! -L $config ]] ; then
+    >&2 echo "$config is not a symlink. Skipping."
+  else
+    ln -sf $( realpath config ) $config
+  fi
+}
+
+link $HOME
+for p in $PROJECTS ; do
+  link $PROJECT_BASE/$p
+done
+
+ln -sf $( realpath backgrounds ) $HOME/.local/share
