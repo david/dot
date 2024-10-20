@@ -27,7 +27,7 @@ USER linuxbrew
 ENV NONINTERACTIVE=1
 RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-    brew install git ruby && \
+    brew install git ruby gcc@11 && \
     sudo apt-get remove --purge --assume-yes git && \
     sudo apt-get autoremove --purge --assume-yes
 
