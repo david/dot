@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function dep {
+  case "$1" in
+    auto-merge|am) dep-auto-merge ;;
+    list|ls) dep-list ;;
+  esac
+}
+
+function dep-list {
+  gh pr list --search 'chore(deps) bump status:success'
+}
+
+function dep-auto-merge {
+  dep-list |
+    cut --fields=1 |
+    sed s/^#// |
+    while read -r num ; do
+      gh pr review --approve $num
+      gh pr merge --rebase $num
+    done
+}
+
+function list {
+  gh pr list
+}
+
+case $1 in
+  list|ls)
+    list
+    ;;
+
+  *)
+    "$@"
+    ;;
+esac

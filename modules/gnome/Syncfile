@@ -1,0 +1,7 @@
+TARGETS="*@"
+
+function module-install {
+  cat dconf/*.conf | dconf load /
+}
+
+# vim:ft=bash

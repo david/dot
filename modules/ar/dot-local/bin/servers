@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -euo pipefail
+
+MYSQL_DATA_HOME=$HOME/.local/share/mysql-data
+
+cat <<EOF > process-compose.yml
+processes:
+  app:
+    command: "direnv exec . rails server"
+  css:
+    command: "direnv exec . yarn run build:css --watch"
+  js:
+    command: "direnv exec . yarn run build --watch"
+  mysql:
+    command: "mysqld --datadir=$MYSQL_DATA_HOME"
+  redis:
+    command: "redis-server"
+EOF
+
+cp ../master/config/credentials/*.key config/credentials
+
+bundle
+yarn
+
+process-compose -f process-compose.yml

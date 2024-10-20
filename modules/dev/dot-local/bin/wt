@@ -1,0 +1,115 @@
+#!/bin/bash
+
+function wt {
+  if [[ -z "$@" ]] ; then
+    wt-help
+    exit 1
+  fi
+
+  case $1 in
+    clean)
+      shift
+      wt-clean "$@"
+      ;;
+
+    pull)
+      shift
+      wt-pull "$@"
+      ;;
+
+    *)
+      wt-help
+      ;;
+  esac
+}
+
+function wt-help {
+cat<<EOF
+Usage: wt <command> [args]
+
+COMMANDS
+  clean   Remove merged worktrees and delete related branches
+  new     Create a worktree
+  pull    Create a worktree from a remote branch
+EOF
+}
+
+function wt-pull {
+  if [[ ! -v 1 ]] ; then
+    >&2 echo "wt pull: missing source branch name"
+    exit 1
+  fi
+
+  cd $TREES_HOME
+
+  local branch=$1
+  local dir="$(echo $branch | sed 's|/|-|g')"
+  local abs_dir="$(realpath $dir)"
+
+  if _in-dir default _shh git rev-parse --verify $branch ; then
+    _in-dir default _log git worktree add $abs_dir $branch
+  else
+    _in-dir default _log git worktree add --track -b $branch $abs_dir origin/$branch
+  fi
+
+  echo $abs_dir
+}
+
+function wt-clean {
+  wt--update-remotes
+  wt--rebase-trees
+  wt--prune-trees
+}
+
+function wt--update-remotes {
+  _h1 "Updating remotes"
+  _in-dir default _log git fetch --all --prune
+}
+
+function wt--rebase-trees {
+  _h1 "Rebasing worktrees"
+  for dir in * ; do
+    _in-dir $dir _rebase-tree
+  done
+}
+
+function wt--rebase-tree {
+  local dir="$(realpath . | xargs basename)"
+  local branch="$(git branch --show-current)"
+
+  _li "󰔱 $dir (󰘬 $branch)"
+  _log git rebase --autostash origin/master
+}
+
+function wt--prune-trees {
+  for dir in * ; do
+    [[ $dir = "default" ]] && continue
+
+    _prune-tree $dir
+  done
+}
+
+function wt--prune-tree {
+  [[ -v 1 ]] || exit 1
+
+  local dir=$1
+
+  [[ -n "$(_in-dir $dir git log HEAD..origin/master)" ]] && return 0
+
+  _h1 "Removing worktree ${dir}"
+
+  local branch="$(_in-dir $dir git branch --show-current)"
+
+  if ! _in-dir default _log git worktree remove $dir ; then
+    _error "Unable to remove worktree ${dir}"
+    return 0
+  fi
+
+  _h1 "Removing branch ${branch}"
+
+  if ! _in-dir default _log git branch -d $branch ; then
+    _error "Unable to remove branch ${branch}"
+  fi
+}
+
+wt "$@"
