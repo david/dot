@@ -17,8 +17,7 @@ RUN apt-get update --assume-yes && \
 
 ENV USER_ID=1000
 
-RUN userdel -r ubuntu && \
-    useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
+RUN useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     su - linuxbrew -c 'mkdir ~/.linuxbrew'
 
