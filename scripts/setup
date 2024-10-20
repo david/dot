@@ -1,53 +1,13 @@
 #!/bin/bash
 
-PROJECTS="ar sys"
-PACKAGES="atuin bat fd fish fzf ripgrep starship zoxide"
-PACKAGES_CONTAINER="delta direnv gh git lazygit neovim"
-
 set -euo pipefail
 
-if [[ -v CONTAINER_ID ]] ; then
-  >&2 echo "This script must be run outside a container"
-  exit 1
+SYS_DIR=$( realpath $( dirname ${BASH_SOURCE[0]} )/.. )
+INSTALL="brew install --quiet"
+
+if ! ruby -v &> /dev/null ; then
+  $INSTALL ruby
 fi
 
-BREW=/home/linuxbrew/.linuxbrew/bin/brew
-SYS_DIR=$( realpath $( dirname ${BASH_SOURCE[0]} )/.. )
-PROJECT_BASE=$HOME/Projects
-
 cd $SYS_DIR
-
-function setup {
-  [[ -v 1 ]] || exit 1
-
-  local target=$1
-
-  link $target
-  $BREW install --quiet $PACKAGES
-}
-
-function install_packages {
-  [[ -v 1 ]] || exit 1
-
-  distrobox enter
-}
-
-function link {
-  [[ -v 1 ]] || exit 1
-
-  local config=$1/.config
-
-  if [[ -e $config && ! -L $config ]] ; then
-    >&2 echo "$config is not a symlink. Skipping."
-  else
-    ln -sf $( realpath config ) $config
-  fi
-}
-
-setup $HOME
-for p in $PROJECTS ; do
-  setup $PROJECT_BASE/$p
-  distrobox enter $p -- $BREW install --quiet $PACKAGES_CONTAINER
-done
-
-ln -sf $( realpath backgrounds ) $HOME/.local/share
+rake setup
