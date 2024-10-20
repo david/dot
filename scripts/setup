@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-SYS_DIR=$( realpath $( dirname ${BASH_SOURCE[0]} )/.. )
+SYS_DIR=$( realpath ${BASH_SOURCE[0]} | xargs dirname )/..
 INSTALL="brew install --quiet"
 
 if ! ruby -v &> /dev/null ; then
