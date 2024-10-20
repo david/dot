@@ -244,6 +244,13 @@ require("lazy").setup({
     },
 
     {
+      "folke/todo-comments.nvim",
+      event = "VimEnter",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      opts = { signs = false },
+    },
+
+    {
       "folke/which-key.nvim",
       event = "VimEnter",
       opts = {
@@ -430,27 +437,49 @@ require("lazy").setup({
           require("cmp_nvim_lsp").default_capabilities()
         )
 
-        lsp.lua_ls.setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
+        local servers = {
+          lua_ls = {
+            settings = {
+              Lua = {
+                completion = {
+                  callSnippet = "Replace",
+                },
+                diagnostics = { disable = { "missing-fields" } },
               },
-              diagnostics = { disable = { "missing-fields" } },
             },
           },
+
+          ruby_lsp = {},
+        }
+
+        require("mason").setup({})
+
+        local ensure_installed = vim.tbl_keys(servers)
+
+        vim.list_extend(ensure_installed, {
+          "stylua",
         })
 
-        lsp.elixirls.setup({
-          cmd = { "elixir-ls" },
-          capabilities = capabilities,
-        })
+        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-        lsp.ruby_lsp.setup({
-          capabilities = capabilities,
+        require("mason-lspconfig").setup({
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+
+              server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
+              require("lspconfig")[server_name].setup(server)
+            end,
+          },
         })
       end,
+      dependencies = {
+        { "williamboman/mason.nvim", config = true },
+
+        "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+      },
     },
 
     {
@@ -482,8 +511,8 @@ require("lazy").setup({
         { "<leader>//", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
         { "<leader>/r", "<cmd>Telescope resume<cr>", desc = "Resume search" },
         { "<leader><leader>", "<cmd>Telescope buffers<cr>", desc = "Open file" },
-        { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Open file" },
-        { "<leader>f", "<cmd>Telescope buffers<cr>", desc = "Open file" },
+        { "<leader>F", "<cmd>Telescope buffers<cr>", desc = "Open file" },
+        { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
         { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
@@ -541,7 +570,7 @@ require("lazy").setup({
             enable = true,
             additional_vim_regex_highlighting = { "ruby" },
           },
-          indent = { enable = true },
+          indent = { enable = true, disable = { "ruby" } },
         })
       end,
     },
