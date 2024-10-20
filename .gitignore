@@ -41,3 +41,4 @@ config/dconf/user
 config/systemd/user
 config/.gsd-keyboard.settings-ported
 config/nvim/lazy-lock.json
+secrets
