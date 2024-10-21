@@ -8,6 +8,7 @@ LABEL com.github.containers.toolbox="true" \
 RUN apt-get update --assume-yes && \
     apt-get dist-upgrade --assume-yes && \
     apt-get install --assume-yes --no-install-recommends \
+      adwaita-icon-theme-full \
       build-essential \
       curl \
       file \
@@ -26,7 +27,23 @@ USER linuxbrew
 ENV NONINTERACTIVE=1
 RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-    brew install git ruby gcc@11 && \
+    brew install \
+      atuin \
+      bat \
+      delta \
+      direnv \
+      f1bonacc1/tap/process-compose \
+      fd \
+      fish \
+      fzf \
+      gcc@11 \
+      git \
+      lazygit \
+      neovim \
+      ripgrep \
+      ruby \
+      starship \
+      zoxide && \
     sudo apt-get remove --purge --assume-yes git && \
     sudo apt-get autoremove --purge --assume-yes
 
