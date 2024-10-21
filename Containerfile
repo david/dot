@@ -27,23 +27,7 @@ USER linuxbrew
 ENV NONINTERACTIVE=1
 RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-    brew install \
-      atuin \
-      bat \
-      delta \
-      direnv \
-      f1bonacc1/tap/process-compose \
-      fd \
-      fish \
-      fzf \
-      gcc@11 \
-      git \
-      lazygit \
-      neovim \
-      ripgrep \
-      ruby \
-      starship \
-      zoxide && \
+    brew install gcc@11 ruby && \
     sudo apt-get remove --purge --assume-yes git && \
     sudo apt-get autoremove --purge --assume-yes
 
