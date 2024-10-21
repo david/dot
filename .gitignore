@@ -1,3 +1,4 @@
+applications/com.google.Chrome.*
 config/autostart
 config/cni/net.d
 config/evolution/sources
