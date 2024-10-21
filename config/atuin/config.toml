@@ -1,5 +1,5 @@
 enter_accept = true
-inline-height = 16
+inline_height = 16
 keymap_cursor = { vim_insert = "steady-bar", vim_normal = "steady-block" }
 keymap_mode = "vim-insert"
 
