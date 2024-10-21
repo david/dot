@@ -26,7 +26,6 @@ WORKDIR /home/linuxbrew
 ENV NONINTERACTIVE=1
 
 RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-RUN .linuxbrew/bin/brew install gcc@11 ruby
 
 USER root
 
