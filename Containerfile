@@ -19,13 +19,14 @@ RUN apt-get update --assume-yes && \
 ENV USER_ID=1000
 
 RUN useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-    su - linuxbrew -c 'mkdir ~/.linuxbrew'
+    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER linuxbrew
-
+WORKDIR /home/linuxbrew
 ENV NONINTERACTIVE=1
+
 RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+RUN .linuxbrew/bin/brew install gcc@11 ruby
 
 USER root
 
