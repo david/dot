@@ -29,7 +29,4 @@ RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.s
 
 USER root
 
-RUN apt-get remove --purge --assume-yes git && \
-    apt-get autoremove --purge --assume-yes
-
 RUN userdel linuxbrew
