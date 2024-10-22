@@ -14,7 +14,8 @@ RUN apt-get update --assume-yes && \
       file \
       git \
       procps \
-      wl-clipboard
+      wl-clipboard && \
+    apt-get clean
 
 ENV USER_ID=1000
 
