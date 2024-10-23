@@ -6,6 +6,7 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="david@davidleal.com"
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV USER_ID=1000
 
 RUN apt-get update --assume-yes && \
     apt-get upgrade --assume-yes && \
@@ -18,19 +19,13 @@ RUN apt-get update --assume-yes && \
       locales \
       procps \
       wl-clipboard && \
-    apt-get clean
-
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen
-
-ENV USER_ID=1000
-
-RUN useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
+    apt-get clean && \
+    rm -fr /var/lib/apt/lists/* && \
+    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
+    useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ENV LANG en_US.utf8
 
 USER linuxbrew
 WORKDIR /home/linuxbrew
