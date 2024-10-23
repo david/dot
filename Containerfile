@@ -6,7 +6,7 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="david@davidleal.com"
 
 RUN apt-get update --assume-yes && \
-    apt-get dist-upgrade --assume-yes && \
+    apt-get upgrade --assume-yes && \
     apt-get install --assume-yes --no-install-recommends \
       adwaita-icon-theme-full \
       build-essential \
