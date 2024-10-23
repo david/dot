@@ -5,6 +5,8 @@ LABEL com.github.containers.toolbox="true" \
       summary="A cloud-native terminal experience" \
       maintainer="david@davidleal.com"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update --assume-yes && \
     apt-get upgrade --assume-yes && \
     apt-get install --assume-yes --no-install-recommends \
