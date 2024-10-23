@@ -25,6 +25,7 @@ RUN apt-get update --assume-yes && \
     useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+ENV LANGUAGE en_US.utf8
 ENV LANG en_US.utf8
 
 USER linuxbrew
