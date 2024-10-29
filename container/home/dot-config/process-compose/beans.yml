@@ -1,0 +1,10 @@
+processes:
+  app:
+    command: "bin/rails server"
+  css:
+    command: "yarn build:css --watch"
+    is_tty: true
+  db:
+    command: "postgres -D /var/home/david/Projects/beans/.local/share/postgres-data"
+  redis:
+    command: "valkey-server --dir ~/.local/share/valkey-data"

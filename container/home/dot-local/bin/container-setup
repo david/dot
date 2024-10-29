@@ -1,0 +1,17 @@
+#!/bin/bash
+
+stow \
+  --restow \
+  --dir $HOME/../sys/trees/trunk/container \
+  --target $HOME \
+  --dotfiles \
+  --no-folding \
+  home
+
+stow \
+  --restow \
+  --dir $HOME/../sys/trees/trunk/shared \
+  --target $HOME \
+  --dotfiles \
+  --no-folding \
+  home

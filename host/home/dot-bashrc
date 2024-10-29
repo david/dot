@@ -1,0 +1,10 @@
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+PATH="$HOME/.local/bin:$PATH"
+
+export FZF_DEFAULT_OPTS_FILE=$HOME/.config/fzf/config
+
+case $- in
+    *i*) ;;
+      *) return;;
+esac

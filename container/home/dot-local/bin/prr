@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function deps-list {
+  gh pr list --search "chore(deps) bump status:success"
+}
+
+function deps-merge {
+  deps-list |
+    cut --fields=1 |
+    sed s/^#// |
+    while read -r pr ; do
+      gh pr review --approve $pr
+      gh pr merge --rebase $pr
+    done
+}
+
+"$@"

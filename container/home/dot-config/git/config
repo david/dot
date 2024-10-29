@@ -1,0 +1,31 @@
+[core]
+  pager = "delta"
+
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
+
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+
+[delta]
+  hyperlinks = true
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  true-color = "always"
+
+[diff]
+  colorMoved = true
+
+[interactive]
+  diffFilter = "delta --color-only"
+
+[merge]
+  conflictStyle = "diff3"
+
+[rerere]
+  enabled = true
+
+[user]
+  email = david@davidleal.com
+  name = David Leal

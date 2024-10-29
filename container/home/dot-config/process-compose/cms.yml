@@ -1,0 +1,5 @@
+processes:
+  app:
+    command: "rails server"
+  db:
+    command: "postgres -D /var/home/david/Projects/cms/.local/share/postgres-data"

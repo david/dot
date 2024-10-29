@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cp ../master/config/credentials/*.key config/credentials
+
+bundle
+yarn
+
+process-compose -f $HOME/.config/process-compose/process-compose-${CONTAINER_ID}.yml

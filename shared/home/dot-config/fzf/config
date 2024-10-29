@@ -1,0 +1,13 @@
+--border=rounded
+--color="current-bg:11,current-fg:0,gutter:-1,pointer:11"
+--color="border:8,preview-border:0"
+--cycle
+--highlight-line
+--info=inline-right
+--no-scrollbar
+--padding=0
+--pointer="█"
+--preview-window=down
+--prompt=""
+--reverse
+--separator=" "

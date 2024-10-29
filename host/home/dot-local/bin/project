@@ -1,0 +1,102 @@
+#!/bin/bash
+
+set -euo pipefail
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+PATH="$HOME/.local/bin:$PATH"
+PROJECT_HOME=$HOME/Projects
+TREE_DEPTH=3
+TREE_BASE=trees
+
+# private
+
+function cd_default {
+  [[ -v 1 ]] || return 1
+
+  local trees=$PROJECT_HOME/$1/$TREE_BASE
+
+  cd $trees/trunk &>/dev/null ||
+    cd $trees/master &>/dev/null ||
+    {
+      >&2 echo "Could not determine default tree."
+      return 1
+    }
+}
+
+function current_project {
+  if [[ "$(pwd)" =~ $PROJECT_HOME ]] ; then
+    pwd | sed "s'$PROJECT_HOME/''" | tr / \\n | head -1
+  else
+    >&2 echo "No current project."
+    exit 1
+  fi
+}
+
+# public
+
+function switch {
+  local choice=(
+    $(
+      fd --full-path --type=d --exact-depth=$TREE_DEPTH $TREE_BASE/ $PROJECT_HOME |
+        sed "s'$PROJECT_HOME/\([^/]\+\)/$TREE_BASE'\1'" |
+        sed "s'/$''" |
+        fzf-cli |
+        tr / \\n
+    )
+  )
+
+  if [[ -v choice ]] ; then
+    cd "$PROJECT_HOME/${choice[0]}/$TREE_BASE/${choice[1]}"
+
+    run -p "${choice[0]}"
+  elif [[ -v CONTAINER_ID ]] ; then
+    run -p "${choice[0]}"
+  else
+    exec /usr/bin/bash
+  fi
+}
+
+function run {
+  local opt project
+
+  while getopts "p:" opt; do
+    case $opt in
+      p)
+        project=$OPTARG
+        ;;
+
+      *)
+        >&2 echo "Unknown option: $opt."
+        exit 1
+        ;;
+    esac
+  done
+
+  shift $(($OPTIND - 1))
+
+  project="${project:-$(current_project)}"
+
+  if [[ -n "$@" ]] ; then
+    exec distrobox enter $project -- fish -c "direnv exec . $*"
+  else
+    exec distrobox enter $project -- fish
+  fi
+}
+
+# main
+
+if [[ ! -v 1 ]] ; then
+  switch
+else
+  case "$1" in
+    switch|run)
+      "$@"
+      ;;
+
+    *)
+      cd_default $1
+      enter $1
+      ;;
+  esac
+fi

@@ -1,2 +1,0 @@
-TARGETS="@ar"
-PACKAGES="ruby mysql@8.0 node@20 yarn"

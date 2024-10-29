@@ -1,0 +1,3 @@
+#!/bin/bash
+
+process-compose -f $HOME/.config/process-compose/${CONTAINER_ID}.yml
