@@ -24,7 +24,6 @@ RUN curl -fsSLo \
       adwaita-icon-theme \
       build-essential \
       brave-browser \
-      curl \
       locales \
       wl-clipboard && \
     apt-get clean && \
@@ -42,7 +41,6 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       atuin \
       bash-language-server \
       bat \
-      f1bonacc1/tap/process-compose \
       fd \
       fish \
       fzf \
@@ -52,11 +50,16 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       hadolint \
       lazygit \
       lsd \
+      lua-language-server \
       neovim \
       node \
       ripgrep \
       starship \
       stow \
+      stylua \
+      tailwindcss-language-server \
+      typescript-language-server \
+      yaml-language-server \
       yazi \
       zoxide
 
