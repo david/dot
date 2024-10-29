@@ -6,35 +6,59 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="david@davidleal.com"
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV USER_ID=1000
-
-RUN apt-get update --assume-yes && \
-    apt-get upgrade --assume-yes && \
-    apt-get install --assume-yes --no-install-recommends \
-      adwaita-icon-theme-full \
-      build-essential \
-      curl \
-      file \
-      git \
-      locales \
-      procps \
-      wl-clipboard && \
-    apt-get clean && \
-    rm -fr /var/lib/apt/lists/* && \
-    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
-    useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
 ENV LANG en_US.utf8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.utf8
+ENV NONINTERACTIVE 1
+ENV USER_ID 1000
+
+RUN curl -fsSLo \
+      /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+      https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg && \
+    echo -n "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] " \
+      "https://brave-browser-apt-release.s3.brave.com/ stable main" > \
+      /etc/apt/sources.list.d/brave-browser-release.list && \
+    apt-get update --assume-yes && \
+    apt-get upgrade --assume-yes && \
+    apt-get install --assume-yes \
+      adwaita-icon-theme \
+      build-essential \
+      brave-browser \
+      curl \
+      locales \
+      wl-clipboard && \
+    apt-get clean && \
+    rm -fr /var/lib/apt/lists/* /var/cache/apt/archives/* && \
+    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
+    useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew
 
 USER linuxbrew
-WORKDIR /home/linuxbrew
-ENV NONINTERACTIVE=1
 
-RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-RUN .linuxbrew/bin/brew install gcc@11 git ruby
+RUN curl -fsSLo /tmp/homebrew-install.sh \
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
+    bash /tmp/homebrew-install.sh && \
+    rm /tmp/homebrew-install.sh && \
+    /home/linuxbrew/.linuxbrew/bin/brew install \
+      atuin \
+      bash-language-server \
+      bat \
+      f1bonacc1/tap/process-compose \
+      fd \
+      fish \
+      fzf \
+      gh \
+      git \
+      git-delta \
+      hadolint \
+      lazygit \
+      lsd \
+      neovim \
+      node \
+      ripgrep \
+      starship \
+      stow \
+      yazi \
+      zoxide
 
 USER root
 
