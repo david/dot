@@ -2,7 +2,7 @@
 
 stow \
   --restow \
-  --dir $HOME/../sys/trees/trunk/container \
+  --dir $HOME/Projects/sys/trees/trunk/host \
   --target $HOME \
   --dotfiles \
   --no-folding \
@@ -10,12 +10,8 @@ stow \
 
 stow \
   --restow \
-  --dir $HOME/../sys/trees/trunk/shared \
+  --dir $HOME/Projects/sys/trees/trunk/shared \
   --target $HOME \
   --dotfiles \
   --no-folding \
   home
-
-npm install --global \
-  @tailwindcss/language-server
-

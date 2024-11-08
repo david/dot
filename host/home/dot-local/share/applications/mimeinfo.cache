@@ -1,0 +1,15 @@
+[MIME Cache]
+application/pdf=ar-brave-browser.desktop;
+application/rdf+xml=ar-brave-browser.desktop;
+application/rss+xml=ar-brave-browser.desktop;
+application/xhtml+xml=ar-brave-browser.desktop;
+application/xhtml_xml=ar-brave-browser.desktop;
+application/xml=ar-brave-browser.desktop;
+image/gif=ar-brave-browser.desktop;
+image/jpeg=ar-brave-browser.desktop;
+image/png=ar-brave-browser.desktop;
+image/webp=ar-brave-browser.desktop;
+text/html=ar-brave-browser.desktop;
+text/xml=ar-brave-browser.desktop;
+x-scheme-handler/http=ar-brave-browser.desktop;
+x-scheme-handler/https=ar-brave-browser.desktop;

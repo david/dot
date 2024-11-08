@@ -1,11 +1,10 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=kitty
+Name=WezTerm
 GenericName=Terminal emulator
 Comment=Fast, feature-rich, GPU based terminal
-TryExec=/var/home/david/.local/kitty.app/bin/kitty
+TryExec=/home/linuxbrew/.linuxbrew/bin/wezterm
 StartupNotify=true
-Exec=/var/home/david/.local/kitty.app/bin/kitty
-Icon=kitty
+Exec=/home/linuxbrew/.linuxbrew/bin/wezterm
 Categories=System;TerminalEmulator;

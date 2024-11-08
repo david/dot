@@ -174,6 +174,15 @@ require("lazy").setup({
       config = function()
         require("gruvbox").setup({
           contrast = "hard",
+          inverse = true,
+          invert_selection = true,
+          invert_signs = true,
+          overrides = {
+            FzfLuaNormal = { bg = "#282828" },
+            FzfLuaBorder = { fg = "#a89984", bg = "#282828" },
+            NotifyBackground = { bg = "#282828" },
+          },
+          transparent_mode = true,
         })
       end,
     },
@@ -264,18 +273,6 @@ require("lazy").setup({
         { "S", "<Plug>(leap-backward)", desc = "Leap backward", mode = { "n" } },
       },
     },
-
-    -- {
-    --   "saghen/blink.cmp",
-    --   dependencies = "rafamadriz/friendly-snippets",
-    --   version = "v0.*",
-    --   opts = {
-    --     highlight = {
-    --       use_nvim_cmp_as_default = true
-    --     },
-    --     nerd_font_variant = "normal"
-    --   }
-    -- },
 
     {
       "hrsh7th/nvim-cmp",
@@ -462,36 +459,32 @@ require("lazy").setup({
           end,
         })
 
-        local servers = {
-          bashls = {},
-          emmet_language_server = {},
-          jsonls = {},
-          lua_ls = {
-            settings = {
-              Lua = {
-                completion = {
-                  callSnippet = "Replace",
-                },
-                diagnostics = { disable = { "missing-fields" } },
+        local capabilities = vim.tbl_deep_extend(
+          "force",
+          {},
+          vim.lsp.protocol.make_client_capabilities(),
+          require("cmp_nvim_lsp").default_capabilities()
+        )
+        local lspconfig = require("lspconfig")
+
+        lspconfig.bashls.setup({ capabilities = capabilities })
+        lspconfig.emmet_language_server.setup({ capabilities = capabilities })
+        lspconfig.jsonls.setup({ capabilities = capabilities })
+        lspconfig.lua_ls.setup({
+          capabilities = capabilities,
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Replace",
               },
+              diagnostics = { disable = { "missing-fields" } },
             },
           },
-          ruby_lsp = {},
-          tailwindcss = {},
-          ts_ls = {},
-          yamlls = {},
-        }
-
-        for server_name, opts in ipairs(servers) do
-          opts.capabilities = vim.tbl_deep_extend(
-            "force",
-            opts.capabilities or {},
-            vim.lsp.protocol.make_client_capabilities(),
-            require("cmp_nvim_lsp").default_capabilities()
-          )
-
-          require("lspconfig")[server_name].setup(opts)
-        end
+        })
+        lspconfig.ruby_lsp.setup({ capabilities = capabilities })
+        lspconfig.tailwindcss.setup({ capabilities = capabilities })
+        lspconfig.ts_ls.setup({ capabilities = capabilities })
+        lspconfig.yamlls.setup({ capabilities = capabilities })
       end,
     },
 

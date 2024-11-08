@@ -1,0 +1,20 @@
+layout {
+  tab name="main" focus=true {
+    pane split_direction="vertical" {
+      pane size="44%" name="shell" stacked=true {
+        pane command="distrobox" {
+          args "enter" "--" "fish"
+        }
+      }
+      pane size="56%" name="code" focus=true command="distrobox" {
+        args "enter" "--" "nvim"
+      }
+    }
+  }
+
+  tab name="git" {
+    pane command="distrobox" {
+      args "enter" "--" "lazygit"
+    }
+  }
+}

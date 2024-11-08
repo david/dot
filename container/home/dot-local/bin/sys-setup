@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-
-SYS_DIR=$(echo $( realpath ${BASH_SOURCE[0]} | xargs dirname )/.. | xargs realpath)
-
-rake -C $SYS_DIR setup

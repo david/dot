@@ -12,17 +12,6 @@ end
 
 fish_add_path --prepend --path $HOME/.local/bin
 
-for pkg in node@20 postgresql@17 mysql@8.0
-  if [ -d "$BREW_HOME/opt/$pkg" ]
-    set -l dir "$BREW_HOME/opt/$pkg"
-
-    set -gx LDFLAGS "$LDFLAGS:-L$dir/lib"
-    set -gx CPPFLAGS "$CPPFLAGS:-I$dir/include"
-
-    fish_add_path --prepend --path $dir/bin
-  end
-end
-
 set -U fish_greeting ""
 
 if status is-interactive
@@ -35,6 +24,8 @@ if status is-interactive
   alias ll "ls -l"
   alias la "ls -a"
   alias lla "ls -la"
+
+  alias ssh "distrobox-host-exec ssh $argv"
 
   atuin init fish | source
   direnv hook fish | source

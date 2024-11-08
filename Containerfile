@@ -39,11 +39,13 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
     rm /tmp/homebrew-install.sh && \
     /home/linuxbrew/.linuxbrew/bin/brew install \
       atuin \
+      ansible-language-server \
       bash-language-server \
       bat \
       fd \
       fish \
       fzf \
+      gcc@11 \
       gh \
       git \
       git-delta \
@@ -54,6 +56,8 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       neovim \
       node \
       ripgrep \
+      ruby \
+      shellcheck \
       starship \
       stow \
       stylua \
@@ -61,7 +65,15 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       typescript-language-server \
       yaml-language-server \
       yazi \
-      zoxide
+      zoxide && \
+    gem install \
+      rbs \
+      ruby-lsp \
+      ruby-lsp-rails && \
+    npm install --global \
+      vscode-css-languageservice \
+      vscode-html-languageservice \
+      vscode-json-languageservice
 
 USER root
 
