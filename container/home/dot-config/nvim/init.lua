@@ -467,8 +467,11 @@ require("lazy").setup({
         )
         local lspconfig = require("lspconfig")
 
+        lspconfig.ansiblels.setup({ capabilities = capabilities })
         lspconfig.bashls.setup({ capabilities = capabilities })
+        lspconfig.cssls.setup({ capabilities = capabilities })
         lspconfig.emmet_language_server.setup({ capabilities = capabilities })
+        lspconfig.html.setup({ capabilities = capabilities })
         lspconfig.jsonls.setup({ capabilities = capabilities })
         lspconfig.lua_ls.setup({
           capabilities = capabilities,
