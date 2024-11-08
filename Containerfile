@@ -72,10 +72,8 @@ RUN gem install \
       ruby-lsp-rails && \
     npm install --global \
       bash-language-server \
-      typescript-language-server \
-      vscode-css-languageservice \
-      vscode-html-languageservice \
-      vscode-json-languageservice \
+      typescript \
+      vscode-langservers-extracted \
       @ansible/ansible-language-server \
       @olrtg/emmet-language-server \
       @tailwindcss/language-server && \
