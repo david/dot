@@ -39,8 +39,6 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
     rm /tmp/homebrew-install.sh && \
     /home/linuxbrew/.linuxbrew/bin/brew install \
       atuin \
-      ansible-language-server \
-      bash-language-server \
       bat \
       fd \
       fish \
@@ -61,9 +59,8 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       starship \
       stow \
       stylua \
-      tailwindcss-language-server \
-      typescript-language-server \
       yaml-language-server \
+      yarn \
       yazi \
       zoxide
 
@@ -74,9 +71,15 @@ RUN gem install \
       ruby-lsp \
       ruby-lsp-rails && \
     npm install --global \
+      bash-language-server \
+      typescript-language-server \
       vscode-css-languageservice \
       vscode-html-languageservice \
-      vscode-json-languageservice
+      vscode-json-languageservice \
+      @ansible/ansible-language-server \
+      @olrtg/emmet-language-server \
+      @tailwindcss/language-server && \
+    yarn global add yaml-language-server
 
 USER root
 
