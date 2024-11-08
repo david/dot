@@ -65,8 +65,11 @@ RUN curl -fsSLo /tmp/homebrew-install.sh \
       typescript-language-server \
       yaml-language-server \
       yazi \
-      zoxide && \
-    gem install \
+      zoxide
+
+ENV PATH /home/linuxbrew/.linuxbrew/bin:$PATH
+
+RUN gem install \
       rbs \
       ruby-lsp \
       ruby-lsp-rails && \
