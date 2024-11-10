@@ -27,8 +27,6 @@ if status is-interactive
   alias la "ls -a"
   alias lla "ls -la"
 
-  alias ssh "distrobox-host-exec ssh $argv"
-
   atuin init fish | source
   direnv hook fish | source
   starship init fish | source
