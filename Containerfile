@@ -24,7 +24,8 @@ RUN curl -fsSLo \
     apt-get install -y adwaita-icon-theme build-essential brave-browser locales wl-clipboard && \
     rm -fr /var/lib/apt/lists/* /var/cache/apt/archives/* && \
     localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
-    curl -fsSLo /tmp/homebrew-install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
+    curl -fsSLo /tmp/homebrew-install.sh \
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
     bash /tmp/homebrew-install.sh && \
     rm /tmp/homebrew-install.sh && \
     brew install \
