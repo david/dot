@@ -51,5 +51,10 @@ RUN curl -fsSLo \
       @olrtg/emmet-language-server \
       @tailwindcss/language-server && \
     yarn global add yaml-language-server && \
-    chown -R 1000:1000 /home/linuxbrew
+    chown -R 1000:1000 /home/linuxbrew && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/journalctl && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/scp && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/ssh && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/systemctl && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/podman
 
