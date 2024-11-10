@@ -364,7 +364,13 @@ require("lazy").setup({
         { "<leader>hh", "<cmd>FzfLua helptags<cr>", desc = "Tags" },
         { "<leader>hk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
       },
-      opts = {},
+      opts = {
+        winopts = {
+          preview = {
+            layout = "vertical",
+          },
+        },
+      },
     },
 
     { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
