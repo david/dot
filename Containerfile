@@ -34,6 +34,7 @@ RUN curl -fsSLo \
       direnv \
       fd fish fzf \
       gcc@11 gh git git-delta \
+      hadolint \
       lazygit lsd lua-language-server \
       neovim node \
       ripgrep ruby \
