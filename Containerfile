@@ -11,6 +11,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.utf8
 ENV NONINTERACTIVE 1
 ENV USER_ID 1000
+ENV PATH /home/linuxbrew/.linuxbrew/bin:$PATH
 
 RUN curl -fsSLo \
       /usr/share/keyrings/brave-browser-archive-keyring.gpg \
@@ -23,18 +24,10 @@ RUN curl -fsSLo \
     apt-get install -y adwaita-icon-theme build-essential brave-browser locales man wl-clipboard && \
     rm -fr /var/lib/apt/lists/* /var/cache/apt/archives/* && \
     localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
-    useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew
-
-USER linuxbrew
-
-RUN curl -fsSLo /tmp/homebrew-install.sh \
-      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
+    curl -fsSLo /tmp/homebrew-install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
     bash /tmp/homebrew-install.sh && \
-    rm /tmp/homebrew-install.sh
-
-ENV PATH /home/linuxbrew/.linuxbrew/bin:$PATH
-
-RUN brew install \
+    rm /tmp/homebrew-install.sh && \
+    brew install \
       atuin \
       bat \
       fd fish fzf \
@@ -45,7 +38,6 @@ RUN brew install \
       shellcheck starship stow stylua \
       yarn yazi \
       zoxide && \
-    gem install rbs && \
     gem install ruby-lsp && \
     gem install ruby-lsp-rails && \
     npm install --global \
@@ -55,8 +47,6 @@ RUN brew install \
       @ansible/ansible-language-server \
       @olrtg/emmet-language-server \
       @tailwindcss/language-server && \
-    yarn global add yaml-language-server
+    yarn global add yaml-language-server && \
+    chown -R 1000:1000 /home/linuxbrew
 
-USER root
-
-RUN userdel linuxbrew
