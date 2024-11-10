@@ -31,8 +31,5 @@ RUN rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc &
       yaml-language-server && \
     gem update --system 3.5.23 && \
     gem install ruby-lsp && \
-    gem install ruby-lsp-rails && \
-    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
-    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/ssh && \
-    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/systemctl
+    gem install ruby-lsp-rails
 
