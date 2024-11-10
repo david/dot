@@ -2,6 +2,8 @@ set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx PODMAN_COMPOSE_WARNING_LOGS false
 
+umask 077
+
 set -l BREW_HOME /home/linuxbrew/.linuxbrew
 
 $BREW_HOME/bin/brew shellenv | source
