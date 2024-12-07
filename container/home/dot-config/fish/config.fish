@@ -33,7 +33,7 @@ if status is-interactive
 
   fish_vi_key_bindings
 
-  alias ls lsd
+  alias ls eza
   alias ll "ls -l"
   alias la "ls -a"
   alias lla "ls -la"
