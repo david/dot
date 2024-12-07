@@ -365,6 +365,12 @@ require("lazy").setup({
         { "<leader>hk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
       },
       opts = {
+        keymap = {
+          fzf = {
+            ["ctrl-q"] = "select-all+accept",
+          },
+        },
+
         winopts = {
           preview = {
             layout = "vertical",
