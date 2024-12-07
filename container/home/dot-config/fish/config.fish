@@ -23,6 +23,7 @@ for pkg in node@20 postgresql@17 mysql@8.0
   end
 end
 
+fish_add_path --prepend --move --path /usr/local/bin
 fish_add_path --prepend --path $HOME/.local/bin
 
 set -U fish_greeting ""
