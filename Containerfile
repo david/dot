@@ -5,13 +5,13 @@ LABEL com.github.containers.toolbox="true" \
       summary="A cloud-native terminal experience" \
       maintainer="david@davidleal.com"
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV LANG en_US.utf8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.utf8
-ENV NONINTERACTIVE 1
-ENV USER_ID 1000
-ENV PATH /home/linuxbrew/.linuxbrew/bin:$PATH
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=en_US.utf8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.utf8 \
+    NONINTERACTIVE=1 \
+    USER_ID=1000 \
+    PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 RUN curl -fsSLo \
       /usr/share/keyrings/brave-browser-archive-keyring.gpg \
@@ -32,25 +32,26 @@ RUN curl -fsSLo \
       atuin \
       bat \
       direnv \
+      eza \
       fd fish fzf \
       gcc@11 gh git git-delta \
-      hadolint \
-      lazygit lsd lua-language-server \
+      jq \
+      lazygit \
       neovim node \
       ripgrep ruby \
-      shellcheck starship stow stylua \
+      starship stow \
       yarn yazi \
       zoxide && \
     gem install ruby-lsp && \
     gem install ruby-lsp-rails && \
-    npm install --global \
-      bash-language-server \
-      typescript \
-      vscode-langservers-extracted \
-      @ansible/ansible-language-server \
-      @olrtg/emmet-language-server \
-      @tailwindcss/language-server && \
-    yarn global add yaml-language-server && \
+    # npm install --global \
+    #   bash-language-server \
+    #   typescript \
+    #   vscode-langservers-extracted \
+    #   @ansible/ansible-language-server \
+    #   @olrtg/emmet-language-server \
+    #   @tailwindcss/language-server && \
+    # yarn global add yaml-language-server && \
     chown -R 1000:1000 /home/linuxbrew && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/journalctl && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/scp && \
@@ -58,3 +59,4 @@ RUN curl -fsSLo \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/systemctl && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/podman
 
+USER 1000:1000
