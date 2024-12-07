@@ -44,14 +44,14 @@ RUN curl -fsSLo \
       zoxide && \
     gem install ruby-lsp && \
     gem install ruby-lsp-rails && \
-    # npm install --global \
-    #   bash-language-server \
-    #   typescript \
-    #   vscode-langservers-extracted \
-    #   @ansible/ansible-language-server \
-    #   @olrtg/emmet-language-server \
-    #   @tailwindcss/language-server && \
-    # yarn global add yaml-language-server && \
+    npm install --global \
+      bash-language-server \
+      typescript \
+      vscode-langservers-extracted \
+      @ansible/ansible-language-server \
+      @olrtg/emmet-language-server \
+      @tailwindcss/language-server && \
+    yarn global add yaml-language-server && \
     chown -R 1000:1000 /home/linuxbrew && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/journalctl && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/scp && \
