@@ -14,6 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
 RUN curl -fsSLo \
       /usr/share/keyrings/brave-browser-archive-keyring.gpg \
       https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg && \
@@ -23,8 +24,9 @@ RUN curl -fsSLo \
     apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y adwaita-icon-theme build-essential brave-browser locales wl-clipboard && \
-    rm -fr /var/lib/apt/lists/* /var/cache/apt/archives/* && \
-    curl -fsSLo /tmp/homebrew-install.sh \
+    rm -fr /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+RUN curl -fsSLo /tmp/homebrew-install.sh \
       https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh && \
     bash /tmp/homebrew-install.sh && \
     rm /tmp/homebrew-install.sh && \
@@ -41,8 +43,9 @@ RUN curl -fsSLo \
       ripgrep ruby \
       starship stow \
       yarn yazi \
-      zoxide && \
-    gem install ruby-lsp && \
+      zoxide
+
+RUN gem install ruby-lsp && \
     gem install ruby-lsp-rails && \
     npm install --global \
       bash-language-server \
@@ -51,10 +54,13 @@ RUN curl -fsSLo \
       @ansible/ansible-language-server \
       @olrtg/emmet-language-server \
       @tailwindcss/language-server && \
-    yarn global add yaml-language-server && \
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/usr/local/kitty launch=n && \
-    chown -R 1000:1000 /home/linuxbrew && \
-    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/journalctl && \
+    yarn global add yaml-language-server
+
+RUN curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/usr/local/kitty launch=n
+
+RUN chown -R 1000:1000 /home/linuxbrew
+
+RUN ln -s /usr/bin/distrobox-host-exec /usr/local/bin/journalctl && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/scp && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/ssh && \
     ln -s /usr/bin/distrobox-host-exec /usr/local/bin/systemctl && \
