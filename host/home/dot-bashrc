@@ -1,8 +1,5 @@
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 PATH="$HOME/.local/bin:$PATH"
 
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+[[ $- == *i* ]] || return
+
+eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

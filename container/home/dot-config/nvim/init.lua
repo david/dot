@@ -40,7 +40,7 @@ vim.opt.termguicolors = true
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 vim.opt.title = true
-vim.opt.titlestring = "%{expand('%:h:t')}/%{expand('%:t')}"
+vim.opt.titlestring = "󱃖 %{expand('%:h:t')}/%{expand('%:t')}"
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
@@ -108,25 +108,6 @@ require("lazy").setup({
     { "Kasama/nvim-custom-diagnostic-highlight", opts = {} },
 
     {
-      "NeogitOrg/neogit",
-      opts = {
-        signs = {
-          hunk = { "", "" },
-          item = { "", "" },
-          section = { "", "" },
-        },
-      },
-      keys = {
-        { "<leader>vv", "<cmd>Neogit<cr>", desc = "Neogit" },
-      },
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-        "sindrets/diffview.nvim",
-      },
-    },
-
-    {
       "RRethy/nvim-treesitter-endwise",
       main = "nvim-treesitter.configs",
       opts = {
@@ -185,6 +166,11 @@ require("lazy").setup({
           transparent_mode = true,
         })
       end,
+    },
+
+    {
+      "fladson/vim-kitty",
+      ft = "kitty",
     },
 
     {
@@ -267,7 +253,7 @@ require("lazy").setup({
 
     {
       "ggandor/leap.nvim",
-      dependencies = "tpope/vim-repeat",
+      dependencies = { "tpope/vim-repeat" },
       keys = {
         { "s", "<Plug>(leap-forward)", desc = "Leap forward", mode = { "n" } },
         { "S", "<Plug>(leap-backward)", desc = "Leap backward", mode = { "n" } },
@@ -283,14 +269,6 @@ require("lazy").setup({
           build = function()
             return "make install_jsregexp"
           end,
-          dependencies = {
-            {
-              "rafamadriz/friendly-snippets",
-              config = function()
-                require("luasnip.loaders.from_vscode").lazy_load()
-              end,
-            },
-          },
         },
 
         { "hrsh7th/cmp-buffer" },
@@ -353,7 +331,7 @@ require("lazy").setup({
 
     {
       "ibhagwan/fzf-lua",
-      -- optional for icon support
+      lazy = false,
       dependencies = { "nvim-tree/nvim-web-devicons" },
       keys = {
         { "<leader>//", "<cmd>FzfLua live_grep_glob<cr>", desc = "Live grep" },
@@ -381,6 +359,7 @@ require("lazy").setup({
 
     { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
     { "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
+
     {
       "lewis6991/gitsigns.nvim",
       lazy = false,
@@ -392,6 +371,7 @@ require("lazy").setup({
       },
       opts = {},
     },
+
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "okuuva/auto-save.nvim", lazy = false, opts = {} },
 
@@ -477,31 +457,54 @@ require("lazy").setup({
           vim.lsp.protocol.make_client_capabilities(),
           require("cmp_nvim_lsp").default_capabilities()
         )
-        local lspconfig = require("lspconfig")
 
-        lspconfig.ansiblels.setup({ capabilities = capabilities })
-        lspconfig.bashls.setup({ capabilities = capabilities })
-        lspconfig.cssls.setup({ capabilities = capabilities })
-        lspconfig.emmet_language_server.setup({ capabilities = capabilities })
-        lspconfig.eslint.setup({ capabilities = capabilities })
-        lspconfig.html.setup({ capabilities = capabilities })
-        lspconfig.jsonls.setup({ capabilities = capabilities })
-        lspconfig.lua_ls.setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
+        local servers = {
+          bashls = {},
+          eslint = {},
+          html = {},
+          jsonls = {},
+          lua_ls = {
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                completion = {
+                  callSnippet = "Replace",
+                },
+                diagnostics = { disable = { "missing-fields" } },
               },
-              diagnostics = { disable = { "missing-fields" } },
             },
           },
+          ruby_lsp = {},
+          tailwindcss = {},
+          ts_ls = {},
+          yamlls = {},
+        }
+
+        require("mason").setup()
+
+        local ensure_installed = vim.tbl_keys(servers)
+        vim.list_extend(ensure_installed, {
+          "stylua",
         })
-        lspconfig.ruby_lsp.setup({ capabilities = capabilities })
-        lspconfig.tailwindcss.setup({ capabilities = capabilities })
-        lspconfig.ts_ls.setup({ capabilities = capabilities })
-        lspconfig.yamlls.setup({ capabilities = capabilities })
+
+        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+        require("mason-lspconfig").setup({
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+              server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+              require("lspconfig")[server_name].setup(server)
+            end,
+          },
+        })
       end,
+      dependencies = {
+        { "williamboman/mason.nvim", config = true },
+        "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        { "j-hui/fidget.nvim", opts = {} },
+      },
     },
 
     {
@@ -637,25 +640,6 @@ require("lazy").setup({
     },
 
     {
-      "pwntester/octo.nvim",
-      dependencies = {
-        { "nvim-lua/plenary.nvim" },
-        { "nvim-telescope/telescope.nvim" },
-        { "nvim-tree/nvim-web-devicons" },
-      },
-      opts = {
-        default_merge_method = "rebase",
-        ui = {
-          use_signcolumn = true,
-        },
-        mappings_disable_default = true,
-        suppress_missing_scope = {
-          projects_v2 = true,
-        },
-      },
-    },
-
-    {
       "stevearc/conform.nvim",
       event = "BufWritePre",
       cmd = { "ConformInfo" },
@@ -714,6 +698,8 @@ require("lazy").setup({
         },
       },
     },
+
+    { "tpope/vim-unimpaired" },
 
     {
       "windwp/nvim-autopairs",

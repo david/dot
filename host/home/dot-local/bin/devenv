@@ -1,74 +1,33 @@
 #!/bin/bash
 
+eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 set -euo pipefail
+
+eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+PROJ_COLOR=$(echo -e "\x1b[1;36m")
+RESET=$(echo -e "\x1b[0m")
 
 FZF_CLI=$HOME/.local/bin/fzf-cli
 PROJECTS_HOME=$HOME/Projects
-TREE_DEPTH=2
+TREE_DEPTH=3
 TREE_BASE=trees
 
-function switch {
-  if [[ ! -v 1 ]] ; then
-    >&2 echo "Missing project name"
-    exit 1
-  fi
+cd $PROJECTS_HOME
 
-  local project=$1; shift
-  local project_home=$PROJECTS_HOME/$project
-  local num_worktrees worktrees
+choice=(
+  $(
+    fd --strip-cwd-prefix --full-path --type=d --exact-depth=$TREE_DEPTH $TREE_BASE |
+      sed 's"trees/""' |
+      sed 's"/$""' |
+      sed "s'\([^/]\+\)'$PROJ_COLOR\\1$RESET'" |
+      $FZF_CLI --ansi |
+      tr / "\n"
+  ) 
+)
 
-  cd $project_home
-
-  worktrees=$( fd --full-path --type=d --exact-depth=$TREE_DEPTH $TREE_BASE/ | sed "s'/$''" )
-  num_worktrees=$( echo "${worktrees}" | wc -l )
-
-  if [[ $num_worktrees -gt 1 ]] ; then
-    cd $( echo "$worktrees" | $FZF_CLI )
-  elif [[ $num_worktrees -eq 1 ]] ; then
-    cd $worktrees
-  fi
-
-  if [[ -n "$@" ]] ; then
-    distrobox enter $project -- fish -c "direnv exec . $*"
-  else
-    distrobox enter $project -- fish
-  fi
-}
-
-function run {
-  local opt project
-
-  while getopts "p:" opt; do
-    case $opt in
-      p)
-        project=$OPTARG
-        ;;
-
-      *)
-        >&2 echo "Unknown option: $opt."
-        exit 1
-        ;;
-    esac
-  done
-
-  shift $(($OPTIND - 1))
-
-  project="${project:-$(current_project)}"
-
-  if [[ -n "$@" ]] ; then
-    exec distrobox enter $project -- fish -c "direnv exec . $*"
-  else
-    exec distrobox enter $project -- fish
-  fi
-}
-
-function current_project {
-  if [[ "$(pwd)" =~ $PROJECTS_HOME ]] ; then
-    pwd | sed "s'$PROJECTS_HOME/''" | tr / \\n | head -1
-  else
-    >&2 echo "No current project."
-    exit 1
-  fi
-}
-
-"$@"
+if [[ -n $choice ]] ; then
+  cd $PROJECTS_HOME/${choice[0]}/trees/${choice[1]}
+  distrobox enter ${choice[0]} -- kitty --detach
+fi

@@ -1,10 +1,10 @@
-#!/bin/bash 
+#!/bin/bash
 
 set -euo pipefail
 
 function config {
   for d in "$@" ; do
-    stow \
+    distrobox-host-exec stow \
       --restow \
       --dir $HOME/../sys/trees/trunk/$d \
       --target $HOME \
@@ -82,11 +82,9 @@ function include-container {
   [[ -n "$container" && "$container" =~ "$CONTAINER_ID" ]]
 }
 
-config container shared
+config container shared secrets
 
-formulae -c ar,hms gcc@11 heroku ruby
-formulae -c hms ansible
-packages -c ar mysql-client libmysqlclient-dev
-packages -c hms libpq-dev
-gems -c ar,hms ruby-lsp
+# packages -c ar mysql-client libmysqlclient-dev
+# packages -c hms libpq-dev
+# gems -c ar,hms ruby-lsp
 
