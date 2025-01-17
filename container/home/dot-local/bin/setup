@@ -1,9 +1,0 @@
-#!/bin/bash
-
-stow \
-  --restow \
-  --dir $HOME/../sys/trees/trunk/$d \
-  --target $HOME \
-  --dotfiles \
-  --no-folding \
-  home

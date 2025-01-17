@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export FZF_DEFAULT_OPTS_FILE=$HOME/.config/fzf/config
-
-exec fzf --margin=2,4 "$@"

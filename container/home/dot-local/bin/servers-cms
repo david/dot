@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-
-bundle
-
-process-compose -f $HOME/.config/process-compose/process-compose-${CONTAINER_ID}.yml

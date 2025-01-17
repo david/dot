@@ -1,5 +1,0 @@
-PATH="$HOME/.local/bin:$PATH"
-
-[[ $- == *i* ]] || return
-
-eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

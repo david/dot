@@ -1,0 +1,25 @@
+eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+umask 077
+
+PATH="$HOME/.local/bin:$PATH"
+
+export EDITOR=/var/home/linuxbrew/.linuxbrew/bin/nvim
+export VISUAL=/var/home/linuxbrew/.linuxbrew/bin/nvim
+
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+set -o vi
+
+source ~/.local/share/blesh/ble.sh
+
+alias ls=eza
+
+eval "$(direnv hook bash)"
+eval "$(atuin init bash)"
+eval "$(starship init bash)"
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
