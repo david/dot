@@ -1,0 +1,44 @@
+umask 077
+
+[[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
+  eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export PATH="$HOME/.local/bin:$PATH"
+export CDPATH=".:$HOME/Homes"
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+# mise
+command -v mise > /dev/null &&
+  eval "$(mise activate bash)"
+
+# elixir
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+[[ -f $HOME/.bash_local ]] &&
+  source $HOME/.bash_local
+
+[[ -f $HOME/.bash_secrets ]] &&
+  source $HOME/.bash_secrets
+
+[[ $- == *i* ]] || return
+
+set -o vi
+
+if [[ -f /usr/share/blesh/ble.sh ]] ; then # container
+  blesh=/usr/share/blesh/ble.sh
+elif [[ -f $HOME/.local/share/blesh/ble.sh ]] ; then # host
+  blesh=$HOME/.local/share/blesh/ble.sh
+fi
+
+source $blesh --noattach
+
+alias ls=eza
+
+eval "$(atuin init bash)"
+eval "$(starship init bash)"
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+# vim:ft=bash

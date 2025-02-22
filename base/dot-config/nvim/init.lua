@@ -8,7 +8,7 @@ vim.g.mapleader = " "
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.autowrite = true
-vim.opt.background = "dark"
+vim.opt.background = "light"
 vim.opt.backup = false
 vim.opt.breakindent = true
 vim.opt.colorcolumn = "100"
@@ -40,7 +40,7 @@ vim.opt.termguicolors = true
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 vim.opt.title = true
-vim.opt.titlestring = "󱃖 %{expand('%:h:t')}/%{expand('%:t')}"
+vim.opt.titlestring = "󰅩 %{expand('%:h:t')}/%{expand('%:t')}"
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
@@ -59,6 +59,7 @@ vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("n", "m", "q")
 vim.keymap.set("n", "q", "<cmd>bdelete<cr>")
+vim.keymap.set("n", "Q", "<cmd>quit<cr>")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -159,17 +160,9 @@ require("lazy").setup({
       priority = 1000,
       config = function()
         require("gruvbox").setup({
-          contrast = "hard",
           inverse = true,
           invert_selection = true,
           invert_signs = true,
-          overrides = {
-            NeotreeNormal = { bg = "#282828" },
-            NeotreeNormalNC = { bg = "#282828" },
-            NeotreeWinSeparator = { fg = "#282828", bg = "#282828" },
-            NotifyBackground = { bg = "#282828" },
-            WhichKeyNormal = { bg = "#282828" },
-          },
         })
       end,
     },
@@ -367,48 +360,40 @@ require("lazy").setup({
 
         local servers = {
           bashls = {},
+          elixirls = {},
           eslint = {},
           html = {},
           jsonls = {},
-          lua_ls = {
-            settings = {
-              Lua = {
-                completion = {
-                  callSnippet = "Replace",
-                },
-                diagnostics = { disable = { "missing-fields" } },
-              },
-            },
-          },
-          ruby_lsp = {},
+          lua_ls = {},
           tailwindcss = {},
           ts_ls = {},
           yamlls = {},
         }
 
-        require("mason").setup()
-
-        local ensure_installed = vim.tbl_keys(servers)
-        vim.list_extend(ensure_installed, {
-          "stylua",
+        require("lspconfig").bashls.setup({})
+        require("lspconfig").elixirls.setup({
+          cmd = { "/usr/lib/elixir-ls/language_server.sh" },
         })
-
-        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-        require("mason-lspconfig").setup({
-          handlers = {
-            function(server_name)
-              local server = servers[server_name] or {}
-              require("lspconfig")[server_name].setup(server)
-            end,
+        require("lspconfig").eslint.setup({})
+        require("lspconfig").gleam.setup({})
+        require("lspconfig").html.setup({})
+        require("lspconfig").jsonls.setup({})
+        require("lspconfig").lua_ls.setup({
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Replace",
+              },
+              diagnostics = { disable = { "missing-fields" } },
+            },
           },
         })
+        require("lspconfig").rubocop.setup({})
+        require("lspconfig").ruby_lsp.setup({})
+        require("lspconfig").tailwindcss.setup({})
+        require("lspconfig").ts_ls.setup({})
+        require("lspconfig").yamlls.setup({})
       end,
-      dependencies = {
-        { "williamboman/mason.nvim", config = true },
-        "williamboman/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
-      },
     },
 
     {
@@ -418,17 +403,6 @@ require("lazy").setup({
         options = {
           theme = "gruvbox",
         },
-      },
-    },
-
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
       },
     },
 
@@ -443,17 +417,21 @@ require("lazy").setup({
       keys = {
         { "<leader>eu", "<cmd>Telescope undo<cr>", desc = "Undo history" },
         { "<leader>//", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-        { "<leader>F", "<cmd>Telescope buffers<cr>", desc = "Open buffer" },
+        { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Open buffer" },
         { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
-        { "<leader>hh", "<cmd>Telescope helptags<cr>", desc = "Tags" },
+        { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
       },
       config = function()
         require("telescope").setup({
           defaults = {
             layout_config = {
-              vertical = { mirror = true, preview_height = 0.5, prompt_position = "top" },
+              vertical = {
+                mirror = true,
+                preview_height = 0.5,
+                prompt_position = "top",
+              },
             },
             prompt_prefix = "  ",
             sorting_strategy = "ascending",
@@ -471,8 +449,6 @@ require("lazy").setup({
       end,
     },
 
-    { "nvim-tree/nvim-web-devicons" },
-
     {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
@@ -483,6 +459,7 @@ require("lazy").setup({
           "eex",
           "elixir",
           "embedded_template",
+          "gleam",
           "heex",
           "html",
           "lua",
@@ -574,10 +551,10 @@ require("lazy").setup({
       },
       opts = {
         format_on_save = function()
-          local cwd = vim.fn.getcwd()
-
-          if not string.find(cwd, "Projects/ar/") then
+          if next(vim.fs.find({ "mix.exs" }, { limit = 1, })) == nil then
             return { timeout_ms = 500, lsp_format = "fallback" }
+          else
+            return { timeout_ms = 2000, lsp_format = "fallback" }
           end
         end,
         formatters_by_ft = {

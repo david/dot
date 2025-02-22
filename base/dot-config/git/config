@@ -2,18 +2,19 @@
   pager = "delta"
 
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper =
+  helper = !/usr/bin/gh auth git-credential
 
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper =
+  helper = !/usr/bin/gh auth git-credential
 
 [delta]
   hyperlinks = true
   line-numbers = true
   navigate = true
   side-by-side = true
+  syntax-theme = gruvbox-light
   true-color = "always"
 
 [diff]
