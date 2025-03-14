@@ -47,10 +47,6 @@ WORKDIR /tmp
 RUN rm -fr yay-bin && \
     userdel build
 
-RUN curl -o get-pc.sh https://raw.githubusercontent.com/F1bonacc1/process-compose/main/scripts/get-pc.sh && \
-    sh get-pc.sh -d -b /usr/bin && \
-    rm get-pc.sh
-
 RUN ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/distrobox
 

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+cd ${HOME}/.config-template
+
+stow base
+
+if [[ -n $CONTAINER_ID ]] ; then
+  stow container
+  [[ -d $CONTAINER_ID ]] && stow $CONTAINER_ID
+else
+  stow host
+fi

@@ -1,0 +1,206 @@
+#!/bin/bash
+
+set -ex
+
+# assets
+
+function assets_prepare {
+  [[ -d assets ]] && pushd assets
+  [[ -f package-lock.json ]] && npm install
+  [[ -d assets ]] && popd
+}
+
+# launcher
+
+TREES_PATH=$HOME
+LAUNCHERS_PATH=$(realpath ${TREES_PATH}/../../.local/share/applications)
+
+function launcher_add {
+  local tree=$1
+  local launcher=${LAUNCHERS_PATH}/homes-${CONTAINER_ID}-${tree}.desktop
+
+  distrobox-host-exec xdg-desktop-menu uninstall $launcher
+
+  cat <<EOF > $launcher
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=${CONTAINER_ID}  ${tree}
+StartupNotify=true
+Exec=distrobox enter --no-workdir ${CONTAINER_ID} -- kitty --directory=${tree} --session=session.conf
+EOF
+
+  distrobox-host-exec xdg-desktop-menu install $launcher
+}
+
+function launcher_remove {
+  distrobox-host-exec xdg-desktop-menu uninstall ${LAUNCHERS_PATH}/homes-${CONTAINER_ID}-${1}.desktop
+}
+
+# tree
+
+function tree_add {
+  local tree=$1
+
+  cd $HOME
+
+  if [[ -z $tree ]] ; then
+    >&2 echo "Missing tree name"
+    exit 1
+  fi
+
+  worktree_add $tree
+
+  pushd $tree
+
+  launcher_add $tree
+  postgres_prepare $tree
+  phoenix_prepare $tree
+
+  popd
+}
+
+function tree_list {
+  ls $HOME
+}
+
+function tree_remove {
+  local tree=$1
+
+  if [[ -z $tree ]] ; then
+    >&2 echo "Missing tree name"
+    exit 1
+  fi
+
+  launcher_remove $tree
+  worktree_remove $tree
+  branch_remove $tree
+}
+
+### branches
+
+function branch_remove {
+  local tree=$1
+
+  pushd ${TREES_PATH}/trunk
+  git branch -d dl/${tree}
+  popd
+}
+
+### worktree
+
+function worktree_add {
+  local tree=$1
+
+  [[ -d ${TREES_PATH}/${tree} ]] && return
+
+  pushd ${TREES_PATH}/trunk
+  git worktree add -b dl/${tree} ../${tree}
+  popd
+}
+
+function worktree_remove {
+  local tree=$1
+
+  [[ ! -d ${TREES_PATH}/${tree} ]] && return
+
+  pushd ${TREES_PATH}/trunk
+  git worktree remove ../${tree}
+  popd
+}
+
+### elixir
+
+function elixir_prepare {
+  cp ../trunk/.iex.exs .
+}
+
+function phoenix_prepare {
+  elixir_prepare
+
+  postgres_start_transient
+
+  mix deps.get
+  mix ecto.setup
+
+  postgres_stop_transient
+}
+
+### postgres
+
+function postgres_prepare {
+  [[ -d vendor/postgres-data ]] && return
+
+  postgres_check_running
+
+  initdb -D vendor/postgres-data
+
+  postgres_start_transient
+  createuser -s postgres
+  postgres_stop_transient
+
+  kill %1
+}
+
+function postgres_check_running {
+  if pgrep postgres > /dev/null ; then
+    >&2 echo "Postgres is already running"
+    exit 1
+  fi
+}
+
+function postgres_start_transient {
+  postgres -D vendor/postgres-data &
+  sleep 1
+}
+
+function postgres_stop_transient {
+  kill %1
+  sleep 1
+}
+
+case $1 in
+  launcher)
+    case $2 in
+      add)
+        launcher_add $3
+        ;;
+
+      *)
+        >&2 echo "Unknown launcher sub-command '$2'"
+        exit 1
+        ;;
+    esac
+    ;;
+
+  postgres)
+    case $2 in
+      prepare)
+        postgres_prepare $3
+        ;;
+
+      *)
+        >&2 echo "Unknown postgres sub-command '$2'"
+        exit 1
+        ;;
+    esac
+    ;;
+
+  add)
+    tree_add $2
+    ;;
+
+  ls)
+    tree_list
+    ;;
+
+  rm)
+    tree_remove $2
+    ;;
+
+  *)
+    >&2 echo "Unknown command '$1'"
+    exit 1
+    ;;
+esac
+

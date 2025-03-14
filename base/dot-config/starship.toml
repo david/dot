@@ -1,12 +1,14 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-
 format = "$fill[](fg:bg)[ ](bg:bg)$env_var$directory$git_branch$git_status[ ](bg:bg)[](fg:bg)$fill\n$character"
 
-palette = "light"
+palette = "dark"
 
 [palettes.light]
 bg = "#ebdbb2"
+
+[palettes.dark]
+bg = "#504945"
 
 [directory]
 before_repo_root_style = "fg:bright-yellow bg:bg"

@@ -8,7 +8,7 @@ vim.g.mapleader = " "
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.autowrite = true
-vim.opt.background = "light"
+vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
 vim.opt.colorcolumn = "100"
@@ -236,57 +236,6 @@ require("lazy").setup({
       },
     },
 
-    {
-      "saghen/blink.cmp",
-      version = "*",
-      opts = {
-        completion = {
-          menu = {
-            draw = {
-              components = {
-                kind_icon = {
-                  highlight = function(ctx)
-                    local highlight = "BlinkCmpKind" .. ctx.kind
-
-                    if ctx.item.source_name == "LSP" then
-                      local color_item =
-                        require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                      if color_item and color_item.abbr_hl_group then
-                        highlight = color_item.abbr_hl_group
-                      end
-                    end
-
-                    return highlight
-                  end,
-                  text = function(ctx)
-                    local icon = ctx.kind_icon
-
-                    if ctx.item.source_name == "LSP" then
-                      local color_item =
-                        require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                      if color_item and color_item.abbr then
-                        icon = color_item.abbr
-                      end
-                    end
-
-                    return icon .. ctx.icon_gap
-                  end,
-                },
-              },
-            },
-          },
-        },
-
-        keymap = {
-          ["<Up>"] = { "select_prev" },
-          ["<Down>"] = { "select_next" },
-          ["<Right>"] = { "select_and_accept" },
-        },
-        signature = { enabled = true },
-      },
-      opts_extend = { "sources.default" },
-    },
-
     { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
     { "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
     { "lukas-reineke/virt-column.nvim", opts = {} },
@@ -323,9 +272,9 @@ require("lazy").setup({
             map("gr", builtin.lsp_references, "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
             map("<leader>dd", "<cmd>FzfLua diagnostics_document<cr>", "Diagnostics")
-            map("<leader>ds", "<cmd>FzfLua lsp_document_symbols<cr>", "Symbols")
+            map("<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", "Symbols")
             map("<leader>wd", "<cmd>FzfLua diagnostics_workspace<cr>", "Diagnostics")
-            map("<leader>ws", "<cmd>FzfLua lsp_workspaced_symbols<cr>", "Symbols")
+            map("<leader>ws", "<cmd>Telescope lsp_workspaced_symbols<cr>", "Symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -426,10 +375,11 @@ require("lazy").setup({
       config = function()
         require("telescope").setup({
           defaults = {
+            layout_strategy = "vertical",
             layout_config = {
               vertical = {
                 mirror = true,
-                preview_height = 0.5,
+                preview_height = 0.60,
                 prompt_position = "top",
               },
             },
@@ -529,9 +479,58 @@ require("lazy").setup({
       },
     },
 
-    { "okuuva/auto-save.nvim", lazy = false, opts = {} },
     { "rachartier/tiny-glimmer.nvim", event = "TextYankPost", opts = {} },
 
+    {
+      "saghen/blink.cmp",
+      version = "*",
+      opts = {
+        completion = {
+          menu = {
+            draw = {
+              components = {
+                kind_icon = {
+                  highlight = function(ctx)
+                    local highlight = "BlinkCmpKind" .. ctx.kind
+
+                    if ctx.item.source_name == "LSP" then
+                      local color_item =
+                        require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                      if color_item and color_item.abbr_hl_group then
+                        highlight = color_item.abbr_hl_group
+                      end
+                    end
+
+                    return highlight
+                  end,
+                  text = function(ctx)
+                    local icon = ctx.kind_icon
+
+                    if ctx.item.source_name == "LSP" then
+                      local color_item =
+                        require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                      if color_item and color_item.abbr then
+                        icon = color_item.abbr
+                      end
+                    end
+
+                    return icon .. ctx.icon_gap
+                  end,
+                },
+              },
+            },
+          },
+        },
+
+        keymap = {
+          ["<Up>"] = { "select_prev" },
+          ["<Down>"] = { "select_next" },
+          ["<Right>"] = { "select_and_accept" },
+        },
+        signature = { enabled = true },
+      },
+      opts_extend = { "sources.default" },
+    },
     {
       "stevearc/conform.nvim",
       event = "BufWritePre",

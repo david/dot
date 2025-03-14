@@ -3,15 +3,21 @@ umask 077
 [[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-export PATH="$HOME/.local/bin:$PATH"
 export CDPATH=".:$HOME/Homes"
 
+# editor
 export EDITOR=nvim
 export VISUAL=nvim
 
+# fzf
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,65%"
+
 # mise
-command -v mise > /dev/null &&
-  eval "$(mise activate bash)"
+if command -v mise > /dev/null ; then
+  eval "$(mise activate bash --shims)"
+
+  export PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
 
 # elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -21,6 +27,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 [[ -f $HOME/.bash_secrets ]] &&
   source $HOME/.bash_secrets
+
+export PATH="$HOME/.local/bin:$PATH"
 
 [[ $- == *i* ]] || return
 
@@ -36,6 +44,7 @@ source $blesh --noattach
 
 alias ls=eza
 
+eval "$(fzf --bash)"
 eval "$(atuin init bash)"
 eval "$(starship init bash)"
 
