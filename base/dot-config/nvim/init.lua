@@ -235,6 +235,16 @@ require("lazy").setup({
       },
     },
 
+    {
+      "ibhagwan/fzf-lua",
+      lazy = false,
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      keys = {
+        { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Open file" },
+      },
+      opts = {}
+    },
+
     { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
     { "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
     { "lukas-reineke/virt-column.nvim", opts = {} },
@@ -366,7 +376,7 @@ require("lazy").setup({
         { "<leader>eu", "<cmd>Telescope undo<cr>", desc = "Undo history" },
         { "<leader>//", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
         { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Open buffer" },
-        { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
+        -- { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
         { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
         { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
         { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
@@ -530,6 +540,7 @@ require("lazy").setup({
       },
       opts_extend = { "sources.default" },
     },
+
     {
       "stevearc/conform.nvim",
       event = "BufWritePre",
