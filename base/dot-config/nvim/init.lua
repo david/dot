@@ -142,7 +142,6 @@ require("lazy").setup({
     },
 
     { "brenoprata10/nvim-highlight-colors", opts = {} },
-    { "direnv/direnv.vim" },
 
     {
       "echasnovski/mini.ai",
