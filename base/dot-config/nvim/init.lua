@@ -221,7 +221,7 @@ require("lazy").setup({
     {
       "ggandor/flit.nvim",
       opts = {
-        labeled_modes = "nv",
+        labeled_modes = "nvo",
         multiline = false,
       },
     },
