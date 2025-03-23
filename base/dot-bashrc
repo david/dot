@@ -10,7 +10,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # fzf
-export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,65%"
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
 
 # mise
 if command -v mise > /dev/null ; then
