@@ -2,12 +2,7 @@
 
 set -e
 
-cd ${HOME}
+cd /run/host/var/home/david/Boxes/${CONTAINER_ID}
 
-mkdir -p .cache trunk
-
-rm .bash{rc,_profile}
-
-ln -sf ../../.config-template
-cd .config-template
-stow base
+sudo -u david mkdir -p .config .cache trunk .local/bin
+sudo -u david /run/host/var/home/david/Boxes/sys/trunk/base/dot-local/bin/restow
