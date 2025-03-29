@@ -4,5 +4,6 @@ git:
     pager: delta --paging=never
 gui:
   sidePanelWidth: 0.2
+  showCommandLog: false
 os:
   editPreset: nvim
