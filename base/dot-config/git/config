@@ -1,5 +1,6 @@
 [core]
   pager = "delta"
+  excludesfile = ~/.config/git/excludes
 
 [credential "https://gist.github.com"]
   helper =
