@@ -2,13 +2,25 @@
 
 set -e
 
-cd ${HOME}/.config-template
+[[ ! -h ${HOME}/.bashrc ]] && rm ${HOME}/.bashrc
+[[ ! -h ${HOME}/.bash_profile ]] && rm ${HOME}/.bash_profile
+
+rm -f ${HOME}/.config/kitty/session.conf
+
+cd /run/host/var/home/david/Boxes/sys/trunk
 
 stow base
 
-if [[ -n $CONTAINER_ID ]] ; then
+if [[ -v CONTAINER_ID ]] ; then
   stow container
-  [[ -d $CONTAINER_ID ]] && stow $CONTAINER_ID
+
+  if [[ -d ${CONTAINER_ID} ]] ; then
+    fd -q kitty/session.conf ${CONTAINER_ID} && rm ${HOME}/.config/kitty/session.conf
+
+    stow ${CONTAINER_ID}
+  fi
 else
   stow host
 fi
+
+stow secrets
