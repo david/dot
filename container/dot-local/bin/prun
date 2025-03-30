@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source $HOME/.bashrc
+
+while true ; do
+  $@
+  echo
+  read -p "ENTER to relaunch, CTRL-C to exit:" || exit 1
+done
+
