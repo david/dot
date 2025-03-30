@@ -22,11 +22,15 @@ fi
 # elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-[[ -f $HOME/.bash_local ]] &&
-  source $HOME/.bash_local
+BASH_D_DIR=$HOME/.config/bash.d
 
-[[ -f $HOME/.bash_secrets ]] &&
-  source $HOME/.bash_secrets
+mkdir -p $BASH_D_DIR
+
+if [[ -d $BASH_D_DIR ]]; then
+  for file in $BASH_D_DIR/*; do
+    [[ $file == *".profile.bash" ]] && source $file
+  done
+fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -47,6 +51,14 @@ alias ls=eza
 eval "$(fzf --bash)"
 eval "$(atuin init bash)"
 eval "$(starship init bash)"
+
+if [[ -d $BASH_D_DIR ]]; then
+  for file in $BASH_D_DIR/*; do
+    [[ $file == *".rc.bash" ]] && source $file
+  done
+fi
+
+unset BASH_D_DIR
 
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 
