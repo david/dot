@@ -4,5 +4,7 @@ set -e
 
 cd /run/host/var/home/david/Boxes/${CONTAINER_ID}
 
+chown david:david .local .local/share
+
 sudo -u david mkdir -p .config .cache trunk .local/bin
 sudo -u david /run/host/var/home/david/Boxes/sys/trunk/base/dot-local/bin/restow
