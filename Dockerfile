@@ -23,7 +23,7 @@ RUN pacman -Syu --noconfirm && \
       neovim nodejs npm \
       ripgrep \
       starship stow stylua \
-      tailwindcss-language-server ttf-nerd-fonts-symbols-mono ttf-jetbrains-mono \
+      tailwindcss-language-server traefik ttf-nerd-fonts-symbols-mono ttf-jetbrains-mono \
       usage \
       vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver \
       wl-clipboard \

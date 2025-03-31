@@ -1,0 +1,12 @@
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  file:
+    filename: ../.config/traefik/local.yml
+    watch: false
+
+log:
+  level: INFO
+
