@@ -38,6 +38,7 @@ USER build
 WORKDIR /home/build
 
 RUN yay -S aider-chat --noconfirm && \
+    yay -S hivemind-bin --noconfirm && \
     sudo pacman -S --clean --clean
 
 USER root
