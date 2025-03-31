@@ -11,7 +11,7 @@ RUN echo -e "LANG=en_US.UTF-8\nLANGUAGE=en_US:en" > /etc/locale.conf && \
 
 RUN pacman -Syu --noconfirm && \
     pacman -Syu --noconfirm --needed \
-      atuin \
+      aichat atuin \
       base-devel bat blesh-git brave-browser \
       eza \
       fd fzf \
