@@ -316,18 +316,6 @@ require("lazy").setup({
           end,
         })
 
-        local servers = {
-          bashls = {},
-          elixirls = {},
-          eslint = {},
-          html = {},
-          jsonls = {},
-          lua_ls = {},
-          tailwindcss = {},
-          ts_ls = {},
-          yamlls = {},
-        }
-
         require("lspconfig").bashls.setup({})
         require("lspconfig").elixirls.setup({
           cmd = { "/usr/lib/elixir-ls/language_server.sh" },
