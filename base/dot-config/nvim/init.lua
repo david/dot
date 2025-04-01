@@ -516,7 +516,7 @@ require("lazy").setup({
       },
       opts = {
         format_on_save = function()
-          if next(vim.fs.find({ "mix.exs" }, { limit = 1, })) == nil then
+          if next(vim.fs.find({ "mix.exs" }, { limit = 1 })) == nil then
             return { timeout_ms = 500, lsp_format = "fallback" }
           else
             return { timeout_ms = 2000, lsp_format = "fallback" }
@@ -559,7 +559,7 @@ require("lazy").setup({
 
     {
       "supermaven-inc/supermaven-nvim",
-      opts = {}
+      opts = {},
     },
 
     { "windwp/nvim-autopairs", event = { "InsertEnter" }, opts = {} },
