@@ -5,8 +5,6 @@ set -e
 [[ ! -h ${HOME}/.bashrc ]] && rm ${HOME}/.bashrc
 [[ ! -h ${HOME}/.bash_profile ]] && rm ${HOME}/.bash_profile
 
-rm -f ${HOME}/.config/kitty/session.conf
-
 cd /run/host/var/home/david/Boxes/sys/trunk
 
 stow --dir=traits base
@@ -15,8 +13,6 @@ if [[ -v CONTAINER_ID ]] ; then
   stow --dir=traits box
 
   if [[ -d boxes/${CONTAINER_ID} ]] ; then
-    fd -q kitty/session.conf boxes/${CONTAINER_ID} && rm ${HOME}/.config/kitty/session.conf
-
     stow --dir=boxes ${CONTAINER_ID}
   fi
 else
