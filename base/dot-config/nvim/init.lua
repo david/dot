@@ -198,12 +198,13 @@ require("lazy").setup({
         preset = "helix",
         spec = {
           { "<leader>/", group = "Search" },
+          { "<leader>b", group = "Buffer" },
           { "<leader>c", group = "Code" },
-          { "<leader>d", group = "Document" },
           { "<leader>e", group = "Edit" },
+          { "<leader>f", group = "Find" },
           { "<leader>h", group = "Help" },
           { "<leader>r", group = "Refactor" },
-          { "<leader>v", group = "Version Control" },
+          { "<leader>v", group = "Version control" },
           { "<leader>w", group = "Workspace" },
         },
         win = {
