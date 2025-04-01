@@ -143,12 +143,6 @@ require("lazy").setup({
 
     { "brenoprata10/nvim-highlight-colors", opts = {} },
 
-    {
-      "echasnovski/mini.ai",
-      opts = {},
-      dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
-    },
-
     { "echasnovski/mini.align", opts = {} },
     { "echasnovski/mini.bracketed", opts = {} },
     { "echasnovski/mini.diff", opts = {} },
