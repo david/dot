@@ -9,15 +9,15 @@ rm -f ${HOME}/.config/kitty/session.conf
 
 cd /run/host/var/home/david/Boxes/sys/trunk
 
-stow base
+stow --dir=traits base
 
 if [[ -v CONTAINER_ID ]] ; then
-  stow container
+  stow --dir=traits box
 
-  if [[ -d ${CONTAINER_ID} ]] ; then
-    fd -q kitty/session.conf ${CONTAINER_ID} && rm ${HOME}/.config/kitty/session.conf
+  if [[ -d boxes/${CONTAINER_ID} ]] ; then
+    fd -q kitty/session.conf boxes/${CONTAINER_ID} && rm ${HOME}/.config/kitty/session.conf
 
-    stow ${CONTAINER_ID}
+    stow --dir=boxes ${CONTAINER_ID}
   fi
 else
   stow host

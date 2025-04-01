@@ -10,4 +10,4 @@ chown david:david .local .local/share
 
 sudo -u david mkdir -p .config .cache trunk .local/bin
 sudo -u david --preserve-env=CONTAINER_ID \
-  /run/host/var/home/david/Boxes/sys/trunk/base/dot-local/bin/restow
+  /run/host/var/home/david/Boxes/sys/trunk/traits/base/dot-local/bin/restow
