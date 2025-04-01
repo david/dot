@@ -11,7 +11,7 @@ RUN echo -e "LANG=en_US.UTF-8\nLANGUAGE=en_US:en" > /etc/locale.conf && \
 
 RUN pacman -Syu --noconfirm && \
     pacman -Syu --noconfirm --needed \
-      aichat atuin \
+      atuin \
       base-devel bat blesh-git brave-browser \
       eza \
       fd fzf \
@@ -37,8 +37,7 @@ RUN useradd -m --shell=/bin/bash build && \
 USER build
 WORKDIR /home/build
 
-RUN yay -S aider-chat --noconfirm && \
-    yay -S hivemind-bin --noconfirm && \
+RUN yay -S hivemind-bin --noconfirm && \
     sudo pacman -S --clean --clean
 
 USER root
