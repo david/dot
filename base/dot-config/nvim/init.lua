@@ -86,11 +86,8 @@ require("lazy").setup({
     {
       "AckslD/nvim-neoclip.lua",
       lazy = false,
-      keys = {
-        { "<leader>ey", "<cmd>Telescope neoclip<cr>", desc = "Yank history" },
-      },
       dependencies = {
-        { "nvim-telescope/telescope.nvim" },
+        { "ibhagwan/fzf-lua" },
       },
       opts = {},
     },
@@ -235,9 +232,19 @@ require("lazy").setup({
       lazy = false,
       dependencies = { "nvim-tree/nvim-web-devicons" },
       keys = {
-        { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Open file" },
+        { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "File" },
+        { "<leader>f/", "<cmd>FzfLua live_grep<cr>", desc = "Grep" },
+        { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffer" },
       },
-      opts = {}
+      opts = {
+        winopts = {
+          fullscreen = true,
+          preview = {
+            vertical = "down:66%",
+            layout = "vertical",
+          },
+        },
+      },
     },
 
     { "kevinhwang91/nvim-bqf", ft = "qf", opts = {} },
@@ -270,15 +277,13 @@ require("lazy").setup({
               vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
-            local builtin = require("telescope.builtin")
-
-            map("gd", builtin.lsp_definitions, "Go to definition")
-            map("gr", builtin.lsp_references, "Go to references")
+            map("gd", "<cmd>FzfLua lsp_definitions<cr>", "Go to definition")
+            map("gr", "<cmd>FzfLua lsp_references<cr>", "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-            map("<leader>dd", "<cmd>FzfLua diagnostics_document<cr>", "Diagnostics")
-            map("<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", "Symbols")
-            map("<leader>wd", "<cmd>FzfLua diagnostics_workspace<cr>", "Diagnostics")
-            map("<leader>ws", "<cmd>Telescope lsp_workspaced_symbols<cr>", "Symbols")
+            map("<leader>fd", "<cmd>FzfLua diagnostics_document<cr>", "Diagnostics")
+            map("<leader>fD", "<cmd>FzfLua diagnostics_workspace<cr>", "Workspace diagnostics")
+            map("<leader>fm", "<cmd>FzfLua lsp_document_symbols<cr>", "Symbols")
+            map("<leader>fM", "<cmd>FzfLua lsp_workspaced_symbols<cr>", "Workspace symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -357,50 +362,6 @@ require("lazy").setup({
           theme = "gruvbox",
         },
       },
-    },
-
-    {
-      "nvim-telescope/telescope.nvim",
-      lazy = false,
-      dependencies = {
-        { "debugloop/telescope-undo" },
-        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        { "nvim-telescope/telescope-ui-select.nvim" },
-      },
-      keys = {
-        { "<leader>eu", "<cmd>Telescope undo<cr>", desc = "Undo history" },
-        { "<leader>//", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-        { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Open buffer" },
-        -- { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Open file" },
-        { "<leader>hc", "<cmd>Telescope highlights<cr>", desc = "Colors" },
-        { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Tags" },
-        { "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-      },
-      config = function()
-        require("telescope").setup({
-          defaults = {
-            layout_strategy = "vertical",
-            layout_config = {
-              vertical = {
-                mirror = true,
-                preview_height = 0.60,
-                prompt_position = "top",
-              },
-            },
-            prompt_prefix = "  ",
-            sorting_strategy = "ascending",
-          },
-          extensions = {
-            ["ui-select"] = {
-              require("telescope.themes").get_dropdown(),
-            },
-          },
-        })
-
-        require("telescope").load_extension("fzf")
-        require("telescope").load_extension("ui-select")
-        require("telescope").load_extension("undo")
-      end,
     },
 
     {
