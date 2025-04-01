@@ -142,7 +142,6 @@ require("lazy").setup({
 
     { "echasnovski/mini.align", opts = {} },
     { "echasnovski/mini.bracketed", opts = {} },
-    { "echasnovski/mini.diff", opts = {} },
     { "echasnovski/mini.move", opts = {} },
 
     {
