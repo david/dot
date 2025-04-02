@@ -5,6 +5,7 @@ git:
 gui:
   border: hidden
   enlargedSideViewLocation: top
+  mainPanelSplitMode: horizontal
   nerdFontsVersion: 3
   screenMode: half
   sidePanelWidth: 0.15
