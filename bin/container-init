@@ -4,7 +4,7 @@ set -e
 
 cd /run/host/var/home/david/Boxes/${CONTAINER_ID}
 
-setcap 'cap_net_bind_service=+ep' /usr/bin/traefik
+[[ -f /usr/bin/traefik ]] && setcap 'cap_net_bind_service=+ep' /usr/bin/traefik
 
 chown david:david .local .local/share
 
