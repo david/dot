@@ -3,7 +3,24 @@ git:
     colorArg: always
     pager: delta --paging=never
 gui:
-  sidePanelWidth: 0.2
+  border: hidden
+  enlargedSideViewLocation: top
+  nerdFontsVersion: 3
+  screenMode: half
+  sidePanelWidth: 0.15
   showCommandLog: false
+  showListFooter: false
+  showNumstatInFilesView: true
+  showRandomTip: false
+keybindings:
+  commits:
+    copyCommitAttributeToClipboard: "<c-o>"
+  files:
+    copyFileInfoToClipboard: "<c-o>"
+  universal:
+    copyToClipboard: "y"
 os:
   editPreset: nvim
+promptToReturnFromSubprocess: false
+update:
+  method: never
