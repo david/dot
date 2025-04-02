@@ -49,7 +49,6 @@ source $blesh --noattach
 alias ls=eza
 
 eval "$(fzf --bash)"
-eval "$(atuin init bash)"
 eval "$(starship init bash)"
 
 if [[ -d $BASH_D_DIR ]]; then

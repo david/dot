@@ -5,6 +5,8 @@ function timbuktu/vim-load-hook {
   ble-bind -m vi_imap --cursor 6
 }
 
+bleopt history_share=1
+
 ble-face auto_complete="fg=242"
 
 ble-face command_builtin="fg=108"
