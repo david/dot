@@ -236,6 +236,11 @@ require("lazy").setup({
         { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffer" },
       },
       opts = {
+        keymap = {
+          fzf = {
+            ["ctrl-q"] = "select-all+accept",
+          },
+        },
         winopts = {
           fullscreen = true,
           preview = {
