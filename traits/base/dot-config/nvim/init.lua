@@ -11,7 +11,6 @@ vim.opt.autowrite = true
 vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
-vim.opt.colorcolumn = "100"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "both"
 vim.opt.expandtab = true
