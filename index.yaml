@@ -1,0 +1,152 @@
+- hosts: boxes
+
+  vars:
+    box: "{{ lookup('env', 'HOME') }}/Boxes/{{ inventory_hostname }}"
+    box_configs:
+      - "base/_config"
+      - "boxes/all/_config"
+      - "boxes/{{ inventory_hostname }}/_config"
+      - "secrets/_config"
+    box_locals:
+      - "base/_local"
+      - "boxes/all/_local"
+      - "boxes/{{ inventory_hostname }}/_local"
+      - "secrets/_local"
+
+  tasks:
+    - name: "add chaotic-aur key"
+      community.general.pacman_key:
+        id: EF925EA60F33D0CB85C44AD13056513887B78AEB
+        keyserver: keyserver.ubuntu.com
+        state: present
+
+    - name: "add chaotic-aur base packages"
+      community.general.pacman:
+        name:
+          - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+          - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+        state: present
+
+    - name: "add chaotic-aur to pacman.conf"
+      ansible.builtin.blockinfile:
+        path: /etc/pacman.conf
+        prepend_newline: true
+        block: |
+          [chaotic-aur]
+          Include = /etc/pacman.d/chaotic-mirrorlist
+
+    - name: "install packages"
+      community.general.pacman:
+        name:
+          - base-devel
+          - bat
+          - blesh-git
+          - brave-browser
+          - eza
+          - fd
+          - fzf
+          - git
+          - git-delta
+          - github-cli
+          - jq
+          - kde-cli-tools
+          - kitty
+          - lazygit
+          - mise
+          - neovim
+          - ripgrep
+          - starship
+          - stylua
+          - tailwindcss-language-server
+          - traefik
+          - ttf-jetbrains-mono
+          - ttf-nerd-fonts-symbols-mono
+          - usage
+          - vscode-css-languageserver
+          - vscode-html-languageserver
+          - vscode-json-languageserver
+          - wl-clipboard
+          - yay
+          - yazi
+        update_cache: true
+
+    - name: "let traefik bind to privileged ports"
+      community.general.capabilities:
+        path: /usr/bin/traefik
+        capability: cap_net_bind_service+ep
+        state: present
+
+    - name: "prepare locale.conf"
+      ansible.builtin.copy:
+        dest: /etc/locale.conf
+        content: |
+          LANG=en_US.UTF-8
+          LANGUAGE=en_US:en
+
+    - name: "prepare locale.gen"
+      ansible.builtin.copy:
+        dest: /etc/locale.gen
+        content: |
+          en_US.UTF-8 UTF-8
+          pt_PT.UTF-8 UTF-8
+
+    - name: "generate locales"
+      ansible.builtin.command: locale-gen
+
+    - name: "create directories"
+      ansible.builtin.file:
+        path: "{{ box }}/{{ item }}"
+        state: directory
+        owner: david
+        group: david
+        mode: "0700"
+      loop:
+        - ".cache"
+        - ".config"
+        - ".local"
+        - ".local/bin"
+        - ".local/share"
+        - "trunk"
+
+    - name: "create .config subdirs"
+      ansible.builtin.file:
+        path: "{{ box }}/.config/{{ item.path }}"
+        state: directory
+      with_filetree: "{{ box_configs }}"
+      when: item.state == 'directory'
+
+    - name: "link .config files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ box }}/.config/{{ item.path }}"
+        state: link
+      with_filetree: "{{ box_configs }}"
+      when: item.state == 'file'
+
+    - name: "create .local subdirs"
+      ansible.builtin.file:
+        path: "{{ box }}/.local/{{ item.path }}"
+        state: directory
+      with_filetree: "{{ box_locals }}"
+      when: item.state == 'directory'
+
+    - name: "link .local files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ box }}/.local/{{ item.path }}"
+        state: link
+      with_filetree: "{{ box_locals }}"
+      when: item.state == 'file'
+
+    - name: "link home files"
+      ansible.builtin.file:
+        src: "{{playbook_dir}}/{{ item.src }}"
+        dest: "{{ box }}/{{ item.dest }}"
+        state: link
+      loop:
+        - src: "base/_bash_profile"
+          dest: ".bash_profile"
+        - src: "base/_bashrc"
+          dest: ".bashrc"
+        - src: "boxes/all/_aider.conf.yml"
+          dest: ".aider.conf.yml"

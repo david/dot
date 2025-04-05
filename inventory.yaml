@@ -1,0 +1,7 @@
+boxes:
+  hosts:
+    exl:
+    sys:
+    uip:
+  vars:
+    ansible_connection: podman

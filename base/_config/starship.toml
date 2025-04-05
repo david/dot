@@ -13,7 +13,7 @@ bg = "#504945"
 [directory]
 before_repo_root_style = "fg:bright-yellow bg:bg"
 format = "($before_repo_root_style)[$path]($style)"
-repo_root_format = "[$before_root_path]($before_repo_root_style)[ ∙ ](fg:white bg:bg)[󰔱 $repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ∙ ](fg:white bg:bg)"
+repo_root_format = "[$before_root_path]($before_repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ∙ ](fg:white bg:bg)"
 repo_root_style = "fg:bright-purple bg:bg"
 style = "fg:green bg:bg"
 truncate_to_repo = false
