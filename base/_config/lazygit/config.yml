@@ -20,6 +20,10 @@ keybinding:
     copyFileInfoToClipboard: "<c-o>"
   universal:
     copyToClipboard: "y"
+    prevPage: <disabled>
+    nextPage: <disabled>
+    prevBlock: ","
+    nextBlock: "."
 os:
   editPreset: nvim
 promptToReturnFromSubprocess: false
