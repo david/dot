@@ -13,7 +13,7 @@ gui:
   showListFooter: false
   showNumstatInFilesView: true
   showRandomTip: false
-keybindings:
+keybinding:
   commits:
     copyCommitAttributeToClipboard: "<c-o>"
   files:
