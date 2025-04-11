@@ -1,0 +1,19 @@
+- name: "System"
+  ansible.builtin.import_playbook: system.yaml
+
+- name: "Home"
+  vars:
+    box_name: "{{ lookup('env', 'CONTAINER_ID') }}"
+    config_dir:
+      - "base/_config"
+      - "boxes/all/_config"
+      - "boxes/{{ box_name }}/_config"
+      - "secrets/_config"
+    local_dir:
+      - "base/_local"
+      - "boxes/all/_local"
+      - "boxes/{{ box_name }}/_local"
+      - "secrets/_local"
+    home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.import_playbook: home.yaml
+

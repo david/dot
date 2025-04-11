@@ -1,0 +1,68 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "create directories"
+      ansible.builtin.file:
+        path: "{{ home }}/{{ item }}"
+        state: directory
+        owner: david
+        group: david
+        mode: "0700"
+      loop:
+        - ".cache"
+        - ".config"
+        - ".local"
+        - ".local/bin"
+        - ".local/share"
+        - "trunk"
+
+    - name: "create .config subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/.config/{{ item.path }}"
+        state: directory
+      with_filetree: "{{ config_dir }}"
+      when: item.state == 'directory'
+
+    - name: "link .config files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.config/{{ item.path }}"
+        state: link
+      with_filetree: "{{ config_dir }}"
+      when: item.state == 'file'
+
+    - name: "create .local subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/.local/{{ item.path }}"
+        state: directory
+      with_filetree: "{{ local_dir }}"
+      when: item.state == 'directory'
+
+    - name: "link .local files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.local/{{ item.path }}"
+        state: link
+      with_filetree: "{{ local_dir }}"
+      when: item.state == 'file'
+
+    - name: "link home files"
+      ansible.builtin.file:
+        src: "{{playbook_dir}}/{{ item.src }}"
+        dest: "{{ home }}/{{ item.dest }}"
+        state: link
+      loop:
+        - src: "base/_bash_profile"
+          dest: ".bash_profile"
+        - src: "base/_bashrc"
+          dest: ".bashrc"
+
+    - name: "link box home files"
+      ansible.builtin.file:
+        src: "{{playbook_dir}}/{{ item.src }}"
+        dest: "{{ home }}/{{ item.dest }}"
+        state: link
+      loop:
+        - src: "boxes/all/_aider.conf.yml"
+          dest: ".aider.conf.yml"
+      when: box_name is defined

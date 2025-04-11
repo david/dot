@@ -1,17 +1,6 @@
-- hosts: boxes
-
-  vars:
-    box: "{{ lookup('env', 'HOME') }}/Boxes/{{ inventory_hostname }}"
-    box_configs:
-      - "base/_config"
-      - "boxes/all/_config"
-      - "boxes/{{ inventory_hostname }}/_config"
-      - "secrets/_config"
-    box_locals:
-      - "base/_local"
-      - "boxes/all/_local"
-      - "boxes/{{ inventory_hostname }}/_local"
-      - "secrets/_local"
+- hosts: localhost
+  connection: local
+  become: true
 
   tasks:
     - name: "add chaotic-aur key"
@@ -93,60 +82,18 @@
     - name: "generate locales"
       ansible.builtin.command: locale-gen
 
-    - name: "create directories"
-      ansible.builtin.file:
-        path: "{{ box }}/{{ item }}"
-        state: directory
-        owner: david
-        group: david
-        mode: "0700"
-      loop:
-        - ".cache"
-        - ".config"
-        - ".local"
-        - ".local/bin"
-        - ".local/share"
-        - "trunk"
+    - name: "install exl specific packages"
+      become: true
+      community.general.pacman:
+        name:
+          - libyaml
+        update_cache: true
+      when: box_name == 'exl'
 
-    - name: "create .config subdirs"
-      ansible.builtin.file:
-        path: "{{ box }}/.config/{{ item.path }}"
-        state: directory
-      with_filetree: "{{ box_configs }}"
-      when: item.state == 'directory'
-
-    - name: "link .config files"
-      ansible.builtin.file:
-        src: "{{ item.src }}"
-        path: "{{ box }}/.config/{{ item.path }}"
-        state: link
-      with_filetree: "{{ box_configs }}"
-      when: item.state == 'file'
-
-    - name: "create .local subdirs"
-      ansible.builtin.file:
-        path: "{{ box }}/.local/{{ item.path }}"
-        state: directory
-      with_filetree: "{{ box_locals }}"
-      when: item.state == 'directory'
-
-    - name: "link .local files"
-      ansible.builtin.file:
-        src: "{{ item.src }}"
-        path: "{{ box }}/.local/{{ item.path }}"
-        state: link
-      with_filetree: "{{ box_locals }}"
-      when: item.state == 'file'
-
-    - name: "link home files"
-      ansible.builtin.file:
-        src: "{{playbook_dir}}/{{ item.src }}"
-        dest: "{{ box }}/{{ item.dest }}"
-        state: link
-      loop:
-        - src: "base/_bash_profile"
-          dest: ".bash_profile"
-        - src: "base/_bashrc"
-          dest: ".bashrc"
-        - src: "boxes/all/_aider.conf.yml"
-          dest: ".aider.conf.yml"
+    - name: "install uip specific packages"
+      become: true
+      community.general.pacman:
+        name:
+          - inotify-tools
+        update_cache: true
+      when: box_name == 'uip'
