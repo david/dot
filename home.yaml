@@ -14,6 +14,8 @@
         - ".local"
         - ".local/bin"
         - ".local/share"
+        - ".local/share/aider"
+        - ".local/state/aider/aider.tags.cache.v4"
         - "trunk"
 
     - name: "create .config subdirs"
@@ -65,4 +67,25 @@
       loop:
         - src: "boxes/all/_aider.conf.yml"
           dest: ".aider.conf.yml"
+      when: box_name is defined
+
+    - name: "link trait home files"
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/traits/{{ trait }}/_local/{{ item }}"
+        dest: "{{ home }}/.local/{{ item }}"
+        state: link
+        force: false
+      loop:
+        - "share/aider/aiderignore"
+        - "share/aider/CONVENTIONS.md"
+      when: trait is defined
+
+    - name: "touch aider files"
+      ansible.builtin.copy:
+        content: ""
+        dest: "{{ home }}/.local/state/aider/{{ item }}"
+        force: false
+      loop:
+        - "aider.chat.history.md"
+        - "aider.input.history"
       when: box_name is defined
