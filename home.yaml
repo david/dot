@@ -48,6 +48,21 @@
       with_filetree: "{{ local_dir }}"
       when: item.state == 'file'
 
+    - name: "create trait .local subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/.local/{{ item.path }}"
+        state: directory
+      with_filetree: "traits/{{ trait }}/_local"
+      when: trait is defined and item.state == 'directory'
+
+    - name: "link trait .local files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.local/{{ item.path }}"
+        state: link
+      with_filetree: "traits/{{ trait }}/_local"
+      when: trait is defined and item.state == 'file'
+
     - name: "link home files"
       ansible.builtin.file:
         src: "{{ playbook_dir }}/{{ item.src }}"
@@ -68,17 +83,6 @@
         - src: "boxes/all/_aider.conf.yml"
           dest: ".aider.conf.yml"
       when: box_name is defined
-
-    - name: "link trait home files"
-      ansible.builtin.file:
-        src: "{{ playbook_dir }}/traits/{{ trait }}/_local/{{ item }}"
-        dest: "{{ home }}/.local/{{ item }}"
-        state: link
-        force: false
-      loop:
-        - "share/aider/aiderignore"
-        - "share/aider/CONVENTIONS.md"
-      when: trait is defined
 
     - name: "touch aider files"
       ansible.builtin.copy:
