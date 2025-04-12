@@ -48,7 +48,7 @@
 
     - name: "link home files"
       ansible.builtin.file:
-        src: "{{playbook_dir}}/{{ item.src }}"
+        src: "{{ playbook_dir }}/{{ item.src }}"
         dest: "{{ home }}/{{ item.dest }}"
         state: link
       loop:
@@ -59,7 +59,7 @@
 
     - name: "link box home files"
       ansible.builtin.file:
-        src: "{{playbook_dir}}/{{ item.src }}"
+        src: "{{ playbook_dir }}/{{ item.src }}"
         dest: "{{ home }}/{{ item.dest }}"
         state: link
       loop:
