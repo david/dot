@@ -2,6 +2,14 @@
   connection: local
   become: true
 
+  vars:
+    extra_packages:
+      exl:
+        - libyaml
+      uip:
+        - inotify-tools
+        - heroku-cli
+
   tasks:
     - name: "add chaotic-aur key"
       community.general.pacman_key:
@@ -59,6 +67,13 @@
           - yazi
         update_cache: true
 
+    - name: "install box specific packages"
+      become: true
+      community.general.pacman:
+        name: "{{ extra_packages[box_name] }}"
+        update_cache: true
+      when: "extra_packages[box_name] is defined"
+
     - name: "let traefik bind to privileged ports"
       community.general.capabilities:
         path: /usr/bin/traefik
@@ -81,19 +96,3 @@
 
     - name: "generate locales"
       ansible.builtin.command: locale-gen
-
-    - name: "install exl specific packages"
-      become: true
-      community.general.pacman:
-        name:
-          - libyaml
-        update_cache: true
-      when: box_name == 'exl'
-
-    - name: "install uip specific packages"
-      become: true
-      community.general.pacman:
-        name:
-          - inotify-tools
-        update_cache: true
-      when: box_name == 'uip'
