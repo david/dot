@@ -3,4 +3,5 @@ auto-test: True
 gitignore: False
 model: "gemini/gemini-2.5-pro-exp-03-25"
 read: CONVENTIONS.md
+vim: true
 watch-files: True
