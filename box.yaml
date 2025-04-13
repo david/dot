@@ -1,6 +1,12 @@
 - name: "System"
   vars:
     box_name: "{{ lookup('env', 'CONTAINER_ID') }}"
+    extra_packages:
+      exl:
+        - libyaml
+      uip:
+        - inotify-tools
+        - heroku-cli
   ansible.builtin.import_playbook: system.yaml
 
 - name: "Home"
