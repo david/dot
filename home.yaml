@@ -18,12 +18,6 @@
         group: david
         mode: "0700"
       loop:
-        - ".cache"
-        - ".config"
-        - ".local/bin"
-        - ".local/share"
-        - ".local/share/aider"
-        - ".local/state/aider/aider.tags.cache.v4"
         - "trunk"
 
     - name: "create subdirs"
