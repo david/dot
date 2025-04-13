@@ -2,12 +2,13 @@
   connection: local
 
   vars:
-    base_paths:
+    base_dirs:
       - "base"
       - "boxes/all"
       - "boxes/{{ box_name }}"
       - "secrets"
       - "{{ ('traits/' + trait) if trait is defined }}"
+    base_paths: "{{ base_dirs | reject('==', '') }}"
 
   tasks:
     - name: "create directories"
@@ -24,7 +25,7 @@
       ansible.builtin.file:
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
         state: directory
-      with_filetree: "{{ base_paths | reject('==', '') }}"
+      with_filetree: "{{ base_paths }}"
       when: item.state == 'directory'
 
     - name: "link files"
@@ -32,7 +33,7 @@
         src: "{{ item.src }}"
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
         state: link
-      with_filetree: "{{ base_paths | reject('==', '') }}"
+      with_filetree: "{{ base_paths }}"
       when: item.state == 'file'
 
     - name: "touch aider files"
