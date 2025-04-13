@@ -1,5 +1,14 @@
 - hosts: localhost
   connection: local
+
+  vars:
+    base_paths:
+      - "base"
+      - "boxes/all"
+      - "boxes/{{ box_name }}"
+      - "secrets"
+      - "{{ ('traits/' + trait) if trait is defined }}"
+
   tasks:
     - name: "create directories"
       ansible.builtin.file:
@@ -11,78 +20,26 @@
       loop:
         - ".cache"
         - ".config"
-        - ".local"
         - ".local/bin"
         - ".local/share"
         - ".local/share/aider"
         - ".local/state/aider/aider.tags.cache.v4"
         - "trunk"
 
-    - name: "create .config subdirs"
+    - name: "create subdirs"
       ansible.builtin.file:
-        path: "{{ home }}/.config/{{ item.path }}"
+        path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
         state: directory
-      with_filetree: "{{ config_dir }}"
+      with_filetree: "{{ base_paths | reject('==', '') }}"
       when: item.state == 'directory'
 
-    - name: "link .config files"
+    - name: "link files"
       ansible.builtin.file:
         src: "{{ item.src }}"
-        path: "{{ home }}/.config/{{ item.path }}"
+        path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
         state: link
-      with_filetree: "{{ config_dir }}"
+      with_filetree: "{{ base_paths | reject('==', '') }}"
       when: item.state == 'file'
-
-    - name: "create .local subdirs"
-      ansible.builtin.file:
-        path: "{{ home }}/.local/{{ item.path }}"
-        state: directory
-      with_filetree: "{{ local_dir }}"
-      when: item.state == 'directory'
-
-    - name: "link .local files"
-      ansible.builtin.file:
-        src: "{{ item.src }}"
-        path: "{{ home }}/.local/{{ item.path }}"
-        state: link
-      with_filetree: "{{ local_dir }}"
-      when: item.state == 'file'
-
-    - name: "create trait .local subdirs"
-      ansible.builtin.file:
-        path: "{{ home }}/.local/{{ item.path }}"
-        state: directory
-      with_filetree: "traits/{{ trait }}/_local"
-      when: trait is defined and item.state == 'directory'
-
-    - name: "link trait .local files"
-      ansible.builtin.file:
-        src: "{{ item.src }}"
-        path: "{{ home }}/.local/{{ item.path }}"
-        state: link
-      with_filetree: "traits/{{ trait }}/_local"
-      when: trait is defined and item.state == 'file'
-
-    - name: "link home files"
-      ansible.builtin.file:
-        src: "{{ playbook_dir }}/{{ item.src }}"
-        dest: "{{ home }}/{{ item.dest }}"
-        state: link
-      loop:
-        - src: "base/_bash_profile"
-          dest: ".bash_profile"
-        - src: "base/_bashrc"
-          dest: ".bashrc"
-
-    - name: "link box home files"
-      ansible.builtin.file:
-        src: "{{ playbook_dir }}/{{ item.src }}"
-        dest: "{{ home }}/{{ item.dest }}"
-        state: link
-      loop:
-        - src: "boxes/all/_aider.conf.yml"
-          dest: ".aider.conf.yml"
-      when: box_name is defined
 
     - name: "touch aider files"
       ansible.builtin.copy:
