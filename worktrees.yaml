@@ -1,0 +1,67 @@
+- name: "Manage Worktrees"
+  hosts: localhost
+  connection: local
+
+  vars:
+    main_worktree: "trunk"
+    worktree_root: "{{ lookup('env', 'HOME') }}"
+    trunk: "{{ worktree_root }}/{{ main_worktree }}"
+
+  tasks:
+    - name: "Create worktrees"
+      ansible.builtin.command:
+        cmd: "git -C {{ trunk }} worktree add {{ item }} -b dl/{{ item }}"
+        creates: "{{ worktree_root }}/{{ item }}"
+      loop: "{{ worktrees }}"
+      tags: worktrees
+
+    - name: "Get existing worktrees"
+      ansible.builtin.command:
+        cmd: "git -C {{ trunk }} worktree list --porcelain"
+      register: existing_worktrees_raw
+      changed_when: false
+      check_mode: no
+      tags: worktrees
+
+    - name: "Parse existing worktrees"
+      ansible.builtin.set_fact:
+        existing_worktrees: >
+          {{
+            existing_worktrees_raw.stdout_lines
+            | select('match', '^worktree ')
+            | map('regex_replace', '^worktree ', '')
+            | map('basename')
+            | difference([trunk | basename])
+            | list
+          }}
+      check_mode: no
+      tags: worktrees
+
+    - name: "Identify worktrees to remove"
+      ansible.builtin.set_fact:
+        worktrees_to_remove: "{{ existing_worktrees | difference(worktrees) }}"
+      check_mode: no
+      tags: worktrees
+
+    - name: "Remove stale worktrees"
+      ansible.builtin.command:
+        cmd: "git -C {{ trunk }} worktree remove {{ item }}"
+      loop: "{{ worktrees_to_remove }}"
+      register: remove_worktree_result
+      failed_when: >
+        remove_worktree_result.rc != 0 and
+        'is not a working tree' not in remove_worktree_result.stderr and
+        'No such file or directory' not in remove_worktree_result.stderr
+      changed_when: remove_worktree_result.rc == 0 # Changed only if removal was successful
+      tags: worktrees
+
+    - name: "Remove corresponding branches for stale worktrees"
+      ansible.builtin.command:
+        cmd: "git -C {{ trunk }} branch -D dl/{{ item }}"
+      loop: "{{ worktrees_to_remove }}"
+      register: remove_branch_result
+      failed_when: >
+        remove_branch_result.rc != 0 and
+        'not found' not in remove_branch_result.stderr
+      changed_when: remove_branch_result.rc == 0 # Changed only if deletion was successful
+      tags: worktrees
