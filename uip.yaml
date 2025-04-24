@@ -1,7 +1,0 @@
-- name: "Box"
-  ansible.builtin.import_playbook: box.yaml
-
-- name: "Worktrees"
-  vars_files:
-    - vars/secrets.yaml
-  ansible.builtin.import_playbook: worktrees.yaml
