@@ -3,7 +3,7 @@ umask 077
 [[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-export CDPATH=".:$HOME/Homes"
+export CDPATH=".:$HOME/Boxes"
 
 # editor
 export EDITOR=nvim
