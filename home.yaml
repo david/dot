@@ -12,7 +12,8 @@
     base_paths: "{{ base_dirs | reject('==', '') }}"
 
   tasks:
-    - name: "create directories"
+    - name: "create base directories"
+      become: true
       ansible.builtin.file:
         path: "{{ home }}/{{ item }}"
         state: directory
@@ -21,6 +22,9 @@
         mode: "0700"
       loop:
         - "trunk"
+        - ".local"
+        - ".local/share"
+        - ".local/state/aider"
 
     - name: "create subdirs"
       ansible.builtin.file:
