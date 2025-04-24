@@ -30,6 +30,7 @@
           - base-devel
           - bat
           - blesh-git
+          - bitwarden-cli
           - brave-browser
           - eza
           - fd
@@ -43,6 +44,7 @@
           - lazygit
           - mise
           - neovim
+          - nodejs-lts-iron
           - ripgrep
           - starship
           - stylua
