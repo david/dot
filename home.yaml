@@ -26,6 +26,16 @@
         - ".local/share"
         - ".local/state/aider"
 
+    - name: "remove default files"
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ home }}/.bashrc"
+        - "{{ home }}/.bash_profile"
+      when: item is not link
+
     - name: "create subdirs"
       ansible.builtin.file:
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
