@@ -2,6 +2,9 @@
   hosts: localhost
   connection: local
 
+  vars_files:
+    - secrets.yml
+
   vars:
     main_worktree: "trunk"
     worktree_root: "{{ lookup('env', 'HOME') }}"
@@ -12,7 +15,7 @@
       ansible.builtin.command:
         cmd: "git -C {{ trunk }} worktree add {{ item }} -b dl/{{ item }}"
         creates: "{{ worktree_root }}/{{ item }}"
-      loop: "{{ worktrees }}"
+      loop: "{{ lookup('vars', 'secrets.' + box + '.worktrees') }}"
       tags: worktrees
 
     - name: "Get existing worktrees"
