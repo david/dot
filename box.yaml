@@ -11,6 +11,13 @@
 
 - name: "Home"
   vars:
+    base_dirs:
+      - "base"
+      - "boxes/all"
+      - "boxes/{{ box_name }}"
+      - "secrets/all"
+      - "secrets/{{ box_name }}"
+      - "{{ ('traits/' + trait) if trait is defined }}"
     box_name: "{{ lookup('env', 'CONTAINER_ID') }}"
     home: "{{ lookup('env', 'HOME') }}"
   ansible.builtin.import_playbook: home.yaml

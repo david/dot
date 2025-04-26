@@ -2,13 +2,6 @@
   connection: local
 
   vars:
-    base_dirs:
-      - "base"
-      - "boxes/all"
-      - "boxes/{{ box_name }}"
-      - "secrets/all"
-      - "secrets/{{ box_name }}"
-      - "{{ ('traits/' + trait) if trait is defined }}"
     base_paths: "{{ base_dirs | reject('==', '') }}"
 
   tasks:
