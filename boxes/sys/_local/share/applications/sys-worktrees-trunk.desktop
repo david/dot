@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=sys  trunk
+StartupNotify=true
+Exec=distrobox enter --no-workdir sys -- kitty --directory=trunk --session=session.conf
