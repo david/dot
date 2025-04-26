@@ -26,7 +26,7 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 mkdir -p $BASH_D_DIR
 
-for file in $BASH_D_DIR/*.profile.bash; do source $file ; done
+for file in $BASH_D_DIR/*.profile.bash; do source $file ; done > /dev/null 2>&1
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -47,7 +47,7 @@ alias ls=eza
 eval "$(fzf --bash)"
 eval "$(starship init bash)"
 
-for file in $BASH_D_DIR/*.rc.bash; do source $file ; done
+for file in $BASH_D_DIR/*.rc.bash; do source $file ; done > /dev/null 2>&1
 
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 
