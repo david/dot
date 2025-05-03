@@ -1,0 +1,24 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    files_local: "files/"
+
+  tasks:
+    - name: "create subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
+        state: directory
+      with_filetree: "{{ files_local }}"
+      when: item.state == 'directory'
+
+    - name: "link files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
+        state: link
+      with_filetree: "{{ files_local }}"
+      when: item.state == 'file'
+
+# vim:ft=yaml.ansible

@@ -1,0 +1,46 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    config_local: "config/"
+    config_home: "{{ home }}/.config"
+
+  tasks:
+    - name: "create subdirs"
+      ansible.builtin.file:
+        path: "{{ config_home }}/{{ item.path }}"
+        state: directory
+      with_filetree: "{{ config_local }}"
+      when: item.state == 'directory'
+
+    - name: "link config files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ config_home }}/{{ item.path }}"
+        state: link
+      with_filetree: "{{ config_local }}"
+      when: item.state == 'file'
+
+    - name: "remove default bash files"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ home }}/.bashrc"
+        - "{{ home }}/.bash_profile"
+      when: item is not link
+
+    - name: "link bash files"
+      ansible.builtin.file:
+        src: "{{ item.from }}"
+        path: "{{ item.to }}"
+        state: link
+      loop:
+        - from: "{{ config_home }}/bash/bashrc"
+          to:  "{{ home }}/.bashrc"
+        - from: "{{ config_home }}/bash/bash_profile"
+          to:  "{{ home }}/.bash_profile"
+      when: item.to is not link
+
+# vim:ft=yaml.ansible

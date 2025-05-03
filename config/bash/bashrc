@@ -1,0 +1,52 @@
+umask 077
+
+BASH_D_DIR=$HOME/.config/bash.d
+
+[[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
+  eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export CDPATH=".:$HOME/Boxes"
+
+# editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+# fzf
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
+
+# mise
+if command -v mise > /dev/null ; then
+  eval "$(mise activate bash --shims)"
+
+  export PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
+
+# elixir
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+mkdir -p $BASH_D_DIR
+
+for file in $BASH_D_DIR/*.profile.bash; do source $file ; done > /dev/null 2>&1
+
+export PATH="$HOME/.local/bin:$PATH"
+
+[[ $- == *i* ]] || return
+
+set -o vi
+
+[[ -f $HOME/.local/share/blesh/ble.sh ]] &&
+  source $HOME/.local/share/blesh/ble.sh --noattach
+
+alias ls=eza
+
+eval "$(atuin init bash)"
+eval "$(direnv hook bash)"
+eval "$(starship init bash)"
+
+for file in $BASH_D_DIR/*.rc.bash; do source $file ; done > /dev/null 2>&1
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+unset BASH_D_DIR
+
+# vim:ft=bash
