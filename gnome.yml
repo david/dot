@@ -29,6 +29,17 @@
       - key: "/org/freedesktop/ibus/panel/emoji/hotkey"
         value: "['']"
 
+      - key: "/org/gnome/desktop/input-sources/per-window"
+        value: "true"
+
+      # TODO: I still don't know how to pass @as values to dconf
+      # - key: "/org/gnome/desktop/input-sources/sources"
+      #   value: "[('xkb', 'us'), ('xkb', 'us+intl')]"
+      # - key: "/org/gnome/desktop/input-sources/mru-sources"
+      #   value: "[('xkb', 'us')]"
+      # - key: /org/gnome/desktop/wm/keybindings/switch-input-source
+      #   value: "['<Shift><Control><Alt>apostrophe']"
+
       - key: "/org/gnome/desktop/interface/accent-color"
         value: "'yellow'"
       - key: "/org/gnome/desktop/interface/clock-format"
