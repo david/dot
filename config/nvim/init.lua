@@ -318,7 +318,7 @@ require("lazy").setup({
 
         require("lspconfig").bashls.setup({})
         require("lspconfig").elixirls.setup({
-          cmd = { vim.fs.joinpath(vim.env.HOME, ".local/packages/elixir-ls/language_server.sh") },
+          cmd = { "elixir-ls" },
           filetypes = { "elixir", "eelixir", "heex", "elixirscript" },
         })
         require("lspconfig").eslint.setup({})
