@@ -3,4 +3,4 @@ Version=1.0
 Type=Application
 Name=chr  trunk
 StartupNotify=true
-Exec=distrobox enter --no-workdir chr -- kitty --directory=trunk --session=session.conf
+Exec=kitty --directory=Projects/chr/trunk --session=chr-session.conf
