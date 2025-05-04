@@ -61,6 +61,9 @@
       - key: "/org/gnome/desktop/wm/preferences/workspace-names"
         value: "['sys', 'chr']"
 
+      - key: "/org/gnome/mutter/overlay-key"
+        value: "''"
+
       - key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
         value: "['']"
       - key: "/org/gnome/settings-daemon/plugins/media-keys/home"
@@ -126,6 +129,11 @@
         value: "['<Shift><Control><Alt>l']"
       - key: "/org/gnome/shell/extensions/paperwm/keybindings/switch-up-workspace"
         value: "['<Shift><Control><Alt>k']"
+
+      - key: "/org/gnome/shell/keybindings/toggle-overview"
+        value: "['<Shift><Control><Alt>o']"
+      - key: "/org/gnome/shell/keybindings/toggle-quick-settings"
+        value: "['']"
 
       - key: "/org/gtk/settings/file-chooser/clock-format"
         value: "'24'"
