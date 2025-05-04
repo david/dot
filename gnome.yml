@@ -69,9 +69,6 @@
       - key: "/org/gnome/settings-daemon/plugins/media-keys/home"
         value: "['']"
 
-      - key: "/org/gnome/shell/keybindings/toggle-quick-settings"
-        value: "['']"
-
       - key: "/org/gnome/shell/extensions/azwallpaper/slideshow-slide-duration"
         value: "(0, 5, 0)"
       - key: "/org/gnome/shell/extensions/azwallpaper/slideshow-directory"
