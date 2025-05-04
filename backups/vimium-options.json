@@ -1,0 +1,6 @@
+{
+  "keyMappings": "map q removeTab\nmap <M-.> nextTab\nmap <M-,> previousTab",
+  "linkHintCharacters": "asdfghjkl;",
+  "searchEngines": "",
+  "settingsVersion": "2.2.1"
+}
