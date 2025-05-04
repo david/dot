@@ -57,6 +57,8 @@
 
       - key: "/org/gnome/desktop/wm/keybindings/close"
         value: "['<Shift><Control><Alt>q']"
+      - key: "/org/gnome/desktop/wm/keybindings/minimize"
+        value: "['']"
 
       - key: "/org/gnome/desktop/wm/preferences/workspace-names"
         value: "['sys', 'chr']"
