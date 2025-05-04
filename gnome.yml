@@ -136,6 +136,14 @@
       - key: "/org/gnome/shell/extensions/paperwm/keybindings/switch-up-workspace"
         value: "['<Shift><Control><Alt>k']"
 
+        # Favorite app shortcuts
+      - key: "/org/gnome/shell/favorite-apps"
+        value: "['com.discordapp.Discord.desktop', 'com.rtosta.zapzap.desktop']"
+      - key: "/org/gnome/shell/keybindings/switch-to-application-1"
+        value: "['<Shift><Control><Alt>d']"
+      - key: "/org/gnome/shell/keybindings/switch-to-application-2"
+        value: "['<Shift><Control><Alt>z']"
+
       - key: "/org/gnome/shell/keybindings/toggle-overview"
         value: "['<Shift><Control><Alt>o']"
       - key: "/org/gnome/shell/keybindings/toggle-quick-settings"
