@@ -81,6 +81,8 @@
       - key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist"
         value: "['kitty']"
 
+      - key: "/org/gnome/shell/extensions/dash-to-panel/stockgs-keep-dash"
+        value: "true"
       - key: "/org/gnome/shell/extensions/dash-to-panel/trans-use-custom-opacity"
         value: "true"
 
