@@ -3,7 +3,7 @@
 source $HOME/.bashrc
 
 while true ; do
-  $@
+  direnv exec . "$@"
   echo
   read -p "ENTER to relaunch, CTRL-C to exit:" || exit 1
 done
