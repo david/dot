@@ -76,6 +76,11 @@
       - key: "/org/gnome/shell/extensions/azwallpaper/slideshow-directory"
         value: "'/var/home/david/.local/share/backgrounds'"
 
+      - key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur"
+        value: "true"
+      - key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist"
+        value: "['kitty']"
+
       - key: "/org/gnome/shell/extensions/dash-to-panel/trans-use-custom-opacity"
         value: "true"
 
