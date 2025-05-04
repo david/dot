@@ -5,7 +5,7 @@ BASH_D_DIR=$HOME/.config/bash.d
 [[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-export CDPATH=".:$HOME/Boxes"
+export CDPATH=".:$HOME/Projects"
 
 # editor
 export EDITOR=nvim
