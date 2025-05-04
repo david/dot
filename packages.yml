@@ -73,9 +73,12 @@
 
         - name: kitty bin
           ansible.builtin.file:
-            src: "{{ kitty_dir }}/bin/kitty"
-            dest: "{{ home }}/.local/bin/kitty"
+            src: "{{ kitty_dir }}/bin/{{ item }}"
+            dest: "{{ home }}/.local/bin/{{ item }}"
             state: link
+          loop:
+            - kitty
+            - kitten
 
         - name: kitty desktop
           ansible.builtin.copy:
