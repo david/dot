@@ -21,6 +21,7 @@
           - fd
           - gh
           - git-delta
+          - html-xml-utils
           - lazygit
           - neovim
           - nushell
