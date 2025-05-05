@@ -47,6 +47,8 @@
         value: "'grayscale'"
       - key: "/org/gnome/desktop/interface/font-name"
         value: "'Inter 11'"
+      - key: "/org/gnome/desktop/interface/gtk-key-theme"
+        value: "'Emacs'"
       - key: "/org/gnome/desktop/interface/monospace-font-name"
         value: "'JetBrains Mono 11'"
 
