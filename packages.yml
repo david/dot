@@ -34,6 +34,7 @@
     - name: install flatpaks
       community.general.flatpak:
         name:
+          - ca.desrt.dconf-editor
           - com.brave.Browser
           - com.discordapp.Discord
           - com.rtosta.zapzap
@@ -44,6 +45,7 @@
     - name: remove default flatpaks
       community.general.flatpak:
         name:
+          - io.github.dvlv.boxbuddyrs
           - io.podman_desktop.PodmanDesktop
           - org.mozilla.firefox
           - org.mozilla.Thunderbird
