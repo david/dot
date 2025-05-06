@@ -1,13 +1,3 @@
-# TODO:
-# For some reason, I am unable to use dconf to reset some keys I use regularly
-# (<Super>period, <Control><Shift>u). Until I figure a way to do it automatically
-# the solution is to run ibus-setup and delete the keybindings manually.
-#
-# `ibus-setup` must be run using the system python interpreter. This is done by
-# running ibus-setup with a custom path, like so:
-#
-#     PATH=/usr/bin:$PATH ibus-setup
-#
 - hosts: localhost
   connection: local
 
@@ -23,11 +13,15 @@
         name: just-perfection-desktop@just-perfection
 
     settings:
+      - key: "/desktop/ibus/general/hotkey/triggers"
+        value: "['']"
+      - key: "/desktop/ibus/panel/emoji/hotkey"
+        value: "['']"
+      - key: "/desktop/ibus/panel/emoji/unicode-hotkey"
+        value: "['']"
+
       - key: "/system/locale/region"
         value: "'pt_PT.UTF-8'"
-
-      - key: "/org/freedesktop/ibus/panel/emoji/hotkey"
-        value: "['']"
 
       - key: "/org/gnome/desktop/input-sources/per-window"
         value: "true"
