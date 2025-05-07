@@ -2,3 +2,5 @@
 /vars/secrets.yaml
 
 !.aiderignore
+
+config/secrets

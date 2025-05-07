@@ -1,1 +1,3 @@
-/host/_local/share/backgrounds
+config/secrets
+files/_local/share/backgrounds
+files/_local/share/fonts
