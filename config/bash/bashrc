@@ -1,7 +1,5 @@
 umask 077
 
-BASH_D_DIR=$HOME/.config/bash.d
-
 [[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -24,10 +22,10 @@ fi
 # elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-mkdir -p $BASH_D_DIR
+# secrets
+source ~/.config/secrets/secrets.bash
 
-for file in $BASH_D_DIR/*.profile.bash; do source $file ; done > /dev/null 2>&1
-
+# path
 export PATH="$HOME/.local/bin:$PATH"
 
 [[ $- == *i* ]] || return
@@ -43,10 +41,6 @@ eval "$(atuin init bash)"
 eval "$(direnv hook bash)"
 eval "$(starship init bash)"
 
-for file in $BASH_D_DIR/*.rc.bash; do source $file ; done > /dev/null 2>&1
-
 [[ ! ${BLE_VERSION-} ]] || ble-attach
-
-unset BASH_D_DIR
 
 # vim:ft=bash
