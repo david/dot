@@ -31,7 +31,7 @@
         - "{{ home }}/.bash_profile"
       when: item is not link
 
-    - name: "link bash files"
+    - name: "link home root files"
       ansible.builtin.file:
         src: "{{ item.from }}"
         path: "{{ item.to }}"
@@ -41,6 +41,8 @@
           to:  "{{ home }}/.bashrc"
         - from: "{{ config_home }}/bash/bash_profile"
           to:  "{{ home }}/.bash_profile"
+        - from: "{{ config_home }}/aider/conf.yml"
+          to:  "{{ home }}/.aider.conf.yml"
       when: item.to is not link
 
 # vim:ft=yaml.ansible

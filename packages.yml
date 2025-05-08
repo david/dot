@@ -10,6 +10,7 @@
     - name: brew
       community.general.homebrew:
         name:
+          - aider
           - ansible
           - ansible-language-server
           - atuin
