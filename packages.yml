@@ -10,7 +10,6 @@
     - name: brew
       community.general.homebrew:
         name:
-          - aider
           - ansible
           - ansible-language-server
           - atuin
@@ -25,10 +24,10 @@
           - html-xml-utils
           - lazygit
           - neovim
-          - nushell
           - ripgrep
           - starship
           - stylua
+          - uv
         update_homebrew: true
         upgrade_all: true
 
@@ -40,7 +39,9 @@
           - com.discordapp.Discord
           - com.rtosta.zapzap
           - com.slack.Slack
+          - org.chromium.Chromium
           - org.gnome.Geary
+          - org.signal.Signal
         state: present
 
     - name: remove default flatpaks
