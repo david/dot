@@ -1,0 +1,9 @@
+#!/bin/bash
+
+OLD_UMASK=$(umask)
+
+umask 0022
+ansible-playbook $HOME/Projects/sys/trunk/container-root.yml
+
+umask $OLD_UMASK
+ansible-playbook $HOME/Projects/sys/trunk/container-user.yml
