@@ -1,0 +1,30 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    blesh_dir: "{{ home }}/.local/share/blesh"
+
+  tasks:
+    - name: blesh
+      block:
+        - name: blesh download
+          get_url:
+            url: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
+            dest: /tmp/ble-nightly.tar.xz
+
+        - name: blesh extract
+          unarchive:
+            src: /tmp/ble-nightly.tar.xz
+            dest: /tmp
+
+        - name: blesh install
+          shell: "bash /tmp/ble-nightly/ble.sh --install ~/.local/share"
+      when: blesh_dir is not directory
+
+    - name: vectorcode
+      community.general.pipx:
+        name: vectorcode
+        state: latest
+
+# vim:ft=yaml.ansible
