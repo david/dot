@@ -1,0 +1,120 @@
+- hosts: localhost
+  connection: local
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: locale
+      community.general.locale_gen:
+        name: en_US.UTF-8
+        state: present
+
+    - name: chaotic-aur
+      block:
+        - name: pacman key
+          community.general.pacman_key:
+            id: ef925ea60f33d0cb85c44ad13056513887b78aeb
+            keyserver: keyserver.ubuntu.com
+            state: present
+
+        - name: repo packages
+          community.general.pacman:
+            name:
+              - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+              - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+
+        - name: pacman config
+          community.general.ini_file:
+            path: /etc/pacman.conf
+            section: chaotic-aur
+            option: Include
+            value: /etc/pacman.d/chaotic-mirrorlist
+            state: present
+
+    - name: packages
+      community.general.pacman:
+        name:
+          - atuin
+          - bat
+          - direnv
+          - eza
+          - fd
+          - github-cli
+          - git-delta
+          - kitty
+          - lazydocker
+          - lazygit
+          - neovim
+          - nodejs
+          - npm
+          - python-pipx
+          - ripgrep
+          - ruby
+          - starship
+          - wl-clipboard
+          - yay
+        update_cache: true
+
+    - name: node packages
+      block:
+        - name: install npm packages
+          community.general.npm:
+            name: mcp-hub
+            version: latest
+            global: true
+
+        # this is due to my umask being 077
+        - name: fix dir permissions
+          ansible.builtin.file:
+            path: "{{ item }}"
+            mode: 0755
+            state: directory
+          loop:
+            - /usr/lib/node_modules/mcp-hub
+            - /usr/lib/node_modules/mcp-hub/dist
+
+        - name: fix file permissions
+          ansible.builtin.file:
+            path: "{{ item.src }}"
+            mode: 0644
+            state: file
+          with_filetree:
+            - /usr/lib/node_modules/mcp-hub/
+          when: item.state == "file"
+
+        - name: fix bin permissions
+          ansible.builtin.file:
+            path: /usr/lib/node_modules/mcp-hub/dist/cli.js
+            mode: 0755
+            state: file
+
+- hosts: localhost
+  connection: local
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    blesh_dir: "{{ home }}/.local/share/blesh"
+
+  tasks:
+    - name: blesh
+      block:
+        - name: blesh download
+          get_url:
+            url: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
+            dest: /tmp/ble-nightly.tar.xz
+
+        - name: blesh extract
+          unarchive:
+            src: /tmp/ble-nightly.tar.xz
+            dest: /tmp
+
+        - name: blesh install
+          shell: "bash /tmp/ble-nightly/ble.sh --install ~/.local/share"
+      when: blesh_dir is not directory
+
+    - name: vectorcode
+      community.general.pipx:
+        name: vectorcode
+        state: latest
+
+# vim:ft=yaml.ansible
