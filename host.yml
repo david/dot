@@ -144,6 +144,29 @@
         value: "'24'"
 
   tasks:
+    - name: install flatpaks
+      community.general.flatpak:
+        name:
+          - ca.desrt.dconf-editor
+          - com.brave.Browser
+          - com.discordapp.Discord
+          - com.rtosta.zapzap
+          - com.slack.Slack
+          - org.chromium.Chromium
+          - org.gnome.Geary
+          - org.signal.Signal
+        state: present
+
+    - name: remove default flatpaks
+      community.general.flatpak:
+        name:
+          - io.github.dvlv.boxbuddyrs
+          - io.podman_desktop.PodmanDesktop
+          - org.mozilla.firefox
+          - org.mozilla.Thunderbird
+          - sh.loft.devpod
+        state: absent
+
     - name: enable bluefin gnome extensions
       shell: "gnome-extensions enable {{ item }}"
       loop:
