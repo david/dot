@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/bin/bash -i
 
-source $HOME/.bashrc
+"$@"
 
-while true ; do
-  direnv exec . "$@"
-  echo
-  read -p "ENTER to relaunch, CTRL-C to exit:" || exit 1
-done
+echo
+read -p "ENTER to relaunch, CTRL-C to exit: " COMMAND || exit 1
 
+if [[ -n "$COMMAND" ]] ; then
+  exec $0 $COMMAND
+else
+  exec $0 "$@"
+fi

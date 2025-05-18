@@ -63,12 +63,12 @@
             version: latest
             global: true
 
-    - name: host exec
-      ansible.builtin.file:
-        src: /usr/bin/distrobox-host-exec
-        dest: "{{ item }}"
-        state: link
-      loop:
-        - /usr/local/bin/docker
+    - name: direnv host exec
+      ansible.builtin.copy:
+        dest: /usr/bin/direnv-host-exec
+        content: |
+          #!/bin/sh
+          exec distrobox-host-exec direnv exec . "$@"
+        mode: 0755
 
 # vim:ft=yaml.ansible
