@@ -8,6 +8,7 @@
     - name: "create subdirs"
       ansible.builtin.file:
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
+        mode: 0o700
         state: directory
       with_filetree: "{{ files_local }}"
       when: item.state == 'directory'

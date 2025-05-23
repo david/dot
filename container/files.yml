@@ -1,0 +1,21 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: "force directories"
+      become: true
+      ansible.builtin.file:
+        path: "{{ home }}/{{ item }}"
+        mode: 0o700
+        owner: "{{ lookup('env', 'USER') }}"
+        group: "{{ lookup('env', 'USER') }}"
+        state: directory
+      loop:
+        - ".local"
+        - ".local/bin"
+        - ".local/share"
+
+# vim:ft=yaml.ansible

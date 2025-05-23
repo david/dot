@@ -9,6 +9,12 @@
       - "files"
   ansible.builtin.import_playbook: shared/files.yml
 
+- name: "other files [container]"
+  vars:
+    files_local:
+      - "files"
+  ansible.builtin.import_playbook: container/files.yml
+
 - name: "Container-specific configuration [root]"
   ansible.builtin.import_playbook: container/root.yml
 
