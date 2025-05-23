@@ -41,12 +41,14 @@
           - fd
           - github-cli
           - git-delta
+          - jq
           - kitty
           - lazydocker
           - lazygit
           - neovim
           - nodejs
           - npm
+          - org.freedesktop.secrets
           - ripgrep
           - ruby
           - starship
