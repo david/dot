@@ -25,7 +25,12 @@
 
       - key: "/org/gnome/desktop/input-sources/per-window"
         value: "true"
-
+      - key: "/org/gnome/desktop/wm/keybindings/show-desktop"
+        value: "['']"
+      - key: "/org/gnome/desktop/wm/keybindings/switch-group"
+        value: "['']"
+      - key: "/org/gnome/desktop/wm/keybindings/switch-group-backward"
+        value: "['']"
       - key: "/org/gnome/desktop/wm/keybindings/switch-input-source"
         value: "['<Shift><Control><Alt>apostrophe']"
 
@@ -169,6 +174,8 @@
       - key: "/org/gnome/shell/keybindings/switch-to-application-2"
         value: "['<Shift><Control><Alt>z']"
 
+      - key: "/org/gnome/shell/keybindings/toggle-application-view"
+        value: "['']"
       - key: "/org/gnome/shell/keybindings/toggle-message-tray"
         value: "['']"
       - key: "/org/gnome/shell/keybindings/toggle-overview"
