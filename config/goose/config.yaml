@@ -1,3 +1,7 @@
+GOOSE_MODEL: gemini-2.5-flash-preview-04-17
+GOOSE_PROVIDER: google
+GOOSE_PLANNER_PROVIDER: google
+GOOSE_PLANNER_MODEL: gemini-2.5-pro-preview-05-06
 extensions:
   computercontroller:
     bundled: true
@@ -13,5 +17,3 @@ extensions:
     name: developer
     timeout: 300
     type: builtin
-GOOSE_MODEL: gemini-2.5-pro-preview-05-06
-GOOSE_PROVIDER: google
