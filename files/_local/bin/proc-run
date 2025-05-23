@@ -1,6 +1,6 @@
-#!/bin/bash -i
+#!/bin/bash
 
-"$@"
+direnv exec . "$@"
 
 echo
 read -p "ENTER to relaunch, CTRL-C to exit: " COMMAND || exit 1
