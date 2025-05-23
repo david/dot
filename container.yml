@@ -3,6 +3,31 @@
   tags:
     - config
 
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "goose"
+      vars: &goose
+        goose_config: "{{ lookup('env', 'HOME') }}/.config/goose"
+      ansible.builtin.file:
+        src: "{{ goose_config }}/config.tidewave.yaml"
+        dest: "{{ goose_config }}/config.yaml"
+        state: link
+      when: "lookup('env', 'CONTAINER_ID') == 'chr'"
+      tags: config
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "goose"
+      vars: *goose
+      ansible.builtin.file:
+        src: "{{ goose_config }}/config.base.yaml"
+        dest: "{{ goose_config }}/config.yaml"
+        state: link
+      when: "lookup('env', 'CONTAINER_ID') == 'sys'"
+      tags: config
+
 - name: "other files [global]"
   vars:
     files_local:
