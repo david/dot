@@ -252,6 +252,30 @@ require("lazy").setup({
     { "lukas-reineke/virt-column.nvim", opts = {} },
 
     {
+      "mason-org/mason.nvim",
+      opts = {}
+    },
+
+    {
+      "mason-org/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = {
+          "ansiblels",
+          "bashls",
+          "elixirls",
+          "html",
+          "jsonls",
+          "lua_ls",
+          "rubocop",
+          "ruby_lsp",
+          "tailwindcss",
+          "ts_ls",
+          "yamlls",
+        },
+      },
+    },
+
+    {
       "mfussenegger/nvim-lint",
       event = { "BufReadPre", "BufNewFile" },
       config = function()
@@ -316,15 +340,10 @@ require("lazy").setup({
           end,
         })
 
-        require("lspconfig").bashls.setup({})
         require("lspconfig").elixirls.setup({
           cmd = { "elixir-ls" },
           filetypes = { "elixir", "eelixir", "heex", "elixirscript" },
         })
-        require("lspconfig").eslint.setup({})
-        require("lspconfig").gleam.setup({})
-        require("lspconfig").html.setup({})
-        require("lspconfig").jsonls.setup({})
         require("lspconfig").lua_ls.setup({
           settings = {
             Lua = {
@@ -335,11 +354,6 @@ require("lazy").setup({
             },
           },
         })
-        require("lspconfig").rubocop.setup({})
-        require("lspconfig").ruby_lsp.setup({})
-        require("lspconfig").tailwindcss.setup({})
-        require("lspconfig").ts_ls.setup({})
-        require("lspconfig").yamlls.setup({})
       end,
     },
 
