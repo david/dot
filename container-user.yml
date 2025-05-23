@@ -22,9 +22,5 @@
           shell: "bash /tmp/ble-nightly/ble.sh --install ~/.local/share"
       when: blesh_dir is not directory
 
-    - name: vectorcode
-      community.general.pipx:
-        name: vectorcode
-        state: latest
 
 # vim:ft=yaml.ansible
