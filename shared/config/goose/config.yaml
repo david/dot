@@ -19,3 +19,13 @@ extensions:
     name: developer
     timeout: 300
     type: builtin
+  tidewave:
+    bundled: null
+    description: null
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: Tidewave
+    timeout: 300
+    type: sse
+    uri: http://localhost:4000/tidewave/mcp

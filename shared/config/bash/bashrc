@@ -23,7 +23,7 @@ fi
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # secrets
-source ~/.config/secrets/secrets.bash
+source ~/.config/bash/secrets.bash
 
 # path
 export PATH="$HOME/.local/bin:$PATH"
