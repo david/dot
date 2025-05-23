@@ -20,7 +20,8 @@ truncate_to_repo = false
 truncation_length = 30
 
 [directory.substitutions]
-'~/Boxes/' = ""
+'/run/host/var/home/david/Boxes/chr/' = ""
+'/run/host/var/home/david/Boxes/sys/' = ""
 '~/' = ""
 
 [env_var.CONTAINER_ID]
