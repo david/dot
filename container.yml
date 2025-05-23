@@ -1,0 +1,13 @@
+- name: ".config [global]"
+  ansible.builtin.import_playbook: config.yml
+
+- name: "other files [global]"
+  ansible.builtin.import_playbook: files.yml
+
+- name: "Container-specific configuration [root]"
+  ansible.builtin.import_playbook: container-root.yml
+
+- name: "Container-specific configuration [user]"
+  ansible.builtin.import_playbook: container-user.yml
+
+# vim:ft=yaml.ansible

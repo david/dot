@@ -1,3 +1,9 @@
+- name: ".config [global]"
+  ansible.builtin.import_playbook: config.yml
+
+- name: "other files [global]"
+  ansible.builtin.import_playbook: files.yml
+
 - hosts: localhost
   connection: local
 
