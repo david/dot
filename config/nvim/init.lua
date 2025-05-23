@@ -170,7 +170,9 @@ require("lazy").setup({
       "folke/snacks.nvim",
       opts = {
         indent = {},
+        input = {},
         notifier = {},
+        picker = {},
         statuscolumn = {},
       },
     },
@@ -303,13 +305,10 @@ require("lazy").setup({
               vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
-            map("gd", "<cmd>FzfLua lsp_definitions<cr>", "Go to definition")
-            map("gr", "<cmd>FzfLua lsp_references<cr>", "Go to references")
+            map("gd", function() Snacks.picker.pick("lsp_definitions") end, "Go to definition")
+            map("gr", function() Snacks.picker.pick("lsp_references") end, "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-            map("<leader>fd", "<cmd>FzfLua diagnostics_document<cr>", "Diagnostics")
-            map("<leader>fD", "<cmd>FzfLua diagnostics_workspace<cr>", "Workspace diagnostics")
-            map("<leader>fm", "<cmd>FzfLua lsp_document_symbols<cr>", "Symbols")
-            map("<leader>fM", "<cmd>FzfLua lsp_workspaced_symbols<cr>", "Workspace symbols")
+            map("<leader>fm", function() Snacks.picker.pick("lsp_document_symbols") end, "Symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -497,6 +496,7 @@ require("lazy").setup({
           ["<Down>"] = { "select_next" },
           ["<Right>"] = { "select_and_accept" },
         },
+
         signature = { enabled = true },
       },
       opts_extend = { "sources.default" },
