@@ -56,10 +56,10 @@
 
     - name: direnv host exec
       ansible.builtin.copy:
-        dest: /usr/bin/direnv-host-exec
+        dest: /usr/local/bin/docker
         content: |
-          #!/bin/sh
-          exec distrobox-host-exec direnv exec . "$@"
+          #!/bin/bash
+          exec distrobox-host-exec direnv exec . docker "$@"
         mode: 0755
 
 # vim:ft=yaml.ansible
