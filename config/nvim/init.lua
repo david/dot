@@ -227,9 +227,9 @@ require("lazy").setup({
       lazy = false,
       dependencies = { "nvim-tree/nvim-web-devicons" },
       keys = {
-        { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "File" },
-        { "<leader>f/", "<cmd>FzfLua live_grep<cr>", desc = "Grep" },
-        { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffer" },
+        { "<leader>ff", function() Snacks.picker.pick("files") end, desc = "File" },
+        { "<leader>f/", function() Snacks.picker.pick("grep") end, desc = "Grep" },
+        { "<leader>fb", function() Snacks.picker.pick("buffers") end, desc = "Buffer" },
       },
       opts = {
         keymap = {

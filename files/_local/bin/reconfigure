@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SYS_DIR=$HOME/Projects/sys/trunk
+SYS_DIR=$HOME/Boxes/sys/trunk
 OLD_UMASK=$(umask)
 
 function container_config_root {
