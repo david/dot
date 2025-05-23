@@ -47,21 +47,12 @@
           - neovim
           - nodejs
           - npm
-          - python-pipx
           - ripgrep
           - ruby
           - starship
           - wl-clipboard
           - yay
         update_cache: true
-
-    - name: node packages
-      block:
-        - name: install npm packages
-          community.general.npm:
-            name: mcp-hub
-            version: latest
-            global: true
 
     - name: direnv host exec
       ansible.builtin.copy:
