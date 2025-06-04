@@ -4,8 +4,8 @@
   vars:
     home: "{{ lookup('env', 'HOME') }}"
     config_local:
-      - "config/"
-      - "../secrets/config"
+      - "config"
+      - "secrets/config"
     config_home: "{{ home }}/.config"
 
   tasks:

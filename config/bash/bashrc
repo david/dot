@@ -5,6 +5,12 @@ umask 077
 
 export CDPATH=".:$HOME/Boxes"
 
+# history
+
+if [[ -v CONTAINER_ID ]] ; then
+  export HISTFILE=~/.${CONTAINER_ID}.bash_history
+fi
+
 # editor
 export EDITOR=nvim
 export VISUAL=nvim
@@ -25,6 +31,18 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # secrets
 source ~/.config/bash/secrets.bash
 
+# container
+CONTAINERRC=~/.config/bash/${CONTAINER_ID}.bash
+CONTAINER_SECRETS=~/.config/bash/${CONTAINER_ID}.secrets.bash
+
+if [[ -f $CONTAINERRC ]] ; then
+  source $CONTAINERRC
+fi
+
+if [[ -f $CONTAINER_SECRETS ]] ; then
+  source $CONTAINER_SECRETS
+fi
+
 # path
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -37,7 +55,7 @@ set -o vi
 
 alias ls=eza
 
-eval "$(atuin init bash)"
+eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
 eval "$(starship init bash)"
 

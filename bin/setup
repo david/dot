@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+distrobox assemble create
+
+distrobox enter sys -- ansible-playbook ~/Boxes/sys/trunk/container.yml
+distrobox enter chr -- ansible-playbook ~/Boxes/sys/trunk/container.yml
+
+ansible-playbook host.yml

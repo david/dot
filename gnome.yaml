@@ -191,6 +191,7 @@
       community.general.flatpak:
         name:
           - ca.desrt.dconf-editor
+          - com.bitwarden.desktop
           - com.brave.Browser
           - com.discordapp.Discord
           - com.rtosta.zapzap

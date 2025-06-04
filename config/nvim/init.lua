@@ -172,8 +172,27 @@ require("lazy").setup({
         indent = {},
         input = {},
         notifier = {},
-        picker = {},
+        picker = {
+          layout = {
+            preset = "ivy",
+            layout = {
+              box = "vertical",
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", height = 0.33 },
+              { win = "preview", height = 0.66, border = "top" },
+            },
+          },
+        },
         statuscolumn = {},
+      },
+      keys = {
+        {
+          "<leader>ff",
+          function() Snacks.picker.smart({ matcher = { cwd_bonus = false }}) end,
+          desc = "File"
+        },
+        { "<leader>f/", function() Snacks.picker.pick("grep") end, desc = "Grep" },
+        { "<leader>fb", function() Snacks.picker.pick("buffers") end, desc = "Buffer" },
       },
     },
 
@@ -230,11 +249,6 @@ require("lazy").setup({
       "ibhagwan/fzf-lua",
       lazy = false,
       dependencies = { "nvim-tree/nvim-web-devicons" },
-      keys = {
-        { "<leader>ff", function() Snacks.picker.pick("files") end, desc = "File" },
-        { "<leader>f/", function() Snacks.picker.pick("grep") end, desc = "Grep" },
-        { "<leader>fb", function() Snacks.picker.pick("buffers") end, desc = "Buffer" },
-      },
       opts = {
         keymap = {
           fzf = {
@@ -266,7 +280,6 @@ require("lazy").setup({
         ensure_installed = {
           "ansiblels",
           "bashls",
-          "elixirls",
           "html",
           "jsonls",
           "lua_ls",
@@ -305,10 +318,10 @@ require("lazy").setup({
               vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
-            map("gd", function() Snacks.picker.pick("lsp_definitions") end, "Go to definition")
-            map("gr", function() Snacks.picker.pick("lsp_references") end, "Go to references")
+            map("gd", function() Snacks.picker.lsp_definitions() end, "Go to definition")
+            map("gr", function() Snacks.picker.lsp_references() end, "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-            map("<leader>fm", function() Snacks.picker.pick("lsp_document_symbols") end, "Symbols")
+            map("<leader>fm", function() Snacks.picker.lsp_document_symbols() end, "Symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -345,6 +358,7 @@ require("lazy").setup({
           cmd = { "elixir-ls" },
           filetypes = { "elixir", "eelixir", "heex", "elixirscript" },
         })
+
         require("lspconfig").lua_ls.setup({
           settings = {
             Lua = {

@@ -39,6 +39,7 @@
           - direnv
           - eza
           - fd
+          - fzf
           - github-cli
           - git-delta
           - jq
@@ -55,6 +56,12 @@
           - wl-clipboard
           - yay
         update_cache: true
+
+    - name: packages
+      community.general.pacman:
+        name:
+          - python-jsondiff
+      when: "lookup('env', 'CONTAINER_ID') == 'chr'"
 
     - name: direnv host exec
       ansible.builtin.copy:
