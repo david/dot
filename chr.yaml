@@ -28,7 +28,7 @@
           - initdb
           - --pgdata
           - /var/lib/postgres/data
-        creates: /var/lib/postgres/data
+        creates: /var/lib/postgres/data/postgresql.conf
       tags: postgres
 
     - name: postgres start
