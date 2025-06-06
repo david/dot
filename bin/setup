@@ -4,7 +4,7 @@ set -e
 
 distrobox assemble create
 
-distrobox enter sys -- ansible-playbook ~/Boxes/sys/trunk/container.yml
-distrobox enter chr -- ansible-playbook ~/Boxes/sys/trunk/container.yml
+distrobox enter sys -- setup
+distrobox enter chr -- setup
 
-ansible-playbook host.yml
+ansible-playbook --tags apps files.yml
