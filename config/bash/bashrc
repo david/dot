@@ -1,5 +1,3 @@
-umask 077
-
 [[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -10,6 +8,9 @@ export CDPATH=".:$HOME/Boxes"
 if [[ -v CONTAINER_ID ]] ; then
   export HISTFILE=~/.${CONTAINER_ID}.bash_history
 fi
+
+# sys
+export SYS_DIR=$HOME/Boxes/sys/trunk
 
 # editor
 export EDITOR=nvim
