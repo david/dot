@@ -1,0 +1,58 @@
+- name: container
+  import_playbook: container.yaml
+
+- name: chr customizations
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: packages
+      community.general.pacman:
+        name:
+          - elixir
+          - elixir-ls
+          - erlang-syntax_tools
+          - erlang-xmerl
+          - inotify-tools
+          - postgresql
+          - python-psycopg
+          - tailwindcss-language-server
+        state: present
+
+    - name: postgres init db
+      become: true
+      become_user: postgres
+      ansible.builtin.command:
+        argv:
+          - initdb
+          - --pgdata
+          - /var/lib/postgres/data
+        creates: /var/lib/postgres/data
+      tags: postgres
+
+    - name: postgres start
+      ansible.builtin.systemd_service:
+        name: postgresql.service
+        state: started
+      tags: postgres
+
+    - name: postgres db
+      community.postgresql.postgresql_db:
+        name: cms_dev
+      tags: postgres
+
+    - name: postgres user
+      community.postgresql.postgresql_user:
+        name: david
+        role_attr_flags: CREATEDB,SUPERUSER
+        login_db: cms_dev
+      tags: postgres
+
+    - name: mcp-proxy
+      ansible.builtin.unarchive:
+        src: https://github.com/tidewave-ai/mcp_proxy_rust/releases/download/v0.2.0/mcp-proxy-x86_64-unknown-linux-gnu.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+
+# vim: ft=yaml.ansible

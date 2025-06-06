@@ -1,0 +1,19 @@
+- name: container
+  import_playbook: container.yaml
+
+- name: sys customizations
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: packages
+      community.general.pacman:
+        name:
+          - ansible-language-server
+          - ansible-lint
+          - stylua
+          - yaml-language-server
+        state: present
+
+# vim: ft=yaml.ansible
