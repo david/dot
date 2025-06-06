@@ -188,11 +188,25 @@ require("lazy").setup({
       keys = {
         {
           "<leader>ff",
-          function() Snacks.picker.smart({ matcher = { cwd_bonus = false }}) end,
-          desc = "File"
+          function()
+            require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
+          end,
+          desc = "File",
         },
-        { "<leader>f/", function() Snacks.picker.pick("grep") end, desc = "Grep" },
-        { "<leader>fb", function() Snacks.picker.pick("buffers") end, desc = "Buffer" },
+        {
+          "<leader>f/",
+          function()
+            require("snacks").picker.grep()
+          end,
+          desc = "Grep",
+        },
+        {
+          "<leader>fb",
+          function()
+            require("snacks").picker.buffers()
+          end,
+          desc = "Buffer",
+        },
       },
     },
 
@@ -271,7 +285,7 @@ require("lazy").setup({
 
     {
       "mason-org/mason.nvim",
-      opts = {}
+      opts = {},
     },
 
     {
@@ -318,10 +332,16 @@ require("lazy").setup({
               vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
-            map("gd", function() Snacks.picker.lsp_definitions() end, "Go to definition")
-            map("gr", function() Snacks.picker.lsp_references() end, "Go to references")
+            map("gd", function()
+              require("snacks").picker.lsp_definitions()
+            end, "Go to definition")
+            map("gr", function()
+              require("snacks").picker.lsp_references()
+            end, "Go to references")
             map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-            map("<leader>fm", function() Snacks.picker.lsp_document_symbols() end, "Symbols")
+            map("<leader>fm", function()
+              require("snacks").picker.lsp_symbols()
+            end, "Symbols")
             map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
             local client = vim.lsp.get_client_by_id(event.data.client_id)
