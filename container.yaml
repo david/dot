@@ -70,4 +70,8 @@
           #!/bin/bash
           exec distrobox-host-exec direnv exec . docker "$@"
         mode: "0755"
-# vim:ft=yaml.ansible
+
+- name: blesh
+  import_playbook: packages/blesh.yaml
+
+# vim: ft=yaml.ansible

@@ -51,8 +51,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 set -o vi
 
-[[ -f $HOME/.local/share/blesh/ble.sh ]] &&
-  source $HOME/.local/share/blesh/ble.sh --noattach
+[[ -f /usr/local/blesh/ble.sh ]] &&
+  source /usr/local/blesh/ble.sh
 
 alias ls=eza
 
