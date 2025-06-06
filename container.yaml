@@ -26,6 +26,7 @@
         - name: pacman config
           community.general.ini_file:
             path: /etc/pacman.conf
+            mode: "0644"
             section: chaotic-aur
             option: Include
             value: /etc/pacman.d/chaotic-mirrorlist
@@ -69,6 +70,5 @@
         content: |
           #!/bin/bash
           exec distrobox-host-exec direnv exec . docker "$@"
-        mode: 0755
-
+        mode: "0755"
 # vim:ft=yaml.ansible

@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: "files"
+  hosts: localhost
   connection: local
 
   vars:
@@ -9,9 +10,9 @@
     - name: "create subdirs"
       ansible.builtin.file:
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
-        mode: 0o700
+        mode: "0700"
         state: directory
-      with_filetree: "{{ files_local }}"
+      with_community.general.filetree: "{{ files_local }}"
       when: item.state == 'directory'
 
     - name: "link application shortcuts"
@@ -19,7 +20,7 @@
         src: "{{ item.src }}"
         path: "{{ home }}/.local/share/applications/{{ item.path }}"
         state: link
-      with_filetree: "{{ files_local }}_local/share/applications"
+      with_community.general.filetree: "{{ files_local }}_local/share/applications"
       when: item.state == 'file'
       tags: apps
 
@@ -28,7 +29,7 @@
         src: "{{ item.src }}"
         path: "{{ home }}/{{ item.path | regex_replace('^_', '.') }}"
         state: link
-      with_filetree: "{{ files_local }}"
+      with_community.general.filetree: "{{ files_local }}"
       when: item.state == 'file'
 
-# vim:ft=yaml.ansible
+# vim: ft=yaml.ansible
