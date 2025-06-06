@@ -42,7 +42,6 @@
           - fd
           - fzf
           - github-cli
-          - git-delta
           - jq
           - kitty
           - lazydocker

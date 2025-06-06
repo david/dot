@@ -1,7 +1,6 @@
 git:
   paging:
     colorArg: always
-    pager: delta --paging=never
 gui:
   border: hidden
   enlargedSideViewLocation: top
