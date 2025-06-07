@@ -2,9 +2,14 @@
 
 set -e
 
-distrobox assemble create
+if [[ -n "$1" ]]; then
+  distrobox assemble create --name "$1"
+else
+  distrobox assemble create
+fi
 
-distrobox enter sys -- setup
-distrobox enter chr -- setup
+[[ -z "$1" || "$1" == "chr" ]] && distrobox enter chr -- setup
+[[ -z "$1" || "$1" == "emp" ]] && distrobox enter emp -- setup
+[[ -z "$1" || "$1" == "sys" ]] && distrobox enter sys -- setup
 
 ansible-playbook --tags apps files.yml
