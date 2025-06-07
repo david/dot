@@ -18,6 +18,7 @@
           - postgresql
           - python-psycopg
           - tailwindcss-language-server
+          - vale
         state: present
 
     - name: postgres init db
