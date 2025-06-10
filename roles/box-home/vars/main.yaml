@@ -1,0 +1,2 @@
+home: "{{ ansible_user_dir }}"
+tidewave_enabled: false

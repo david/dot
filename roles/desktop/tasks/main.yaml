@@ -1,0 +1,2 @@
+- include_tasks: gnome.yaml
+- include_tasks: files.yaml

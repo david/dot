@@ -1,0 +1,2 @@
+- include_tasks: boxes.yaml
+- include_tasks: desktop.yaml

@@ -1,0 +1,76 @@
+- name: chaotic-aur pacman key
+  become: true
+  community.general.pacman_key:
+    id: ef925ea60f33d0cb85c44ad13056513887b78aeb
+    keyserver: keyserver.ubuntu.com
+    state: present
+
+- name: chaotic-aur repo packages
+  become: true
+  community.general.pacman:
+    name:
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+
+- name: chaotic-aur pacman config
+  become: true
+  community.general.ini_file:
+    path: /etc/pacman.conf
+    mode: "0644"
+    section: chaotic-aur
+    option: Include
+    value: /etc/pacman.d/chaotic-mirrorlist
+    state: present
+
+- name: packages
+  become: true
+  community.general.pacman:
+    name:
+      - atuin
+      - bat
+      - direnv
+      - eza
+      - fd
+      - fzf
+      - github-cli
+      - gnome-keyring
+      - jq
+      - kitty
+      - lazydocker
+      - lazygit
+      - neovim
+      - nodejs
+      - npm
+      - org.freedesktop.secrets
+      - ripgrep
+      - ruby
+      - starship
+      - tailwindcss-language-server
+      - wl-clipboard
+      - yay
+    update_cache: true
+
+- name: blesh clean
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /usr/local/blesh
+    - /tmp/ble-nightly.tar.xz
+    - /tmp/ble-nightly
+
+- name: blesh prepare
+  ansible.builtin.unarchive:
+    src: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
+    dest: /tmp
+    remote_src: true
+
+- name: blesh install
+  become: true
+
+  ansible.builtin.command:
+    cmd: bash /tmp/ble-nightly/ble.sh --install /usr/local
+    creates: /usr/local/blesh
+
+# vim: ft=yaml.ansible

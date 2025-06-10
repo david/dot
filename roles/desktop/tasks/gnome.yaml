@@ -1,0 +1,68 @@
+- name: install flatpaks
+  community.general.flatpak:
+    name:
+      - ca.desrt.dconf-editor
+      - com.bitwarden.desktop
+      - com.brave.Browser
+      - com.discordapp.Discord
+      - com.rtosta.zapzap
+      - com.slack.Slack
+      - org.chromium.Chromium
+      - org.gnome.Geary
+      - org.signal.Signal
+    state: present
+
+- name: remove default flatpaks
+  community.general.flatpak:
+    name:
+      - io.github.dvlv.boxbuddyrs
+      - io.podman_desktop.PodmanDesktop
+      - org.mozilla.firefox
+      - org.mozilla.Thunderbird
+      - sh.loft.devpod
+    state: absent
+
+- name: enable bluefin gnome extensions
+  shell: "gnome-extensions enable {{ item }}"
+  loop:
+    - caffeine@patapon.info
+
+- name: disable bluefin gnome extensions
+  shell: "gnome-extensions disable {{ item }}"
+  loop:
+    - apps-menu@gnome-shell-extensions.gcampax.github.com
+    - dash-to-dock@micxgx.gmail.com
+    - logomenu@aryan_k
+    - tailscale@joaophi.github.com
+
+- name: download gnome extensions
+  get_url:
+    url: "https://extensions.gnome.org/extension-data/{{ item.file }}"
+    dest: "/tmp/{{ item.file }}"
+  loop: "{{ extensions }}"
+
+- name: install gnome extensions
+  command: "gnome-extensions install /tmp/{{ item.file }}"
+  loop: "{{ extensions }}"
+  ignore_errors: true
+
+- name: enable gnome extensions
+  command: "gnome-extensions enable {{ item.name }}"
+  loop: "{{ extensions }}"
+  ignore_errors: true
+
+- name: tweak gnome settings
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop: "{{ settings }}"
+
+- name: tweak gnome settings
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/sources"
+    value: "[('xkb', 'us'), ('xkb', 'us+intl')]"
+
+- name: tweak gnome settings
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/mru-sources"
+    value: "[('xkb', 'us')]"

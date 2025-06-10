@@ -1,0 +1,7 @@
+assets: "./"
+additional_packages: "ansible"
+box_defaults:
+  image: "ghcr.io/ublue-os/arch-toolbox:latest"
+  prefix: "{{ lookup('env', 'HOME') }}/Boxes"
+home: "{{ lookup('env', 'HOME') }}"
+

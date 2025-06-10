@@ -1,6 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=chr  trunk
-StartupNotify=true
-Exec=distrobox enter --no-workdir chr -- kitty --directory=Boxes/chr/trunk --session=chr-session.conf

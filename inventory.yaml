@@ -1,0 +1,16 @@
+distrobox:
+  children:
+    boxes:
+      hosts:
+        dot:
+          worktrees:
+            - trunk
+        chr:
+          box_defaults:
+            init: true
+          worktrees:
+            - trunk
+
+  vars:
+    ansible_connection: containers.podman.podman
+    ansible_python_interpreter: /usr/bin/python3

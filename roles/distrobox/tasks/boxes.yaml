@@ -1,0 +1,25 @@
+- name: create
+  ansible.builtin.command:
+    argv:
+      - distrobox
+      - create
+      - --name
+      - "{{ item }}"
+      - --image
+      - "{{ box_defaults.image }}"
+      - --yes
+      - --home
+      - "{{ box_defaults.prefix }}/{{ item }}"
+      - --additional-packages
+      - "{{ additional_packages }}"
+      - --no-entry
+      - "{{ '--init' if hostvars[item].box_defaults.init is defined and hostvars[item].box_defaults.init }}"
+  loop: "{{ groups['boxes'] }}"
+  tags: boxes
+
+- name: warm up
+  ansible.builtin.command: "distrobox enter {{ item }} -- true"
+  loop: "{{ groups['boxes'] }}"
+  tags: boxes
+
+# vim: ft=yaml.ansible

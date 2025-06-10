@@ -1,0 +1,41 @@
+- name: host
+  hosts: localhost
+  connection: local
+  roles:
+    - distrobox
+
+- name: box
+  hosts: boxes
+  roles:
+    - box
+
+- name: box home
+  hosts: boxes
+  become: true
+  become_user: david
+  roles:
+    - box-home
+    - common-home
+    - secrets-home
+
+- name: dot
+  hosts: dot
+  connection: community.podman.podman
+
+  tasks:
+    - name: packages
+      community.general.pacman:
+        name:
+          - ansible-language-server
+          - ansible-lint
+          - stylua
+          - yaml-language-server
+        state: present
+
+- name: chr
+  hosts: chr
+  roles:
+    - elixir
+    - postgres
+
+# vim: ft=yaml.ansible

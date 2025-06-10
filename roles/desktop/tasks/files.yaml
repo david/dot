@@ -1,0 +1,19 @@
+- name: "create subdirs"
+  ansible.builtin.file:
+    path: "{{ home }}/.local/share/{{ item.path | regex_replace('^_', '.') }}"
+    mode: "0700"
+    state: directory
+  with_community.general.filetree: "{{ assets }}"
+  when: item.state == 'directory'
+  tags: files
+
+- name: "link files"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    path: "{{ home }}/.local/share/{{ item.path | regex_replace('^_', '.') }}"
+    state: link
+  with_community.general.filetree: "{{ assets }}"
+  when: item.state == 'file'
+  tags: files
+
+# vim: ft=yaml.ansible

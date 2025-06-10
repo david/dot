@@ -1,0 +1,7 @@
+- name: goose
+  ansible.builtin.template:
+    src: goose.config.yaml.j2
+    dest: "{{ home }}/.config/goose/config.yaml"
+    mode: "0644"
+
+# vim: ft=yaml.ansible

@@ -1,0 +1,47 @@
+[[ -f /var/home/linuxbrew/.linuxbrew/bin/brew ]] &&
+  eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export CDPATH=".:$HOME/Boxes"
+
+# history
+
+# dot
+export DOT_HOME=$HOME/Boxes/sys/trunk
+
+# editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+# fzf
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
+
+# elixir
+export ERL_FLAGS="-kernel shell_history enabled"
+
+# secrets
+SECRETS=~/.config/bash/secrets.bash
+[[ -f $SECRETS ]] && source $SECRETS
+
+# container
+CONTAINERRC=~/.config/bash/${CONTAINER_ID}.bash
+[[ -f $CONTAINERRC ]] && source $CONTAINERRC
+
+# path
+export PATH="$HOME/.local/bin:$PATH"
+
+[[ $- == *i* ]] || return
+
+set -o vi
+
+[[ -f /usr/local/blesh/ble.sh ]] &&
+  source /usr/local/blesh/ble.sh
+
+alias ls=eza
+
+eval "$(fzf --bash)"
+eval "$(direnv hook bash)"
+eval "$(starship init bash)"
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+# vim: ft=bash

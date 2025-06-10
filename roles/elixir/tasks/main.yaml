@@ -1,0 +1,11 @@
+- name: packages
+  community.general.pacman:
+    name:
+      - elixir
+      - elixir-ls
+      - erlang-syntax_tools
+      - erlang-xmerl
+      - inotify-tools
+    state: present
+
+# vim: ft=yaml.ansible
