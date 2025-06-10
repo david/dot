@@ -3,6 +3,7 @@
     name:
       - elixir
       - elixir-ls
+      - erlang-dialyzer
       - erlang-syntax_tools
       - erlang-xmerl
       - inotify-tools
