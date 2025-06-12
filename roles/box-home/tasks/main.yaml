@@ -1,4 +1,10 @@
 - name: goose
+  ansible.builtin.file:
+    path: "{{ home }}/.config/goose"
+    mode: "0755"
+    state: directory
+
+- name: goose
   ansible.builtin.template:
     src: goose.config.yaml.j2
     dest: "{{ home }}/.config/goose/config.yaml"
