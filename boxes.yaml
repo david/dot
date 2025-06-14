@@ -20,6 +20,13 @@
     - common-home
     - secrets-home
 
+- name: box user
+  hosts: boxes
+  become: true
+  become_user: david
+  roles:
+    - box-user
+
 - name: dot
   hosts: dot
   connection: community.podman.podman
