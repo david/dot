@@ -38,6 +38,5 @@
   hosts: chr
   roles:
     - elixir
-    - postgres
 
 # vim: ft=yaml.ansible
