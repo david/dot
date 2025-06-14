@@ -1,3 +1,5 @@
+assets: "./"
+
 extensions:
   - file: azwallpaperazwallpaper.gitlab.com.v11.shell-extension.zip
     name: azwallpaper@azwallpaper.gitlab.com
