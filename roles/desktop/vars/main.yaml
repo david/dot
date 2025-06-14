@@ -55,7 +55,7 @@ settings:
     value: "['']"
 
   - key: "/org/gnome/desktop/wm/preferences/workspace-names"
-    value: "['sys', 'chr']"
+    value: "['I', 'II', 'III']"
 
   - key: "/org/gnome/mutter/overlay-key"
     value: "''"
@@ -183,4 +183,3 @@ settings:
 
   - key: "/org/gtk/settings/file-chooser/clock-format"
     value: "'24'"
-
