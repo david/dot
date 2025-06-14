@@ -1,4 +1,9 @@
-- include_tasks: locale.yaml
-- include_tasks: packages.yaml
-- include_tasks: scripts.yaml
-- include_tasks: ai.yaml
+- name: locale
+  include_tasks: locale.yaml
+- name: packages
+  include_tasks: packages.yaml
+- name: scripts
+  include_tasks: scripts.yaml
+- name: ai
+  include_tasks: ai.yaml
+  tags: ai
