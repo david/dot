@@ -1,7 +1,7 @@
 - name: "create subdirs"
   ansible.builtin.file:
     path: "{{ home }}/.local/share/{{ item.path | regex_replace('^_', '.') }}"
-    mode: "0700"
+    mode: "0755"
     state: directory
   with_community.general.filetree: "{{ assets }}"
   when: item.state == 'directory'
