@@ -17,7 +17,6 @@
     - box-home
     - common-home
     - secrets-home
-    - box-user
 
 - name: dot
   hosts: dot

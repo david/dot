@@ -4,9 +4,6 @@
   include_tasks: arch.yaml
 - name: scripts
   include_tasks: scripts.yaml
-- name: voice
-  include_tasks: voice.yaml
-  tags: voice
 - name: ai
   include_tasks: ai.yaml
   tags: ai
