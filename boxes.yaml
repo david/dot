@@ -4,11 +4,6 @@
   roles:
     - distrobox
 
-- name: box
-  hosts: boxes
-  roles:
-    - box
-
 - name: box user
   hosts: boxes
   become: true
@@ -17,6 +12,11 @@
     - box-home
     - common-home
     - secrets-home
+
+- name: box
+  hosts: boxes
+  roles:
+    - box
 
 - name: dot
   hosts: dot
