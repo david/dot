@@ -5,6 +5,10 @@
     state: directory
   tags: config
 
+- name: .config
+  include_tasks: ../../common-home/tasks/main.yaml
+  tags: config
+
 - name: goose
   include_tasks: goose.yaml
   tags: config
