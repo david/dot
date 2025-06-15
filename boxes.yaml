@@ -9,22 +9,14 @@
   roles:
     - box
 
-- name: box home
-  hosts: localhost
-  connection: local
-  vars:
-    config_home: "{{ lookup('env', 'HOME') }}/Boxes/{{ ansible_host }}"
-
-  roles:
-    - box-home
-    - common-home
-    - secrets-home
-
 - name: box user
   hosts: boxes
   become: true
   become_user: david
   roles:
+    - box-home
+    - common-home
+    - secrets-home
     - box-user
 
 - name: dot
