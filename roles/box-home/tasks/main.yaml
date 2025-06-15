@@ -1,3 +1,8 @@
+- name: .config
+  ansible.builtin.file:
+    path: "{{ config_home }}"
+    mode: "0755"
+    state: directory
 - name: goose
   ansible.builtin.file:
     path: "{{ config_home }}/goose"
