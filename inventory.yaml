@@ -4,6 +4,7 @@ distrobox:
       hosts:
         dot:
         chr:
+        agt:
 
   vars:
     ansible_connection: containers.podman.podman
