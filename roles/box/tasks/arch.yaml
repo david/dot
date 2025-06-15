@@ -26,7 +26,6 @@
   become: true
   community.general.pacman:
     name:
-      - atuin
       - bat
       - direnv
       - eza
@@ -36,7 +35,6 @@
       - gnome-keyring
       - jq
       - kitty
-      - lazydocker
       - lazygit
       - neovim
       - nodejs
@@ -49,28 +47,5 @@
       - wl-clipboard
       - yay
     update_cache: true
-
-- name: blesh clean
-  become: true
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - /usr/local/blesh
-    - /tmp/ble-nightly.tar.xz
-    - /tmp/ble-nightly
-
-- name: blesh prepare
-  ansible.builtin.unarchive:
-    src: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
-    dest: /tmp
-    remote_src: true
-
-- name: blesh install
-  become: true
-
-  ansible.builtin.command:
-    cmd: bash /tmp/ble-nightly/ble.sh --install /usr/local
-    creates: /usr/local/blesh
 
 # vim: ft=yaml.ansible
