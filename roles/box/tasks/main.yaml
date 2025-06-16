@@ -2,6 +2,9 @@
   include_tasks: locale.yaml
 - name: packages
   include_tasks: arch.yaml
+- name: docker
+  include_tasks: docker.yaml
+  tags: docker
 - name: scripts
   include_tasks: scripts.yaml
 - name: ai
