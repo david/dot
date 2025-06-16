@@ -47,7 +47,6 @@
     - folke/lazydev.nvim
     - ellisonleao/gruvbox.nvim
     - akinsho/git-conflict.nvim
-    - ibhagwan/fzf-lua
     - ggandor/flit.nvim
     - direnv/direnv.vim
   tags: nvim

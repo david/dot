@@ -245,8 +245,6 @@ require("lazydev").setup({})
 
 require("git-conflict").setup({})
 
-require("fzf-lua").setup({})
-
 require("flit").setup({})
 
 vim.cmd.colorscheme("gruvbox")
