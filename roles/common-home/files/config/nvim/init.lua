@@ -164,53 +164,6 @@ require("gruvbox").setup({
   invert_signs = true,
 })
 
-require("blink.cmp").setup({
-  completion = {
-    menu = {
-      draw = {
-        components = {
-          kind_icon = {
-            highlight = function(ctx)
-              local highlight = "BlinkCmpKind" .. ctx.kind
-
-              if ctx.item.source_name == "LSP" then
-                local color_item =
-                  require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                if color_item and color_item.abbr_hl_group then
-                  highlight = color_item.abbr_hl_group
-                end
-              end
-
-              return highlight
-            end,
-            text = function(ctx)
-              local icon = ctx.kind_icon
-
-              if ctx.item.source_name == "LSP" then
-                local color_item =
-                  require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
-                if color_item and color_item.abbr then
-                  icon = color_item.abbr
-                end
-              end
-
-              return icon .. ctx.icon_gap
-            end,
-          },
-        },
-      },
-    },
-  },
-
-  keymap = {
-    ["<Up>"] = { "select_prev" },
-    ["<Down>"] = { "select_next" },
-    ["<Right>"] = { "select_and_accept" },
-  },
-
-  signature = { enabled = true },
-})
-
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
@@ -227,27 +180,27 @@ require("conform").setup({
 
 require("nvim-custom-diagnostic-highlight").setup({})
 
-require("diffview").setup()
+require("diffview").setup({})
 
-require("which-key").setup()
+require("which-key").setup({})
 
-require("virt-column").setup()
+require("virt-column").setup({})
 
-require("treesj").setup()
+require("treesj").setup({})
 
-require("todo-comments").setup()
+require("todo-comments").setup({})
 
-require("tiny-glimmer").setup()
+require("tiny-glimmer").setup({})
 
-require("supermaven-nvim").setup()
+require("supermaven-nvim").setup({})
 
-require("snacks").setup()
+require("snacks").setup({})
 
-require("rainbow-delimiters.setup").setup()
+require("rainbow-delimiters.setup").setup({})
 
-require("quicker").setup()
+require("quicker").setup({})
 
-require("nvim-ts-autotag").setup()
+require("nvim-ts-autotag").setup({})
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "lua", "elixir", "heex", "eex" },
@@ -256,7 +209,7 @@ require("nvim-treesitter.configs").setup({
   textobjects = { enable = true },
 })
 
-require("nvim-surround").setup()
+require("nvim-surround").setup({})
 
 require("lint").linters_by_ft = {
   markdown = { "vale" },
@@ -268,32 +221,32 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
-require("nvim-highlight-colors").setup()
+require("nvim-highlight-colors").setup({})
 
-require("bqf").setup()
+require("bqf").setup({})
 
-require("nvim-autopairs").setup()
+require("nvim-autopairs").setup({})
 
-require("neoclip").setup()
+require("neoclip").setup({})
 
-require("mini.move").setup()
+require("mini.move").setup({})
 
-require("mini.align").setup()
+require("mini.align").setup({})
 
-require("mason").setup()
+require("mason").setup({})
 
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({})
 
-require("lualine").setup()
+require("lualine").setup({})
 
-require("leap").setup()
+require("leap").setup({})
 
-require("lazydev").setup()
+require("lazydev").setup({})
 
-require("git-conflict").setup()
+require("git-conflict").setup({})
 
-require("fzf-lua").setup()
+require("fzf-lua").setup({})
 
-require("flit").setup()
+require("flit").setup({})
 
 vim.cmd.colorscheme("gruvbox")

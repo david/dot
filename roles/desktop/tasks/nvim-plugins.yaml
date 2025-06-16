@@ -12,7 +12,6 @@
     update: true
     force: true
   loop:
-    - saghen/blink.cmp
     - stevearc/conform.nvim
     - Kasama/nvim-custom-diagnostic-highlight
     - sindrets/diffview.nvim
