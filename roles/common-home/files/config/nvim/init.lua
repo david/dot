@@ -47,8 +47,8 @@ end)
 
 vim.diagnostic.config({
   virtual_lines = {
-    current_line = true
-  }
+    current_line = true,
+  },
 })
 
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
@@ -59,26 +59,241 @@ vim.keymap.set("n", "m", "q")
 vim.keymap.set("n", "q", "<cmd>bdelete<cr>")
 vim.keymap.set("n", "Q", "<cmd>quit<cr>")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Snacks mappings
+vim.keymap.set("n", "<leader>ff", function()
+  require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
+end, { desc = "File" })
+vim.keymap.set("n", "<leader>f/", function()
+  require("snacks").picker.grep()
+end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>fb", function()
+  require("snacks").picker.buffers()
+end, { desc = "Buffer" })
 
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
+-- TreeSJ mappings
+vim.keymap.set("n", "gs", function()
+  require("treesj").toggle()
+end, { desc = "Toggle single line/multiline" })
 
-vim.opt.rtp:prepend(lazypath)
+-- Leap mappings
+vim.keymap.set("n", "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
+vim.keymap.set("n", "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
 
-require("lazy").setup("plugins", {
-  checker = { enabled = true },
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("timbuktu-lsp-attach", { clear = true }),
+  callback = function(event)
+    local map = function(keys, func, desc)
+      vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+    end
+
+    map("gd", function()
+      require("snacks").picker.lsp_definitions()
+    end, "Go to definition")
+    map("gr", function()
+      require("snacks").picker.lsp_references()
+    end, "Go to references")
+    map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+    map("<leader>fm", function()
+      require("snacks").picker.lsp_symbols()
+    end, "Symbols")
+    map("<leader>rn", vim.lsp.buf.rename, "Rename")
+
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+      local highlight_augroup = vim.api.nvim_create_augroup("timbuktu-lsp-highlight", { clear = false })
+
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.document_highlight,
+      })
+
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.clear_references,
+      })
+
+      vim.api.nvim_create_autocmd("LspDetach", {
+        group = vim.api.nvim_create_augroup("timbuktu-lsp-detach", { clear = true }),
+        callback = function(event2)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds({
+            group = "timbuktu-lsp-highlight",
+            buffer = event2.buf,
+          })
+        end,
+      })
+    end
+  end,
 })
+
+vim.api.nvim_create_autocmd("LspProgress", {
+  callback = function(ev)
+    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+    vim.notify(vim.lsp.status(), "info", {
+      id = "lsp_progress",
+      title = "LSP Progress",
+      opts = function(notif)
+        notif.icon = ev.data.params.value.kind == "end" and " "
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+      end,
+    })
+  end,
+})
+
+require("lspconfig").elixirls.setup({
+  cmd = { "elixir-ls" },
+  filetypes = { "elixir", "eelixir", "heex", "elixirscript" },
+})
+
+require("lspconfig").lua_ls.setup({
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace",
+      },
+      diagnostics = { disable = { "missing-fields" } },
+    },
+  },
+})
+
+require("gruvbox").setup({
+  inverse = true,
+  invert_selection = true,
+  invert_signs = true,
+})
+
+require("blink.cmp").setup({
+  completion = {
+    menu = {
+      draw = {
+        components = {
+          kind_icon = {
+            highlight = function(ctx)
+              local highlight = "BlinkCmpKind" .. ctx.kind
+
+              if ctx.item.source_name == "LSP" then
+                local color_item =
+                  require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr_hl_group then
+                  highlight = color_item.abbr_hl_group
+                end
+              end
+
+              return highlight
+            end,
+            text = function(ctx)
+              local icon = ctx.kind_icon
+
+              if ctx.item.source_name == "LSP" then
+                local color_item =
+                  require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr then
+                  icon = color_item.abbr
+                end
+              end
+
+              return icon .. ctx.icon_gap
+            end,
+          },
+        },
+      },
+    },
+  },
+
+  keymap = {
+    ["<Up>"] = { "select_prev" },
+    ["<Down>"] = { "select_next" },
+    ["<Right>"] = { "select_and_accept" },
+  },
+
+  signature = { enabled = true },
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "isort", "black" },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    elixir = { "mix" },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
+})
+
+require("nvim-custom-diagnostic-highlight").setup({})
+
+require("diffview").setup()
+
+require("which-key").setup()
+
+require("virt-column").setup()
+
+require("treesj").setup()
+
+require("todo-comments").setup()
+
+require("tiny-glimmer").setup()
+
+require("supermaven-nvim").setup()
+
+require("snacks").setup()
+
+require("rainbow-delimiters.setup").setup()
+
+require("quicker").setup()
+
+require("nvim-ts-autotag").setup()
+
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "lua", "elixir", "heex", "eex" },
+  highlight = { enable = true },
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
+})
+
+require("nvim-surround").setup()
+
+require("lint").linters_by_ft = {
+  markdown = { "vale" },
+}
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+
+require("nvim-highlight-colors").setup()
+
+require("bqf").setup()
+
+require("nvim-autopairs").setup()
+
+require("neoclip").setup()
+
+require("mini.move").setup()
+
+require("mini.align").setup()
+
+require("mason").setup()
+
+require("mason-lspconfig").setup()
+
+require("lualine").setup()
+
+require("leap").setup()
+
+require("lazydev").setup()
+
+require("git-conflict").setup()
+
+require("fzf-lua").setup()
+
+require("flit").setup()
 
 vim.cmd.colorscheme("gruvbox")

@@ -1,0 +1,56 @@
+- name: "create neovim pack directory"
+  ansible.builtin.file:
+    path: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
+    state: directory
+    mode: "0755"
+  tags: nvim
+
+- name: "clone neovim plugins"
+  ansible.builtin.git:
+    repo: "https://github.com/{{ item }}.git"
+    dest: "{{ home }}/.local/share/nvim/site/pack/plugins/start/{{ item | basename }}"
+    update: true
+    force: true
+  loop:
+    - saghen/blink.cmp
+    - stevearc/conform.nvim
+    - Kasama/nvim-custom-diagnostic-highlight
+    - sindrets/diffview.nvim
+    - folke/which-key.nvim
+    - lukas-reineke/virt-column.nvim
+    - andymass/vim-matchup
+    - fladson/vim-kitty
+    - Wansmer/treesj
+    - RRethy/nvim-treesitter-endwise
+    - folke/todo-comments.nvim
+    - rachartier/tiny-glimmer.nvim
+    - supermaven-inc/supermaven-nvim
+    - folke/snacks.nvim
+    - HiPhish/rainbow-delimiters.nvim
+    - stevearc/quicker.nvim
+    - windwp/nvim-ts-autotag
+    - nvim-treesitter/nvim-treesitter
+    - nvim-treesitter/nvim-treesitter-textobjects
+    - kylechui/nvim-surround
+    - mfussenegger/nvim-lint
+    - brenoprata10/nvim-highlight-colors
+    - kevinhwang91/nvim-bqf
+    - windwp/nvim-autopairs
+    - AckslD/nvim-neoclip.lua
+    - echasnovski/mini.move
+    - echasnovski/mini.align
+    - mason-org/mason.nvim
+    - mason-org/mason-lspconfig.nvim
+    - Bilal2453/luvit-meta
+    - nvim-lualine/lualine.nvim
+    - neovim/nvim-lspconfig
+    - ggandor/leap.nvim
+    - folke/lazydev.nvim
+    - ellisonleao/gruvbox.nvim
+    - akinsho/git-conflict.nvim
+    - ibhagwan/fzf-lua
+    - ggandor/flit.nvim
+    - direnv/direnv.vim
+  tags: nvim
+
+# vim:ft=yaml.ansible
