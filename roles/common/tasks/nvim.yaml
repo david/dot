@@ -1,4 +1,6 @@
 - name: "create neovim pack directory"
+  become: true
+  become_user: david
   ansible.builtin.file:
     path: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
     state: directory
@@ -6,6 +8,8 @@
   tags: nvim
 
 - name: "clone neovim plugins"
+  become: true
+  become_user: david
   ansible.builtin.git:
     repo: "https://github.com/{{ item }}.git"
     dest: "{{ home }}/.local/share/nvim/site/pack/plugins/start/{{ item | basename }}"
