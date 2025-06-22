@@ -229,20 +229,85 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 require("nvim-surround").setup({})
 
 require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "bash",
+    "eex",
+    "elixir",
+    "embedded_template",
+    "heex",
+    "html",
+    "lua",
+    "luadoc",
+    "markdown",
+    "markdown_inline",
+    "regex",
+    "ruby",
+    "vim",
+    "vimdoc",
+  },
+
   endwise = {
     enable = true,
   },
-  ensure_installed = {
-    "eex",
-    "elixir",
-    "heex",
-    "lua",
-    "markdown",
-    "markdown_inline",
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "ruby" },
   },
-  highlight = { enable = true },
+
   incremental_selection = { enable = true },
-  textobjects = { enable = true },
+
+  indent = {
+    enable = true,
+    disable = { "ruby" },
+  },
+
+  matchup = {
+    enable = true,
+  },
+
+  textobjects = {
+    lsp_interop = {
+      enable = true,
+    },
+
+    move = {
+      enable = true,
+      goto_next_start = {
+        ["<M-a>"] = "@parameter.inner",
+        ["<M-f>"] = "@function.outer",
+        ["<M-b>"] = "@block.outer",
+      },
+      goto_prev_start = {
+        ["<M-S-a>"] = "@parameter.inner",
+        ["<M-S-f>"] = "@function.outer",
+        ["<M-S-b>"] = "@block.outer",
+      },
+    },
+
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+      },
+    },
+
+    swap = {
+      enable = true,
+      swap_next = {
+        ["gwa"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["gwA"] = "@parameter.inner",
+      },
+    },
+  },
 })
 
 require("nvim-ts-autotag").setup({})
