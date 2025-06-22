@@ -20,6 +20,8 @@
     - direnv/direnv.vim
     - echasnovski/mini.align
     - echasnovski/mini.move
+    # for codecompanion
+    - echasnovski/mini.diff
     - ellisonleao/gruvbox.nvim
     - fladson/vim-kitty
     - folke/lazydev.nvim
@@ -28,6 +30,8 @@
     - folke/which-key.nvim
     - ggandor/flit.nvim
     - ggandor/leap.nvim
+    # for codecompanion
+    - hakonharnes/img-clip.nvim
     - hiphish/rainbow-delimiters.nvim
     - kasama/nvim-custom-diagnostic-highlight
     - kevinhwang91/nvim-bqf
@@ -35,12 +39,20 @@
     - lukas-reineke/virt-column.nvim
     - mason-org/mason-lspconfig.nvim
     - mason-org/mason.nvim
+    # for codecompanion
+    - meanderingprogrammer/render-markdown.nvim
     - mfussenegger/nvim-lint
     - neovim/nvim-lspconfig
+    - nvim-lua/plenary.nvim
     - nvim-lualine/lualine.nvim
     - nvim-treesitter/nvim-treesitter
     - nvim-treesitter/nvim-treesitter-textobjects
+    - olimorris/codecompanion.nvim
+    # for codecompanion
+    - oxy2dev/markview.nvim
     - rachartier/tiny-glimmer.nvim
+    # for codecompanion
+    - ravitemer/mcphub.nvim
     - rrethy/nvim-treesitter-endwise
     - sindrets/diffview.nvim
     - stevearc/conform.nvim

@@ -208,6 +208,9 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("nvim-ts-autotag").setup({})
+
+require("codecompanion").setup({})
+
 require("quicker").setup({})
 require("rainbow-delimiters.setup").setup({})
 require("snacks").setup({})
