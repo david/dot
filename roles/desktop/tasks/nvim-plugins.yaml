@@ -12,43 +12,43 @@
     update: true
     force: true
   loop:
-    - stevearc/conform.nvim
-    - Kasama/nvim-custom-diagnostic-highlight
-    - sindrets/diffview.nvim
-    - folke/which-key.nvim
-    - lukas-reineke/virt-column.nvim
+    - acksld/nvim-neoclip.lua
+    - akinsho/git-conflict.nvim
     - andymass/vim-matchup
+    - bilal2453/luvit-meta
+    - brenoprata10/nvim-highlight-colors
+    - direnv/direnv.vim
+    - echasnovski/mini.align
+    - echasnovski/mini.move
+    - ellisonleao/gruvbox.nvim
     - fladson/vim-kitty
-    - Wansmer/treesj
-    - RRethy/nvim-treesitter-endwise
-    - folke/todo-comments.nvim
-    - rachartier/tiny-glimmer.nvim
-    - supermaven-inc/supermaven-nvim
+    - folke/lazydev.nvim
     - folke/snacks.nvim
-    - HiPhish/rainbow-delimiters.nvim
-    - stevearc/quicker.nvim
-    - windwp/nvim-ts-autotag
+    - folke/todo-comments.nvim
+    - folke/which-key.nvim
+    - ggandor/flit.nvim
+    - ggandor/leap.nvim
+    - hiphish/rainbow-delimiters.nvim
+    - kasama/nvim-custom-diagnostic-highlight
+    - kevinhwang91/nvim-bqf
+    - kylechui/nvim-surround
+    - lukas-reineke/virt-column.nvim
+    - mason-org/mason-lspconfig.nvim
+    - mason-org/mason.nvim
+    - mfussenegger/nvim-lint
+    - neovim/nvim-lspconfig
+    - nvim-lualine/lualine.nvim
     - nvim-treesitter/nvim-treesitter
     - nvim-treesitter/nvim-treesitter-textobjects
-    - kylechui/nvim-surround
-    - mfussenegger/nvim-lint
-    - brenoprata10/nvim-highlight-colors
-    - kevinhwang91/nvim-bqf
+    - rachartier/tiny-glimmer.nvim
+    - rrethy/nvim-treesitter-endwise
+    - sindrets/diffview.nvim
+    - stevearc/conform.nvim
+    - stevearc/quicker.nvim
+    - supermaven-inc/supermaven-nvim
+    - wansmer/treesj
     - windwp/nvim-autopairs
-    - AckslD/nvim-neoclip.lua
-    - echasnovski/mini.move
-    - echasnovski/mini.align
-    - mason-org/mason.nvim
-    - mason-org/mason-lspconfig.nvim
-    - Bilal2453/luvit-meta
-    - nvim-lualine/lualine.nvim
-    - neovim/nvim-lspconfig
-    - ggandor/leap.nvim
-    - folke/lazydev.nvim
-    - ellisonleao/gruvbox.nvim
-    - akinsho/git-conflict.nvim
-    - ggandor/flit.nvim
-    - direnv/direnv.vim
+    - windwp/nvim-ts-autotag
   tags: nvim
 
 # vim:ft=yaml.ansible
