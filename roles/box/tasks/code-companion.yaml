@@ -1,0 +1,10 @@
+- name: mcphub
+  become: true
+  community.general.npm:
+    name: mcp-hub
+    version: latest
+    global: true
+    state: present
+  tags:
+    - codecompanion
+    - packages

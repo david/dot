@@ -7,6 +7,12 @@
 - name: "packages [blesh]"
   include_tasks: blesh.yaml
   tags: packages
+- name: "packages [code companion]"
+  include_tasks: code-companion.yaml
+  tags:
+    - codecompanion
+    - packages
+
 - name: dirs
   include_tasks: dirs.yaml
   tags: dirs
