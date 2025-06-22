@@ -45,12 +45,6 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
-vim.diagnostic.config({
-  virtual_lines = {
-    current_line = true,
-  },
-})
-
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
