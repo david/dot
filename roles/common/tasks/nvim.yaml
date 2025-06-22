@@ -56,6 +56,7 @@
     - oxy2dev/markview.nvim
     - rachartier/tiny-glimmer.nvim
     # for codecompanion
+    - ravitemer/codecompanion-history.nvim
     - ravitemer/mcphub.nvim
     - rrethy/nvim-treesitter-endwise
     - sindrets/diffview.nvim

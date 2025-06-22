@@ -229,7 +229,61 @@ require("conform").setup({
 
 require("bqf").setup({})
 
-require("codecompanion").setup({})
+require("img-clip").setup({
+  filetypes = {
+    codecompanion = {
+      prompt_for_file_name = false,
+      template = "[Image]($FILE_PATH)",
+      use_absolute_path = true,
+    },
+  },
+})
+
+require("mcphub").setup({})
+
+local mini_diff = require("mini.diff")
+
+mini_diff.setup({
+  source = mini_diff.gen_source.none(),
+})
+
+require("render-markdown").setup({
+  completions = {
+    lsp = {
+      enabled = true,
+    },
+  },
+})
+
+require("codecompanion").setup({
+  extensions = {
+    mcphub = {
+      callback = "mcphub.extensions.codecompanion",
+      opts = {
+        make_vars = true,
+        make_slash_commands = true,
+        show_result_in_chat = true,
+      },
+    },
+  },
+  strategies = {
+    chat = {
+      adapter = {
+        name = "gemini",
+        model = "gemini-2.5-pro",
+      },
+    },
+    inline = {
+      adapter = {
+        name = "gemini",
+        model = "gemini-2.5-pro",
+      },
+    },
+    diff = {
+      provider = "mini_diff",
+    },
+  },
+})
 
 require("diffview").setup({})
 
@@ -330,6 +384,7 @@ require("gitsigns").setup({
 })
 
 require("mini.align").setup({})
+
 require("mini.move").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-custom-diagnostic-highlight").setup({})
