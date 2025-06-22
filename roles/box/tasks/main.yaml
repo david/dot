@@ -2,9 +2,11 @@
   include_tasks: locale.yaml
 - name: packages
   include_tasks: arch.yaml
+  tags: packages
 
 - name: "packages [blesh]"
   include_tasks: blesh.yaml
+  tags: packages
 - name: dirs
   include_tasks: dirs.yaml
   tags: dirs

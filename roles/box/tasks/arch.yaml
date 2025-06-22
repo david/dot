@@ -47,5 +47,6 @@
       - wl-clipboard
       - yay
     update_cache: true
+  tags: packages
 
 # vim: ft=yaml.ansible
