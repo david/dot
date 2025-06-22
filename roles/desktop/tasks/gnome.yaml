@@ -33,6 +33,7 @@
     - apps-menu@gnome-shell-extensions.gcampax.github.com
     - dash-to-dock@micxgx.gmail.com
     - logomenu@aryan_k
+    - search-light@icedman.github.com
     - tailscale@joaophi.github.com
 
 - name: download gnome extensions
