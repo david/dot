@@ -2,6 +2,9 @@
   include_tasks: locale.yaml
 - name: packages
   include_tasks: arch.yaml
+- name: dirs
+  include_tasks: dirs.yaml
+  tags: dirs
 - name: docker
   include_tasks: docker.yaml
   tags: docker

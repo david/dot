@@ -1,0 +1,19 @@
+- name: .local
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local"
+    mode: "0755"
+    owner: david
+    group: david
+    state: directory
+  tags: dirs
+
+- name: .local
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local/share"
+    mode: "0755"
+    owner: david
+    group: david
+    state: directory
+  tags: dirs
+
+
