@@ -1,3 +1,4 @@
 - include_tasks: gnome.yaml
 - include_tasks: files.yaml
 - include_tasks: nvim-plugins.yaml
+  tags: nvim
