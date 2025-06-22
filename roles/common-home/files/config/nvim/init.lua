@@ -171,11 +171,17 @@ require("gruvbox").setup({
 })
 
 require("conform").setup({
-  format_on_save = function()
+  format_after_save = function()
     if next(vim.fs.find({ "mix.exs" }, { limit = 1 })) == nil then
-      return { timeout_ms = 500, lsp_format = "fallback" }
+      return {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      }
     else
-      return { timeout_ms = 2000, lsp_format = "fallback" }
+      return {
+        timeout_ms = 2000,
+        lsp_format = "fallback",
+      }
     end
   end,
 
