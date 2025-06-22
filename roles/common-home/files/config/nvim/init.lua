@@ -212,6 +212,9 @@ require("nvim-surround").setup({})
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "lua", "elixir", "heex", "eex" },
+  endwise = {
+    enable = true,
+  },
   highlight = { enable = true },
   incremental_selection = { enable = true },
   textobjects = { enable = true },
