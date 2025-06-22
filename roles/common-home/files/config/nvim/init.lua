@@ -214,6 +214,18 @@ require("mini.move").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-custom-diagnostic-highlight").setup({})
 require("nvim-highlight-colors").setup({})
+
+local lint = require("lint")
+
+local group = vim.api.nvim_create_augroup("timbuktu-lint", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  group = group,
+  callback = function()
+    lint.try_lint()
+  end,
+})
+
 require("nvim-surround").setup({})
 
 require("nvim-treesitter.configs").setup({
