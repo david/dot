@@ -13,7 +13,10 @@
       - --additional-packages
       - "{{ additional_packages }}"
       - --no-entry
-      - "{{ '--init' if hostvars[item].box_defaults.init is defined and hostvars[item].box_defaults.init }}"
+      - --volume
+      - "{{ home }}/.local/share/nvim/site:{{ home }}/Boxes/{{ item }}/.local/share/nvim/site"
+      - --volume
+      - "{{ home }}/.supermaven:{{ home }}/Boxes/{{ item }}/.supermaven"
   loop: "{{ groups['boxes'] }}"
   tags: boxes
 
