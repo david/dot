@@ -430,6 +430,8 @@ require("snacks").setup({
       preset = "ivy",
       layout = {
         box = "vertical",
+        height = 0.9,
+        width = 0.8,
         { win = "input", height = 1, border = "bottom" },
         { win = "list", height = 0.33 },
         { win = "preview", height = 0.66, border = "top" },
