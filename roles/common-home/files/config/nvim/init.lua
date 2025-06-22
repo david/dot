@@ -180,7 +180,12 @@ require("conform").setup({
 
 require("bqf").setup({})
 require("diffview").setup({})
-require("flit").setup({})
+
+require("flit").setup({
+  labeled_mods = "nvo",
+  multiline = false,
+})
+
 require("git-conflict").setup({})
 require("lazydev").setup({})
 require("leap").setup({})
