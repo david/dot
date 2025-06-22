@@ -9,8 +9,4 @@
   include_tasks: ../../common-home/tasks/main.yaml
   tags: config
 
-- name: goose
-  include_tasks: goose.yaml
-  tags: config
-
 # vim: ft=yaml.ansible

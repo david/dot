@@ -5,14 +5,4 @@
     remote_src: true
   tags: ai
 
-- name: goose
-  ansible.builtin.command:
-    argv:
-      - yay
-      - -S
-      - --noconfirm
-      - --needed
-      - codename-goose-bin
-  tags: ai
-
 # vim: ft=yaml.ansible
