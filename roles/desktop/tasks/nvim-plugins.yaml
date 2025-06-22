@@ -36,6 +36,7 @@
     - kasama/nvim-custom-diagnostic-highlight
     - kevinhwang91/nvim-bqf
     - kylechui/nvim-surround
+    - lewis6991/gitsigns.nvim
     - lukas-reineke/virt-column.nvim
     - mason-org/mason-lspconfig.nvim
     - mason-org/mason.nvim
