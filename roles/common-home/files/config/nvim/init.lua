@@ -200,7 +200,12 @@ require("lint").linters_by_ft = {
   markdown = { "vale" },
 }
 
-require("lualine").setup({})
+require("lualine").setup({
+  options = {
+    theme = "gruvbox",
+  },
+})
+
 require("mason").setup({})
 require("mason-lspconfig").setup({})
 require("mini.align").setup({})
