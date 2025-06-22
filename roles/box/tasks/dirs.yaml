@@ -1,6 +1,6 @@
 - name: .local
   ansible.builtin.file:
-    path: "{{ user_home }}/.local"
+    path: "{{ home }}/.local"
     mode: "0755"
     owner: david
     group: david
@@ -9,7 +9,7 @@
 
 - name: .local
   ansible.builtin.file:
-    path: "{{ user_home }}/.local/share"
+    path: "{{ home }}/.local/share"
     mode: "0755"
     owner: david
     group: david

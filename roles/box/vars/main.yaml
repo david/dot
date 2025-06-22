@@ -1,1 +1,0 @@
-user_home: "/var/home/david/Boxes/{{ ansible_env.CONTAINER_ID }}"
