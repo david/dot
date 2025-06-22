@@ -365,6 +365,25 @@ require("treesj").setup({
   use_default_keymaps = false,
 })
 require("virt-column").setup({})
-require("which-key").setup({})
+require("which-key").setup({
+  icons = {
+    mappings = true,
+  },
+  preset = "helix",
+  spec = {
+    { "<leader>/", group = "Search" },
+    { "<leader>b", group = "Buffer" },
+    { "<leader>c", group = "Code" },
+    { "<leader>e", group = "Edit" },
+    { "<leader>f", group = "Find" },
+    { "<leader>h", group = "Help" },
+    { "<leader>r", group = "Refactor" },
+    { "<leader>v", group = "Version control" },
+    { "<leader>w", group = "Workspace" },
+  },
+  win = {
+    border = "none",
+  },
+})
 
 vim.cmd.colorscheme("gruvbox")
