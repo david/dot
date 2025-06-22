@@ -1,5 +1,6 @@
 - name: locale
   include_tasks: locale.yaml
+
 - name: packages
   include_tasks: arch.yaml
   tags: packages
@@ -7,6 +8,7 @@
 - name: "packages [blesh]"
   include_tasks: blesh.yaml
   tags: packages
+
 - name: "packages [code companion]"
   include_tasks: code-companion.yaml
   tags:
@@ -16,11 +18,18 @@
 - name: dirs
   include_tasks: dirs.yaml
   tags: dirs
+
 - name: docker
   include_tasks: docker.yaml
   tags: docker
+
 - name: scripts
   include_tasks: scripts.yaml
+
 - name: ai
   include_tasks: ai.yaml
   tags: ai
+
+- name: nvim
+  include_tasks: ../../common/tasks/nvim.yaml
+  tags: nvim
