@@ -211,9 +211,16 @@ require("nvim-highlight-colors").setup({})
 require("nvim-surround").setup({})
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "elixir", "heex", "eex" },
   endwise = {
     enable = true,
+  },
+  ensure_installed = {
+    "eex",
+    "elixir",
+    "heex",
+    "lua",
+    "markdown",
+    "markdown_inline",
   },
   highlight = { enable = true },
   incremental_selection = { enable = true },
