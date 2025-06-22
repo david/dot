@@ -28,6 +28,7 @@
         name:
           - ansible-language-server
           - ansible-lint
+          - lua-language-server
           - stylua
           - yaml-language-server
         state: present
