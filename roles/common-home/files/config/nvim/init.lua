@@ -187,7 +187,13 @@ require("flit").setup({
 })
 
 require("git-conflict").setup({})
-require("lazydev").setup({})
+
+require("lazydev").setup({
+  library = {
+    { path = "luvit-meta/library", words = { "vim%.uv" } },
+  },
+})
+
 require("leap").setup({})
 
 require("lint").linters_by_ft = {
