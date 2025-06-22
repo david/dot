@@ -335,7 +335,29 @@ require("quicker").setup({
 })
 
 require("rainbow-delimiters.setup").setup({})
-require("snacks").setup({})
+
+require("snacks").setup({
+  indent = {},
+
+  input = {},
+
+  notifier = {},
+
+  picker = {
+    layout = {
+      preset = "ivy",
+      layout = {
+        box = "vertical",
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", height = 0.33 },
+        { win = "preview", height = 0.66, border = "top" },
+      },
+    },
+  },
+
+  statuscolumn = {},
+})
+
 require("supermaven-nvim").setup({})
 require("tiny-glimmer").setup({})
 require("todo-comments").setup({})
