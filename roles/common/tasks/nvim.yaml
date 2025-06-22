@@ -40,11 +40,14 @@
     - kasama/nvim-custom-diagnostic-highlight
     - kevinhwang91/nvim-bqf
     - kylechui/nvim-surround
+    - jfpedroza/neotest-elixir
     - lewis6991/gitsigns.nvim
     - lukas-reineke/virt-column.nvim
     # for codecompanion
     - meanderingprogrammer/render-markdown.nvim
     - mfussenegger/nvim-lint
+    - nvim-neotest/neotest
+    - nvim-neotest/nvim-nio
     - neovim/nvim-lspconfig
     - nvim-lua/plenary.nvim
     - nvim-lualine/lualine.nvim
@@ -61,6 +64,7 @@
     - rrethy/nvim-treesitter-endwise
     - sindrets/diffview.nvim
     - stevearc/conform.nvim
+    - stevearc/overseer.nvim
     - stevearc/quicker.nvim
     - supermaven-inc/supermaven-nvim
     - tpope/vim-fugitive

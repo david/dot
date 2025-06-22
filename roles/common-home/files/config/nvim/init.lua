@@ -310,6 +310,12 @@ require("lualine").setup({
   options = {
     theme = "gruvbox",
   },
+
+  sections = {
+    lualine_x = {
+      "overseer",
+    },
+  },
 })
 
 require("gitsigns").setup({
@@ -486,6 +492,18 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("nvim-ts-autotag").setup({})
+
+require("neotest").setup({
+  adapters = {
+    require("neotest-elixir"),
+  },
+
+  consumers = {
+    overseer = require("neotest.consumers.overseer"),
+  },
+})
+
+require("overseer").setup({})
 
 require("quicker").setup({
   keys = {
