@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Starting '"$@"' in $(pwd)"
+
 direnv exec . "$@"
 
 echo
