@@ -45,15 +45,6 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
-vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
-
-vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
-vim.keymap.set("n", "m", "q")
-vim.keymap.set("n", "q", "<cmd>bdelete<cr>")
-vim.keymap.set("n", "Q", "<cmd>quit<cr>")
-
--- Snacks mappings
 vim.keymap.set("n", "<leader>ff", function()
   require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
 end, { desc = "File" })
@@ -64,14 +55,24 @@ vim.keymap.set("n", "<leader>fb", function()
   require("snacks").picker.buffers()
 end, { desc = "Buffer" })
 
--- TreeSJ mappings
+vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
+
+vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
+
+vim.keymap.set("n", "Q", "<cmd>quit<cr>")
+
 vim.keymap.set("n", "gs", function()
   require("treesj").toggle()
 end, { desc = "Toggle single line/multiline" })
 
+vim.keymap.set("n", "m", "q")
+
 -- Leap mappings
 vim.keymap.set("n", "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
 vim.keymap.set("n", "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
+
+vim.keymap.set("n", "q", "<cmd>bdelete<cr>")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("timbuktu-lsp-attach", { clear = true }),
