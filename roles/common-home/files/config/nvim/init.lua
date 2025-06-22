@@ -209,8 +209,6 @@ require("lualine").setup({
   },
 })
 
-require("mason").setup({})
-require("mason-lspconfig").setup({})
 require("mini.align").setup({})
 require("mini.move").setup({})
 require("nvim-autopairs").setup({})
