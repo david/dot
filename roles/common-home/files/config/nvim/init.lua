@@ -182,6 +182,9 @@ require("conform").setup({
 })
 
 require("bqf").setup({})
+
+require("codecompanion").setup({})
+
 require("diffview").setup({})
 
 require("flit").setup({
@@ -312,7 +315,6 @@ require("nvim-treesitter.configs").setup({
 
 require("nvim-ts-autotag").setup({})
 
-require("codecompanion").setup({})
 
 require("quicker").setup({})
 require("rainbow-delimiters.setup").setup({})
