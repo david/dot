@@ -1,8 +1,21 @@
-- name: template
+- name: main tree
+  ansible.builtin.file:
+    path: "{{ home }}/Boxes/{{ box }}/{{ worktree }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - "{{ box }}"
+  loop_control:
+    loop_var: worktree
+  tags: worktrees
+
+- name: launcher template
   ansible.builtin.template:
     src: worktree.desktop.j2
     dest: "{{ home }}/.local/share/applications/{{ box }}-{{ worktree }}.desktop"
     mode: "0644"
-  loop: "{{ hostvars[box].worktrees }}"
+  loop:
+    - "{{ box }}"
   loop_control:
     loop_var: worktree
+  tags: worktrees
