@@ -178,29 +178,27 @@ require("conform").setup({
   },
 })
 
-require("nvim-custom-diagnostic-highlight").setup({})
-
+require("bqf").setup({})
 require("diffview").setup({})
+require("flit").setup({})
+require("git-conflict").setup({})
+require("lazydev").setup({})
+require("leap").setup({})
 
-require("which-key").setup({})
+require("lint").linters_by_ft = {
+  markdown = { "vale" },
+}
 
-require("virt-column").setup({})
-
-require("treesj").setup({})
-
-require("todo-comments").setup({})
-
-require("tiny-glimmer").setup({})
-
-require("supermaven-nvim").setup({})
-
-require("snacks").setup({})
-
-require("rainbow-delimiters.setup").setup({})
-
-require("quicker").setup({})
-
-require("nvim-ts-autotag").setup({})
+require("lualine").setup({})
+require("mason").setup({})
+require("mason-lspconfig").setup({})
+require("mini.align").setup({})
+require("mini.move").setup({})
+require("neoclip").setup({})
+require("nvim-autopairs").setup({})
+require("nvim-custom-diagnostic-highlight").setup({})
+require("nvim-highlight-colors").setup({})
+require("nvim-surround").setup({})
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "lua", "elixir", "heex", "eex" },
@@ -209,42 +207,15 @@ require("nvim-treesitter.configs").setup({
   textobjects = { enable = true },
 })
 
-require("nvim-surround").setup({})
-
-require("lint").linters_by_ft = {
-  markdown = { "vale" },
-}
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
-
-require("nvim-highlight-colors").setup({})
-
-require("bqf").setup({})
-
-require("nvim-autopairs").setup({})
-
-require("neoclip").setup({})
-
-require("mini.move").setup({})
-
-require("mini.align").setup({})
-
-require("mason").setup({})
-
-require("mason-lspconfig").setup({})
-
-require("lualine").setup({})
-
-require("leap").setup({})
-
-require("lazydev").setup({})
-
-require("git-conflict").setup({})
-
-require("flit").setup({})
+require("nvim-ts-autotag").setup({})
+require("quicker").setup({})
+require("rainbow-delimiters.setup").setup({})
+require("snacks").setup({})
+require("supermaven-nvim").setup({})
+require("tiny-glimmer").setup({})
+require("todo-comments").setup({})
+require("treesj").setup({})
+require("virt-column").setup({})
+require("which-key").setup({})
 
 vim.cmd.colorscheme("gruvbox")
