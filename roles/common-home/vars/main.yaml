@@ -1,4 +1,0 @@
-home: "{{ ansible_user_dir }}"
-config_home: "{{ home }}/.config"
-config_src: "config/"
-home_src: "home/"
