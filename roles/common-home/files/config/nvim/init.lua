@@ -160,17 +160,25 @@ require("gruvbox").setup({
 })
 
 require("conform").setup({
+  format_on_save = function()
+    if next(vim.fs.find({ "mix.exs" }, { limit = 1 })) == nil then
+      return { timeout_ms = 500, lsp_format = "fallback" }
+    else
+      return { timeout_ms = 2000, lsp_format = "fallback" }
+    end
+  end,
+
   formatters_by_ft = {
     lua = { "stylua" },
-    python = { "isort", "black" },
-    javascript = { "prettierd", "prettier", stop_after_first = true },
-    typescript = { "prettierd", "prettier", stop_after_first = true },
     elixir = { "mix" },
+    eelixir = { "mix" },
+    heex = { "mix" },
+    lua = { "stylua" },
+    ruby = { "rubocop" },
+    ["*"] = { "trim_whitespace" },
   },
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_fallback = true,
-  },
+
+  notify_on_error = false,
 })
 
 require("bqf").setup({})
