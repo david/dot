@@ -189,6 +189,7 @@ require("conform").setup({
     ["*"] = { "trim_whitespace" },
   },
 
+  notify_no_formatters = false,
   notify_on_error = false,
 })
 
