@@ -45,6 +45,7 @@
     - neovim/nvim-lspconfig
     - nvim-lua/plenary.nvim
     - nvim-lualine/lualine.nvim
+    - nvim-tree/nvim-web-devicons
     - nvim-treesitter/nvim-treesitter
     - nvim-treesitter/nvim-treesitter-textobjects
     - olimorris/codecompanion.nvim
@@ -58,6 +59,7 @@
     - stevearc/conform.nvim
     - stevearc/quicker.nvim
     - supermaven-inc/supermaven-nvim
+    - tpope/vim-repeat
     - wansmer/treesj
     - windwp/nvim-autopairs
     - windwp/nvim-ts-autotag
