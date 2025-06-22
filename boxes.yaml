@@ -32,6 +32,7 @@
           - stylua
           - yaml-language-server
         state: present
+      tags: packages
 
 - name: chr
   hosts: chr
