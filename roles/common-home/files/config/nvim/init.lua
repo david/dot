@@ -553,6 +553,7 @@ require("snacks").setup({
 require("supermaven-nvim").setup({})
 require("tiny-glimmer").setup({})
 require("todo-comments").setup({})
+require("toggleterm").setup({})
 require("treesj").setup({
   use_default_keymaps = false,
 })
