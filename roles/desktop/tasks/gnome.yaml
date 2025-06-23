@@ -122,6 +122,10 @@
 
     - key: "/org/gnome/shell/extensions/blur-my-shell/applications/blur"
       value: "true"
+    - key: "/org/gnome/shell/extensions/blur-my-shell/applications/dynamic-opacity"
+      value: false
+    - key: "/org/gnome/shell/extensions/blur-my-shell/applications/opacity"
+      value: "245"
     - key: "/org/gnome/shell/extensions/blur-my-shell/applications/whitelist"
       value: "['kitty']"
 
