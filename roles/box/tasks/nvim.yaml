@@ -30,6 +30,7 @@
     - ellisonleao/gruvbox.nvim
     - fladson/vim-kitty
     - folke/lazydev.nvim
+    - folke/noice.nvim
     - folke/snacks.nvim
     - folke/todo-comments.nvim
     - folke/which-key.nvim
@@ -47,6 +48,7 @@
     # for codecompanion
     - meanderingprogrammer/render-markdown.nvim
     - mfussenegger/nvim-lint
+    - muniftanjim/nui.nvim
     - nvim-neotest/neotest
     - nvim-neotest/nvim-nio
     - neovim/nvim-lspconfig
