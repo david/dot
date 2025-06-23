@@ -204,7 +204,6 @@ require("conform").setup({
     elixir = { "mix" },
     eelixir = { "mix" },
     heex = { "mix" },
-    lua = { "stylua" },
     ruby = { "rubocop" },
     ["*"] = { "trim_whitespace" },
   },
