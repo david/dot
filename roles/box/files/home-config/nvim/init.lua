@@ -411,6 +411,7 @@ require("nvim-treesitter.configs").setup({
     "ruby",
     "vim",
     "vimdoc",
+    "yaml",
   },
 
   endwise = {
