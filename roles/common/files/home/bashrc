@@ -1,3 +1,20 @@
-eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -d /var/home/linuxbrew ]] &&
+  eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+[[ $- == *i* ]] || return
+
+set -o vi
+
+[[ -f /usr/local/blesh/ble.sh ]] &&
+  source /usr/local/blesh/ble.sh
+
+alias ls=eza
+
+eval "$(fzf --bash)"
+eval "$(direnv hook bash)"
+eval "$(starship init bash)"
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+
+# vim: ft=bash
 
