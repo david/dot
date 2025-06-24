@@ -105,6 +105,8 @@ vim.keymap.set("n", "<D-C-s>", "<cmd>TermNew<cr>", { desc = "New terminal" })
 
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
 
+vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Commit" })
+
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
