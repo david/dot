@@ -20,7 +20,7 @@
   when: item.state == 'file'
   tags: home
 
-- name: "remove default bash files"
+- name: "remove default files"
   become: true
   become_user: david
   ansible.builtin.file:
@@ -29,6 +29,7 @@
   loop:
     - "{{ home }}/.bashrc"
     - "{{ home }}/.bash_profile"
+    - "{{ home }}/.profile"
   when: item is not link
   tags: home
 
