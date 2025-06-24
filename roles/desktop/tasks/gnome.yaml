@@ -273,3 +273,4 @@
 
     - key: "/org/gtk/settings/file-chooser/clock-format"
       value: "'24'"
+  tags: gnome
