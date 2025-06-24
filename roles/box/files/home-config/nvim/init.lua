@@ -101,6 +101,8 @@ vim.keymap.set("i", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" 
 vim.keymap.set("n", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
 vim.keymap.set("i", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
 
+vim.keymap.set("n", "<D-r>", "<cmd>OverseerRun<cr>", { desc = "Tasks" })
+
 vim.keymap.set("n", "<D-C-s>", "<cmd>TermNew<cr>", { desc = "New terminal" })
 
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
