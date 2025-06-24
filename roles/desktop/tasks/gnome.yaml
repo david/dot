@@ -68,11 +68,11 @@
       value: "'pt_PT.UTF-8'"
 
     - key: "/org/gnome/desktop/input-sources/mru-sources"
-      value: "[('xkb', 'us')]"
+      value: "@a(ss) []"
     - key: "/org/gnome/desktop/input-sources/per-window"
       value: "true"
     - key: "/org/gnome/desktop/input-sources/sources"
-      value: "[('xkb', 'us'), ('xkb', 'us+intl')]"
+      value: "@a(ss) [('xkb', 'us'), ('xkb', 'us+intl')]"
     - key: "/org/gnome/desktop/wm/keybindings/show-desktop"
       value: "['']"
     - key: "/org/gnome/desktop/wm/keybindings/switch-group"
