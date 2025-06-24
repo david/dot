@@ -1,0 +1,21 @@
+# dot
+export DOT_HOME=$HOME/Boxes/dot/dot
+
+# editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+# erlang/elixir
+export ERL_FLAGS="-kernel shell_history enabled"
+
+# fzf
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
+
+# path
+export PATH="$HOME/.local/bin:$PATH"
+
+SECRETS=~/.config/bash/secrets.bash
+
+for f in ~/.config/secrets/*.bash; do source $f; done
+
+# vim: ft=sh

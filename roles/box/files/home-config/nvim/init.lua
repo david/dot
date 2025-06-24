@@ -56,15 +56,52 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
-vim.keymap.set("n", "<leader>ff", function()
-  require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
-end, { desc = "File" })
-vim.keymap.set("n", "<leader>f/", function()
+local Terminal = require("toggleterm.terminal").Terminal
+
+function FloatTerm(opts)
+  return Terminal:new(vim.tbl_extend("force", {
+    direction = "float",
+    hidden = true,
+    float_opts = {
+      border = "curved",
+      width = math.floor(vim.o.columns * 0.8),
+      height = math.floor(vim.o.lines * 0.9),
+      winblend = 0,
+    },
+  }, opts))
+end
+
+local LazyGit = FloatTerm({ cmd = "lazygit" })
+
+vim.keymap.set("n", "<D-/>", function()
   require("snacks").picker.grep()
 end, { desc = "Grep" })
-vim.keymap.set("n", "<leader>fb", function()
+
+vim.keymap.set("n", "<D-a>", "<cmd>CodeCompanionActions<cr>", { desc = "Code Companion palette" })
+vim.keymap.set("n", "<D-c>", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion chat" })
+
+vim.keymap.set("n", "<D-b>", function()
   require("snacks").picker.buffers()
 end, { desc = "Buffer" })
+
+vim.keymap.set("n", "<D-f>", function()
+  require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
+end, { desc = "File" })
+
+vim.keymap.set("n", "<D-g>", function()
+  LazyGit:toggle()
+end, { desc = "LazyGit" })
+
+vim.keymap.set("n", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
+vim.keymap.set("i", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
+vim.keymap.set("n", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
+vim.keymap.set("i", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" })
+vim.keymap.set("i", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" })
+vim.keymap.set("n", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
+vim.keymap.set("i", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
+
+vim.keymap.set("n", "<D-C-s>", "<cmd>TermNew<cr>", { desc = "New terminal" })
 
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
 
@@ -176,12 +213,6 @@ vim.diagnostic.config({
       return diagnostic_message[diagnostic.severity]
     end,
   },
-})
-
-require("gruvbox").setup({
-  inverse = true,
-  invert_selection = true,
-  invert_signs = true,
 })
 
 require("conform").setup({
@@ -505,7 +536,10 @@ require("noice").setup({
   },
 })
 
-require("overseer").setup({})
+require("overseer").setup({
+  strategy = "toggleterm",
+  templates = { "builtin", "timbuktu.docker_compose" },
+})
 
 require("quicker").setup({
   keys = {
@@ -537,14 +571,18 @@ require("snacks").setup({
 
   picker = {
     layout = {
-      preset = "ivy",
       layout = {
         box = "vertical",
         height = 0.9,
         width = 0.8,
-        { win = "input", height = 1, border = "bottom" },
-        { win = "list", height = 0.33 },
-        { win = "preview", height = 0.66, border = "top" },
+        {
+          box = "vertical",
+          border = "rounded",
+          height = 0.4,
+          { win = "input", height = 1, border = "bottom" },
+          { win = "list" },
+        },
+        { win = "preview", height = 0.7, border = "rounded" },
       },
     },
   },
@@ -558,7 +596,35 @@ require("todo-comments").setup({})
 
 require("toggleterm").setup({
   direction = "horizontal",
+  highlights = {
+    FloatBorder = {
+      link = "NormalFloat",
+    },
+  },
   open_mapping = "<D-s>",
+  size = function()
+    return vim.o.lines * 0.4
+  end,
+  winbar = {
+    enabled = true,
+  },
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("timbuktu-term-open", { clear = true }),
+  pattern = "term://*",
+  callback = function()
+    vim.keymap.set("t", "<D-C-s>", "<cmd>TermNew<cr>", { buffer = 0, desc = "New terminal" })
+
+    vim.keymap.set("t", "<D-h>", "<cmd>wincmd h<cr>", { buffer = 0, desc = "Move to left window" })
+    vim.keymap.set("t", "<D-j>", "<cmd>wincmd j<cr>", { buffer = 0, desc = "Move to bottom window" })
+    vim.keymap.set("t", "<D-k>", "<cmd>wincmd k<cr>", { buffer = 0, desc = "Move to top window" })
+    vim.keymap.set("t", "<D-l>", "<cmd>wincmd l<cr>", { buffer = 0, desc = "Move to right window" })
+
+    vim.keymap.set("t", "<D-q>", "<cmd>wincmd q<cr>", { buffer = 0, desc = "Quit window" })
+
+    vim.keymap.set("t", "<D-Esc>", "<C-\\><C-n>", { buffer = 0, desc = "Quit window" })
+  end,
 })
 
 require("treesj").setup({
@@ -583,6 +649,18 @@ require("which-key").setup({
   },
   win = {
     border = "none",
+  },
+})
+
+require("gruvbox").setup({
+  inverse = true,
+  invert_selection = true,
+  invert_signs = true,
+  overrides = {
+    NormalFloat = {
+      fg = "#928374",
+      bg = "#32302f",
+    },
   },
 })
 

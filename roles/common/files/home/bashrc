@@ -1,0 +1,3 @@
+eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+

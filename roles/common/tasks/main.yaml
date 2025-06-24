@@ -1,0 +1,5 @@
+- name: files
+  include_tasks: files.yaml
+- name: nvim
+  include_tasks: nvim.yaml
+  tags: nvim

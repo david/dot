@@ -1,8 +1,11 @@
 - name: host
   hosts: localhost
   connection: local
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
   roles:
+    - common
+    - secrets
     - desktop
-    - common-home
 
 # vim: ft=yaml.ansible

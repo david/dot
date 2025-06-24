@@ -3,6 +3,7 @@
 echo "Starting '"$@"' in $(pwd)"
 
 direnv exec . "$@"
+. $HOME/.bashrc
 
 echo
 echo "ENTER to relaunch, CTRL-C to exit"

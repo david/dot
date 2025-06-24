@@ -9,9 +9,9 @@
   become: true
   become_user: david
   roles:
-    - box-home
-    - common-home
-    - secrets-home
+    - box
+    - common
+    - secrets
 
 - name: box
   hosts: boxes
@@ -33,10 +33,5 @@
           - yaml-language-server
         state: present
       tags: packages
-
-- name: chr
-  hosts: chr
-  roles:
-    - elixir
 
 # vim: ft=yaml.ansible

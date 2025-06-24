@@ -107,6 +107,8 @@
     - key: "/org/gnome/desktop/wm/preferences/workspace-names"
       value: "['I', 'II', 'III']"
 
+    - key: "/org/gnome/mutter/keybindings/restore-shortcuts"
+      value: "''"
     - key: "/org/gnome/mutter/overlay-key"
       value: "''"
 
@@ -114,6 +116,31 @@
       value: "['']"
     - key: "/org/gnome/settings-daemon/plugins/media-keys/home"
       value: "['']"
+
+    - key: "/org/gnome/shell/extensions/arcmenu/arcmenu-hotkey"
+      value: "['<Shift><Control><Alt>a']"
+    - key: "/org/gnome/shell/extensions/arcmenu/force-menu-location"
+      value: "MonitorCentered"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-background-color"
+      value: "rgba(40,40,40,0.933333)"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-button-appearance"
+      value: "None"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-button-bg-color"
+      value: "(false, 'rgba(242,242,242,0.2)')"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-item-active-bg-color"
+      value: "rgb(229,165,10)"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-layout"
+      value: "Runner"
+    - key: "/org/gnome/shell/extensions/arcmenu/menu-position-alignment"
+      value: "0"
+    - key: "/org/gnome/shell/extensions/arcmenu/override-menu-theme"
+      value: "true"
+    - key: "/org/gnome/shell/extensions/arcmenu/runner-hotkey"
+      value: "['']"
+    - key: "/org/gnome/shell/extensions/arcmenu/runner-position"
+      value: "Centered"
+    - key: "/org/gnome/shell/extensions/arcmenu/search-entry-border-radius"
+      value: "(true, 25)"
 
     - key: "/org/gnome/shell/extensions/azwallpaper/slideshow-slide-duration"
       value: "(0, 5, 0)"
@@ -187,6 +214,8 @@
       value: "['<Shift><Control><Alt><Super>l']"
     - key: "/org/gnome/shell/extensions/paperwm/keybindings/move-up-workspace"
       value: "['<Shift><Control><Alt><Super>k']"
+    - key: "/org/gnome/shell/extensions/paperwm/keybindings/new-window"
+      value: "['']"
     - key: "/org/gnome/shell/extensions/paperwm/keybindings/previous-workspace"
       value: "['']"
     - key: "/org/gnome/shell/extensions/paperwm/keybindings/previous-workspace-backward"
@@ -220,11 +249,18 @@
 
       # Favorite app shortcuts
     - key: "/org/gnome/shell/favorite-apps"
-      value: "['com.discordapp.Discord.desktop', 'com.rtosta.zapzap.desktop']"
+      value: |
+        [
+          'com.discordapp.Discord.desktop',
+          'com.rtosta.zapzap.desktop',
+          'com.brave.Browser.desktop'
+        ]
     - key: "/org/gnome/shell/keybindings/switch-to-application-1"
       value: "['<Shift><Control><Alt>d']"
     - key: "/org/gnome/shell/keybindings/switch-to-application-2"
       value: "['<Shift><Control><Alt>z']"
+    - key: "/org/gnome/shell/keybindings/switch-to-application-3"
+      value: "['<Shift><Control><Alt>b']"
 
     - key: "/org/gnome/shell/keybindings/toggle-application-view"
       value: "['']"

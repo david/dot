@@ -4,7 +4,7 @@
     name: mcp-hub
     version: latest
     global: true
-    state: present
+    state: latest
   tags:
     - codecompanion
     - packages

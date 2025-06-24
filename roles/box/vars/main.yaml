@@ -1,3 +1,2 @@
-config_home: "{{ home }}/.config"
 config_src: "home-config/"
 home_src: "home/"

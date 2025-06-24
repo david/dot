@@ -31,5 +31,5 @@
   tags: ai
 
 - name: nvim
-  include_tasks: nvim.yaml
+  include_tasks: ../../common/tasks/nvim.yaml
   tags: nvim
