@@ -1,6 +1,8 @@
 - name: host
   hosts: localhost
   connection: local
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
   roles:
     - distrobox
 

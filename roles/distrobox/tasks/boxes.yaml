@@ -6,7 +6,7 @@
       - --name
       - "{{ item }}"
       - --image
-      - "{{ box_defaults.image }}"
+      - "ghcr.io/ublue-os/ubuntu-toolbox:latest"
       - --yes
       - --additional-packages
       - "{{ additional_packages }}"

@@ -1,5 +1,5 @@
-[[ -d /var/home/linuxbrew ]] &&
-  eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -d /home/linuxbrew ]] &&
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 source ~/.profile
 

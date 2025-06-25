@@ -2,31 +2,23 @@
   include_tasks: locale.yaml
 
 - name: packages
-  include_tasks: arch.yaml
+  include_tasks: ubuntu.yaml
   tags: packages
 
-- name: "packages [blesh]"
-  include_tasks: blesh.yaml
-  tags: packages
+# - name: "packages [dot]"
+#   include_tasks: arch-dot.yaml
+#   tags: packages
+#   when: inventory_hostname == 'dot'
 
-- name: "packages [code companion]"
-  include_tasks: code-companion.yaml
-  tags:
-    - codecompanion
-    - packages
-
-- name: "packages [dot]"
-  include_tasks: arch-dot.yaml
-  tags: packages
-  when: inventory_hostname == 'dot'
-
-- name: docker
-  include_tasks: docker.yaml
-  tags: docker
+# - name: "packages [code companion]"
+#   include_tasks: code-companion.yaml
+#   tags:
+#     - codecompanion
+#     - packages
 
 - name: scripts
   include_tasks: scripts.yaml
 
-- name: ai
-  include_tasks: ai.yaml
-  tags: ai
+# - name: ai
+#   include_tasks: ai.yaml
+#   tags: ai

@@ -1,0 +1,84 @@
+- name: apt update
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+
+- name: apt install
+  ansible.builtin.apt:
+    name:
+      - fonts-jetbrains-mono
+      - wl-clipboard
+    state: latest
+
+- name: kitty dir
+  ansible.builtin.file:
+    path: /usr/local/kitty
+    state: directory
+    mode: "0755"
+
+- name: kitty extract
+  ansible.builtin.unarchive:
+    src: https://github.com/kovidgoyal/kitty/releases/download/v0.42.1/kitty-0.42.1-x86_64.txz
+    dest: /usr/local/kitty
+    remote_src: true
+    creates: /usr/local/kitty
+
+- name: kitty link
+  ansible.builtin.file:
+    src: /usr/local/kitty/bin/kitty
+    dest: /usr/local/bin/kitty
+    state: link
+
+- name: homebrew install script
+  become: true
+  become_user: david
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    mode: "0755"
+    dest: /tmp/brew-install.sh
+  tags:
+    - packages
+
+- name: homebrew install
+  become: true
+  become_user: david
+  ansible.builtin.command:
+    argv:
+      - /bin/bash
+      - /tmp/brew-install.sh
+    creates: /home/linuxbrew
+  environment:
+    NONINTERACTIVE: 1
+  tags:
+    - packages
+
+- name: dev tools
+  become: true
+  become_user: david
+  community.general.homebrew:
+    name:
+      - bat
+      # - direnv
+      - eza
+      - fd
+      - fzf
+      - gh
+      # - gnome-keyring
+      - jq
+      # - kitty
+      - lazygit
+      - neovim
+      # - nodejs
+      # - npm
+      # - org.freedesktop.secrets
+      - ripgrep
+      # - ruby
+      - starship
+      # - tailwindcss-language-server
+      # - wl-clipboard
+      # - yay
+    state: latest
+  tags:
+    - packages
+
+# vim: ft=yaml.ansible
