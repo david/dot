@@ -5,11 +5,6 @@
   include_tasks: ubuntu.yaml
   tags: packages
 
-# - name: "packages [dot]"
-#   include_tasks: arch-dot.yaml
-#   tags: packages
-#   when: inventory_hostname == 'dot'
-
 # - name: "packages [code companion]"
 #   include_tasks: code-companion.yaml
 #   tags:
@@ -19,6 +14,3 @@
 - name: scripts
   include_tasks: scripts.yaml
 
-# - name: ai
-#   include_tasks: ai.yaml
-#   tags: ai

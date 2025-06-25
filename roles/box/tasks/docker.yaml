@@ -1,8 +1,0 @@
-- name: docker proxy
-  ansible.builtin.copy:
-    dest: /usr/local/bin/docker
-    mode: "0755"
-    content: |
-      #!/bin/sh
-      exec distrobox-host-exec direnv exec . docker "$@"
-  tags: docker
