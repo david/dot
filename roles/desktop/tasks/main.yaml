@@ -1,3 +1,5 @@
 - include_tasks: files.yaml
+  tags: files
+
 - include_tasks: gnome.yaml
   tags: gnome

@@ -14,8 +14,7 @@ export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
 # path
 export PATH="$HOME/.local/bin:$PATH"
 
-SECRETS=~/.config/bash/secrets.bash
-
+# secrets
 for f in ~/.config/secrets/*.bash; do source $f; done
 
 # vim: ft=sh

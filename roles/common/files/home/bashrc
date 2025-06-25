@@ -1,6 +1,8 @@
 [[ -d /var/home/linuxbrew ]] &&
   eval "$(/var/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+source ~/.profile
+
 [[ $- == *i* ]] || return
 
 set -o vi

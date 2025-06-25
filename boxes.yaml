@@ -4,19 +4,11 @@
   roles:
     - distrobox
 
-- name: box user
-  hosts: boxes
-  become: true
-  become_user: david
-  roles:
-    - box
-    - common
-    - secrets
-
 - name: box
   hosts: boxes
   roles:
     - box
+    - common
 
 - name: dot
   hosts: dot

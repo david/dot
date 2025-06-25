@@ -16,4 +16,9 @@
   when: item.state == 'file'
   tags: files
 
+- include_tasks: ../../common/tasks/files.yaml
+  tags:
+    - files
+    - config
+
 # vim: ft=yaml.ansible

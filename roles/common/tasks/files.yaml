@@ -1,13 +1,50 @@
+- name: .config
+  ansible.builtin.file:
+    path: "{{ home }}/.config"
+    mode: "0755"
+    owner: david
+    group: david
+    state: directory
+  tags:
+    - files
+    - config
+
+- name: .local
+  ansible.builtin.file:
+    path: "{{ home }}/.local"
+    mode: "0755"
+    owner: david
+    group: david
+    state: directory
+  tags:
+    - files
+
+- name: .local
+  ansible.builtin.file:
+    path: "{{ home }}/.local/share"
+    mode: "0755"
+    owner: david
+    group: david
+    state: directory
+  tags:
+    - files
+
 - name: "create config subdirs"
   become: true
   become_user: david
   ansible.builtin.file:
     path: "{{ home }}/.config/{{ item.path }}"
-    state: directory
     mode: "0755"
-  with_community.general.filetree: "home-config/"
+    owner: "david"
+    group: "david"
+    state: directory
+  with_community.general.filetree:
+    - home-config/
+    - secrets-config/
   when: item.state == 'directory'
-  tags: files
+  tags:
+    - files
+    - config
 
 - name: "link config files"
   become: true
@@ -15,10 +52,17 @@
   ansible.builtin.file:
     src: "{{ item.src }}"
     path: "{{ home }}/.config/{{ item.path }}"
+    mode: "0644"
+    owner: "david"
+    group: "david"
     state: link
-  with_community.general.filetree: "home-config/"
+  with_community.general.filetree:
+    - home-config/
+    - secrets-config/
   when: item.state == 'file'
-  tags: files
+  tags:
+    - files
+    - config
 
 - name: "remove default files"
   become: true
@@ -31,7 +75,9 @@
     - "{{ home }}/.bash_profile"
     - "{{ home }}/.profile"
   when: item is not link
-  tags: files
+  tags:
+    - files
+    - config
 
 - name: "link home root files"
   become: true
@@ -39,10 +85,14 @@
   ansible.builtin.file:
     src: "{{ item.src }}"
     path: "{{ home }}/.{{ item.path }}"
+    mode: "0644"
+    owner: "david"
+    group: "david"
     state: link
   with_community.general.filetree: "home/"
   when: item.path is not link
-  tags: files
+  tags:
+    - files
+    - config
 
 # vim:ft=yaml.ansible
-

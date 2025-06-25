@@ -1,6 +1,8 @@
 - name: files
   include_tasks: files.yaml
-  tags: files
+  tags:
+    - files
+    - config
 - name: nvim
   include_tasks: nvim.yaml
   tags: nvim

@@ -15,9 +15,11 @@
     - codecompanion
     - packages
 
-- name: home
-  include_tasks: home.yaml
-  tags: home
+- name: files
+  include_tasks: ../../common/tasks/files.yaml
+  tags:
+    - files
+    - config
 
 - name: docker
   include_tasks: docker.yaml
@@ -29,7 +31,3 @@
 - name: ai
   include_tasks: ai.yaml
   tags: ai
-
-- name: nvim
-  include_tasks: ../../common/tasks/nvim.yaml
-  tags: nvim
