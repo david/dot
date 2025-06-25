@@ -5,6 +5,8 @@ distrobox:
         dot:
         chr:
         agt:
+        chj:
+          home: /var/home/david/Boxes/chj
 
   vars:
     ansible_connection: containers.podman.podman
