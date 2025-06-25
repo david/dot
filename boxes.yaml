@@ -6,6 +6,11 @@
   roles:
     - distrobox
 
+- name: chj
+  hosts: chj
+  roles:
+    - postgres
+
 - name: box
   hosts: boxes
   roles:
