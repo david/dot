@@ -8,15 +8,10 @@
       - --image
       - "{{ box_defaults.image }}"
       - --yes
-      - --home
-      - "{{ box_defaults.prefix }}/{{ item }}"
       - --additional-packages
       - "{{ additional_packages }}"
       - --no-entry
-      - --volume
-      - "{{ home }}/.local/share/nvim/site:{{ home }}/Boxes/{{ item }}/.local/share/nvim/site"
-      - --volume
-      - "{{ home }}/.supermaven:{{ home }}/Boxes/{{ item }}/.supermaven"
+      - --init
   loop: "{{ groups['boxes'] }}"
   tags: boxes
 

@@ -8,6 +8,5 @@
   hosts: boxes
   roles:
     - box
-    - common
 
 # vim: ft=yaml.ansible

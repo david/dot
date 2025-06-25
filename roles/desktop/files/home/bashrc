@@ -3,6 +3,9 @@
 
 source ~/.profile
 
+# history
+[[ -v CONTAINER_ID ]] && HISTFILE=~/.bash_history.${CONTAINER_ID}
+
 [[ $- == *i* ]] || return
 
 set -o vi

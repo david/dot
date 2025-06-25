@@ -4,7 +4,6 @@
   vars:
     home: "{{ lookup('env', 'HOME') }}"
   roles:
-    - common
     - desktop
 
 # vim: ft=yaml.ansible

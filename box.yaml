@@ -1,9 +1,0 @@
-- name: box
-  hosts: localhost
-  connection: local
-  become: true
-  vars:
-    home: "{{ lookup('env', 'HOME') }}"
-  roles:
-    - common
-    - box

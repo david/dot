@@ -1,5 +1,13 @@
 - include_tasks: files.yaml
-  tags: files
+  tags:
+    - assets
+    - config
+    - files
+
+- include_tasks: nvim.yaml
+  tags:
+    - nvim
 
 - include_tasks: gnome.yaml
-  tags: gnome
+  tags:
+    - gnome

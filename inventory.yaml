@@ -2,15 +2,10 @@ distrobox:
   children:
     boxes:
       hosts:
-        agt:
-          home: /var/home/david/Boxes/agt
         chj:
-          home: /var/home/david/Boxes/chj
-        chr:
-          home: /var/home/david/Boxes/chr
         dot:
-          home: /var/home/david/Boxes/dot
 
   vars:
     ansible_connection: containers.podman.podman
     ansible_python_interpreter: /usr/bin/python3
+    home: lookup('env', 'HOME')
