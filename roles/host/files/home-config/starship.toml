@@ -20,8 +20,9 @@ truncate_to_repo = false
 truncation_length = 30
 
 [directory.substitutions]
+'Boxes/chj/' = ""
 'Boxes/chr/' = ""
-'Boxes/sys/' = ""
+'Boxes/dot/' = ""
 '~/' = ""
 
 [env_var.CONTAINER_ID]
