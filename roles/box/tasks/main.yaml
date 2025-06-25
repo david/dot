@@ -15,6 +15,13 @@
     - codecompanion
     - packages
 
+- name: "packages [dot]"
+  include_tasks: arch-dot.yaml
+  tags: packages
+  when: |
+    inventory_hostname == 'dot' or
+    lookup('env', 'CONTAINER_ID') == 'dot'
+
 - name: files
   include_tasks: ../../common/tasks/files.yaml
   tags:
