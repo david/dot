@@ -10,8 +10,8 @@ source ~/.profile
 
 set -o vi
 
-[[ -f /usr/local/blesh/ble.sh ]] &&
-  source /usr/local/blesh/ble.sh
+[[ -f ~/.local/share/blesh/ble.sh ]] &&
+  source ~/.local/share/blesh/ble.sh
 
 alias ls=eza
 

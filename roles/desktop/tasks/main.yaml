@@ -4,6 +4,10 @@
     - config
     - files
 
+- include_tasks: blesh.yaml
+  tags:
+    - blesh
+
 - include_tasks: nvim.yaml
   tags:
     - nvim
