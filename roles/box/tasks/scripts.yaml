@@ -3,5 +3,5 @@
     src: "{{ item.src }}"
     dest: "/usr/local/bin/{{ item.path }}"
     state: link
-  with_community.general.filetree: "../scripts/"
+  with_community.general.filetree: "scripts/"
 
