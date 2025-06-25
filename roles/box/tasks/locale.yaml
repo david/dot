@@ -1,4 +1,8 @@
-- name: locale
+- name: gen locale
   community.general.locale_gen:
     name: en_US.UTF-8
     state: present
+
+- name: set locale
+  ansible.builtin.command:
+    cmd: localectl set-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en
