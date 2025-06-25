@@ -290,13 +290,13 @@ require("codecompanion").setup({
     chat = {
       adapter = {
         name = "gemini",
-        model = "gemini-2.5-pro",
+        model = "gemini-2.5-pro-preview-06-05",
       },
     },
     inline = {
       adapter = {
         name = "gemini",
-        model = "gemini-2.5-pro",
+        model = "gemini-2.5-pro-preview-06-05",
       },
     },
     diff = {
