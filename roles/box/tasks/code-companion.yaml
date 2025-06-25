@@ -1,5 +1,4 @@
 - name: mcphub
-  become: true
   community.general.npm:
     name: mcp-hub
     version: latest

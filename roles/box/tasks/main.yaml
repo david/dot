@@ -5,12 +5,13 @@
   include_tasks: ubuntu.yaml
   tags: packages
 
-# - name: "packages [code companion]"
-#   include_tasks: code-companion.yaml
-#   tags:
-#     - codecompanion
-#     - packages
+- name: "packages [code companion]"
+  include_tasks: code-companion.yaml
+  tags:
+    - codecompanion
+    - packages
 
 - name: scripts
   include_tasks: scripts.yaml
 
+# vim: ft=yaml.ansible

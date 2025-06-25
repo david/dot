@@ -9,6 +9,7 @@
 - name: box
   hosts: boxes
   roles:
+    - node
     - box
 
 # vim: ft=yaml.ansible
