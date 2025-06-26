@@ -58,25 +58,15 @@
   community.general.homebrew:
     name:
       - bat
-      # - direnv
       - eza
       - fd
       - fzf
       - gh
-      # - gnome-keyring
       - jq
-      # - kitty
       - lazygit
       - neovim
-      # - nodejs
-      # - npm
-      # - org.freedesktop.secrets
       - ripgrep
-      # - ruby
       - starship
-      # - tailwindcss-language-server
-      # - wl-clipboard
-      # - yay
     state: latest
   tags:
     - packages
