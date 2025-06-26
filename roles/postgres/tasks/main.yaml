@@ -37,3 +37,13 @@
     role_attr_flags: CREATEDB,CREATEROLE,SUPERUSER
   tags:
     - postgres
+
+- name: postgres app user
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    name: app
+    password: app
+    role_attr_flags: CREATEDB
+  tags:
+    - postgres
