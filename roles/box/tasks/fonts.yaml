@@ -22,3 +22,5 @@
     creates: /usr/share/fonts/truetype/nerd-fonts/SymbolsNerdFontMono-Regular.ttf
   tags:
     - fonts
+
+# vim: ft=yaml.ansible
