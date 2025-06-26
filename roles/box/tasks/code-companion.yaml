@@ -1,9 +1,0 @@
-- name: mcphub
-  community.general.npm:
-    name: mcp-hub
-    version: latest
-    global: true
-    state: latest
-  tags:
-    - codecompanion
-    - packages
