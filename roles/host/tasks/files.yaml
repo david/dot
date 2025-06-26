@@ -5,7 +5,6 @@
     state: directory
   tags:
     - config
-    - files
 
 - name: "create config subdirs"
   ansible.builtin.file:
@@ -18,7 +17,6 @@
   when: item.state == 'directory'
   tags:
     - config
-    - files
 
 - name: "link config files"
   ansible.builtin.file:
@@ -31,7 +29,6 @@
   when: item.state == 'file'
   tags:
     - config
-    - files
 
 - name: "remove default files"
   ansible.builtin.file:
@@ -44,7 +41,6 @@
   when: item is not link
   tags:
     - config
-    - files
 
 - name: "link home root files"
   ansible.builtin.file:
@@ -55,7 +51,6 @@
   when: item.path is not link
   tags:
     - config
-    - files
 
 - name: .local
   ansible.builtin.file:
