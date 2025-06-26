@@ -5,11 +5,16 @@ set -euo pipefail
 [[ -f /usr/bin/distrobox-host-exec ]] && HOST_EXEC=distrobox-host-exec
 
 case "${1:-}" in
+  all)
+    $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml
+    ;;
+
   fonts)
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t fonts
     ;;
 
   nvim)
+    $HOST_EXEC ansible-playbook $DOT_HOME/host.yaml -t nvim
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t nvim
     ;;
 
