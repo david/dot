@@ -9,6 +9,10 @@ case "${1:-}" in
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t fonts
     ;;
 
+  pkgs)
+    $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t packages
+    ;;
+
   *)
     $HOST_EXEC ansible-playbook $DOT_HOME/host.yaml -t config
     ;;
