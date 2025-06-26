@@ -8,6 +8,9 @@
 - name: kitty
   include_tasks: kitty.yaml
 
+- name: gemini-cli
+  include_tasks: gemini.yaml
+
 - name: fonts
   include_tasks: fonts.yaml
   tags: fonts
