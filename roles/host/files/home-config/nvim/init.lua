@@ -56,8 +56,6 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
-local terminals = require("timbuktu.config.terminal")
-
 vim.keymap.set("n", "<D-/>", function()
   require("snacks").picker.grep()
 end, { desc = "Grep" })
@@ -73,10 +71,6 @@ vim.keymap.set("n", "<D-f>", function()
   require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
 end, { desc = "File" })
 
-vim.keymap.set("n", "<D-g>", function()
-  terminals.lazygit:toggle()
-end, { desc = "LazyGit" })
-
 vim.keymap.set("n", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
 vim.keymap.set("i", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
 vim.keymap.set("n", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
@@ -85,11 +79,6 @@ vim.keymap.set("n", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" 
 vim.keymap.set("i", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" })
 vim.keymap.set("n", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
 vim.keymap.set("i", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
-
-vim.keymap.set("n", "<D-r>", "<cmd>OverseerRun<cr>", { desc = "Tasks" })
-vim.keymap.set("n", "<D-s>", function() terminals.shell:toggle() end, { desc = "Shell" })
-
-vim.keymap.set("n", "<D-C-s>", "<cmd>TermNew<cr>", { desc = "New terminal" })
 
 vim.keymap.set("n", "<leader>l", vim.diagnostic.setloclist, { desc = "Open quickfix list" })
 
@@ -111,24 +100,6 @@ vim.keymap.set("n", "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
 vim.keymap.set("n", "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
 
 vim.keymap.set("n", "q", "<cmd>bdelete<cr>")
-
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = vim.api.nvim_create_augroup("timbuktu-term-open", { clear = true }),
-  pattern = "term://*",
-  callback = function()
-    vim.keymap.set("t", "<D-C-s>", "<cmd>TermNew<cr>", { buffer = 0, desc = "New terminal" })
-
-    vim.keymap.set("t", "<D-h>", "<cmd>wincmd h<cr>", { buffer = 0, desc = "Move to left window" })
-    vim.keymap.set("t", "<D-j>", "<cmd>wincmd j<cr>", { buffer = 0, desc = "Move to bottom window" })
-    vim.keymap.set("t", "<D-k>", "<cmd>wincmd k<cr>", { buffer = 0, desc = "Move to top window" })
-    vim.keymap.set("t", "<D-l>", "<cmd>wincmd l<cr>", { buffer = 0, desc = "Move to right window" })
-
-    vim.keymap.set("t", "<D-q>", "<cmd>wincmd q<cr>", { buffer = 0, desc = "Quit window" })
-
-    vim.keymap.set("t", "<D-Esc>", "<C-\\><C-n>", { buffer = 0, desc = "Quit window" })
-  end,
-})
-
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("timbuktu-lsp-attach", { clear = true }),
@@ -253,64 +224,6 @@ require("conform").setup({
 
 require("bqf").setup({})
 
-require("img-clip").setup({
-  filetypes = {
-    codecompanion = {
-      prompt_for_file_name = false,
-      template = "[Image]($FILE_PATH)",
-      use_absolute_path = true,
-    },
-  },
-})
-
-require("mcphub").setup({})
-
-local mini_diff = require("mini.diff")
-
-mini_diff.setup({
-  source = mini_diff.gen_source.none(),
-})
-
-require("render-markdown").setup({
-  completions = {
-    lsp = {
-      enabled = true,
-    },
-  },
-})
-
-require("codecompanion").setup({
-  extensions = {
-    mcphub = {
-      callback = "mcphub.extensions.codecompanion",
-      opts = {
-        make_vars = true,
-        make_slash_commands = true,
-        show_result_in_chat = true,
-      },
-    },
-  },
-  strategies = {
-    chat = {
-      adapter = {
-        name = "gemini",
-        model = "gemini-2.5-pro-preview-06-05",
-      },
-    },
-    inline = {
-      adapter = {
-        name = "gemini",
-        model = "gemini-2.5-pro-preview-06-05",
-      },
-    },
-    diff = {
-      provider = "mini_diff",
-    },
-  },
-})
-
-require("diffview").setup({})
-
 require("flit").setup({
   labeled_mods = "nvo",
   multiline = false,
@@ -326,19 +239,9 @@ require("lazydev").setup({
 
 require("leap").setup({})
 
-require("lint").linters_by_ft = {
-  markdown = { "vale" },
-}
-
 require("lualine").setup({
   options = {
     theme = "gruvbox",
-  },
-
-  sections = {
-    lualine_x = {
-      "overseer",
-    },
   },
 })
 
@@ -414,7 +317,6 @@ require("gitsigns").setup({
 })
 
 require("mini.align").setup({})
-
 require("mini.move").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-custom-diagnostic-highlight").setup({})
@@ -522,16 +424,6 @@ require("nvim-treesitter.configs").setup({
 
 require("nvim-ts-autotag").setup({})
 
-require("neotest").setup({
-  adapters = {
-    require("neotest-elixir"),
-  },
-
-  consumers = {
-    overseer = require("neotest.consumers.overseer"),
-  },
-})
-
 require("noice").setup({
   lsp = {
     override = {
@@ -546,11 +438,6 @@ require("noice").setup({
     inc_rename = false,
     lsp_doc_border = false,
   },
-})
-
-require("overseer").setup({
-  strategy = "toggleterm",
-  templates = { "builtin", "timbuktu.docker_compose" },
 })
 
 require("quicker").setup({
