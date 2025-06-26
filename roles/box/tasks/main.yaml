@@ -5,6 +5,10 @@
   include_tasks: ubuntu.yaml
   tags: packages
 
+- name: fonts
+  include_tasks: fonts.yaml
+  tags: fonts
+
 - name: scripts
   include_tasks: scripts.yaml
 
