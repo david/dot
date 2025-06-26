@@ -9,6 +9,10 @@
   include_tasks: fonts.yaml
   tags: fonts
 
+- name: nvim
+  include_tasks: nvim.yaml
+  tags: nvim
+
 - name: scripts
   include_tasks: scripts.yaml
 

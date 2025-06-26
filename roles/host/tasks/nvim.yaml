@@ -78,13 +78,4 @@
   tags:
     - nvim
 
-- name: mcphub (codecompanion)
-  community.general.npm:
-    name: mcp-hub
-    version: latest
-    global: true
-    state: latest
-  tags:
-    - nvim
-
 # vim:ft=yaml.ansible
