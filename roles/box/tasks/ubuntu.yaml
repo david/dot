@@ -6,6 +6,7 @@
 - name: apt install
   ansible.builtin.apt:
     name:
+      - build-essential
       - fonts-jetbrains-mono
       - wl-clipboard
     state: latest
