@@ -4,8 +4,6 @@ set -euo pipefail
 
 [[ -f /usr/bin/distrobox-host-exec ]] && HOST_EXEC=distrobox-host-exec
 
-case "$1" in
-  nvim)
-    $HOST_EXEC ansible-playbook $DOT_HOME/host.yaml
-  ;;
-esac
+if [[ ! -v 1 ]]; then
+  $HOST_EXEC ansible-playbook $DOT_HOME/host.yaml -t config
+fi
