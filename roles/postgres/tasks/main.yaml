@@ -44,6 +44,6 @@
   community.postgresql.postgresql_user:
     name: app
     password: app
-    role_attr_flags: CREATEDB
+    role_attr_flags: CREATEDB,SUPERUSER
   tags:
     - postgres
