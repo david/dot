@@ -150,6 +150,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+require("lspconfig").biome.setup({})
+
 require("lspconfig").elixirls.setup({
   cmd = { "elixir-ls" },
   filetypes = { "elixir", "eelixir", "heex", "elixirscript" },
@@ -165,6 +167,9 @@ require("lspconfig").lua_ls.setup({
     },
   },
 })
+
+require("lspconfig").tailwindcss.setup({})
+require("lspconfig").ts_ls.setup({})
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -215,6 +220,7 @@ require("conform").setup({
     eelixir = { "mix" },
     heex = { "mix" },
     ruby = { "rubocop" },
+    typescriptreact = { "biome" },
     ["*"] = { "trim_whitespace" },
   },
 

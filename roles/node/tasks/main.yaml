@@ -26,3 +26,15 @@
     state: latest
   tags:
     - node
+
+- name: dev packages
+  community.general.npm:
+    name: "{{ item }}"
+    global: yes
+    state: latest
+  loop:
+    - "@biomejs/biome"
+    - "@tailwindcss/language-server"
+    - "typescript-language-server"
+  tags:
+    - node
