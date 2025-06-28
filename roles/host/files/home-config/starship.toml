@@ -20,6 +20,7 @@ truncate_to_repo = false
 truncation_length = 30
 
 [directory.substitutions]
+'Boxes/agt/' = ""
 'Boxes/chj/' = ""
 'Boxes/chr/' = ""
 'Boxes/dot/' = ""

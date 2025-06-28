@@ -2,6 +2,7 @@ distrobox:
   children:
     boxes:
       hosts:
+        agt:
         chj:
         dot:
 
