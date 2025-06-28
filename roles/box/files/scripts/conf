@@ -13,6 +13,10 @@ case "${1:-}" in
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t fonts
     ;;
 
+  node)
+    $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t node
+    ;;
+
   nvim)
     $HOST_EXEC ansible-playbook $DOT_HOME/host.yaml -t nvim
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t nvim
@@ -20,6 +24,10 @@ case "${1:-}" in
 
   pkgs)
     $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t packages
+    ;;
+
+  pg)
+    $HOST_EXEC ansible-playbook -i $DOT_HOME/inventory.yaml $DOT_HOME/boxes.yaml -t postgres
     ;;
 
   *)
