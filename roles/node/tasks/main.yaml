@@ -12,3 +12,11 @@
     name:
       - nodejs
     state: latest
+
+- name: npm update
+  community.general.npm:
+    name: npm
+    global: yes
+    state: latest
+  tags:
+    - node
