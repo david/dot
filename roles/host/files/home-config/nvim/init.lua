@@ -88,6 +88,11 @@ vim.keymap.set("n", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window"
 vim.keymap.set("i", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
 vim.keymap.set("n", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
 vim.keymap.set("i", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
+
+vim.keymap.set("n", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
+vim.keymap.set("i", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
+vim.keymap.set("n", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
+vim.keymap.set("i", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" })
 vim.keymap.set("i", "<D-k>", "<cmd>wincmd k<cr>", { desc = "Move to top window" })
 vim.keymap.set("n", "<D-l>", "<cmd>wincmd l<cr>", { desc = "Move to right window" })
