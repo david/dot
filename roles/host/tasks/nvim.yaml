@@ -30,6 +30,7 @@
   loop:
     - acksld/nvim-neoclip.lua
     - akinsho/git-conflict.nvim
+    - akinsho/bufferline.nvim
     - andymass/vim-matchup
     - bilal2453/luvit-meta
     - brenoprata10/nvim-highlight-colors

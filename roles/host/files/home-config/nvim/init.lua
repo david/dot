@@ -79,6 +79,11 @@ vim.keymap.set("n", "<D-f>", function()
   require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
 end, { desc = "File" })
 
+vim.keymap.set("n", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to window on the left" })
+vim.keymap.set("i", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to window on the left" })
+vim.keymap.set("n", "<D-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Switch to window on the right" })
+vim.keymap.set("i", "<D-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Switch to window on the right" })
+
 vim.keymap.set("n", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
 vim.keymap.set("i", "<D-h>", "<cmd>wincmd h<cr>", { desc = "Move to left window" })
 vim.keymap.set("n", "<D-j>", "<cmd>wincmd j<cr>", { desc = "Move to bottom window" })
@@ -156,6 +161,75 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
   end,
+})
+
+require("bufferline").setup({
+  highlights = {
+    background = {
+      bg = "#282828",
+    },
+    buffer = {
+      bg = "#282828",
+      underline = true,
+    },
+    buffer_selected = {
+      bg = "#282828",
+      italic = false,
+    },
+    buffer_visible = {
+      bg = "#282828",
+    },
+    fill = {
+      bg = "#282828",
+    },
+    indicator_selected = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    indicator_visible = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    modified = {
+      bg = "#282828",
+    },
+    modified_visible = {
+      bg = "#282828",
+    },
+    modified_selected = {
+      bg = "#282828",
+    },
+    separator = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    separator_selected = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    separator_visible = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    tab = {
+      bg = "#282828",
+    },
+    tab_selected = {
+      bg = "#282828",
+    },
+    tab_separator = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+    tab_separator_selected = {
+      bg = "#282828",
+      fg = "#282828",
+    },
+  },
+  options = {
+    diagnostic = "nvim_lsp",
+    show_buffer_close_icons = false,
+  },
 })
 
 require("lspconfig").biome.setup({})
