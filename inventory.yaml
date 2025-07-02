@@ -4,6 +4,7 @@ distrobox:
       hosts:
         agt:
         chj:
+        chr:
         dot:
 
   vars:
