@@ -56,6 +56,14 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
+if vim.g.neovide then
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_opacity = 0.90
+  vim.g.neovide_underline_stroke_scale = 1.1
+
+  vim.opt.linespace = 2
+end
+
 vim.keymap.set("n", "<D-/>", function()
   require("snacks").picker.grep()
 end, { desc = "Grep" })
