@@ -46,23 +46,9 @@
       - gh
       - jq
       - lazygit
-      - neovim
       - ripgrep
       - starship
     state: latest
-  tags:
-    - packages
-
-- name: dot
-  become: true
-  become_user: david
-  community.general.homebrew:
-    name:
-      - ansible-language-server
-      - ansible-lint
-      - lua-language-server
-      - stylua
-  when: ansible_env.CONTAINER_ID == "dot"
   tags:
     - packages
 
