@@ -1,7 +1,0 @@
-- name: gemini-cli
-  community.general.npm:
-    name: "@google/gemini-cli"
-    state: latest
-    global: true
-
-# vim: ft=yaml.ansible
