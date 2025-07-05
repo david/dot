@@ -6,3 +6,7 @@
 - name: set locale
   ansible.builtin.command:
     cmd: localectl set-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en
+
+- name: set locale
+  ansible.builtin.command:
+    cmd: update-locale LC_ALL=en_US.UTF-8
