@@ -1,10 +1,10 @@
 - name: "create neovim pack directory"
-  become: true
-  become_user: david
   ansible.builtin.file:
     path: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
     state: directory
     mode: "0755"
+    owner: david
+    group: david
   tags:
     - nvim
 
@@ -71,6 +71,7 @@
     - wansmer/treesj
     - windwp/nvim-autopairs
     - windwp/nvim-ts-autotag
+  when: ansible_env.CONTAINER_ID is not defined
   tags:
     - nvim
 

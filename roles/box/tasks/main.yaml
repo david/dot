@@ -15,4 +15,7 @@
 - name: scripts
   include_tasks: scripts.yaml
 
+- name: nvim
+  include_tasks: ../../host/tasks/nvim.yaml
+
 # vim: ft=yaml.ansible
