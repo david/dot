@@ -1,0 +1,38 @@
+- name: inotify
+  ansible.builtin.apt:
+    name:
+      - inotify-tools
+  tags:
+    - elixir
+
+- name: elixir
+  become: true
+  become_user: david
+  community.general.homebrew:
+    name:
+      - elixir
+      - elixir-ls
+  tags:
+    - elixir
+
+- name: nvim
+  become: true
+  become_user: david
+  community.general.homebrew:
+    name:
+      - elixir-ls
+  tags:
+    - nvim
+
+- name: tailwind
+  community.general.npm:
+    name: "{{ item }}"
+    global: yes
+    state: latest
+  loop:
+    - "@tailwindcss/language-server"
+  tags:
+    - nvim
+
+# vim:ft=yaml.ansible
+
