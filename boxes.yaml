@@ -17,4 +17,15 @@
     - node
     - box
 
+- name: chr
+  hosts: chr
+  roles:
+    - postgres
+    - elixir
+
+- name: agt
+  hosts: agt
+  roles:
+    - elixir
+
 # vim: ft=yaml.ansible
