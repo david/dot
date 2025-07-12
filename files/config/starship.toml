@@ -1,6 +1,6 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-format = "$fill[](fg:bg)[ ](bg:bg)$env_var$directory$git_branch$git_status[ ](bg:bg)[](fg:bg)$fill\n$character"
+format = "$fill[](fg:bg)[ ](bg:bg)$directory[ ](bg:bg)$git_branch$git_status[ ](bg:bg)[](fg:bg)$fill\n$character"
 
 palette = "dark"
 
@@ -13,24 +13,17 @@ bg = "#504945"
 [directory]
 before_repo_root_style = "fg:bright-yellow bg:bg"
 format = "($before_repo_root_style)[$path]($style)"
-repo_root_format = "[$before_root_path]($before_repo_root_style)[$path]($style)[$read_only]($read_only_style)"
+repo_root_format = "[ $repo_root]($before_repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 repo_root_style = "fg:bright-purple bg:bg"
 style = "fg:green bg:bg"
 truncate_to_repo = false
-truncation_length = 30
+truncation_length = 0
+truncation_symbol = "…/"
 
 [directory.substitutions]
-'Boxes/agt/' = ""
-'Boxes/chj/' = ""
-'Boxes/chr/' = ""
-'Boxes/dot/' = ""
+'Worktrees/' = ""
 '~/' = ""
-
-[env_var.CONTAINER_ID]
-format = "[$symbol$env_value]($style)[  ](bg:bg)"
-style = "fg:bright-yellow bg:bg"
-symbol = "󰋜 "
-variable = "CONTAINER_ID"
+'~' = "󰋜"
 
 [fill]
 symbol = "─"
