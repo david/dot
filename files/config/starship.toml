@@ -1,6 +1,6 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-format = "$fill[](fg:bg)[ ](bg:bg)$directory[ ](bg:bg)$git_branch$git_status[ ](bg:bg)[](fg:bg)$fill\n$character"
+format = "$fill[](fg:bg)[ ](bg:bg)$directory[ ](bg:bg)$git_branch[ ](bg:bg)[](fg:bg)$fill\n$character"
 
 palette = "dark"
 
@@ -33,18 +33,3 @@ style = "fg:bg"
 format = "[$symbol$branch]($style)"
 style = "fg:bright-green bg:bg"
 symbol = "󰘬 "
-
-[git_status]
-format = "[\\[](fg:white bg:bg)[$all_status$ahead_behind]($style)[\\]](fg:white bg:bg)"
-style = "fg:bold bright-green bg:bg"
-ahead = "󰜝"
-behind = "󰜙"
-conflicted = ""
-diverged = " "
-deleted = ""
-modified = ""
-renamed = ""
-staged = ""
-stashed = ""
-untracked = ""
-up_to_date = "✓"
