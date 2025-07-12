@@ -1,0 +1,50 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: .config
+      ansible.builtin.file:
+        path: "{{ home }}/.config"
+        mode: "0755"
+        state: directory
+
+    - name: "create config subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/.config/{{ item.path }}"
+        mode: "0755"
+        state: directory
+      with_community.general.filetree:
+        - files/config/
+        - files/secrets/config/
+      when: item.state == 'directory'
+
+    - name: "link config files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.config/{{ item.path }}"
+        state: link
+      with_community.general.filetree:
+        - files/config/
+        - files/secrets/config/
+      when: item.state == 'file'
+
+    - name: "remove default files"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ home }}/.bashrc"
+        - "{{ home }}/.bash_profile"
+        - "{{ home }}/.profile"
+      when: item is not link
+
+    - name: "link home root files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.{{ item.path }}"
+        state: link
+      with_community.general.filetree:
+        - files/home/
+      when: item.path is not link
