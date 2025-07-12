@@ -3,12 +3,6 @@
 
 source ~/.profile
 
-# history
-[[ -v CONTAINER_ID ]] && HISTFILE=~/.bash_history.${CONTAINER_ID}
-
-CNT_BASHPROFILE_PATH=~/.config/bash.d/${CONTAINER_ID}.profile.bash
-[[ -f $CNT_BASHPROFILE_PATH ]] && source $CNT_BASHPROFILE_PATH
-
 [[ $- == *i* ]] || return
 
 set -o vi
@@ -17,13 +11,11 @@ set -o vi
   source ~/.local/share/blesh/ble.sh
 
 alias ls=eza
+alias ap=ansible-playbook
 
 eval "$(fzf --bash)"
 eval "$(direnv hook bash)"
 eval "$(starship init bash)"
-
-CNT_BASHRC_PATH=~/.config/bash.d/${CONTAINER_ID}.rc.bash
-[[ -f $CNT_BASHRC_PATH ]] && source $CNT_BASHRC_PATH
 
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 
