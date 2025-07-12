@@ -17,7 +17,7 @@
         state: directory
       with_community.general.filetree:
         - files/config/
-        - files/secrets/config/
+        - secrets/config/
       when: item.state == 'directory'
 
     - name: "link config files"
@@ -27,7 +27,7 @@
         state: link
       with_community.general.filetree:
         - files/config/
-        - files/secrets/config/
+        - secrets/config/
       when: item.state == 'file'
 
     - name: "remove default files"
