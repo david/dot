@@ -1,0 +1,78 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: "create neovim pack directory"
+      ansible.builtin.file:
+        path: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
+        state: directory
+        mode: "0755"
+      tags:
+        - nvim
+
+    - name: dev tools
+      community.general.homebrew:
+        name:
+          - neovim
+          - neovide
+        state: latest
+      tags:
+        - nvim
+
+    - name: "clone neovim plugins"
+      ansible.builtin.git:
+        repo: "https://github.com/{{ item }}.git"
+        dest: "{{ home }}/.local/share/nvim/site/pack/plugins/start/{{ item | basename }}"
+        update: true
+        force: true
+      loop:
+        - acksld/nvim-neoclip.lua
+        - akinsho/git-conflict.nvim
+        - akinsho/bufferline.nvim
+        - andymass/vim-matchup
+        - bilal2453/luvit-meta
+        - brenoprata10/nvim-highlight-colors
+        - echasnovski/mini.align
+        - echasnovski/mini.move
+        - ellisonleao/gruvbox.nvim
+        - fladson/vim-kitty
+        - folke/lazydev.nvim
+        - folke/noice.nvim
+        - folke/snacks.nvim
+        - folke/todo-comments.nvim
+        - folke/which-key.nvim
+        - ggandor/flit.nvim
+        - ggandor/leap.nvim
+        - hiphish/rainbow-delimiters.nvim
+        - kasama/nvim-custom-diagnostic-highlight
+        - kevinhwang91/nvim-bqf
+        - kylechui/nvim-surround
+        - lewis6991/gitsigns.nvim
+        - lukas-reineke/virt-column.nvim
+        - mfussenegger/nvim-lint
+        - muniftanjim/nui.nvim
+        - neovim/nvim-lspconfig
+        - nvim-lua/plenary.nvim
+        - nvim-lualine/lualine.nvim
+        - nvim-tree/nvim-web-devicons
+        - nvim-treesitter/nvim-treesitter
+        - nvim-treesitter/nvim-treesitter-textobjects
+        - rachartier/tiny-glimmer.nvim
+        - ravitemer/mcphub.nvim
+        - rrethy/nvim-treesitter-endwise
+        - sindrets/diffview.nvim
+        - stevearc/conform.nvim
+        - stevearc/quicker.nvim
+        - supermaven-inc/supermaven-nvim
+        - tpope/vim-fugitive
+        - tpope/vim-repeat
+        - wansmer/treesj
+        - windwp/nvim-autopairs
+        - windwp/nvim-ts-autotag
+      when: ansible_env.CONTAINER_ID is not defined
+      tags:
+        - nvim
+
+# vim:ft=yaml.ansible
