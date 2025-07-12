@@ -1,0 +1,24 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: kitty dir
+      ansible.builtin.file:
+        path: /usr/local/kitty
+        state: directory
+        mode: "0755"
+
+    - name: kitty extract
+      ansible.builtin.unarchive:
+        src: https://github.com/kovidgoyal/kitty/releases/download/v0.42.1/kitty-0.42.1-x86_64.txz
+        dest: /usr/local/kitty
+        remote_src: true
+        creates: /usr/local/kitty/bin
+
+    - name: kitty link
+      ansible.builtin.file:
+        src: /usr/local/kitty/bin/kitty
+        dest: /usr/local/bin/kitty
+        state: link
+
+# vim: ft=yaml.ansible
