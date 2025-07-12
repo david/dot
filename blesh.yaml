@@ -1,0 +1,19 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: blesh prepare
+      ansible.builtin.unarchive:
+        src: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
+        dest: /tmp
+        remote_src: true
+
+    - name: blesh install
+      ansible.builtin.command:
+        cmd: "bash /tmp/ble-nightly/ble.sh --install {{ home }}/.local/share"
+        creates: "{{ home }}/.local/share/blesh"
+
+# vim: ft=yaml.ansible
+
