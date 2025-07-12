@@ -13,15 +13,10 @@
         - .local
         - .local/share
         - .local/share/backgrounds
-
-    - name: "create asset subdirs"
-      ansible.builtin.file:
-        path: "{{ home }}/.local/share/{{ item.path }}"
-        mode: "0755"
-        state: directory
-      with_community.general.filetree:
-        - files/backgrounds/
-      when: item.state == 'directory'
+        - .local/share/fonts
+      tags:
+        - backgrounds
+        - fonts
 
     - name: "link asset files"
       ansible.builtin.file:
@@ -31,5 +26,25 @@
       with_community.general.filetree:
         - files/backgrounds/
       when: item.state == 'file'
+      tags:
+        - backgrounds
 
-# vim:ft=yaml.ansible
+    - name: download nerd fonts
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip
+        dest: /tmp
+        remote_src: true
+      tags:
+        - fonts
+
+    - name: install nerd fonts
+      ansible.builtin.file:
+        path: "{{ home }}/.local/share/fonts/{{ item | basename }}"
+        state: file
+      with_fileglob:
+        - /tmp/SymbolsNerdFont*.ttf
+      tags:
+        - fonts
+
+
+# vim: ft=yaml.ansible
