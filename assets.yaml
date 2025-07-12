@@ -1,0 +1,35 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: .local
+      ansible.builtin.file:
+        path: "{{ home }}/{{ item }}"
+        mode: "0755"
+        state: directory
+      loop:
+        - .local
+        - .local/share
+        - .local/share/backgrounds
+
+    - name: "create asset subdirs"
+      ansible.builtin.file:
+        path: "{{ home }}/.local/share/{{ item.path }}"
+        mode: "0755"
+        state: directory
+      with_community.general.filetree:
+        - files/backgrounds/
+      when: item.state == 'directory'
+
+    - name: "link asset files"
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.local/share/backgrounds/{{ item.path }}"
+        state: link
+      with_community.general.filetree:
+        - files/backgrounds/
+      when: item.state == 'file'
+
+# vim:ft=yaml.ansible
