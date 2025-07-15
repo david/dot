@@ -2,8 +2,6 @@
 
   tasks:
     - name: dev tools
-      become: true
-      become_user: david
       community.general.homebrew:
         name:
           - bat
