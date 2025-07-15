@@ -1,24 +1,40 @@
 - hosts: localhost
-  become: true
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    bin: "{{ home }}/.local/bin"
+    app: "{{ home }}/.local/app"
+    kitty: "{{ app }}/kitty/{{ version }}"
+
+    base_url: "https://github.com/kovidgoyal/kitty/releases/download"
+    version: "0.42.1"
 
   tasks:
     - name: kitty dir
       ansible.builtin.file:
-        path: /usr/local/kitty
+        path: "{{ app }}/kitty/{{ version }}"
         state: directory
         mode: "0755"
 
+    - name: kitty download
+      ansible.builtin.get_url:
+        url: "{{ base_url }}/v{{ version }}/kitty-{{ version }}-x86_64.txz"
+        dest: "/tmp/kitty-{{ version }}-x86_64.txz"
+        mode: "0644"
+
     - name: kitty extract
       ansible.builtin.unarchive:
-        src: https://github.com/kovidgoyal/kitty/releases/download/v0.42.1/kitty-0.42.1-x86_64.txz
-        dest: /usr/local/kitty
-        remote_src: true
-        creates: /usr/local/kitty/bin
+        src:  "/tmp/kitty-{{ version }}-x86_64.txz"
+        dest: "{{ kitty }}"
+        creates: "{{ kitty }}/bin/kitty"
 
     - name: kitty link
       ansible.builtin.file:
-        src: /usr/local/kitty/bin/kitty
-        dest: /usr/local/bin/kitty
+        src: "{{ kitty }}/bin/{{ item }}"
+        dest: "{{ bin }}/{{ item }}"
         state: link
+      loop:
+        - kitty
+        - kitten
 
 # vim: ft=yaml.ansible
