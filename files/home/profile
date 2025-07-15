@@ -1,3 +1,7 @@
+# brew
+[[ -d /home/linuxbrew ]] &&
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # dot
 export DOT_HOME=$HOME/Boxes/dot/dot
 
