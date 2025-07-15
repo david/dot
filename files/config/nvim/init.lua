@@ -79,7 +79,7 @@ vim.keymap.set("n", "<D-e>", function()
   require("snacks").picker.files()
 end, { desc = "File" })
 vim.keymap.set("n", "<D-f>", function()
-  require("snacks").picker.smart({ matcher = { cwd_bonus = false } })
+  require("snacks").picker.smart({ matcher = { cwd_bonus = true } })
 end, { desc = "File" })
 
 vim.keymap.set("n", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to window on the left" })
