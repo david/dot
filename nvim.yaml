@@ -34,6 +34,7 @@
         - andymass/vim-matchup
         - bilal2453/luvit-meta
         - brenoprata10/nvim-highlight-colors
+        - direnv/direnv.vim
         - echasnovski/mini.align
         - echasnovski/mini.move
         - ellisonleao/gruvbox.nvim
