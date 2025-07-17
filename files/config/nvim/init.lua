@@ -82,6 +82,9 @@ vim.keymap.set("n", "<D-f>", function()
   require("snacks").picker.smart({ matcher = { cwd_bonus = true } })
 end, { desc = "File" })
 
+vim.keymap.set("n", "<D-g>", "<cmd>!kitty --detach lazygit<CR>", { desc = "Lazygit" })
+vim.keymap.set("n", "<D-m>", "<cmd>!kitty --detach gemini<CR>", { desc = "Gemini" })
+
 vim.keymap.set("n", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to window on the left" })
 vim.keymap.set("i", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to window on the left" })
 vim.keymap.set("n", "<D-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Switch to window on the right" })
