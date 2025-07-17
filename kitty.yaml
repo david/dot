@@ -1,13 +1,14 @@
 - hosts: localhost
 
   vars:
+    version: "0.42.2"
+
+    base_url: "https://github.com/kovidgoyal/kitty/releases/download"
+
     home: "{{ lookup('env', 'HOME') }}"
     bin: "{{ home }}/.local/bin"
     app: "{{ home }}/.local/app"
     kitty: "{{ app }}/kitty/{{ version }}"
-
-    base_url: "https://github.com/kovidgoyal/kitty/releases/download"
-    version: "0.42.1"
 
   tasks:
     - name: kitty dir
