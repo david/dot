@@ -1,0 +1,25 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: .local
+      ansible.builtin.file:
+        path: "{{ home }}/{{ item }}"
+        mode: "0755"
+        state: directory
+      loop:
+        - .local/share/applications
+        - .local/bin
+
+    - name: link
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        path: "{{ home }}/.local/{{ item.path }}"
+        state: link
+      with_community.general.filetree:
+        - files/local/
+      when: item.state == 'file'
+
+# vim: ft=yaml.ansible
