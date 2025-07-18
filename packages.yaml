@@ -1,0 +1,113 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+
+    kitty_version: "0.42.2"
+    kitty_base_url: "https://github.com/kovidgoyal/kitty/releases/download"
+    kitty_home: "{{ lookup('env', 'HOME') }}"
+    kitty_bin: "{{ home }}/.local/bin"
+    kitty_app: "{{ home }}/.local/app"
+    kitty_path: "{{ app }}/kitty/{{ version }}"
+
+  tasks:
+    - name: update
+      community.general.homebrew:
+        update_homebrew: true
+        upgrade_all: true
+      tags:
+        - gemini
+        - opencode
+
+    - name: dev tools
+      community.general.homebrew:
+        name:
+          - automake
+          - bat
+          - bitwarden-cli
+          - eza
+          - fd
+          - fzf
+          - gcc
+          - gh
+          - inotify-tools
+          - jq
+          - lazygit
+          - node
+          - openssl
+          - ripgrep
+          - starship
+      tags:
+        - gemini
+        - opencode
+
+    - name: link gcc
+      ansible.builtin.file:
+        src: /var/home/linuxbrew/.linuxbrew/bin/{{ item.src }}
+        path: "{{ home }}/.local/bin/{{ item.dest }}"
+        state: link
+      loop:
+        - src: gcc-15
+          dest: gcc
+        - src: g++-15
+          dest: g++
+
+    - name: kitty dir
+      ansible.builtin.file:
+        path: "{{ kitty_app }}/kitty/{{ kitty_version }}"
+        state: directory
+        mode: "0755"
+      tags:
+        - kitty
+
+    - name: kitty download
+      ansible.builtin.get_url:
+        url: "{{ kitty_base_url }}/v{{ kitty_version }}/kitty-{{ kitty_version }}-x86_64.txz"
+        dest: "/tmp/kitty-{{ kitty_version }}-x86_64.txz"
+        mode: "0644"
+      tags:
+        - kitty
+
+    - name: kitty extract
+      ansible.builtin.unarchive:
+        src:  "/tmp/kitty-{{ kitty_version }}-x86_64.txz"
+        dest: "{{ kitty_path }}"
+        creates: "{{ kitty_path }}/bin/kitty"
+      tags:
+        - kitty
+
+    - name: kitty link
+      ansible.builtin.file:
+        src: "{{ kitty_path }}/bin/{{ item }}"
+        dest: "{{ kitty_bin }}/{{ item }}"
+        state: link
+      loop:
+        - kitty
+        - kitten
+      tags:
+        - kitty
+
+    - name: gemini
+      community.general.npm:
+        name: "@google/gemini-cli"
+        state: latest
+        global: true
+      tags:
+        - gemini
+
+    - name: blesh prepare
+      ansible.builtin.unarchive:
+        src: https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
+        dest: /tmp
+        remote_src: true
+      tags:
+        - blesh
+
+    - name: blesh install
+      ansible.builtin.command:
+        cmd: "bash /tmp/ble-nightly/ble.sh --install {{ home }}/.local/share"
+        creates: "{{ home }}/.local/share/blesh"
+      tags:
+        - blesh
+
+# vim: ft=yaml.ansible
