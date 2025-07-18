@@ -16,7 +16,6 @@
       community.general.homebrew:
         name:
           - neovim
-          - neovide
         state: latest
       tags:
         - nvim
