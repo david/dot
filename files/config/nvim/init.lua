@@ -68,22 +68,13 @@ vim.keymap.set("n", "<D-/>", function()
   require("snacks").picker.grep()
 end, { desc = "Grep" })
 
-vim.keymap.set("n", "<D-a>", "<cmd>CodeCompanionActions<cr>", { desc = "Code Companion palette" })
-vim.keymap.set("n", "<D-c>", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion chat" })
-
 vim.keymap.set("n", "<D-b>", function()
   require("snacks").picker.buffers()
 end, { desc = "Buffer" })
 
-vim.keymap.set("n", "<D-e>", function()
-  require("snacks").picker.files()
-end, { desc = "File" })
 vim.keymap.set("n", "<D-f>", function()
   require("snacks").picker.smart({ matcher = { cwd_bonus = true } })
 end, { desc = "File" })
-
-vim.keymap.set("n", "<D-g>", "<cmd>!kitty --detach lazygit<CR>", { desc = "Lazygit" })
-vim.keymap.set("n", "<D-m>", "<cmd>!kitty --detach gemini<CR>", { desc = "Gemini" })
 
 vim.keymap.set("n", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to tab on the left" })
 vim.keymap.set("i", "<D-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Switch to tab on the left" })
