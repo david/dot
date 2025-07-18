@@ -3,4 +3,4 @@ Version=1.0
 Type=Application
 Name=Worktrees
 StartupNotify=true
-Exec=kitty in-worktree
+Exec=kitty kitty-worktree
