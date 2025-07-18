@@ -60,7 +60,6 @@
         - nvim-treesitter/nvim-treesitter
         - nvim-treesitter/nvim-treesitter-textobjects
         - rachartier/tiny-glimmer.nvim
-        - ravitemer/mcphub.nvim
         - rrethy/nvim-treesitter-endwise
         - sindrets/diffview.nvim
         - stevearc/conform.nvim
