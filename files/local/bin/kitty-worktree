@@ -1,6 +1,6 @@
 #!/bin/bash
 
-choice=$(ls ~/Worktrees | fzf --select-1 --exit-0)
+choice=$(ls ~/Worktrees | fzf --select-1 --exit-0 --padding 10%,20%)
 
 [[ -z $choice ]] && exit
 
