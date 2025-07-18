@@ -4,5 +4,9 @@ choice=$(ls ~/Worktrees | fzf --select-1 --exit-0)
 
 [[ -z $choice ]] && exit
 
-kitty --directory=~/Worktrees/$choice --session=$choice.session.conf
+kitty \
+  --detach \
+  --directory=~/Worktrees/$choice \
+  --session=$choice.session.conf \
+  --listen-on=unix:/tmp/kitty-$choice
 
