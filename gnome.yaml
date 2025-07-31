@@ -193,7 +193,6 @@
               'com.discordapp.Discord.desktop',
               'com.rtosta.zapzap.desktop',
               'com.brave.Browser.desktop',
-              'worktree.desktop'
             ]
         - key: "/org/gnome/shell/keybindings/switch-to-application-1"
           value: "['<Shift><Control><Alt>d']"

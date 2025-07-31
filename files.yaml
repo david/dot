@@ -2,6 +2,8 @@
 
   vars:
     home: "{{ lookup('env', 'HOME') }}"
+    application_home: "{{ home }}/.local/share/applications"
+    worktree_home: "{{ home }}/Worktrees"
 
   tasks:
     - name: .local
@@ -76,6 +78,7 @@
       when: item.state == 'file'
       tags:
         - config
+        - worktrees
 
     - name: "remove default files"
       ansible.builtin.file:
@@ -110,5 +113,28 @@
       when: item.state == 'file'
       tags:
         - local
+
+    - name: initialize worktree list
+      ansible.builtin.set_fact:
+        worktrees: []
+      tags:
+        - worktrees
+
+    - name: write worktree desktop files
+      ansible.builtin.template:
+        src: "templates/worktree.desktop"
+        dest: "{{ application_home }}/timbuktu.worktree.{{ worktree }}.desktop"
+      loop: >-
+        {{
+          lookup('community.general.filetree', worktree_home + '/')
+            | selectattr('state', '==', 'directory')
+            | rejectattr('path', 'contains', '/')
+            | rejectattr('path', 'contains', '.ansible')
+            | map(attribute='path')
+        }}
+      loop_control:
+        loop_var: worktree
+      tags:
+        - worktrees
 
 # vim: ft=yaml.ansible
