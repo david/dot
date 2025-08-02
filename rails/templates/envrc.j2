@@ -1,0 +1,7 @@
+PATH_add {{ dev.path.bin }}
+
+export RUBY_VERSION={{ ruby.version }}
+export POSTGRES_VERSION={{ postgres.version }}
+export NODE_VERSION={{ node.version }}
+
+source_env_if_exists .envrc.local

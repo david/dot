@@ -1,0 +1,48 @@
+services:
+  {{ dev.service }}:
+    build:
+      dockerfile: dev/Dockerfile
+      context: .
+      args:
+        RUBY_VERSION: ${RUBY_VERSION}
+        POSTGRES_VERSION: ${POSTGRES_VERSION}
+        NODE_VERSION: ${NODE_VERSION}
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -X GET http://localhost:{{ dev.port }}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "{{ dev.port }}:3000"
+    volumes:
+      - "${PWD}:${PWD}"
+      - "./vendor/bundle:/usr/local/bundle"
+    working_dir: ${PWD}
+
+  {{ postgres.service }}:
+    image: postgres:${POSTGRES_VERSION}
+    environment:
+      POSTGRES_USER: "{{ postgres.user }}"
+      POSTGRES_HOST_AUTH_METHOD: trust
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U {{ postgres.user }} -d {{ postgres.user }}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:

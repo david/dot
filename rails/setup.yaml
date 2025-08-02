@@ -1,0 +1,217 @@
+- hosts: localhost
+
+  vars:
+    pwd: "{{ lookup('env', 'PWD') }}"
+
+    app:
+      name: "{{ pwd | basename }}"
+
+    dev:
+      path:
+        root: "dev"
+        bin: "dev/bin"
+      port: 3000
+      service: dev
+
+    node:
+      version: 22
+
+    postgres:
+      dev:
+        name: "{{ app.name }}_dev"
+      hostname: "postgres"
+      service: postgres
+      test:
+        name: "{{ app.name }}_test"
+      user: postgres
+      version: 17
+
+    ruby:
+      path:
+        bundle: "vendor/bundle"
+      version: 3.4
+
+  environment:
+    NODE_VERSION: "{{ node.version }}"
+    POSTGRES_VERSION: "{{ postgres.version }}"
+    RUBY_VERSION: "{{ ruby.version }}"
+
+  tasks:
+    - name: gem dir
+      ansible.builtin.file:
+        path: "{{ pwd }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ ruby.path.bundle }}"
+
+    - name: dev dirs
+      ansible.builtin.file:
+        path: "{{ pwd }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ dev.path.bin }}"
+        
+    - name: dockerfile
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ pwd }}/{{ dev.path.root }}/{{ item | basename }}"
+      loop:
+        - "files/Dockerfile"
+
+    - name: docker compose
+      ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ pwd }}/docker-compose.yml"
+        mode: "0644"
+
+    - name: start postgres
+      community.docker.docker_compose_v2:
+        project_src: "{{ pwd }}"
+        services: "{{ postgres.service }}"
+        state: present
+        wait: true
+
+    - name: install rails
+      community.docker.docker_compose_v2_run:
+        argv: ["gem", "install", "rails"]
+        build: true
+        cleanup: true
+        project_src: "{{ pwd }}"
+        service: "{{ dev.service }}"
+
+    - name: create rails app
+      community.docker.docker_compose_v2_run:
+        argv: 
+          - rails
+          - new 
+          - . 
+          - "--name={{ app.name }}"
+          - "--database=postgresql" 
+          - "--skip-kamal"
+        cleanup: true
+        project_src: "{{ pwd }}"
+        service: "{{ dev.service }}"
+
+    - name: ignore vendor/bundle
+      ansible.builtin.lineinfile:
+        path: "{{ pwd }}/.gitignore"
+        line: "\n/vendor/bundle"
+        regexp: "^/vendor/bundle"
+
+    - name: git init
+      ansible.builtin.command: 
+        cmd: git init .
+        chdir: "{{ pwd }}"
+
+    - name: git add all
+      ansible.builtin.command: 
+        cmd: git add .
+        chdir: "{{ pwd }}"
+
+    - name: avoid dev/Dockerfile and docker-compose.yml
+      ansible.builtin.command: 
+        cmd: "git reset -- {{ dev.path.root }}/Dockerfile docker-compose.yml"
+        chdir: "{{ pwd }}"
+
+    - name: git commit all
+      ansible.builtin.command: 
+        cmd: git commit -m "Initial import"
+        chdir: "{{ pwd }}"
+
+    - name: git add docker files
+      ansible.builtin.command: 
+        cmd: git add .
+        chdir: "{{ pwd }}"
+
+    - name: git commit docker files
+      ansible.builtin.command: 
+        cmd: git commit -m "Add docker files"
+        chdir: "{{ pwd }}"
+
+    - name: configure database.yml
+      ansible.builtin.template:
+        src: "templates/database.yml.j2"
+        dest: "{{ pwd }}/config/database.yml"
+
+    - name: git add database.yml
+      ansible.builtin.command: 
+        cmd: git add config/database.yml
+        chdir: "{{ pwd }}"
+
+    - name: git commit database.yml
+      ansible.builtin.command: 
+        cmd: git commit -m "Update database.yml"
+        chdir: "{{ pwd }}"
+
+    - name: create databases
+      community.docker.docker_compose_v2_run:
+        command: rails db:create
+        cleanup: true
+        project_src: "{{ pwd }}"
+        service: "{{ dev.service }}"
+
+    - name: start dev
+      community.docker.docker_compose_v2:
+        project_src: "{{ pwd }}"
+        services: "{{ dev.service }}"
+        state: present
+        wait: true
+
+    - name: envrc
+      ansible.builtin.template:
+        src: templates/envrc.j2
+        dest: "{{ pwd }}/.envrc"
+        mode: "0644"
+
+    - name: allow version controlling .envrc
+      ansible.builtin.lineinfile:
+        path: "{{ pwd }}/.gitignore"
+        line: "\n!/.envrc"
+        regexp: "^!/\\.envrc"
+
+    - name: git add .envrc
+      ansible.builtin.command: 
+        cmd: git add .gitignore .envrc
+        chdir: "{{ pwd }}"
+
+    - name: git commit .envrc
+      ansible.builtin.command: 
+        cmd: git commit -m "Version control .envrc"
+        chdir: "{{ pwd }}"
+
+    - name: copy dev exec
+      ansible.builtin.template:
+        src: "templates/dev-exec.j2"
+        dest: "{{ pwd }}/{{ dev.path.bin }}/dev-exec"
+        mode: "0755"
+
+    - name: "make files in {{ dev.path.bin }} executable"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        mode: "0755"
+        state: file
+      with_ansible.builtin.fileglob: "{{ pwd }}/{{ dev.path.bin }}/*"
+
+    - name: "export useful binaries from {{ dev.service }}"
+      ansible.builtin.file:
+        src: "{{ pwd }}/{{ dev.path.bin }}/dev-exec"
+        dest: "{{ pwd }}/{{ dev.path.bin }}/{{ item }}"
+        state: link
+      loop:
+        - bundle
+        - rails
+        - ruby
+
+    - name: git add dev binaries
+      ansible.builtin.command: 
+        cmd: git add .
+        chdir: "{{ pwd }}"
+
+    - name: git commit dev binaries
+      ansible.builtin.command: 
+        cmd: git commit -m "Add docker helper binaries"
+        chdir: "{{ pwd }}"
+
+# vim: ft=yaml.ansible
