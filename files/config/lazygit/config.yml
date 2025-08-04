@@ -2,7 +2,7 @@ git:
   paging:
     colorArg: always
 gui:
-  border: hidden
+  border: single
   enlargedSideViewLocation: top
   mainPanelSplitMode: horizontal
   nerdFontsVersion: "3"
