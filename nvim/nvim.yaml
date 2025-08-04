@@ -1,0 +1,71 @@
+- hosts: localhost
+
+  vars:
+    home: "{{ ansible_user_dir }}"
+
+    plugins_base_dir: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
+    plugins:
+      - github: Olical/conjure
+      - github: Olical/nfnl
+      - github: ellisonleao/gruvbox.nvim
+      - github: folke/snacks.nvim
+      - github: ggandor/leap.nvim
+      - github: nvim-treesitter/nvim-treesitter
+        branch: main
+      - github: tpope/vim-repeat
+
+    treesitter_parsers:
+      - fennel
+      - javascript
+      - regex
+      - yaml
+
+  tasks:
+    - name: plugin base directory
+      ansible.builtin.file:
+        path: "{{ plugins_base_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: clone or update plugins
+      ansible.builtin.git:
+        repo: "https://github.com/{{ item.github }}.git"
+        dest: "{{ plugins_base_dir }}/{{ item.github | split('/') | last }}"
+        version: "{{ item.branch | default('HEAD') }}"
+        update: yes
+        force: yes
+      loop: "{{ plugins }}"
+
+    - name: config directory
+      ansible.builtin.file:
+        path: "{{ home }}/.config/nvim"
+        state: directory
+        mode: "0755"
+
+    - name: config subdirectories
+      ansible.builtin.file:
+        path: "{{ home }}/.config/nvim/{{ item.path }}"
+        state: directory
+        mode: "0755"
+      with_community.general.filetree: "files/"
+      when: item.state == 'directory'
+
+    - name: config files
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ home }}/.config/nvim/{{ item.path }}"
+        state: link
+        force: yes
+      with_community.general.filetree: "files/"
+      when: item.state == 'file'
+
+    - name: treesitter parsers
+      ansible.builtin.command:
+        argv: 
+          - nvim 
+          - --headless 
+          - "+lua require('nvim-treesitter').install({ '{{item}}' }):wait(300000)"
+          - "+qa"
+      loop: "{{ treesitter_parsers }}"
+
+# vim: ft=yaml.ansible
