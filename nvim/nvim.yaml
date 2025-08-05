@@ -18,6 +18,7 @@
     treesitter_parsers:
       - fennel
       - javascript
+      - json
       - regex
       - yaml
 
