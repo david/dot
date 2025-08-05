@@ -32,9 +32,6 @@
    :key 
     {"<Esc>" #(vim.cmd.nohlsearch)
      "<C-s>" #(vim.cmd.write)
-     "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files]
-                                    :matcher {:cwd_bonus true}})
-     "<D-/>" #(Snacks.picker.grep)
      "."     #(vim.cmd.bnext)
      ","     #(vim.cmd.bprevious)
      "r"     "."
@@ -42,8 +39,10 @@
      "q"     #(vim.cmd.bdelete)}})
 
 (plugin :snacks 
-        {:opt {:indent {}
-               :picker {}}})
+  {:opt {:indent {}
+         :picker {}}
+   :key {"<D-/>" #(Snacks.picker.grep)
+         "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}})
 
 (plugin :leap)
 

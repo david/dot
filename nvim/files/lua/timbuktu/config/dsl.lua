@@ -20,11 +20,15 @@ local function plugin(name, _3fconfig)
   local plugin0 = require(name)
   local _let_1_ = (_3fconfig or {})
   local opt = _let_1_["opt"]
+  local keys = _let_1_["key"]
   plugin0.setup((opt or {}))
+  for key, val in pairs((keys or {})) do
+    vim.keymap.set("n", key, val)
+  end
   return plugin0
 end
 local function filetype(ft, _3fconfig)
-  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:19")
+  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:22")
   local function _2_()
     do
       local _let_3_ = (_3fconfig or {})
@@ -38,7 +42,7 @@ local function filetype(ft, _3fconfig)
   return vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _2_, group = vim.api.nvim_create_augroup((ft .. "-config"), {clear = true})})
 end
 local function colorscheme(name, _3fconfig)
-  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:30")
+  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:33")
   plugin(name, _3fconfig)
   return vim.cmd.colorscheme(name)
 end

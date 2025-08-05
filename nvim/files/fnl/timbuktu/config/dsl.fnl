@@ -11,8 +11,11 @@
 
 (lambda plugin [name ?config]         
   (let [plugin (require name)
-        {: opt} (or ?config {})]
+        {:opt opt :key keys} (or ?config {})]
     (plugin.setup (or opt {}))
+
+    (each [key val (pairs (or keys {}))]
+      (vim.keymap.set "n" key val))
 
     plugin))
 
