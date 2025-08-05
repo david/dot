@@ -7,6 +7,7 @@
     plugins:
       - github: Olical/conjure
       - github: Olical/nfnl
+      - github: akinsho/toggleterm.nvim
       - github: ellisonleao/gruvbox.nvim
       - github: folke/snacks.nvim
       - github: ggandor/leap.nvim

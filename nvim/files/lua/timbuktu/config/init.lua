@@ -31,6 +31,7 @@ local function _9_()
 end
 plugin("snacks", {opt = {indent = {}, picker = {}}, key = {["<D-/>"] = _8_, ["<D-f>"] = _9_}})
 plugin("leap")
+plugin("toggleterm", {opt = {direction = "float", open_mapping = "<D-t>"}})
 filetype("fennel", {plugin = {nfnl = {}}})
 filetype("yaml")
 return colorscheme("gruvbox")

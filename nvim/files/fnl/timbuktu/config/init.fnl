@@ -46,6 +46,10 @@
 
 (plugin :leap)
 
+(plugin :toggleterm
+  {:opt {:direction "float"
+         :open_mapping "<D-t>"}})
+
 (filetype :fennel {:plugin {:nfnl {}}})
 (filetype :yaml)
 
