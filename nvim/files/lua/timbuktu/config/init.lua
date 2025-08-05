@@ -1,5 +1,5 @@
 -- [nfnl] fnl/timbuktu/config/init.fnl
-local configure = require("timbuktu.config.dsl").config
+local configure = require("timbuktu.config.dsl").configure
 local function _1_()
   return vim.cmd.nohlsearch()
 end

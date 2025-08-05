@@ -1,6 +1,6 @@
-(local config (. (require :timbuktu.config.dsl) :config))
+(local configure (. (require :timbuktu.config.dsl) :configure))
 
-(config 
+(configure
   {:opt 
     {:autowrite true
      :breakindent true

@@ -29,7 +29,7 @@
 
   (vim.cmd.colorscheme name))
 
-(lambda core [{:g g :key keys :opt opts :plugin plugins :filetype filetypes :colorscheme cscheme}]
+(lambda configure [{:g g :key keys :opt opts :plugin plugins :filetype filetypes :colorscheme cscheme}]
   (each [key val (pairs g)]
     (set (. vim.g key) val))
 
@@ -47,4 +47,4 @@
 
   (colorscheme cscheme))
 
-{:config core}
+{:configure configure}

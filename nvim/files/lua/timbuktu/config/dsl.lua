@@ -44,7 +44,7 @@ local function colorscheme(name, _3fconfig)
   plugin(name, _3fconfig)
   return vim.cmd.colorscheme(name)
 end
-local function core(_5_)
+local function configure(_5_)
   local g = _5_["g"]
   local keys = _5_["key"]
   local opts = _5_["opt"]
@@ -74,4 +74,4 @@ local function core(_5_)
   end
   return colorscheme(cscheme)
 end
-return {config = core}
+return {configure = configure}
