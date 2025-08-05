@@ -35,7 +35,6 @@
      "."     #(vim.cmd.bnext)
      ","     #(vim.cmd.bprevious)
      "r"     "."
-     "s"     #((. (require :leap) :leap) {})
      "q"     #(vim.cmd.bdelete)}})
 
 (plugin :snacks 
@@ -44,7 +43,8 @@
    :key {"<D-/>" #(Snacks.picker.grep)
          "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}})
 
-(plugin :leap)
+(plugin :leap
+  {:key {"s" #((. (require :leap) :leap) {})}})
 
 (plugin :toggleterm
   (let [Terminal (. (require :toggleterm.terminal) :Terminal)
