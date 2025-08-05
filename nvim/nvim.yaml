@@ -28,6 +28,8 @@
         path: "{{ plugins_base_dir }}"
         state: directory
         mode: "0755"
+      tags:
+        - plugins
 
     - name: clone or update plugins
       ansible.builtin.git:
@@ -37,12 +39,16 @@
         update: yes
         force: yes
       loop: "{{ plugins }}"
+      tags:
+        - plugins
 
     - name: config directory
       ansible.builtin.file:
         path: "{{ home }}/.config/nvim"
         state: directory
         mode: "0755"
+      tags:
+        - files
 
     - name: config subdirectories
       ansible.builtin.file:
@@ -51,6 +57,8 @@
         mode: "0755"
       with_community.general.filetree: "files/"
       when: item.state == 'directory'
+      tags:
+        - files
 
     - name: config files
       ansible.builtin.file:
@@ -60,6 +68,8 @@
         force: yes
       with_community.general.filetree: "files/"
       when: item.state == 'file'
+      tags:
+        - files
 
     - name: treesitter parsers
       ansible.builtin.command:
@@ -69,5 +79,7 @@
           - "+lua require('nvim-treesitter').install({ '{{item}}' }):wait(300000)"
           - "+qa"
       loop: "{{ treesitter_parsers }}"
+      tags:
+        - ts
 
 # vim: ft=yaml.ansible
