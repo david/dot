@@ -44,7 +44,9 @@
        :key {"<D-/>" #(Snacks.picker.grep)
              "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
 
-     :leap {:key {"s" #((. (require :leap) :leap) {})}}
+     :leap 
+      {:key {"s" {:cmd #((. (require :leap) :leap) {})
+                  :mode [:n :o :v]}}}
 
      :toggleterm
       (let [Terminal (. (require :toggleterm.terminal) :Terminal)

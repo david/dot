@@ -1,10 +1,15 @@
+(lambda keybinding [key config]
+  (case config
+    {:cmd cmd :mode mode} (vim.keymap.set mode key cmd)
+    cmd (vim.keymap.set "n" key cmd)))
+
 (lambda plugin [name ?config]         
   (let [plugin (require name)
         {:opt opt :key keys} (or ?config {})]
     (plugin.setup (or opt {}))
 
     (each [key val (pairs (or keys {}))]
-      (vim.keymap.set "n" key val))
+      (keybinding key val))
 
     plugin))
 
@@ -32,7 +37,7 @@
     (set (. vim.opt key) val))
 
   (each [key val (pairs keys)]
-    (vim.keymap.set "n" key val))
+    (keybinding key val))
 
   (each [name config (pairs plugins)]
     (plugin name config))

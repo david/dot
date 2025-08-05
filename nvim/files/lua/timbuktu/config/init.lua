@@ -1,5 +1,5 @@
 -- [nfnl] fnl/timbuktu/config/init.fnl
-local config = require("timbuktu.config.dsl").config
+local configure = require("timbuktu.config.dsl").config
 local function _1_()
   return vim.cmd.nohlsearch()
 end
@@ -37,4 +37,4 @@ do
   end
   _9_ = {opt = {direction = "float", open_mapping = "<D-t>"}, key = {["<D-a>"] = _10_, ["<D-g>"] = _11_}}
 end
-return config({opt = {autowrite = true, breakindent = true, cursorline = true, cursorlineopt = "both", expandtab = true, ignorecase = true, list = true, number = true, scrolloff = 999, shiftwidth = 2, signcolumn = "number", smartcase = true, timeoutlen = 300, undofile = true, updatetime = 250, virtualedit = "block", showmode = false, swapfile = false}, g = {loaded_node_provider = 0, loaded_perl_provider = 0, loaded_python3_provider = 0, loaded_ruby_provider = 0, localleader = ";", mapleader = " "}, key = {["<Esc>"] = _1_, ["<C-s>"] = _2_, ["."] = _3_, [","] = _4_, r = ".", q = _5_}, plugin = {snacks = {opt = {indent = {}, picker = {}}, key = {["<D-/>"] = _6_, ["<D-f>"] = _7_}}, leap = {key = {s = _8_}}, toggleterm = _9_}, filetype = {fennel = {plugin = {nfnl = {}}}, yaml = {}}, colorscheme = "gruvbox"})
+return configure({opt = {autowrite = true, breakindent = true, cursorline = true, cursorlineopt = "both", expandtab = true, ignorecase = true, list = true, number = true, scrolloff = 999, shiftwidth = 2, signcolumn = "number", smartcase = true, timeoutlen = 300, undofile = true, updatetime = 250, virtualedit = "block", showmode = false, swapfile = false}, g = {loaded_node_provider = 0, loaded_perl_provider = 0, loaded_python3_provider = 0, loaded_ruby_provider = 0, localleader = ";", mapleader = " "}, key = {["<Esc>"] = _1_, ["<C-s>"] = _2_, ["."] = _3_, [","] = _4_, r = ".", q = _5_}, plugin = {snacks = {opt = {indent = {}, picker = {}}, key = {["<D-/>"] = _6_, ["<D-f>"] = _7_}}, leap = {key = {s = {cmd = _8_, mode = {"n", "o", "v"}}}}, toggleterm = _9_}, filetype = {fennel = {plugin = {nfnl = {}}}, yaml = {}}, colorscheme = "gruvbox"})
