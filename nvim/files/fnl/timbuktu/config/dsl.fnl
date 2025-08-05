@@ -1,14 +1,3 @@
-(lambda core [config]
-  (let [{:opt opt :key keys :g g} config]
-    (each [key val (pairs g)]
-      (set (. vim.g key) val))
-
-    (each [key val (pairs opt)]
-      (set (. vim.opt key) val))
-
-    (each [key val (pairs keys)]
-      (vim.keymap.set "n" key val))))
-
 (lambda plugin [name ?config]         
   (let [plugin (require name)
         {:opt opt :key keys} (or ?config {})]
@@ -35,7 +24,22 @@
 
   (vim.cmd.colorscheme name))
 
-{:colorscheme colorscheme
- :core core
- :filetype filetype
- :plugin plugin}
+(lambda core [{:g g :key keys :opt opts :plugin plugins :filetype filetypes :colorscheme cscheme}]
+  (each [key val (pairs g)]
+    (set (. vim.g key) val))
+
+  (each [key val (pairs opts)]
+    (set (. vim.opt key) val))
+
+  (each [key val (pairs keys)]
+    (vim.keymap.set "n" key val))
+
+  (each [name config (pairs plugins)]
+    (plugin name config))
+
+  (each [name config (pairs filetypes)]
+    (filetype name config))
+
+  (colorscheme cscheme))
+
+{:config core}

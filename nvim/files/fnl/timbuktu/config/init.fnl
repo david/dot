@@ -1,6 +1,6 @@
-(local {: core : filetype : plugin : colorscheme} (require :timbuktu.config.dsl))
+(local config (. (require :timbuktu.config.dsl) :config))
 
-(core 
+(config 
   {:opt 
     {:autowrite true
      :breakindent true
@@ -35,27 +35,28 @@
      "."     #(vim.cmd.bnext)
      ","     #(vim.cmd.bprevious)
      "r"     "."
-     "q"     #(vim.cmd.bdelete)}})
+     "q"     #(vim.cmd.bdelete)}
 
-(plugin :snacks 
-  {:opt {:indent {}
-         :picker {}}
-   :key {"<D-/>" #(Snacks.picker.grep)
-         "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}})
+   :plugin
+    {:snacks 
+      {:opt {:indent {}
+             :picker {}}
+       :key {"<D-/>" #(Snacks.picker.grep)
+             "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
 
-(plugin :leap
-  {:key {"s" #((. (require :leap) :leap) {})}})
+     :leap {:key {"s" #((. (require :leap) :leap) {})}}
 
-(plugin :toggleterm
-  (let [Terminal (. (require :toggleterm.terminal) :Terminal)
-        agent (Terminal:new {:cmd "gemini" :direction "float"})
-        lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
-    {:opt {:direction "float"
-           :open_mapping "<D-t>"}
-     :key {"<D-a>" #(agent:toggle)
-           "<D-g>" #(lazygit:toggle)}}))
+     :toggleterm
+      (let [Terminal (. (require :toggleterm.terminal) :Terminal)
+            agent (Terminal:new {:cmd "gemini" :direction "float"})
+            lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
+        {:opt {:direction "float"
+               :open_mapping "<D-t>"}
+         :key {"<D-a>" #(agent:toggle)
+               "<D-g>" #(lazygit:toggle)}})}
 
-(filetype :fennel {:plugin {:nfnl {}}})
-(filetype :yaml)
+   :filetype
+    {:fennel {:plugin {:nfnl {}}}
+     :yaml {}}
 
-(colorscheme :gruvbox)
+   :colorscheme :gruvbox})
