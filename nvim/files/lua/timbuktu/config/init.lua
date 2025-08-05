@@ -31,7 +31,19 @@ local function _9_()
 end
 plugin("snacks", {opt = {indent = {}, picker = {}}, key = {["<D-/>"] = _8_, ["<D-f>"] = _9_}})
 plugin("leap")
-plugin("toggleterm", {opt = {direction = "float", open_mapping = "<D-t>"}})
+local function _10_(...)
+  local Terminal = require("toggleterm.terminal").Terminal
+  local agent = Terminal:new({cmd = "gemini", direction = "float"})
+  local lazygit = Terminal:new({cmd = "lazygit", direction = "float"})
+  local function _11_()
+    return agent:toggle()
+  end
+  local function _12_()
+    return lazygit:toggle()
+  end
+  return {opt = {direction = "float", open_mapping = "<D-t>"}, key = {["<D-a>"] = _11_, ["<D-g>"] = _12_}}
+end
+plugin("toggleterm", _10_(...))
 filetype("fennel", {plugin = {nfnl = {}}})
 filetype("yaml")
 return colorscheme("gruvbox")

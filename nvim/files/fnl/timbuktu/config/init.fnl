@@ -47,8 +47,13 @@
 (plugin :leap)
 
 (plugin :toggleterm
-  {:opt {:direction "float"
-         :open_mapping "<D-t>"}})
+  (let [Terminal (. (require :toggleterm.terminal) :Terminal)
+        agent (Terminal:new {:cmd "gemini" :direction "float"})
+        lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
+    {:opt {:direction "float"
+           :open_mapping "<D-t>"}
+     :key {"<D-a>" #(agent:toggle)
+           "<D-g>" #(lazygit:toggle)}}))
 
 (filetype :fennel {:plugin {:nfnl {}}})
 (filetype :yaml)
