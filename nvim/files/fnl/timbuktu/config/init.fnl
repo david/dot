@@ -42,6 +42,8 @@
 
      :lualine {}
 
+     :mini.pairs {}
+
      :snacks
       {:opts {:indent {}
               :picker {}}

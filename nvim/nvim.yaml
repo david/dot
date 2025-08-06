@@ -8,6 +8,7 @@
       - github: Olical/conjure
       - github: Olical/nfnl
       - github: akinsho/toggleterm.nvim
+      - github: echasnovski/mini.nvim
       - github: ellisonleao/gruvbox.nvim
       - github: folke/snacks.nvim
       - github: folke/which-key.nvim
