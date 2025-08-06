@@ -22,6 +22,9 @@
       - repo: HiPhish/rainbow-delimiters.nvim
         provider: gitlab
 
+    packages:
+      - fnlfmt
+
     treesitter_parsers:
       - fennel
       - javascript
@@ -30,6 +33,10 @@
       - yaml
 
   tasks:
+    - name: packages
+      community.general.homebrew:
+        name: "{{ packages }}"
+
     - name: plugin base directory
       ansible.builtin.file:
         path: "{{ plugins_base_dir }}"
