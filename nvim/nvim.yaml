@@ -11,6 +11,7 @@
       - github: ellisonleao/gruvbox.nvim
       - github: folke/snacks.nvim
       - github: ggandor/leap.nvim
+      - github: nvim-lualine/lualine.nvim
       - github: nvim-treesitter/nvim-treesitter
         branch: main
       - github: tpope/vim-repeat

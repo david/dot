@@ -40,6 +40,8 @@
       {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
                       :mode [:n :o :v]}}}
 
+     :lualine {}
+
      :snacks
       {:opts {:indent {}
               :picker {}}
