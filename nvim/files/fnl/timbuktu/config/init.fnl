@@ -32,9 +32,6 @@
    :keymaps
     {"<Esc>" #(vim.cmd.nohlsearch)
      "<C-s>" #(vim.cmd.write)
-     "."     #(vim.cmd.bnext)
-     ","     #(vim.cmd.bprevious)
-     "r"     "."
      "q"     #(vim.cmd.bdelete)}
 
    :plugins
