@@ -5,20 +5,22 @@
 
     plugins_base_dir: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
     plugins:
-      - github: Olical/conjure
-      - github: Olical/nfnl
-      - github: akinsho/toggleterm.nvim
-      - github: echasnovski/mini.nvim
-      - github: ellisonleao/gruvbox.nvim
-      - github: folke/snacks.nvim
-      - github: folke/which-key.nvim
-      - github: ggandor/leap.nvim
-      - github: mfussenegger/nvim-lint
-      - github: nvim-lualine/lualine.nvim
-      - github: nvim-treesitter/nvim-treesitter
+      - repo: Olical/conjure
+      - repo: Olical/nfnl
+      - repo: akinsho/toggleterm.nvim
+      - repo: echasnovski/mini.nvim
+      - repo: ellisonleao/gruvbox.nvim
+      - repo: folke/snacks.nvim
+      - repo: folke/which-key.nvim
+      - repo: ggandor/leap.nvim
+      - repo: mfussenegger/nvim-lint
+      - repo: nvim-lualine/lualine.nvim
+      - repo: nvim-treesitter/nvim-treesitter
         branch: main
-      - github: stevearc/conform.nvim
-      - github: tpope/vim-repeat
+      - repo: stevearc/conform.nvim
+      - repo: tpope/vim-repeat
+      - repo: HiPhish/rainbow-delimiters.nvim
+        provider: gitlab
 
     treesitter_parsers:
       - fennel
@@ -38,12 +40,22 @@
 
     - name: clone or update plugins
       ansible.builtin.git:
-        repo: "https://github.com/{{ item.github }}.git"
-        dest: "{{ plugins_base_dir }}/{{ item.github | split('/') | last }}"
+        repo: "https://{{ provider | default('github') }}.com/{{ item.repo }}.git"
+        dest: "{{ plugins_base_dir }}/{{ item.repo | split('/') | last }}"
         version: "{{ item.branch | default('HEAD') }}"
         update: yes
         force: yes
       loop: "{{ plugins }}"
+      tags:
+        - plugins
+
+    - name: helptags
+      ansible.builtin.command:
+        argv: 
+          - nvim 
+          - --headless 
+          - "+helptags ++t ALL"
+          - "+qa"
       tags:
         - plugins
 

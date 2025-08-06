@@ -48,6 +48,8 @@
 
      :mini.pairs {}
 
+     :rainbow-delimiters {}
+
      :snacks
       {:opts {:indent {}
               :picker {}}
