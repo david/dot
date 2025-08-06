@@ -53,7 +53,7 @@
             agent (Terminal:new {:cmd "gemini" :direction "float"})
             lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
         {:opts {:direction "float"
-                :open_mapping "<D-t>"}
+                :open_mapping "<D-q>"}
          :keymaps {"<D-a>" #(agent:toggle)
                    "<D-g>" #(lazygit:toggle)}})}
 
