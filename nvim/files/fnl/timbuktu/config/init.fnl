@@ -46,6 +46,8 @@
 
      :lualine {}
 
+     :mini.icons {}
+
      :mini.pairs {}
 
      :rainbow-delimiters {}
