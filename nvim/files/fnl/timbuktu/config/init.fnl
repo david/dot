@@ -45,6 +45,7 @@
                                          :<D-f> #(Snacks.picker.smart {:multi [:buffers
                                                                                :files]
                                                                        :matcher {:cwd_bonus true}})}}
+                      :supermaven-nvim {}
                       :toggleterm (let [Terminal (. (require :toggleterm.terminal)
                                                     :Terminal)
                                         agent (Terminal:new {:cmd :gemini
