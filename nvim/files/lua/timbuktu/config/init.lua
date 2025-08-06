@@ -10,13 +10,13 @@ local function _3_()
   return vim.cmd.bdelete()
 end
 local function _4_()
-  return Snacks.picker.grep()
+  return require("leap").leap({})
 end
 local function _5_()
-  return Snacks.picker.smart({multi = {"buffers", "files"}, matcher = {cwd_bonus = true}})
+  return Snacks.picker.grep()
 end
 local function _6_()
-  return require("leap").leap({})
+  return Snacks.picker.smart({multi = {"buffers", "files"}, matcher = {cwd_bonus = true}})
 end
 local _7_
 do
@@ -35,4 +35,4 @@ do
   end
   _7_ = {opts = {direction = "float", open_mapping = "<D-q>"}, keymaps = {["<D-a>"] = _8_, ["<D-g>"] = _9_, ["<D-s>"] = _10_}}
 end
-return configure({opts = {autowrite = true, breakindent = true, cursorline = true, cursorlineopt = "both", expandtab = true, ignorecase = true, list = true, number = true, scrolloff = 999, shiftwidth = 2, signcolumn = "number", smartcase = true, timeoutlen = 300, undofile = true, updatetime = 250, virtualedit = "block", showmode = false, swapfile = false}, g = {loaded_node_provider = 0, loaded_perl_provider = 0, loaded_python3_provider = 0, loaded_ruby_provider = 0, localleader = ";", mapleader = " "}, keymaps = {["<Esc>"] = _1_, ["<C-s>"] = _2_, q = _3_}, plugins = {snacks = {opts = {indent = {}, picker = {}}, keymaps = {["<D-/>"] = _4_, ["<D-f>"] = _5_}}, leap = {keymaps = {s = {cmd = _6_, mode = {"n", "o", "v"}}}}, toggleterm = _7_}, filetypes = {fennel = {plugins = {nfnl = {}}}, yaml = {}}, colorscheme = "gruvbox"})
+return configure({opts = {autowrite = true, breakindent = true, cursorline = true, cursorlineopt = "both", expandtab = true, ignorecase = true, list = true, number = true, scrolloff = 999, shiftwidth = 2, signcolumn = "number", smartcase = true, timeoutlen = 300, undofile = true, updatetime = 250, virtualedit = "block", showmode = false, swapfile = false}, g = {loaded_node_provider = 0, loaded_perl_provider = 0, loaded_python3_provider = 0, loaded_ruby_provider = 0, localleader = ";", mapleader = " "}, keymaps = {["<Esc>"] = _1_, ["<C-s>"] = _2_, q = _3_}, plugins = {leap = {keymaps = {s = {cmd = _4_, mode = {"n", "o", "v"}}}}, snacks = {opts = {indent = {}, picker = {}}, keymaps = {["<D-/>"] = _5_, ["<D-f>"] = _6_}}, toggleterm = _7_}, filetypes = {fennel = {plugins = {nfnl = {}}}, yaml = {}}, colorscheme = "gruvbox"})

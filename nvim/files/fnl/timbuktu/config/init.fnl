@@ -35,15 +35,15 @@
      "q"     #(vim.cmd.bdelete)}
 
    :plugins
-    {:snacks 
+    {:leap
+      {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
+                      :mode [:n :o :v]}}}
+
+     :snacks
       {:opts {:indent {}
               :picker {}}
        :keymaps {"<D-/>" #(Snacks.picker.grep)
                  "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
-
-     :leap 
-      {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
-                      :mode [:n :o :v]}}}
 
      :toggleterm
       (let [Terminal (. (require :toggleterm.terminal) :Terminal)
