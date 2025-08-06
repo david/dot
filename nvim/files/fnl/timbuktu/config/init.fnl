@@ -1,7 +1,7 @@
 (local configure (. (require :timbuktu.config.dsl) :configure))
 
 (configure
-  {:opt 
+  {:opts
     {:autowrite true
      :breakindent true
      :cursorline true
@@ -29,7 +29,7 @@
      :localleader ";" 
      :mapleader " "}
 
-   :key 
+   :keymaps
     {"<Esc>" #(vim.cmd.nohlsearch)
      "<C-s>" #(vim.cmd.write)
      "."     #(vim.cmd.bnext)
@@ -37,28 +37,28 @@
      "r"     "."
      "q"     #(vim.cmd.bdelete)}
 
-   :plugin
+   :plugins
     {:snacks 
-      {:opt {:indent {}
-             :picker {}}
-       :key {"<D-/>" #(Snacks.picker.grep)
-             "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
+      {:opts {:indent {}
+              :picker {}}
+       :keymaps {"<D-/>" #(Snacks.picker.grep)
+                 "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
 
      :leap 
-      {:key {"s" {:cmd #((. (require :leap) :leap) {})
-                  :mode [:n :o :v]}}}
+      {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
+                      :mode [:n :o :v]}}}
 
      :toggleterm
       (let [Terminal (. (require :toggleterm.terminal) :Terminal)
             agent (Terminal:new {:cmd "gemini" :direction "float"})
             lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
-        {:opt {:direction "float"
-               :open_mapping "<D-t>"}
-         :key {"<D-a>" #(agent:toggle)
-               "<D-g>" #(lazygit:toggle)}})}
+        {:opts {:direction "float"
+                :open_mapping "<D-t>"}
+         :keymaps {"<D-a>" #(agent:toggle)
+                   "<D-g>" #(lazygit:toggle)}})}
 
-   :filetype
-    {:fennel {:plugin {:nfnl {}}}
+   :filetypes
+    {:fennel {:plugins {:nfnl {}}}
      :yaml {}}
 
    :colorscheme :gruvbox})

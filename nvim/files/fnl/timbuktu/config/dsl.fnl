@@ -1,15 +1,15 @@
-(lambda keybinding [key config]
+(lambda keymap [key config]
   (case config
     {:cmd cmd :mode mode} (vim.keymap.set mode key cmd)
     cmd (vim.keymap.set "n" key cmd)))
 
 (lambda plugin [name ?config]         
   (let [plugin (require name)
-        {:opt opt :key keys} (or ?config {})]
-    (plugin.setup (or opt {}))
+        {: opts : keymaps} (or ?config {})]
+    (plugin.setup (or opts {}))
 
-    (each [key val (pairs (or keys {}))]
-      (keybinding key val))
+    (each [key val (pairs (or keymaps {}))]
+      (keymap key val))
 
     plugin))
 
@@ -29,15 +29,15 @@
 
   (vim.cmd.colorscheme name))
 
-(lambda configure [{:g g :key keys :opt opts :plugin plugins :filetype filetypes :colorscheme cscheme}]
+(lambda configure [{:colorscheme cscheme : g : keymaps : opts : plugins : filetypes}]
   (each [key val (pairs g)]
     (set (. vim.g key) val))
 
   (each [key val (pairs opts)]
     (set (. vim.opt key) val))
 
-  (each [key val (pairs keys)]
-    (keybinding key val))
+  (each [key val (pairs keymaps)]
+    (keymap key val))
 
   (each [name config (pairs plugins)]
     (plugin name config))

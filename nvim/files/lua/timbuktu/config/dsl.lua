@@ -1,5 +1,5 @@
 -- [nfnl] fnl/timbuktu/config/dsl.fnl
-local function keybinding(key, config)
+local function keymap(key, config)
   _G.assert((nil ~= config), "Missing argument config on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:1")
   _G.assert((nil ~= key), "Missing argument key on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:1")
   if ((_G.type(config) == "table") and (nil ~= config.cmd) and (nil ~= config.mode)) then
@@ -17,11 +17,11 @@ local function plugin(name, _3fconfig)
   _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:6")
   local plugin0 = require(name)
   local _let_2_ = (_3fconfig or {})
-  local opt = _let_2_["opt"]
-  local keys = _let_2_["key"]
-  plugin0.setup((opt or {}))
-  for key, val in pairs((keys or {})) do
-    keybinding(key, val)
+  local opts = _let_2_["opts"]
+  local keymaps = _let_2_["keymaps"]
+  plugin0.setup((opts or {}))
+  for key, val in pairs((keymaps or {})) do
+    keymap(key, val)
   end
   return plugin0
 end
@@ -45,26 +45,26 @@ local function colorscheme(name, _3fconfig)
   return vim.cmd.colorscheme(name)
 end
 local function configure(_5_)
-  local g = _5_["g"]
-  local keys = _5_["key"]
-  local opts = _5_["opt"]
-  local plugins = _5_["plugin"]
-  local filetypes = _5_["filetype"]
   local cscheme = _5_["colorscheme"]
-  _G.assert((nil ~= cscheme), "Missing argument cscheme on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
+  local g = _5_["g"]
+  local keymaps = _5_["keymaps"]
+  local opts = _5_["opts"]
+  local plugins = _5_["plugins"]
+  local filetypes = _5_["filetypes"]
   _G.assert((nil ~= filetypes), "Missing argument filetypes on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
   _G.assert((nil ~= plugins), "Missing argument plugins on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
   _G.assert((nil ~= opts), "Missing argument opts on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
-  _G.assert((nil ~= keys), "Missing argument keys on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
+  _G.assert((nil ~= keymaps), "Missing argument keymaps on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
   _G.assert((nil ~= g), "Missing argument g on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
+  _G.assert((nil ~= cscheme), "Missing argument cscheme on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
   for key, val in pairs(g) do
     vim.g[key] = val
   end
   for key, val in pairs(opts) do
     vim.opt[key] = val
   end
-  for key, val in pairs(keys) do
-    keybinding(key, val)
+  for key, val in pairs(keymaps) do
+    keymap(key, val)
   end
   for name, config in pairs(plugins) do
     plugin(name, config)
