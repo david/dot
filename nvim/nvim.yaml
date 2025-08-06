@@ -12,6 +12,7 @@
       - repo: ellisonleao/gruvbox.nvim
       - repo: folke/snacks.nvim
       - repo: folke/which-key.nvim
+      - repo: ggandor/flit.nvim
       - repo: ggandor/leap.nvim
       - repo: mfussenegger/nvim-lint
       - repo: nvim-lualine/lualine.nvim

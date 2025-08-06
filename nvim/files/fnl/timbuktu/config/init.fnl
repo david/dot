@@ -33,6 +33,7 @@
                                                            :lsp_format :fallback
                                                            :timeout_ms 5000}
                                        :notify_no_formatters false}}
+                      :flit {:opts {:labeled_modes :nvo}}
                       :leap {:keymaps {:s {:cmd #((. (require :leap) :leap) {})
                                            :mode [:n :o :v]}}}
                       :lint {}
