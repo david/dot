@@ -42,6 +42,8 @@
       {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
                       :mode [:n :o :v]}}}
 
+     :lint {}
+
      :lualine {}
 
      :mini.pairs {}

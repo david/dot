@@ -13,6 +13,7 @@
       - github: folke/snacks.nvim
       - github: folke/which-key.nvim
       - github: ggandor/leap.nvim
+      - github: mfussenegger/nvim-lint
       - github: nvim-lualine/lualine.nvim
       - github: nvim-treesitter/nvim-treesitter
         branch: main

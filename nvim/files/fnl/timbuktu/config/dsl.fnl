@@ -10,7 +10,8 @@
 (lambda plugin [name ?config]         
   (let [plugin (require name)
         config (or ?config {})]
-    (plugin.setup (or config.opts {}))
+    (when plugin.setup
+      (plugin.setup (or config.opts {})))
     (keymaps config)
 
     plugin))

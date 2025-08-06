@@ -24,41 +24,44 @@ local function plugin(name, _3fconfig)
   _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:10")
   local plugin0 = require(name)
   local config = (_3fconfig or {})
-  plugin0.setup((config.opts or {}))
+  if plugin0.setup then
+    plugin0.setup((config.opts or {}))
+  else
+  end
   keymaps(config)
   return plugin0
 end
-local function plugins(_3_)
-  local _3fplugins = _3_["plugins"]
+local function plugins(_4_)
+  local _3fplugins = _4_["plugins"]
   for name, config in pairs((_3fplugins or {})) do
     plugin(name, config)
   end
   return nil
 end
 local function filetype(ft, _3fconfig)
-  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:22")
-  local function _4_()
+  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:23")
+  local function _5_()
     plugins((_3fconfig or {}))
     return vim.treesitter.start()
   end
-  return vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _4_, group = vim.api.nvim_create_augroup((ft .. "-config"), {clear = true})})
+  return vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _5_, group = vim.api.nvim_create_augroup((ft .. "-config"), {clear = true})})
 end
 local function colorscheme(name, _3fconfig)
-  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:31")
+  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:32")
   plugin(name, _3fconfig)
   return vim.cmd.colorscheme(name)
 end
-local function configure(_5_)
-  local cscheme = _5_["colorscheme"]
-  local g = _5_["g"]
-  local opts = _5_["opts"]
-  local filetypes = _5_["filetypes"]
-  local config = _5_
-  _G.assert((nil ~= config), "Missing argument config on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:36")
-  _G.assert((nil ~= filetypes), "Missing argument filetypes on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:36")
-  _G.assert((nil ~= opts), "Missing argument opts on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:36")
-  _G.assert((nil ~= g), "Missing argument g on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:36")
-  _G.assert((nil ~= cscheme), "Missing argument cscheme on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:36")
+local function configure(_6_)
+  local cscheme = _6_["colorscheme"]
+  local g = _6_["g"]
+  local opts = _6_["opts"]
+  local filetypes = _6_["filetypes"]
+  local config = _6_
+  _G.assert((nil ~= config), "Missing argument config on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:37")
+  _G.assert((nil ~= filetypes), "Missing argument filetypes on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:37")
+  _G.assert((nil ~= opts), "Missing argument opts on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:37")
+  _G.assert((nil ~= g), "Missing argument g on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:37")
+  _G.assert((nil ~= cscheme), "Missing argument cscheme on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:37")
   for key, val in pairs(g) do
     vim.g[key] = val
   end
