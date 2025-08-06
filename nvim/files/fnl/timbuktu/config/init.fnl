@@ -4,6 +4,7 @@
   {:opts
     {:autowrite true
      :breakindent true
+     :colorcolumn "100"
      :cursorline true
      :cursorlineopt "both"
      :expandtab true
