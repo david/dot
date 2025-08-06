@@ -3,24 +3,28 @@
     {:cmd cmd :mode mode} (vim.keymap.set mode key cmd)
     cmd (vim.keymap.set "n" key cmd)))
 
+(lambda keymaps [{:keymaps ?keymaps}]
+  (each [key val (pairs (or ?keymaps {}))]
+    (keymap key val)))
+
 (lambda plugin [name ?config]         
   (let [plugin (require name)
-        {: opts : keymaps} (or ?config {})]
-    (plugin.setup (or opts {}))
-
-    (each [key val (pairs (or keymaps {}))]
-      (keymap key val))
+        config (or ?config {})]
+    (plugin.setup (or config.opts {}))
+    (keymaps config)
 
     plugin))
+
+(lambda plugins [{:plugins ?plugins}]
+  (each [name config (pairs (or ?plugins {}))]
+    (plugin name config)))
 
 (lambda filetype [ft ?config]
   (vim.api.nvim_create_autocmd
     :FileType
     {:pattern ft 
      :callback (fn []
-                 (let [{:plugin plugs} (or ?config {})]
-                   (each [plug cfg (pairs (or plugs {}))]
-                     (plugin plug cfg)))
+                 (plugins (or ?config {}))
                  (vim.treesitter.start))
      :group (vim.api.nvim_create_augroup (.. ft "-config") {:clear true})}))
 
@@ -29,18 +33,15 @@
 
   (vim.cmd.colorscheme name))
 
-(lambda configure [{:colorscheme cscheme : g : keymaps : opts : plugins : filetypes}]
+(lambda configure [{:colorscheme cscheme : g : opts : filetypes &as config}]
   (each [key val (pairs g)]
     (set (. vim.g key) val))
 
   (each [key val (pairs opts)]
     (set (. vim.opt key) val))
 
-  (each [key val (pairs keymaps)]
-    (keymap key val))
-
-  (each [name config (pairs plugins)]
-    (plugin name config))
+  (keymaps config)
+  (plugins config)
 
   (each [name config (pairs filetypes)]
     (filetype name config))
