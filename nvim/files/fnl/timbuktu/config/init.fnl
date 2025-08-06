@@ -46,7 +46,8 @@
       {:opts {:indent {}
               :picker {}}
        :keymaps {"<D-/>" #(Snacks.picker.grep)
-                 "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files] :matcher {:cwd_bonus true}})}}
+                 "<D-f>" #(Snacks.picker.smart {:multi [:buffers :files]
+                                                :matcher {:cwd_bonus true}})}}
 
      :toggleterm
       (let [Terminal (. (require :toggleterm.terminal) :Terminal)
@@ -57,7 +58,9 @@
                 :open_mapping "<D-q>"}
          :keymaps {"<D-a>" #(agent:toggle)
                    "<D-g>" #(lazygit:toggle)
-                   "<D-s>" #(shell:toggle)}})}
+                   "<D-s>" #(shell:toggle)}})
+
+      :which-key {}}
 
    :filetypes
     {:fennel {:plugins {:nfnl {}}}
