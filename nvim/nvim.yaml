@@ -16,6 +16,7 @@
       - github: nvim-lualine/lualine.nvim
       - github: nvim-treesitter/nvim-treesitter
         branch: main
+      - github: stevearc/conform.nvim
       - github: tpope/vim-repeat
 
     treesitter_parsers:

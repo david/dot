@@ -36,7 +36,9 @@
      "q"     #(vim.cmd.bdelete)}
 
    :plugins
-    {:leap
+    {:conform {}
+
+     :leap
       {:keymaps {"s" {:cmd #((. (require :leap) :leap) {})
                       :mode [:n :o :v]}}}
 
