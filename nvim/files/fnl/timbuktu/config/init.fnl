@@ -29,9 +29,9 @@
                       :<C-s> #(vim.cmd.write)
                       :q #(vim.cmd.bdelete)}
             :plugins {:conform {:opts {:formatters_by_ft {:fennel [:fnlfmt]}
-                                       :format_on_save {:async true
-                                                        :lsp_format :fallback
-                                                        :timeout_ms 5000}
+                                       :format_after_save {:async true
+                                                           :lsp_format :fallback
+                                                           :timeout_ms 5000}
                                        :notify_no_formatters false}}
                       :leap {:keymaps {:s {:cmd #((. (require :leap) :leap) {})
                                            :mode [:n :o :v]}}}
