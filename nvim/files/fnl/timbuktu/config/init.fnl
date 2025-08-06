@@ -51,11 +51,13 @@
      :toggleterm
       (let [Terminal (. (require :toggleterm.terminal) :Terminal)
             agent (Terminal:new {:cmd "gemini" :direction "float"})
-            lazygit (Terminal:new {:cmd "lazygit" :direction "float"})]
+            lazygit (Terminal:new {:cmd "lazygit" :direction "float"})
+            shell (Terminal:new)]
         {:opts {:direction "float"
                 :open_mapping "<D-q>"}
          :keymaps {"<D-a>" #(agent:toggle)
-                   "<D-g>" #(lazygit:toggle)}})}
+                   "<D-g>" #(lazygit:toggle)
+                   "<D-s>" #(shell:toggle)}})}
 
    :filetypes
     {:fennel {:plugins {:nfnl {}}}
