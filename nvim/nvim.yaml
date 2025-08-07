@@ -18,6 +18,7 @@
       - repo: mfussenegger/nvim-lint
       - repo: nvim-lualine/lualine.nvim
       - repo: nvim-treesitter/nvim-treesitter
+      - repo: nvim-treesitter/nvim-treesitter-textobjects
       - repo: stevearc/conform.nvim
       - repo: supermaven-inc/supermaven-nvim
       - repo: tpope/vim-repeat
