@@ -31,6 +31,7 @@ local function _7_()
   return Snacks.picker.smart({multi = {"buffers", "files"}, matcher = {cwd_bonus = true}})
 end
 setup("snacks", {opt = {indent = {}, picker = {}}, keymap = {["<D-/>"] = _6_, ["<D-f>"] = _7_}})
+setup("substitute", {keymap = {x = require("substitute.exchange").operator}})
 setup("supermaven-nvim")
 local function _8_(...)
   local Terminal = require("toggleterm.terminal").Terminal

@@ -14,6 +14,7 @@
       - repo: folke/which-key.nvim
       - repo: ggandor/flit.nvim
       - repo: ggandor/leap.nvim
+      - repo: gbprod/substitute.nvim
       - repo: kylechui/nvim-surround
       - repo: mfussenegger/nvim-lint
       - repo: nvim-lualine/lualine.nvim
