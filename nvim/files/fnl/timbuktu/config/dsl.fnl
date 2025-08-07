@@ -1,47 +1,65 @@
-(lambda keymap [key config]
-  (case config
-    {: cmd : mode} (vim.keymap.set mode key cmd)
-    cmd (vim.keymap.set :n key cmd)))
+(lambda keymap-handler [{:keymap ?config}]
+  (when ?config
+    (each [key val (pairs ?config)]
+      (case val
+        {: cmd : mode} (vim.keymap.set mode key cmd)
+        cmd (vim.keymap.set :n key cmd)))))
 
-(lambda keymaps [{:keymaps ?keymaps}]
-  (each [key val (pairs (or ?keymaps {}))]
-    (keymap key val)))
+(local vim-handlers {:colorscheme {}
+                     :g {}
+                     :opt {}
+                     :keymap {:fn keymap-handler}})
 
-(lambda plugin [name ?config]
-  (let [plugin (require name)
-        config (or ?config {})]
-    (when plugin.setup
-      (plugin.setup (or config.opts {})))
-    (keymaps config)
-    plugin))
+(lambda vim-handlers.colorscheme.fn [{:colorscheme ?config}]
+  (case ?config
+    (where str (= (type str) :string)) (do
+                                         ((. (require str) :setup) {})
+                                         (vim.cmd.colorscheme str))))
 
-(lambda plugins [{:plugins ?plugins}]
-  (each [name config (pairs (or ?plugins {}))]
-    (plugin name config)))
+(lambda vim-handlers.g.fn [{:g ?config}]
+  (each [key val (pairs ?config)]
+    (set (. vim.g key) val)))
 
-(lambda filetype [ft ?config]
-  (vim.api.nvim_create_autocmd :FileType
-                               {:pattern ft
-                                :callback (fn []
-                                            (plugins (or ?config {}))
-                                            (vim.treesitter.start))
-                                :group (vim.api.nvim_create_augroup (.. ft
-                                                                        :-config)
-                                                                    {:clear true})}))
+(lambda vim-handlers.opt.fn [{:opt ?config}]
+  (each [key val (pairs ?config)]
+    (set (. vim.opt key) val)))
 
-(lambda colorscheme [name ?config]
-  (plugin name ?config)
-  (vim.cmd.colorscheme name))
+(local plugin-handlers {:opt {:fn (lambda [{:opt ?opts} plugin]
+                                    (case (. (require plugin) :setup)
+                                      setup (setup (or ?opts {}))))}
+                        :keymap {:fn keymap-handler}})
 
-(lambda configure [{:colorscheme cscheme : g : opts : filetypes &as config}]
-  (each [key val (pairs g)]
-    (set (. vim.g key) val))
-  (each [key val (pairs opts)]
-    (set (. vim.opt key) val))
-  (keymaps config)
-  (plugins config)
-  (each [name config (pairs filetypes)]
-    (filetype name config))
-  (colorscheme cscheme))
+(local ft-handlers {:lang {} :plugin {}})
 
-{: configure}
+(lambda ft-handlers.plugin.fn [{:plugin ?config} ft]
+  (let [group-name (.. ft :-ft-plugin)
+        group (vim.api.nvim_create_augroup group-name {:clear true})]
+    (each [key val (pairs (or ?config {}))]
+      (vim.api.nvim_create_autocmd :FileType
+                                   {:pattern ft
+                                    :callback #((. (require key) :setup) val)
+                                    : group}))))
+
+(lambda ft-handlers.lang.fn [_config ft]
+  (let [group (vim.api.nvim_create_augroup (.. ft :-ft-lang) {:clear true})]
+    (vim.api.nvim_create_autocmd :FileType
+                                 {:pattern ft
+                                  :callback #(vim.treesitter.start)
+                                  : group})))
+
+(local handlers {:filetype ft-handlers
+                 :nvim vim-handlers
+                 :plugin plugin-handlers})
+
+(lambda call-handlers [handlers & rest]
+  (each [key handler (pairs handlers)]
+    (handler.fn (unpack rest))))
+
+(lambda setup [name ?config]
+  (let [config (or ?config {})]
+    (case name
+      :nvim (call-handlers handlers.nvim config)
+      [:filetype ft] (call-handlers handlers.filetype config ft)
+      _ (call-handlers handlers.plugin config name))))
+
+{: setup}
