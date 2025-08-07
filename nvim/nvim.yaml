@@ -8,6 +8,7 @@
       - repo: Olical/conjure
       - repo: Olical/nfnl
       - repo: akinsho/toggleterm.nvim
+      - repo: direnv/direnv.vim
       - repo: echasnovski/mini.nvim
       - repo: ellisonleao/gruvbox.nvim
       - repo: folke/snacks.nvim
