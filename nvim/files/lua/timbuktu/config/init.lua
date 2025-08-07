@@ -36,18 +36,22 @@ setup("supermaven-nvim")
 local function _8_(...)
   local Terminal = require("toggleterm.terminal").Terminal
   local agent = Terminal:new({cmd = "gemini", direction = "float"})
+  local lazydocker = Terminal:new({cmd = "lazydocker", direction = "float"})
   local lazygit = Terminal:new({cmd = "lazygit", direction = "float"})
   local shell = Terminal:new({display_name = "shell"})
   local function _9_()
     return agent:toggle()
   end
   local function _10_()
-    return lazygit:toggle()
+    return lazydocker:toggle()
   end
   local function _11_()
+    return lazygit:toggle()
+  end
+  local function _12_()
     return shell:toggle((vim.o.lines * 0.33))
   end
-  return {opt = {direction = "float", open_mapping = "<D-q>"}, keymap = {["<D-a>"] = _9_, ["<D-g>"] = _10_, ["<D-s>"] = _11_}}
+  return {opt = {direction = "float", open_mapping = "<D-q>"}, keymap = {["<D-a>"] = _9_, ["<D-d>"] = _10_, ["<D-g>"] = _11_, ["<D-s>"] = _12_}}
 end
 setup("toggleterm", _8_(...))
 setup("which-key")
