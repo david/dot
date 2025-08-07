@@ -45,6 +45,7 @@
 (setup :lualine)
 (setup :mini.icons)
 (setup :mini.pairs)
+(setup :nvim-surround)
 (setup :nvim-treesitter)
 (setup :rainbow-delimiters)
 
