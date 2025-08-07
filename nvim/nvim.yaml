@@ -62,9 +62,9 @@
 
     - name: helptags
       ansible.builtin.command:
-        argv: 
-          - nvim 
-          - --headless 
+        argv:
+          - nvim
+          - --headless
           - "+helptags ++t ALL"
           - "+qa"
       tags:
@@ -101,9 +101,9 @@
 
     - name: treesitter parsers
       ansible.builtin.command:
-        argv: 
-          - nvim 
-          - --headless 
+        argv:
+          - nvim
+          - --headless
           - "+TSInstallSync! {{ item }}"
           - "+qa"
       loop: "{{ treesitter_parsers }}"

@@ -30,7 +30,8 @@
                        :<C-s> #(vim.cmd.write)
                        :q #(vim.cmd.bdelete)}})
 
-(setup :conform {:opt {:formatters_by_ft {:fennel [:fnlfmt]}
+(setup :conform {:opt {:formatters_by_ft {:fennel [:fnlfmt]
+                                          :_ [:trim_whitespace]}
                        :format_after_save {:async true
                                            :lsp_format :fallback
                                            :timeout_ms 5000}
