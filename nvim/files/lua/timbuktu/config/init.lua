@@ -37,7 +37,7 @@ local function _8_(...)
   local Terminal = require("toggleterm.terminal").Terminal
   local agent = Terminal:new({cmd = "gemini", direction = "float"})
   local lazygit = Terminal:new({cmd = "lazygit", direction = "float"})
-  local shell = Terminal:new()
+  local shell = Terminal:new({display_name = "shell"})
   local function _9_()
     return agent:toggle()
   end
@@ -45,7 +45,7 @@ local function _8_(...)
     return lazygit:toggle()
   end
   local function _11_()
-    return shell:toggle()
+    return shell:toggle((vim.o.lines * 0.33))
   end
   return {opt = {direction = "float", open_mapping = "<D-q>"}, keymap = {["<D-a>"] = _9_, ["<D-g>"] = _10_, ["<D-s>"] = _11_}}
 end
