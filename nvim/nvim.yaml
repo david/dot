@@ -18,7 +18,6 @@
       - repo: mfussenegger/nvim-lint
       - repo: nvim-lualine/lualine.nvim
       - repo: nvim-treesitter/nvim-treesitter
-        branch: main
       - repo: stevearc/conform.nvim
       - repo: supermaven-inc/supermaven-nvim
       - repo: tpope/vim-repeat
@@ -103,7 +102,7 @@
         argv: 
           - nvim 
           - --headless 
-          - "+lua require('nvim-treesitter').install({ '{{item}}' }):wait(300000)"
+          - "+TSInstallSync! {{ item }}"
           - "+qa"
       loop: "{{ treesitter_parsers }}"
       tags:
