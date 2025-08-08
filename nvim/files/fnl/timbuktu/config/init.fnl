@@ -30,11 +30,9 @@
                        :<C-s> #(vim.cmd.write)
                        :q #(vim.cmd.bdelete)}})
 
-(setup :conform {:opt {:formatters_by_ft {:fennel [:fnlfmt]
-                                          :_ [:trim_whitespace]}
-                       :format_after_save {:async true
+(setup :conform {:opt {:format_after_save {:async true
                                            :lsp_format :fallback
-                                           :timeout_ms 5000}
+                                           :timeout_ms 500}
                        :notify_no_formatters false}})
 
 (setup :flit {:opt {:labeled_modes :nvo}})
@@ -74,6 +72,6 @@
 
 (setup :which-key)
 
-(setup [:filetype :fennel] {:plugin {:nfnl {}}})
-
+(setup [:filetype "*"] {:conform {:formatter [:trim_whitespace]}})
+(setup [:filetype :fennel] {:plugin {:nfnl {}} :conform {:formatter [:fnlfmt]}})
 (setup [:filetype :yaml])

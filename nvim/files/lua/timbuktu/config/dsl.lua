@@ -99,28 +99,48 @@ define_handler_group("filetype")
 local function _18_(_17_, ft)
   local _3fconfig = _17_["plugin"]
   _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:72")
-  local group_name = (ft .. "-ft-plugin")
-  local group = vim.api.nvim_create_augroup(group_name, {clear = true})
-  for key, val in pairs((_3fconfig or {})) do
-    local function _19_()
-      return require(key).setup(val)
+  if _3fconfig then
+    local group_name = (ft .. "-ft-plugin")
+    local group = vim.api.nvim_create_augroup(group_name, {clear = true})
+    for key, val in pairs((_3fconfig or {})) do
+      local function _19_()
+        return require(key).setup(val)
+      end
+      vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _19_, group = group})
     end
-    vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _19_, group = group})
+    return nil
+  else
+    return nil
   end
-  return nil
 end
 define_handler("filetype", "plugin", {fn = _18_})
-local function _20_(_config, ft)
-  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:83")
-  local group = vim.api.nvim_create_augroup((ft .. "-ft-lang"), {clear = true})
-  local function _21_()
-    return vim.treesitter.start()
+local function _21_(_config, ft)
+  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:85")
+  if (ft ~= "*") then
+    local group = vim.api.nvim_create_augroup((ft .. "-ft-lang"), {clear = true})
+    local function _22_()
+      return vim.treesitter.start()
+    end
+    return vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _22_, group = group})
+  else
+    return nil
   end
-  return vim.api.nvim_create_autocmd("FileType", {pattern = ft, callback = _21_, group = group})
 end
-define_handler("filetype", "lang", {fn = _20_})
+define_handler("filetype", "lang", {fn = _21_})
+local function _25_(_24_, ft)
+  local _3fconfig = _24_["conform"]
+  _G.assert((nil ~= ft), "Missing argument ft on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:96")
+  if _3fconfig then
+    local conform = require("conform")
+    conform.formatters_by_ft[ft] = _3fconfig.formatter
+    return nil
+  else
+    return nil
+  end
+end
+define_handler("filetype", "conform", {fn = _25_})
 local function setup(name, _3fconfig)
-  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:93")
+  _G.assert((nil ~= name), "Missing argument name on /var/home/david/Worktrees/dot/nvim/files/fnl/timbuktu/config/dsl.fnl:103")
   local config = (_3fconfig or {})
   if (name == "nvim") then
     return call_handlers("nvim", config)

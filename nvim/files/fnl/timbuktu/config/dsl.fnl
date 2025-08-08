@@ -70,23 +70,33 @@
 (define-handler :filetype
   :plugin
   {:fn (lambda [{:plugin ?config} ft]
-         (let [group-name (.. ft :-ft-plugin)
-               group (vim.api.nvim_create_augroup group-name {:clear true})]
-           (each [key val (pairs (or ?config {}))]
-             (vim.api.nvim_create_autocmd :FileType
-                                          {:pattern ft
-                                           :callback #((. (require key) :setup) val)
-                                           : group}))))})
+         (when ?config
+           (let [group-name (.. ft :-ft-plugin)
+                 group (vim.api.nvim_create_augroup group-name {:clear true})]
+             (each [key val (pairs (or ?config {}))]
+               (vim.api.nvim_create_autocmd :FileType
+                                            {:pattern ft
+                                             :callback #((. (require key)
+                                                            :setup) val)
+                                             : group})))))})
 
 (define-handler :filetype
   :lang
   {:fn (lambda [_config ft]
-         (let [group (vim.api.nvim_create_augroup (.. ft :-ft-lang)
-                                                  {:clear true})]
-           (vim.api.nvim_create_autocmd :FileType
-                                        {:pattern ft
-                                         :callback #(vim.treesitter.start)
-                                         : group})))})
+         (when (not= ft "*")
+           (let [group (vim.api.nvim_create_augroup (.. ft :-ft-lang)
+                                                    {:clear true})]
+             (vim.api.nvim_create_autocmd :FileType
+                                          {:pattern ft
+                                           :callback #(vim.treesitter.start)
+                                           : group}))))})
+
+(define-handler :filetype
+  :conform
+  {:fn (lambda [{:conform ?config} ft]
+         (when ?config
+           (let [conform (require :conform)]
+             (set (. conform.formatters_by_ft ft) (. ?config :formatter)))))})
 
 ;;;; setup
 
