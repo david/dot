@@ -38,6 +38,7 @@ local function _8_(...)
   local agent = Terminal:new({cmd = "gemini", direction = "float"})
   local lazydocker = Terminal:new({cmd = "lazydocker", direction = "float"})
   local lazygit = Terminal:new({cmd = "lazygit", direction = "float"})
+  local repl = Terminal:new({cmd = "iex -S mix phx.server", direction = "float"})
   local shell = Terminal:new({display_name = "shell"})
   local function _9_()
     return agent:toggle()
@@ -49,12 +50,17 @@ local function _8_(...)
     return lazygit:toggle()
   end
   local function _12_()
+    return repl:toggle()
+  end
+  local function _13_()
     return shell:toggle((vim.o.lines * 0.33))
   end
-  return {opt = {direction = "float", open_mapping = "<D-q>"}, keymap = {["<D-a>"] = _9_, ["<D-d>"] = _10_, ["<D-g>"] = _11_, ["<D-s>"] = _12_}}
+  return {opt = {direction = "float", open_mapping = "<D-q>"}, keymap = {["<D-a>"] = _9_, ["<D-d>"] = _10_, ["<D-g>"] = _11_, ["<D-r>"] = _12_, ["<D-s>"] = _13_}}
 end
 setup("toggleterm", _8_(...))
 setup("which-key")
 setup({"filetype", "*"}, {conform = {formatter = {"trim_whitespace"}}})
 setup({"filetype", "fennel"}, {plugin = {nfnl = {}}, conform = {formatter = {"fnlfmt"}}})
+setup({"filetype", "elixir"})
+setup({"filetype", "heex"})
 return setup({"filetype", "yaml"})

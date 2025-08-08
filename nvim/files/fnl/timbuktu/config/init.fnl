@@ -63,15 +63,20 @@
              agent (Terminal:new {:cmd :gemini :direction :float})
              lazydocker (Terminal:new {:cmd :lazydocker :direction :float})
              lazygit (Terminal:new {:cmd :lazygit :direction :float})
+             repl (Terminal:new {:cmd "iex -S mix phx.server"
+                                 :direction :float})
              shell (Terminal:new {:display_name :shell})]
          {:opt {:direction :float :open_mapping :<D-q>}
           :keymap {:<D-a> #(agent:toggle)
                    :<D-d> #(lazydocker:toggle)
                    :<D-g> #(lazygit:toggle)
+                   :<D-r> #(repl:toggle)
                    :<D-s> #(shell:toggle (* vim.o.lines 0.33))}}))
 
 (setup :which-key)
 
 (setup [:filetype "*"] {:conform {:formatter [:trim_whitespace]}})
 (setup [:filetype :fennel] {:plugin {:nfnl {}} :conform {:formatter [:fnlfmt]}})
+(setup [:filetype :elixir])
+(setup [:filetype :heex])
 (setup [:filetype :yaml])
