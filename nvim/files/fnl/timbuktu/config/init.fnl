@@ -6,14 +6,19 @@
                   :loaded_python3_provider 0
                   :loaded_ruby_provider 0
                   :localleader ";"
-                  :mapleader " "}
+                  :mapleader " "
+                  :neovide_hide_mouse_when_typing true
+                  :neovide_opacity 0.85
+                  :neovide_underline_stroke_scale 1.1}
               :opt {:autowrite true
                     :breakindent true
                     :colorcolumn :100
                     :cursorline true
                     :cursorlineopt :both
                     :expandtab true
+                    :guifont ["JetBrains Mono" "Symbols Nerd Font" ":h11"]
                     :ignorecase true
+                    :linespace 1
                     :list true
                     :number true
                     :scrolloff 999
