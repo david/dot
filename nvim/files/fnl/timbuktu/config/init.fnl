@@ -1,4 +1,4 @@
-(local {: setup} (require :timbuktu.config.dsl))
+(local {: setup} (require :setup))
 
 (setup :nvim {:colorscheme :gruvbox
               :g {:loaded_node_provider 0
