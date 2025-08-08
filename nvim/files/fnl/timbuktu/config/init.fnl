@@ -46,7 +46,7 @@
 
 (setup :flit {:opt {:labeled_modes :nvo}})
 
-(setup :leap {:keymap {:s {:cmd #((. (require :leap) :leap) {})
+(setup :leap {:keymap {:L {:cmd #((. (require :leap) :leap) {})
                            :mode [:n :o :v]}}})
 
 (setup :lint)
