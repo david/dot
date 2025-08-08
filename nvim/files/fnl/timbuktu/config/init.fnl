@@ -58,7 +58,18 @@
 (setup :rainbow-delimiters)
 
 (setup :snacks
-       {:opt {:indent {} :picker {}}
+       {:opt {:dashboard {:sections [{:section :header}
+                                     {:section :projects
+                                      :title :Projects
+                                      :padding 1
+                                      :icon " "
+                                      :indent 2}
+                                     {:section :recent_files
+                                      :icon " "
+                                      :title :Files
+                                      :indent 2}]}
+              :indent {}
+              :picker {}}
         :keymap {:<D-/> #(Snacks.picker.grep)
                  :<D-f> #(Snacks.picker.smart {:multi [:buffers :files]
                                                :matcher {:cwd_bonus true}})}})
