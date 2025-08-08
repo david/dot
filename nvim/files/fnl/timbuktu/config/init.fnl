@@ -33,6 +33,10 @@
                     :virtualedit :block}
               :keymap {:<Esc> #(vim.cmd.nohlsearch)
                        :<C-s> #(vim.cmd.write)
+                       :<D-h> #(vim.cmd.wincmd {:args [:h]})
+                       :<D-j> #(vim.cmd.wincmd {:args [:j]})
+                       :<D-k> #(vim.cmd.wincmd {:args [:k]})
+                       :<D-l> #(vim.cmd.wincmd {:args [:l]})
                        :q #(vim.cmd.bdelete)}})
 
 (setup :conform {:opt {:format_after_save {:async true
