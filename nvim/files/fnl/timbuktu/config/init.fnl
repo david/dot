@@ -74,7 +74,7 @@
                  :<D-f> #(Snacks.picker.smart {:multi [:buffers :files]
                                                :matcher {:cwd_bonus true}})}})
 
-(setup :substitute {:keymap {:x (. (require :substitute.exchange) :operator)}})
+(setup :substitute {:keymap {:gx (. (require :substitute.exchange) :operator)}})
 
 (setup :supermaven-nvim)
 

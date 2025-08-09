@@ -43,7 +43,7 @@ local function _11_()
   return Snacks.picker.smart({multi = {"buffers", "files"}, matcher = {cwd_bonus = true}})
 end
 setup("snacks", {opt = {dashboard = {sections = {{section = "header"}, {section = "projects", title = "Projects", padding = 1, icon = "\239\148\131 ", indent = 2}, {section = "recent_files", icon = "\239\133\155 ", title = "Files", indent = 2}}}, indent = {}, picker = {}}, keymap = {["<D-/>"] = _10_, ["<D-f>"] = _11_}})
-setup("substitute", {keymap = {x = require("substitute.exchange").operator}})
+setup("substitute", {keymap = {gx = require("substitute.exchange").operator}})
 setup("supermaven-nvim")
 local function _12_(...)
   local Terminal = require("toggleterm.terminal").Terminal
