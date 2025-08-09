@@ -7,6 +7,7 @@
     plugins:
       - repo: HiPhish/rainbow-delimiters.nvim
         provider: gitlab
+      - repo: MunifTanjim/nui.nvim
       - repo: Olical/conjure
       - repo: Olical/nfnl
       - repo: akinsho/toggleterm.nvim
@@ -20,7 +21,9 @@
       - repo: gbprod/substitute.nvim
       - repo: kylechui/nvim-surround
       - repo: mfussenegger/nvim-lint
+      - repo: nvim-lua/plenary.nvim
       - repo: nvim-lualine/lualine.nvim
+      - repo: nvim-neo-tree/neo-tree.nvim
       - repo: nvim-treesitter/nvim-treesitter
       - repo: nvim-treesitter/nvim-treesitter-textobjects
       - repo: stevearc/conform.nvim
