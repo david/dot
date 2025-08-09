@@ -69,7 +69,11 @@
                                       :title :Files
                                       :indent 2}]}
               :indent {}
-              :picker {}}
+              :input {}
+              :notifier {}
+              :picker {}
+              :scratch {}
+              :statuscolumn {}}
         :keymap {:<D-/> #(Snacks.picker.grep)
                  :<D-f> #(Snacks.picker.smart {:multi [:buffers :files]
                                                :matcher {:cwd_bonus true}})}})
