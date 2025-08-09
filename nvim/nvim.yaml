@@ -5,6 +5,8 @@
 
     plugins_base_dir: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
     plugins:
+      - repo: HiPhish/rainbow-delimiters.nvim
+        provider: gitlab
       - repo: Olical/conjure
       - repo: Olical/nfnl
       - repo: akinsho/toggleterm.nvim
@@ -24,8 +26,6 @@
       - repo: stevearc/conform.nvim
       - repo: supermaven-inc/supermaven-nvim
       - repo: tpope/vim-repeat
-      - repo: HiPhish/rainbow-delimiters.nvim
-        provider: gitlab
 
     packages:
       - fnlfmt
