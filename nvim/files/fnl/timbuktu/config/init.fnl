@@ -44,7 +44,7 @@
                                            :timeout_ms 500}
                        :notify_no_formatters false}})
 
-(setup :flit {:opt {:labeled_modes :nvo}})
+(setup :flit {:opt {:labeled_modes :nvo :multiline false}})
 
 (setup :leap {:keymap {:L {:cmd #((. (require :leap) :leap) {})
                            :mode [:n :o :v]}}})

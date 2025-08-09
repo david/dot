@@ -24,7 +24,7 @@ local function _8_()
 end
 setup("nvim", {colorscheme = "gruvbox", g = {loaded_node_provider = 0, loaded_perl_provider = 0, loaded_python3_provider = 0, loaded_ruby_provider = 0, localleader = ";", mapleader = " ", neovide_hide_mouse_when_typing = true, neovide_opacity = 0.85, neovide_underline_stroke_scale = 1.1}, opt = {autowrite = true, breakindent = true, colorcolumn = "100", cursorline = true, cursorlineopt = "both", expandtab = true, guifont = {"JetBrains Mono", "Symbols Nerd Font", ":h11"}, ignorecase = true, linespace = 1, list = true, number = true, scrolloff = 999, shiftwidth = 2, signcolumn = "number", smartcase = true, timeoutlen = 300, undofile = true, updatetime = 250, virtualedit = "block", showmode = false, swapfile = false}, keymap = {["<Esc>"] = _2_, ["<C-s>"] = _3_, ["<D-h>"] = _4_, ["<D-j>"] = _5_, ["<D-k>"] = _6_, ["<D-l>"] = _7_, q = _8_}})
 setup("conform", {opt = {format_after_save = {async = true, lsp_format = "fallback", timeout_ms = 500}, notify_no_formatters = false}})
-setup("flit", {opt = {labeled_modes = "nvo"}})
+setup("flit", {opt = {labeled_modes = "nvo", multiline = false}})
 local function _9_()
   return require("leap").leap({})
 end
