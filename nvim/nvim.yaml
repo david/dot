@@ -29,6 +29,7 @@
 
     packages:
       - fnlfmt
+      - neovide
 
     treesitter_parsers:
       - fennel
