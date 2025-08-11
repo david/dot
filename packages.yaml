@@ -2,13 +2,13 @@
 
   vars:
     home: "{{ lookup('env', 'HOME') }}"
+    app: "{{ home }}/.local/app"
 
     kitty_version: "0.42.2"
     kitty_base_url: "https://github.com/kovidgoyal/kitty/releases/download"
     kitty_home: "{{ lookup('env', 'HOME') }}"
     kitty_bin: "{{ home }}/.local/bin"
-    kitty_app: "{{ home }}/.local/app"
-    kitty_path: "{{ app }}/kitty/{{ version }}"
+    kitty_path: "{{ app }}/kitty/{{ kitty_version }}"
 
   tasks:
     - name: update
@@ -54,7 +54,7 @@
 
     - name: kitty dir
       ansible.builtin.file:
-        path: "{{ kitty_app }}/kitty/{{ kitty_version }}"
+        path: "{{ app }}/kitty/{{ kitty_version }}"
         state: directory
         mode: "0755"
       tags:
