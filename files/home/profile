@@ -2,6 +2,8 @@
 [[ -d /home/linuxbrew ]] &&
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOMEBREW_PREFIX/share"
+
 # dot
 export DOT_HOME=$HOME/Boxes/dot/dot
 
