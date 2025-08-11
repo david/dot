@@ -120,21 +120,4 @@
       tags:
         - worktrees
 
-    - name: write worktree desktop files
-      ansible.builtin.template:
-        src: "templates/worktree.desktop"
-        dest: "{{ application_home }}/timbuktu.worktree.{{ worktree }}.desktop"
-      loop: >-
-        {{
-          lookup('community.general.filetree', worktree_home + '/')
-            | selectattr('state', '==', 'directory')
-            | rejectattr('path', 'contains', '/')
-            | rejectattr('path', 'contains', '.ansible')
-            | map(attribute='path')
-        }}
-      loop_control:
-        loop_var: worktree
-      tags:
-        - worktrees
-
 # vim: ft=yaml.ansible
