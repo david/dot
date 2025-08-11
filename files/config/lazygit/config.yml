@@ -3,11 +3,9 @@ git:
     colorArg: always
 gui:
   border: single
-  enlargedSideViewLocation: top
   mainPanelSplitMode: horizontal
   nerdFontsVersion: "3"
-  screenMode: half
-  sidePanelWidth: 0.15
+  sidePanelWidth: 0.25
   showCommandLog: false
   showListFooter: false
   showNumstatInFilesView: true
