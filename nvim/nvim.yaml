@@ -20,7 +20,9 @@
       - repo: ggandor/leap.nvim
       - repo: gbprod/substitute.nvim
       - repo: kylechui/nvim-surround
+      - repo: mason-org/mason.nvim
       - repo: mfussenegger/nvim-lint
+      - repo: neovim/nvim-lspconfig
       - repo: nvim-lua/plenary.nvim
       - repo: nvim-lualine/lualine.nvim
       - repo: nvim-neo-tree/neo-tree.nvim

@@ -44,6 +44,8 @@
                                            :timeout_ms 500}
                        :notify_no_formatters false}})
 
+(setup :conjure {:opt false})
+(setup :direnv {:opt false})
 (setup :flit {:opt {:labeled_modes :nvo :multiline false}})
 
 (setup :leap {:keymap {:L {:cmd #((. (require :leap) :leap) {})
@@ -53,6 +55,7 @@
 (setup :lualine)
 (setup :mini.icons)
 (setup :mini.pairs)
+(setup :neo-tree)
 (setup :nvim-surround)
 (setup :nvim-treesitter)
 (setup :rainbow-delimiters)
@@ -73,29 +76,33 @@
               :notifier {}
               :picker {}
               :scratch {}
-              :statuscolumn {}}
+              :statuscolumn {}
+              :terminal {}}
         :keymap {:<D-/> #(Snacks.picker.grep)
+                 :<D-.> #(Snacks.scratch)
+                 :<D->> #(Snacks.scratch.select)
                  :<D-f> #(Snacks.picker.smart {:multi [:buffers :files]
                                                :matcher {:cwd_bonus true}})}})
 
-(setup :substitute {:keymap {:gx (. (require :substitute.exchange) :operator)}})
+(setup :substitute
+       {:keymap {:gx #((. (require :substitute.exchange) :operator))}})
 
 (setup :supermaven-nvim)
 
 (setup :toggleterm
-       (let [Terminal (. (require :toggleterm.terminal) :Terminal)
-             agent (Terminal:new {:cmd :gemini :direction :float})
-             lazydocker (Terminal:new {:cmd :lazydocker :direction :float})
-             lazygit (Terminal:new {:cmd :lazygit :direction :float})
-             repl (Terminal:new {:cmd "iex -S mix phx.server"
-                                 :direction :float})
-             shell (Terminal:new {:display_name :shell})]
-         {:opt {:direction :float :open_mapping :<D-q>}
-          :keymap {:<D-a> #(agent:toggle)
-                   :<D-d> #(lazydocker:toggle)
-                   :<D-g> #(lazygit:toggle)
-                   :<D-r> #(repl:toggle)
-                   :<D-s> #(shell:toggle (* vim.o.lines 0.33))}}))
+       {:opt {:direction :float :open_mapping :<D-q>}
+        :keymap #(let [Terminal (. (require :toggleterm.terminal) :Terminal)
+                       agent (Terminal:new {:cmd :gemini})
+                       lazydocker (Terminal:new {:cmd :lazydocker})
+                       lazygit (Terminal:new {:cmd :lazygit})
+                       repl (Terminal:new {:cmd "iex -S mix phx.server"})
+                       shell (Terminal:new {:display_name :shell
+                                            :direction :horizontal})]
+                   {:<D-a> #(agent:toggle)
+                    :<D-d> #(lazydocker:toggle)
+                    :<D-g> #(lazygit:toggle)
+                    :<D-r> #(repl:toggle)
+                    :<D-s> #(shell:toggle (* vim.o.lines 0.4))})})
 
 (setup :which-key)
 
