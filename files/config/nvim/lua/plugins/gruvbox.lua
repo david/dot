@@ -1,1 +1,1 @@
-return { "ellisonleao/gruvbox.nvim", priority = 10000, opts = { contrast = "hard" } }
+return { "ellisonleao/gruvbox.nvim", priority = 100000, opts = { contrast = "hard" } }

@@ -1,7 +1,7 @@
 return {
   "folke/snacks.nvim",
   lazy = false,
-  priority = 100,
+  priority = 1000,
   ---@type snacks.Config
   opts = {
     dashboard = {

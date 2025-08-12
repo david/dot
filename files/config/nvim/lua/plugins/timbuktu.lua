@@ -1,6 +1,6 @@
 return {
   lazy = false,
-  priority = 1000,
+  priority = 10000,
   dir = "~/.config/nvim/lua/timbuktu",
   main = "timbuktu.setup",
   opts = {
