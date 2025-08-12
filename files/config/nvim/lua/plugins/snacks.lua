@@ -45,6 +45,13 @@ return {
   },
   keys = {
     {
+      "<leader>fc",
+      function()
+        Snacks.picker.cliphist()
+      end,
+      desc = "Clipboard history",
+    },
+    {
       "<leader>ff",
       function()
         Snacks.picker.files()
@@ -57,6 +64,13 @@ return {
         Snacks.picker.help()
       end,
       desc = "Help tags",
+    },
+    {
+      "<leader>fi",
+      function()
+        Snacks.picker.icons()
+      end,
+      desc = "Icons",
     },
     {
       "<leader>fl",
