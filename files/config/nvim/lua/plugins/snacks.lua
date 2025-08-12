@@ -2,6 +2,7 @@ return {
   "folke/snacks.nvim",
   lazy = false,
   priority = 100,
+  ---@type snacks.Config
   opts = {
     dashboard = {
       width = 82,
