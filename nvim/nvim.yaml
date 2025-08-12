@@ -5,32 +5,15 @@
 
     plugins_base_dir: "{{ home }}/.local/share/nvim/site/pack/plugins/start"
     plugins:
-      - repo: HiPhish/rainbow-delimiters.nvim
-        provider: gitlab
       - repo: MunifTanjim/nui.nvim
-      - repo: Olical/conjure
-      - repo: Olical/nfnl
-      - repo: akinsho/toggleterm.nvim
-      - repo: direnv/direnv.vim
-      - repo: echasnovski/mini.nvim
-      - repo: ellisonleao/gruvbox.nvim
-      - repo: folke/snacks.nvim
-      - repo: folke/which-key.nvim
-      - repo: ggandor/flit.nvim
-      - repo: ggandor/leap.nvim
       - repo: gbprod/substitute.nvim
       - repo: kylechui/nvim-surround
-      - repo: mason-org/mason.nvim
       - repo: mfussenegger/nvim-lint
       - repo: neovim/nvim-lspconfig
       - repo: nvim-lua/plenary.nvim
-      - repo: nvim-lualine/lualine.nvim
       - repo: nvim-neo-tree/neo-tree.nvim
       - repo: nvim-treesitter/nvim-treesitter
       - repo: nvim-treesitter/nvim-treesitter-textobjects
-      - repo: stevearc/conform.nvim
-      - repo: supermaven-inc/supermaven-nvim
-      - repo: tpope/vim-repeat
 
     packages:
       - fnlfmt
