@@ -4,6 +4,7 @@ return {
   priority = 1000,
   ---@type snacks.Config
   opts = {
+    bufdelete = {},
     dashboard = {
       autokeys = "asdfghjkl;",
       preset = {
@@ -143,6 +144,12 @@ return {
           multi = { "buffers", "files" },
           matcher = { "cwd_bonus", true },
         })
+      end,
+    },
+    {
+      "q",
+      function()
+        Snacks.bufdelete()
       end,
     },
   },

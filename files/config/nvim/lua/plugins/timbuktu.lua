@@ -66,7 +66,6 @@ return {
         vim.cmd.wincmd({ args = { "l" } })
       end,
     },
-    { "q", vim.cmd.bdelete },
     { "<leader>sb", vim.cmd.split, desc = "Below" },
     { "<leader>sr", vim.cmd.vsplit, desc = "Right" },
   },
