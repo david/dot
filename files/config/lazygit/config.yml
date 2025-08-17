@@ -16,11 +16,15 @@ keybinding:
   files:
     copyFileInfoToClipboard: "<c-o>"
   universal:
-    copyToClipboard: "y"
+    copyToClipboard: y
+    prevItem: k
+    nextItem: j
     prevPage: <disabled>
     nextPage: <disabled>
-    prevBlock: ","
-    nextBlock: "."
+    prevBlock: K
+    nextBlock: J
+    scrollUpMain: <up>
+    scrollDownMain: <down>
 os:
   editPreset: nvim
 promptToReturnFromSubprocess: false
