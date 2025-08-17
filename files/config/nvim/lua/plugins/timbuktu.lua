@@ -15,6 +15,7 @@ return {
       neovide_underline_stroke_scale = 1.1,
     },
     opt = {
+      autoread = true,
       autowrite = true,
       breakindent = true,
       colorcolumn = "100",
