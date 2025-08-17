@@ -7,7 +7,11 @@ return {
       "mason-org/mason-lspconfig.nvim",
       opts = {
         ensure_installed = {
+          "biome",
+          "docker_compose_language_service",
           "lua_ls",
+          "ruby_lsp",
+          "ts_ls",
         },
       },
     },
