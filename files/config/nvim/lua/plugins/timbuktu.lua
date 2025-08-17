@@ -30,7 +30,7 @@ return {
       scrolloff = 999,
       shiftwidth = 2,
       showmode = false,
-      signcolumn = "number",
+      signcolumn = "yes",
       smartcase = true,
       swapfile = false,
       timeoutlen = 300,
