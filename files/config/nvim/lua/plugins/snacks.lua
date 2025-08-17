@@ -29,6 +29,7 @@ return {
           icon = " ",
           indent = 2,
         },
+        { section = "startup" },
       },
     },
     indent = {},
