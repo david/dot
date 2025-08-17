@@ -28,12 +28,6 @@ return {
           icon = " ",
           indent = 2,
         },
-        {
-          section = "recent_files",
-          icon = " ",
-          title = "Files",
-          indent = 2,
-        },
       },
     },
     indent = {},
