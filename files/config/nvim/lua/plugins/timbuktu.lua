@@ -31,6 +31,8 @@ return {
       shiftwidth = 2,
       showmode = false,
       signcolumn = "yes",
+      splitbelow = true,
+      splitright = true,
       smartcase = true,
       swapfile = false,
       timeoutlen = 300,
@@ -66,7 +68,7 @@ return {
         vim.cmd.wincmd({ args = { "l" } })
       end,
     },
-    { "<leader>sb", vim.cmd.split, desc = "Below" },
-    { "<leader>sr", vim.cmd.vsplit, desc = "Right" },
+    { "<leader>sj", vim.cmd.split, desc = "Below" },
+    { "<leader>sl", vim.cmd.vsplit, desc = "Right" },
   },
 }
