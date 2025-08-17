@@ -5,7 +5,6 @@ return {
   ---@type snacks.Config
   opts = {
     dashboard = {
-      width = 82,
       autokeys = "asdfghjkl;",
       preset = {
         header = [[
@@ -31,6 +30,7 @@ return {
         },
         { section = "startup" },
       },
+      width = 82,
     },
     indent = {},
     input = {},
