@@ -81,6 +81,13 @@ return {
       desc = "Clipboard history",
     },
     {
+      "<leader>fd",
+      function()
+        Snacks.picker.diagnostics()
+      end,
+      desc = "Diagnostics",
+    },
+    {
       "<leader>ff",
       function()
         Snacks.picker.files()
