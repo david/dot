@@ -6,6 +6,7 @@ return {
   opts = {
     dashboard = {
       width = 82,
+      autokeys = "asdfghjkl;",
       preset = {
         header = [[
 ░██████████░██                ░██                   ░██          ░██
