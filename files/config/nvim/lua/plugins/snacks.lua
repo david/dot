@@ -33,7 +33,6 @@ return {
       },
       width = 82,
     },
-    dim = {},
     git = {},
     indent = {},
     input = {},
