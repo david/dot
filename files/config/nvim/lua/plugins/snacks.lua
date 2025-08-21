@@ -75,6 +75,13 @@ return {
   },
   keys = {
     {
+      "<leader>fb",
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = "Buffers",
+    },
+    {
       "<leader>fc",
       function()
         Snacks.picker.cliphist()
