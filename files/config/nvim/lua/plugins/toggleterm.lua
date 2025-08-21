@@ -8,7 +8,6 @@ return {
 
     local agent = Terminal:new({ cmd = "gemini" })
     local lazydocker = Terminal:new({ cmd = "lazydocker" })
-    local lazygit = Terminal:new({ cmd = "lazygit" })
     local repl = Terminal:new({ cmd = "iex -S mix phx.server" })
     local shell = Terminal:new({ display_name = "shell", direction = "horizontal" })
 
@@ -20,10 +19,6 @@ return {
 
     map("n", "<D-d>", function()
       lazydocker:toggle()
-    end)
-
-    map("n", "<D-g>", function()
-      lazygit:toggle()
     end)
 
     map("n", "<D-r>", function()

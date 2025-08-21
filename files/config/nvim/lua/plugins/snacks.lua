@@ -36,6 +36,7 @@ return {
     git = {},
     indent = {},
     input = {},
+    lazygit = {},
     notifier = {},
     picker = {
       win = {
@@ -153,6 +154,12 @@ return {
           multi = { "buffers", "files" },
           matcher = { "cwd_bonus", true },
         })
+      end,
+    },
+    {
+      "<D-g>",
+      function()
+        Snacks.lazygit()
       end,
     },
     {
