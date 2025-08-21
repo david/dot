@@ -33,6 +33,7 @@ return {
       },
       width = 82,
     },
+    explorer = {},
     git = {},
     indent = {},
     input = {},
