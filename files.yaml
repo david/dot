@@ -17,6 +17,7 @@
         - "{{ home }}/.local/share/applications"
         - "{{ home }}/.local/share/backgrounds"
         - "{{ home }}/.local/share/fonts"
+      when: "(home + '/' + item) is not directory"
       tags:
         - assets
         - backgrounds
@@ -63,7 +64,7 @@
       with_community.general.filetree:
         - files/config/
         - secrets/config/
-      when: item.state == 'directory'
+      when: "item.state == 'directory' and (home + '/.config/' + item.path) is not directory"
       tags:
         - config
 
@@ -75,7 +76,7 @@
       with_community.general.filetree:
         - files/config/
         - secrets/config/
-      when: item.state == 'file'
+      when: "item.state == 'file' and (home + '/.config/' + item.path) is not link"
       tags:
         - config
         - worktrees
