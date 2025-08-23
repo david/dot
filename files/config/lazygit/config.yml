@@ -21,10 +21,8 @@ keybinding:
     nextItem: j
     prevPage: <disabled>
     nextPage: <disabled>
-    prevBlock: K
-    nextBlock: J
-    scrollUpMain: <up>
-    scrollDownMain: <down>
+    prevBlock: ","
+    nextBlock: "."
 os:
   editPreset: nvim
 promptToReturnFromSubprocess: false
