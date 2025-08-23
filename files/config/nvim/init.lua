@@ -19,6 +19,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.localleader = "\\"
 vim.g.mapleader = " "
 
+setup = require("timbuktu.config").setup
+kv = require("timbuktu.config").kv
+
 require("lazy").setup({
   spec = {
     { import = "plugins" },

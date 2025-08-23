@@ -1,5 +1,2 @@
-return {
-  "folke/trouble.nvim",
-  event = "VeryLazy",
-  opts = {},
-}
+-- [nfnl] fnl/plugins/trouble.fnl
+return setup("folke/trouble.nvim", {event = "VeryLazy", opts = {}})

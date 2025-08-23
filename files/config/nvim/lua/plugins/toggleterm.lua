@@ -8,7 +8,7 @@ return {
 
     local agent = Terminal:new({ cmd = "gemini" })
     local lazydocker = Terminal:new({ cmd = "lazydocker" })
-    local repl = Terminal:new({ cmd = "iex -S mix phx.server" })
+    local repl = Terminal:new({ cmd = "rails console" })
     local shell = Terminal:new({ display_name = "shell", direction = "horizontal" })
 
     local map = vim.keymap.set

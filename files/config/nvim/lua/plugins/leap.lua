@@ -1,17 +1,5 @@
-return {
-  "ggandor/leap.nvim",
-  enabled = false,
-  opts = {},
-  keys = {
-    {
-      "L",
-      function()
-        require("leap").leap()
-      end,
-      mode = { "n", "v", "o" },
-    },
-  },
-  dependencies = {
-    "tpope/vim-repeat",
-  },
-}
+-- [nfnl] fnl/plugins/leap.fnl
+local function _1_()
+  return require("leap").leap()
+end
+return setup("ggandor/leap.nvim", {opts = {}, keys = {{L = _1_, mode = {"n", "v", "o"}}}, dependencies = {"tpope/vim-repeat"}, enabled = false})

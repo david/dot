@@ -1,9 +1,2 @@
-return {
-  "folke/which-key.nvim",
-  opts = {
-    spec = {
-      { "<leader>f", group = "Find" },
-      { "<leader>s", group = "Split" },
-    },
-  },
-}
+-- [nfnl] fnl/plugins/which-key.fnl
+return setup("folke/which-key.nvim", {opts = {spec = {kv("<leader>f", {group = "Find"}), kv("<leader>s", {group = "Split"})}}})
