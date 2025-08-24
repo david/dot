@@ -1,0 +1,27 @@
+# brew
+[[ -d /home/linuxbrew ]] &&
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOMEBREW_PREFIX/share"
+
+# dot
+export DOT_HOME=$HOME/Boxes/dot/dot
+
+# editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+# erlang/elixir
+export ERL_FLAGS="-kernel shell_history enabled"
+export ELS_INSTALL_PREFIX=/usr/local/lsp/elixir-ls/default
+
+# fzf
+export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
+
+# path
+export PATH="$HOME/.local/bin:$PATH"
+
+# secrets
+for f in ~/.config/secrets/*.bash; do source $f; done
+
+# vim: ft=sh

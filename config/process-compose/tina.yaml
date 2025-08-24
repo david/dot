@@ -1,0 +1,33 @@
+processes:
+  css:
+    command: "yarn watch:css"
+    depends_on:
+      yarn_installed:
+        condition: process_completed_successfully
+
+  js:
+    command: "yarn watch:js"
+    depends_on:
+      yarn_installed:
+        condition: process_completed_successfully
+    is_tty: true
+
+  postgres:
+    command: |
+      test -d vendor/postgres || initdb -D vendor/postgres -U postgres
+      postgres -D vendor/postgres
+    ready_log_line: "ready to accept connections"
+
+  rails:
+    command: |
+      bundle install
+      bin/rails server
+    depends_on:
+      postgres:
+        condition: process_log_ready
+
+  yarn_installed:
+    command: |
+      command -v yarn || npm install -g yarn
+      yarn install
+

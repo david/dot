@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/leap.fnl
+-- [nfnl] files/config/nvim/fnl/plugins/leap.fnl
 local function _1_()
   return require("leap").leap()
 end

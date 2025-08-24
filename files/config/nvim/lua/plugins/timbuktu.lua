@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/timbuktu.fnl
+-- [nfnl] files/config/nvim/fnl/plugins/timbuktu.fnl
 local function _1_()
   return vim.cmd.wincmd({args = {"h"}})
 end

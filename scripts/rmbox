@@ -1,0 +1,14 @@
+#!/bin/bash
+
+box=$1
+
+eval "$(scripts/boxcfg $box)"
+
+distrobox rm --yes $box
+
+[[ -z "$BOX_HOME_PREFIX" ]] && echo "no BOX_HOME_PREFIX" && exit 1
+[[ -z "$BOX_HOME" ]] && echo "no BOX_HOME" && exit 1
+[[ ! "$BOX_HOME" =~ "$BOX_HOME_PREFIX" ]] && echo "$BOX_HOME not inside $BOX_HOME_PREFIX" && exit 1
+[[ ! -d $BOX_HOME ]] && echo "$BOX_HOME is not a directory" && exit 1
+
+rm -fr $BOX_HOME

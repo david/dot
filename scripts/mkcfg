@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for e in config/* ; do
+  basename="$(basename $e)"
+
+  rm -f "${HOME}/.config/${basename}"
+  ln -sf "$(realpath $e)" "${HOME}/.config/${basename}"
+done
+
+for f in bash_profile bashrc profile ; do
+  rm -f "${HOME}/.${f}"
+  ln -sf "$(realpath home/${f})" "${HOME}/.${f}"
+done

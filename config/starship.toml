@@ -1,0 +1,35 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+format = "$fill[](fg:bg)[ ](bg:bg)$directory[ ](bg:bg)$git_branch[ ](bg:bg)[](fg:bg)$fill\n$character"
+
+palette = "dark"
+
+[palettes.light]
+bg = "#ebdbb2"
+
+[palettes.dark]
+bg = "#504945"
+
+[directory]
+before_repo_root_style = "fg:bright-yellow bg:bg"
+format = "($before_repo_root_style)[$path]($style)"
+repo_root_format = "[ $repo_root]($before_repo_root_style)[$path]($style)[$read_only]($read_only_style)"
+repo_root_style = "fg:bright-purple bg:bg"
+style = "fg:green bg:bg"
+truncate_to_repo = false
+truncation_length = 0
+truncation_symbol = "…/"
+
+[directory.substitutions]
+'Worktrees/' = ""
+'~/' = ""
+'~' = "󰋜"
+
+[fill]
+symbol = "─"
+style = "fg:bg"
+
+[git_branch]
+format = "[$symbol$branch]($style)"
+style = "fg:bright-green bg:bg"
+symbol = "󰘬 "

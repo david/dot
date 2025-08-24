@@ -1,0 +1,23 @@
+[core]
+  excludesfile = ~/.config/git/excludes
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !gh auth git-credential
+
+[credential "https://github.com"]
+  helper =
+  helper = !gh auth git-credential
+
+[diff]
+  colorMoved = true
+
+[merge]
+  conflictStyle = "diff3"
+
+[rerere]
+  enabled = true
+
+[user]
+  email = 293+david@users.noreply.github.com
+  name = David Leal

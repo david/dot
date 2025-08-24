@@ -1,0 +1,6 @@
+#!/bin/bash
+
+box=$1
+
+distrobox rm --yes $box
+scripts/mkbox $box

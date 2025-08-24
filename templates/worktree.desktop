@@ -1,7 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Icon=activity-start-here
-Name={{ worktree }}
-StartupNotify=true
-Exec=kitty --listen-on=unix:@{{ worktree }} --directory={{ worktree_home }}/{{ worktree }} --session=session.{{ worktree }}.conf

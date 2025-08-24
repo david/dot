@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/flash.fnl
+-- [nfnl] files/config/nvim/fnl/plugins/flash.fnl
 local function _1_()
   return require("flash").jump()
 end

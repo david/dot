@@ -1,6 +1,5 @@
--- [nfnl] fnl/plugins/lspconfig.fnl
+-- [nfnl] files/config/nvim/fnl/plugins/lspconfig.fnl
 local function _1_()
-  vim.api.nvim_create_autocmd("LspAttach", {group = vim.api.nvim_create_augroup("kickstart-lsp-attach", {clear = true})})
   local function _2_(diagnostic)
     local diagnostic_message = {[vim.diagnostic.severity.ERROR] = diagnostic.message, [vim.diagnostic.severity.WARN] = diagnostic.message, [vim.diagnostic.severity.INFO] = diagnostic.message, [vim.diagnostic.severity.HINT] = diagnostic.message}
     return diagnostic_message[diagnostic.severity]

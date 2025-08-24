@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/mini.fnl
+-- [nfnl] files/config/nvim/fnl/plugins/mini.fnl
 local function _1_()
   require("mini.ai").setup({})
   require("mini.git").setup({})
