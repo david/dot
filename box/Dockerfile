@@ -48,6 +48,7 @@ RUN pacman -S --noconfirm \
 
 WORKDIR /tmp
 
+# process-compose
 RUN mkdir process-compose && \
     curl -fSsL -o process-compose.tgz \
       https://github.com/F1bonacc1/process-compose/releases/latest/download/process-compose_linux_amd64.tar.gz && \
@@ -55,3 +56,10 @@ RUN mkdir process-compose && \
     cp process-compose/process-compose /usr/local/bin && \
     rm -fr process-compose process-compose.tgz
 
+# mailpit
+RUN mkdir mailpit && \
+    curl -fSsL -o mailpit.tgz \
+      https://github.com/axllent/mailpit/releases/latest/download/mailpit-linux-amd64.tar.gz && \
+    tar -xvf mailpit.tgz --directory=mailpit && \
+    cp mailpit/mailpit /usr/local/bin && \
+    rm -fr mailpit mailpit.tgz
