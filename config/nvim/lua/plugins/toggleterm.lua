@@ -1,6 +1,6 @@
 -- [nfnl] config/nvim/fnl/plugins/toggleterm.fnl
 local function _1_()
-  require("toggleterm").setup({direction = "float", open_mapping = "<D-q>"})
+  require("toggleterm").setup({direction = "float"})
   local Terminal = require("toggleterm.terminal").Terminal
   local agent = Terminal:new({cmd = "npx https://github.com/google-gemini/gemini-cli"})
   local services = Terminal:new({cmd = "mise run srv"})

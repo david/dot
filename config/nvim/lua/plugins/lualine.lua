@@ -1,2 +1,2 @@
--- [nfnl] config/nvim/fnl/plugins/lualine.fnl
-return setup("nvim-lualine/lualine.nvim", {opts = {globalstatus = true}})
+-- [nfnl] fnl/plugins/lualine.fnl
+return setup("nvim-lualine/lualine.nvim", {opts = {globalstatus = true, sections = {lualine_x = {"overseer"}}}})
