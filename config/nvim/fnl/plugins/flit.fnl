@@ -1,4 +1,2 @@
-(setup :ggandor/flit.nvim
- {:enabled false
-  :opts {:labeled_modes "nvo"
-         :multiline false}})
+(setup :ggandor/flit.nvim {:opts {:labeled_modes :nvo :multiline false}})
+

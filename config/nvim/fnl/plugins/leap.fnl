@@ -1,6 +1,4 @@
 (setup :ggandor/leap.nvim
- {:enabled false
-  :opts {}
-  :keys [{:L #((. (require :leap) :leap))
-          :mode [:n :v :o]}]
-  :dependencies [:tpope/vim-repeat]})
+       {:opts {}
+        :keys [(kv :L "<Plug>(leap)" {:mode [:n :v :o]})]
+        :dependencies [:tpope/vim-repeat]})
