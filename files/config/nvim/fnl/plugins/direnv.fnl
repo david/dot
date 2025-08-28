@@ -1,1 +1,0 @@
-(setup :direnv/direnv.vim)

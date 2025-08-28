@@ -1,1 +1,0 @@
-(setup :mfussenegger/nvim-lint)
