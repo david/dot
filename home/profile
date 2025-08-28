@@ -18,6 +18,9 @@ export ELS_INSTALL_PREFIX=/usr/local/lsp/elixir-ls/default
 # fzf
 export FZF_DEFAULT_OPTS="--reverse --preview-window=bottom,66%"
 
+# pager
+export PAGER=cat
+
 # path
 export PATH="$HOME/.local/bin:$PATH"
 
