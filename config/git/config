@@ -21,3 +21,5 @@
 [user]
   email = 293+david@users.noreply.github.com
   name = David Leal
+[fetch]
+	prune = true
