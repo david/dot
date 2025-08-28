@@ -12,6 +12,10 @@ processes:
         condition: process_completed_successfully
     is_tty: true
 
+  mailpit:
+    command: mailpit
+    ready_log_line: "accessible via http://localhost:8025/"
+
   postgres:
     command: |
       test -d vendor/postgres || initdb -D vendor/postgres -U postgres
