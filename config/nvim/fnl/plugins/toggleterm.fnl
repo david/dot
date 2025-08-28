@@ -1,8 +1,7 @@
 (setup :akinsho/toggleterm.nvim
        {:lazy false
         :config (fn []
-                  ((. (require :toggleterm) :setup) {:direction :float
-                                                     :open_mapping :<D-q>})
+                  ((. (require :toggleterm) :setup) {:direction :float})
                   (let [Terminal (. (require :toggleterm.terminal) :Terminal)
                         agent (Terminal:new {:cmd "npx https://github.com/google-gemini/gemini-cli"})
                         services (Terminal:new {:cmd "mise run srv"})
