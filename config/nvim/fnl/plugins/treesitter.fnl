@@ -3,8 +3,10 @@
         :lazy false
         :build ":TSUpdate"
         :main :nvim-treesitter.configs
-        :opts {:ensure_installed [:embedded_template
+        :opts {:ensure_installed [:css
+                                  :embedded_template
                                   :fennel
+                                  :html
                                   :javascript
                                   :json
                                   :regex
