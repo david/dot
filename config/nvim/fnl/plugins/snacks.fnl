@@ -2,24 +2,6 @@
        {:lazy false
         :priority 1000
         :opts {:bufdelete {}
-               :dashboard {:autokeys "asdfghjkl;"
-                           :preset {:header "
-░██████████░██                ░██                   ░██          ░██
-    ░██                       ░██                   ░██          ░██
-    ░██    ░██░█████████████  ░████████  ░██    ░██ ░██    ░██░████████ ░██    ░██
-    ░██    ░██░██   ░██   ░██ ░██    ░██ ░██    ░██ ░██   ░██    ░██    ░██    ░██
-    ░██    ░██░██   ░██   ░██ ░██    ░██ ░██    ░██ ░███████     ░██    ░██    ░██
-    ░██    ░██░██   ░██   ░██ ░███   ░██ ░██   ░███ ░██   ░██    ░██    ░██   ░███
-    ░██    ░██░██   ░██   ░██ ░██░█████   ░█████░██ ░██    ░██    ░████  ░█████░██"}
-                           :formats {:header (kv "%s" {:align :left})}
-                           :sections [{:section :header :indent 0}
-                                      {:section :projects
-                                       :title :Projects
-                                       :padding 1
-                                       :icon " "
-                                       :indent 2}
-                                      {:section :startup}]
-                           :width 82}
                :explorer {}
                :git {}
                :indent {}
