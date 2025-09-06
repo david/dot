@@ -11,3 +11,13 @@ for f in bash_profile bashrc profile ; do
   rm -f "${HOME}/.${f}"
   ln -sf "$(realpath home/${f})" "${HOME}/.${f}"
 done
+
+if [[ -z "${CONTAINER_ID}" ]] ; then
+  ln -sf "$(realpath local/backgrounds)" "${HOME}/.local/share/backgrounds"
+
+  for a in local/applications/* ; do
+    basename="$(basename $a)"
+
+    ln -sf "$(realpath $a)" "$HOME/.local/share/applications/${basename}"
+  done
+fi
