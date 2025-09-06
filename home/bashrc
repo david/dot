@@ -16,7 +16,7 @@ alias ls=eza
 alias ap=ansible-playbook
 
 eval "$(fzf --bash)"
-eval "$(mise activate bash)"
+eval "$(mise activate bash --shims)"
 eval "$(starship init bash)"
 
 [[ ! ${BLE_VERSION-} ]] || ble-attach
