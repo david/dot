@@ -25,6 +25,10 @@ export PAGER=cat
 export PATH="$HOME/.local/bin:$PATH"
 
 # secrets
-for f in ~/.config/secrets/*.bash; do source $f; done
+if [[ -d ~/.config/secrets ]] ; then
+  for f in ~/.config/secrets/*.bash; do
+    source $f;
+  done
+fi
 
 # vim: ft=sh
