@@ -34,8 +34,14 @@
                      :timeoutlen 300
                      :undofile true
                      :updatetime 250
-                     :virtualedit :block}}
+                     :virtualedit :block
+                     :winborder :rounded}}
         :keys [(kv :<Esc> vim.cmd.nohlsearch)
+               (kv :<C-Esc> "<C-\\><C-n>" :mode [:t])
+               (kv :<C-S-v> "<C-\\><C-o>p" {:mode [:t]})
+               (kv :<C-q> (fn []
+                            (vim.cmd.bufdo {:args [:bd]})
+                            (vim.cmd.vsplit)))
                (kv :<C-s> vim.cmd.write)
                (kv :<D-h> #(vim.cmd.wincmd {:args [:h]}) {:mode [:i :n :t]})
                (kv :<D-j> #(vim.cmd.wincmd {:args [:j]}) {:mode [:i :n :t]})
@@ -46,5 +52,10 @@
                (kv :<D-C-j> #(vim.cmd.wincmd {:args [:J]}))
                (kv :<D-C-k> #(vim.cmd.wincmd {:args [:K]}))
                (kv :<D-C-l> #(vim.cmd.wincmd {:args [:L]}))
+               (kv :<leader>Nu "<cmd>Lazy update<cr>" {:desc "Update plugins"})
                (kv :<leader>sj vim.cmd.split {:desc :Below})
-               (kv :<leader>sl vim.cmd.vsplit {:desc :Right})]})
+               (kv :<leader>sl vim.cmd.vsplit {:desc :Right})
+               (kv :<localleader>cd vim.diagnostic.open_float
+                   {:desc "Line Diagnostics"})
+               (kv :q :<cmd>bp<cr>)
+               (kv :m :q {:desc :Macro})]})

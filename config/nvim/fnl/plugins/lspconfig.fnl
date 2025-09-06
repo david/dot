@@ -16,15 +16,15 @@
                                                                                              vim.diagnostic.severity.INFO diagnostic.message
                                                                                              vim.diagnostic.severity.HINT diagnostic.message}]
                                                                      (. diagnostic_message
-                                                                        diagnostic.severity)))}})
-                  (vim.lsp.enable :ruby_lsp))
+                                                                        diagnostic.severity)))}}))
         :dependencies [(kv :mason-org/mason.nvim {:opts {}})
                        (kv :mason-org/mason-lspconfig.nvim
                            {:opts {:ensure_installed [:biome
-                                                      :docker_compose_language_service
                                                       :lua_ls
+                                                      :ruby_lsp
+                                                      :tailwindcss
                                                       :ts_ls]}})
                        (kv :WhoIsSethDaniel/mason-tool-installer.nvim
-                           {:opts {:ensure_installed [:stylua]}})
+                           {:opts {:ensure_installed [:erb-formatter :stylua]}})
                        (kv :j-hui/fidget.nvim {:opts {}})
                        :saghen/blink.cmp]})

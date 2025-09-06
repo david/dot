@@ -14,4 +14,4 @@
                                   :yaml]
                :highlight {:enable true}
                :indent {:enable true}}
-        :dependencies [:OXY2DEV/markview.nvim :RRethy/nvim-treesitter-endwise]})
+        :dependencies [:RRethy/nvim-treesitter-endwise]})

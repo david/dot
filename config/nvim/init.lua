@@ -16,11 +16,12 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.localleader = "\\"
 vim.g.mapleader = " "
+vim.g.maplocalleader = ";"
 
 setup = require("timbuktu.config").setup
 kv = require("timbuktu.config").kv
+vk = require("timbuktu.config").vk
 
 require("lazy").setup({
   spec = {

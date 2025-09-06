@@ -1,4 +1,4 @@
-(lambda kv [& args]
+(lambda make-table [& args]
   (var hashmap {})
   (var sequential [])
   (each [_ val (ipairs args)]
@@ -7,7 +7,15 @@
   (each [_ val (ipairs args)]
     (when (not= (type val) :table)
       (table.insert sequential val)))
-  (vim.tbl_extend :force sequential hashmap))
+  (values sequential hashmap))
+
+(lambda kv [& args]
+  (let [(sequential tbl) (make-table ...)]
+    (vim.tbl_extend :force sequential tbl)))
+
+(lambda vk [...]
+  (let [(sequential tbl) (make-table ...)]
+    (vim.tbl_extend :force tbl sequential)))
 
 (lambda setup [repo-or-spec ?spec]
   (case [repo-or-spec ?spec]
@@ -15,4 +23,4 @@
     (where [spec nil] (= (type spec) :table)) spec
     [repo spec] (kv repo spec)))
 
-{: kv : setup}
+{: kv : setup : vk}

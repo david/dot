@@ -1,7 +1,6 @@
-(setup :echasnovski/mini.nvim
- {:config (fn []
-            ((. (require :mini.ai) :setup) {})
-            ((. (require :mini.git) :setup) {})
-            ((. (require :mini.icons) :setup) {})
-            ((. (require :mini.move) :setup) {:mappings {:left "<" :right ">"}})
-            ((. (require :mini.operators) :setup) {}))})
+[(setup :nvim-mini/mini-git {:opts {} :main :mini.git})
+ (setup :nvim-mini/mini.ai {:opts {}})
+ (setup :nvim-mini/mini.diff {:opts {}})
+ (setup :nvim-mini/mini.icons {:opts {}})
+ (setup :nvim-mini/mini.move {:opts {:mappings {:left "<" :right ">"}}})
+ (setup :nvim-mini/mini.operators {:opts {}})]
