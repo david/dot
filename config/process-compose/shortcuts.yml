@@ -1,0 +1,15 @@
+shortcuts:
+  find:
+    shortcut: /
+  help:
+    shortcut: "?"
+  log_follow:
+    toggle_description:
+      false: Follow Off
+      true: Follow On
+    shortcut: t
+  log_screen:
+    toggle_description:
+      false: Half Screen
+      true: Full Screen
+    shortcut: Enter
