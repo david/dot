@@ -1,6 +1,6 @@
 source ~/.profile
 
-export CDPATH=".:~/Worktrees"
+export CDPATH=".:~/Homes"
 
 [[ $- == *i* ]] || return
 
