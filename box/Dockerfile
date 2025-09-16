@@ -35,6 +35,7 @@ RUN pacman -Syu --noconfirm \
       lazygit \
       mise \
       neovide \
+      python-uv \
       ripgrep \
       starship \
       ttf-jetbrains-mono \
