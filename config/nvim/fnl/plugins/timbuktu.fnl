@@ -33,11 +33,12 @@
                      :swapfile false
                      :timeoutlen 300
                      :undofile true
+                     :undolevels 1024
                      :updatetime 250
                      :virtualedit :block
                      :winborder :rounded}}
         :keys [(kv :<Esc> vim.cmd.nohlsearch)
-               (kv :<C-Esc> "<C-\\><C-n>" :mode [:t])
+               (kv :<Esc><Esc> "<C-\\><C-n>" {:mode [:t]})
                (kv :<C-S-v> "<C-\\><C-o>p" {:mode [:t]})
                (kv :<C-q> (fn []
                             (vim.cmd.bufdo {:args [:bd]})

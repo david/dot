@@ -4,8 +4,10 @@
         :build ":TSUpdate"
         :main :nvim-treesitter.configs
         :opts {:ensure_installed [:css
+                                  :elixir
                                   :embedded_template
                                   :fennel
+                                  :heex
                                   :html
                                   :javascript
                                   :json

@@ -1,4 +1,4 @@
--- [nfnl] config/nvim/fnl/plugins/toggleterm.fnl
+-- [nfnl] fnl/plugins/toggleterm.fnl
 local function _1_()
   require("toggleterm").setup({direction = "float"})
   local Terminal = require("toggleterm.terminal").Terminal
@@ -10,14 +10,14 @@ local function _1_()
   local function _2_()
     return repl:toggle()
   end
-  map("n", "<D-c>", _2_)
+  map({"i", "n"}, "<D-n>", _2_)
   local function _3_()
     return services:toggle()
   end
-  map("n", "<D-d>", _3_)
+  map({"i", "n"}, "<D-d>", _3_)
   local function _4_()
     return shell:toggle((vim.o.lines * 0.4))
   end
-  return map("n", "<D-s>", _4_)
+  return map({"i", "n"}, "<D-s>", _4_)
 end
 return setup("akinsho/toggleterm.nvim", {config = _1_, lazy = false})

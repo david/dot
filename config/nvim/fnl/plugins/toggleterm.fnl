@@ -8,6 +8,6 @@
                         repl (Terminal:new {:cmd "mise run console"})
                         shell (Terminal:new {:display_name :shell})
                         map vim.keymap.set]
-                    (map :n :<D-c> #(repl:toggle))
-                    (map :n :<D-d> #(services:toggle))
-                    (map :n :<D-s> #(shell:toggle (* vim.o.lines 0.4)))))})
+                    (map [:i :n] :<D-n> #(repl:toggle))
+                    (map [:i :n] :<D-d> #(services:toggle))
+                    (map [:i :n] :<D-s> #(shell:toggle (* vim.o.lines 0.4)))))})

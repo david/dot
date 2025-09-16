@@ -1,7 +1,8 @@
 (setup :stevearc/conform.nvim
        {:opts {:formatters {:erb_format {:append_args [:--print-width :120]}}
                ;; same as rubocop
-               :formatters_by_ft {:fennel [:fnlfmt]
+               :formatters_by_ft {:elixir [:mix]
+                                  :fennel [:fnlfmt]
                                   :javascript [:biome]
                                   :json [:biome]
                                   :lua [:stylua]
