@@ -40,7 +40,8 @@ RUN pacman -Syu --noconfirm \
       ttf-jetbrains-mono \
       ttf-nerd-fonts-symbols \
       usage \
-      wl-clipboard
+      wl-clipboard \
+      yay
 
 # ruby
 RUN pacman -S --noconfirm \
