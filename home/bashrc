@@ -13,7 +13,6 @@ set -o vi
   source /usr/share/blesh/ble.sh
 
 alias ls=eza
-alias ap=ansible-playbook
 
 eval "$(fzf --bash)"
 eval "$(mise activate bash --shims)"
