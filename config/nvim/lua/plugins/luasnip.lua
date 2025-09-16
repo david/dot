@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/luasnip.fnl
+-- [nfnl] config/nvim/fnl/plugins/luasnip.fnl
 local function _1_()
   require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/snippets"})
   return require("luasnip").config.set_config({enable_autosnippets = true})

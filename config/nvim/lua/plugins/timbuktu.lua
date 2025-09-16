@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/timbuktu.fnl
+-- [nfnl] config/nvim/fnl/plugins/timbuktu.fnl
 local function _1_()
   vim.cmd.bufdo({args = {"bd"}})
   return vim.cmd.vsplit()

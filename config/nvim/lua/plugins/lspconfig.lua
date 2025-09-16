@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/lspconfig.fnl
+-- [nfnl] config/nvim/fnl/plugins/lspconfig.fnl
 local function _1_()
   local function _2_(diagnostic)
     local diagnostic_message = {[vim.diagnostic.severity.ERROR] = diagnostic.message, [vim.diagnostic.severity.WARN] = diagnostic.message, [vim.diagnostic.severity.INFO] = diagnostic.message, [vim.diagnostic.severity.HINT] = diagnostic.message}

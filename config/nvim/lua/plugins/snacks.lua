@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/snacks.fnl
+-- [nfnl] config/nvim/fnl/plugins/snacks.fnl
 local function _1_()
   return Snacks.picker.buffers()
 end

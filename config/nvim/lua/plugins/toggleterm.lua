@@ -1,4 +1,4 @@
--- [nfnl] fnl/plugins/toggleterm.fnl
+-- [nfnl] config/nvim/fnl/plugins/toggleterm.fnl
 local function _1_()
   require("toggleterm").setup({direction = "float"})
   local Terminal = require("toggleterm.terminal").Terminal
