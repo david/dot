@@ -23,3 +23,5 @@
   name = David Leal
 [fetch]
 	prune = true
+[init]
+	defaultBranch = main
