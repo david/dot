@@ -6,7 +6,6 @@ gui:
   mainPanelSplitMode: horizontal
   nerdFontsVersion: "3"
   sidePanelWidth: 0.25
-  showCommandLog: false
   showListFooter: false
   showNumstatInFilesView: true
   showRandomTip: false
