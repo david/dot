@@ -17,6 +17,7 @@ keybinding:
   universal:
     copyToClipboard: y
     prevItem: k
+    submitEditorText: "<c-s>"
     nextItem: j
     prevPage: <disabled>
     nextPage: <disabled>
