@@ -55,7 +55,8 @@
                (kv :<D-C-l> #(vim.cmd.wincmd {:args [:L]}))
                (kv :<leader>Nu "<cmd>Lazy update<cr>" {:desc "Update plugins"})
                (kv :<leader>sj vim.cmd.split {:desc :Below})
-               (kv :<leader>sl vim.cmd.vsplit {:desc :Right})
+               (kv :<D-L> vim.cmd.vsplit {:mode [:i :n]})
+               (kv :<D-J> vim.cmd.split {:mode [:i :n]})
                (kv :<localleader>cd vim.diagnostic.open_float
                    {:desc "Line Diagnostics"})
                (kv :q :<cmd>bp<cr>)
