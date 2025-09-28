@@ -35,10 +35,11 @@
                      :undofile true
                      :undolevels 1024
                      :updatetime 250
-                     :virtualedit :block
-                     :winborder :rounded}}
+                     :virtualedit :block}}
         :keys [(kv :<Esc> vim.cmd.nohlsearch)
                (kv :<Esc><Esc> "<C-\\><C-n>" {:mode [:t]})
+               (kv :<A-p> "pV`]")
+               (kv :<A-P> "PV`]")
                (kv :<C-S-v> "<C-\\><C-o>p" {:mode [:t]})
                (kv :<C-q> (fn []
                             (vim.cmd.bufdo {:args [:bd]})
@@ -56,8 +57,18 @@
                (kv :<leader>Nu "<cmd>Lazy update<cr>" {:desc "Update plugins"})
                (kv :<leader>sj vim.cmd.split {:desc :Below})
                (kv :<D-L> vim.cmd.vsplit {:mode [:i :n]})
+               (kv :<D-H>
+                   (fn []
+                     (vim.cmd.vsplit)
+                     (vim.cmd.wincmd {:args [:h]}))
+                   {:mode [:i :n]})
                (kv :<D-J> vim.cmd.split {:mode [:i :n]})
+               (kv :<D-K>
+                   (fn []
+                     (vim.cmd.vsplit)
+                     (vim.cmd.wincmd {:args [:k]}))
+                   {:mode [:i :n]})
                (kv :<localleader>cd vim.diagnostic.open_float
                    {:desc "Line Diagnostics"})
-               (kv :q :<cmd>bp<cr>)
+               (kv :q #(vim.cmd.wincmd {:args [:q]}))
                (kv :m :q {:desc :Macro})]})

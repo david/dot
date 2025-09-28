@@ -1,5 +1,8 @@
 (setup :olimorris/codecompanion.nvim
-       {:opts {:extensions {:vectorcode {:opts {}}}}
+       {:opts {:extensions {:mcphub {:callback :mcphub.extensions.codecompanion}
+                            :vectorcode {:opts {}}}
+               :memory {:opts {:chat {:enabled true}}}
+               :strategies {:chat {:adapter :copilot :model :gpt-5}}}
         :cmd [:CodeCompanion :CodeCompanionChat]
         :keys [(kv :<D-c> "<cmd>CodeCompanionChat Toggle<cr>")
                (kv :<leader>nc :<cmd>CodeCompanionChat<cr> {:desc :Chat})
@@ -7,8 +10,4 @@
                    {:desc :Chat})]
         :dependencies [:nvim-lua/plenary.nvim
                        :nvim-treesitter/nvim-treesitter
-                       (setup :ravitemer/mcphub.nvim
-                              {:opts {}
-                               :lazy false
-                               :dependencies [:nvim-lua/plenary.nvim]
-                               :build "npm install -g mcp-hub@latest"})]})
+                       :ravitemer/mcphub.nvim]})
