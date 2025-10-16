@@ -1,5 +1,5 @@
-theme: Default
+disable_exit_confirmation: true
 sort:
     by: NAME
     isReversed: false
-disable_exit_confirmation: false
+theme: Default
