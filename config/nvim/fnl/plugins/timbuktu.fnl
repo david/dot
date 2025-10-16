@@ -19,10 +19,13 @@
                      :expandtab true
                      :guifont ["JetBrains Mono" "Symbols Nerd Font" ":h11"]
                      :ignorecase true
+                     :iskeyword "@,48-57,192-255"
+                     :laststatus 3
                      :linespace 1
                      :list true
                      :number true
                      :relativenumber true
+                     :scrollback 24576
                      :scrolloff 999
                      :shiftwidth 2
                      :showmode false
@@ -33,7 +36,7 @@
                      :swapfile false
                      :timeoutlen 300
                      :undofile true
-                     :undolevels 1024
+                     :undolevels 2048
                      :updatetime 250
                      :virtualedit :block}}
         :keys [(kv :<Esc> vim.cmd.nohlsearch)
@@ -54,8 +57,6 @@
                (kv :<D-C-j> #(vim.cmd.wincmd {:args [:J]}))
                (kv :<D-C-k> #(vim.cmd.wincmd {:args [:K]}))
                (kv :<D-C-l> #(vim.cmd.wincmd {:args [:L]}))
-               (kv :<leader>Nu "<cmd>Lazy update<cr>" {:desc "Update plugins"})
-               (kv :<leader>sj vim.cmd.split {:desc :Below})
                (kv :<D-L> vim.cmd.vsplit {:mode [:i :n]})
                (kv :<D-H>
                    (fn []
@@ -68,6 +69,9 @@
                      (vim.cmd.vsplit)
                      (vim.cmd.wincmd {:args [:k]}))
                    {:mode [:i :n]})
+               (kv :<leader>ol :<cmd>Lazy<cr> {:desc :Lazy})
+               (kv :<leader>sj vim.cmd.split {:desc :Below})
+               (kv :<leader>sl vim.cmd.vsplit {:desc :Right})
                (kv :<localleader>cd vim.diagnostic.open_float
                    {:desc "Line Diagnostics"})
                (kv :q #(vim.cmd.wincmd {:args [:q]}))

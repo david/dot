@@ -19,8 +19,9 @@
                                                                         diagnostic.severity)))}}))
         :dependencies [(kv :mason-org/mason.nvim {:opts {}})
                        (kv :mason-org/mason-lspconfig.nvim
-                           {:opts {:ensure_installed [:biome
+                           {:opts {:ensure_installed [:eslint
                                                       :expert
+                                                      :herb_ls
                                                       :lua_ls
                                                       :ruby_lsp
                                                       :tailwindcss
