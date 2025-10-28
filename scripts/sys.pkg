@@ -1,31 +1,38 @@
 #!/usr/bin/env bash
 
-packages=(
-  base-devel
-  bat
-  bitwarden-cli
-  blesh-git
-  eza
-  fd
-  fzf
-  github-cli
-  inotify-tools
-  jq
-  lazydocker
-  lazygit
-  mise
-  neovide
-  python-uv
-  ripgrep
-  starship
-  ttf-jetbrains-mono
-  ttf-nerd-fonts-symbols
-  usage
-  wl-clipboard
-  yay
-)
-
 set -euo pipefail
+
+if [[ -v CONTAINER_ID ]] ; then
+  packages=(
+    base-devel
+    bat
+    bitwarden-cli
+    blesh-git
+    eza
+    fd
+    fzf
+    github-cli
+    inotify-tools
+    jq
+    lazydocker
+    lazygit
+    mise
+    neovide
+    python-uv
+    ripgrep
+    starship
+    ttf-jetbrains-mono
+    ttf-nerd-fonts-symbols
+    usage
+    wl-clipboard
+    yay
+  )
+elif [[ $HOSTNAME == "timbuku" ]] ; then
+  packages=(
+    brave-bin
+    neovide
+  )
+fi
 
 script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
 base_dir="$(dirname $script_dir)"
