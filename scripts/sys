@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -xeuo pipefail
+
+module="$1"
+script_dir="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+
+if [[ -z "$module" ]] ; then
+  >&2 echo "missing module argument"
+  exit 1
+fi
+
+if [[ "$module" == "sync" ]] ; then
+  module_script="$script_dir/sys.hosts"
+
+  exec bash $module_script "$@"
+else
+  shift
+
+  module_script="$script_dir/sys.$module"
+fi
+
+if [[ ! -x $module_script ]] ; then
+  >&2 echo "module $(basename $module_script) not found"
+  exit 1
+fi
+
+shift
+
+exec bash $module_script "$@"
