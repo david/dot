@@ -1,1 +1,0 @@
-(setup :tpope/vim-repeat)

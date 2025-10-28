@@ -1,6 +1,6 @@
--- [nfnl] config/nvim/fnl/plugins/conjure.fnl
-local function _1_()
-  vim.g["conjure#mapping#doc_word"] = false
-  return nil
-end
-return setup("Olical/conjure", {config = _1_})
+return {
+  "Olical/conjure",
+  config = function()
+    vim.g["conjure#mapping#doc_word"] = false
+  end,
+}

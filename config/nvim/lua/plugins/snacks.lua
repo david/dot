@@ -1,74 +1,157 @@
--- [nfnl] config/nvim/fnl/plugins/snacks.fnl
-local function _1_()
-  return Snacks.picker.buffers()
-end
-local function _2_()
-  return Snacks.picker.cliphist()
-end
-local function _3_()
-  return Snacks.picker.diagnostics()
-end
-local function _4_()
-  return Snacks.picker.files()
-end
-local function _5_()
-  return Snacks.picker.help()
-end
-local function _6_()
-  return Snacks.picker.icons()
-end
-local function _7_()
-  return Snacks.picker.keymaps()
-end
-local function _8_()
-  return Snacks.picker.highlights()
-end
-local function _9_()
-  return Snacks.picker.notifications()
-end
-local function _10_()
-  return Snacks.picker.registers()
-end
-local function _11_()
-  return Snacks.picker.lsp_workspace_symbols()
-end
-local function _12_()
-  return Snacks.picker.grep()
-end
-local function _13_()
-  return Snacks.picker.buffers()
-end
-local function _14_()
-  return Snacks.picker.explorer()
-end
-local function _15_()
-  return Snacks.picker.smart()
-end
-local function _16_()
-  return Snacks.lazygit()
-end
-local function _17_()
-  return Snacks.bufdelete()
-end
-local function _18_()
-  return Snacks.picker.lines()
-end
-local function _19_()
-  return Snacks.picker.lsp_definitions()
-end
-local function _20_()
-  return Snacks.picker.lsp_declarations()
-end
-local function _21_()
-  return Snacks.picker.lsp_references()
-end
-local function _22_()
-  return Snacks.picker.lsp_implementations()
-end
-local function _23_()
-  return Snacks.picker.lsp_symbols()
-end
-local function _24_()
-  return Snacks.picker.lsp_workspace_symbols()
-end
-return setup("folke/snacks.nvim", {priority = 1000, opts = {bufdelete = {}, explorer = {}, git = {}, indent = {}, input = {}, lazygit = {}, notifier = {}, picker = {formatters = {file = {filename_first = true, truncate = 50}}, matcher = {frecency = true, history_bonus = true, cwd_bonus = false}}, scope = {}, scratch = {}, statuscolumn = {}}, keys = {kv("<leader>fb", _1_, {desc = "Buffers"}), kv("<leader>fc", _2_, {desc = "Clipboard history"}), kv("<leader>fd", _3_, {desc = "Diagnostics"}), kv("<leader>ff", _4_, {desc = "Files"}), kv("<leader>fh", _5_, {desc = "Help tags"}), kv("<leader>fI", _6_, {desc = "Icons"}), kv("<leader>fk", _7_, {desc = "Keymaps"}), kv("<leader>fl", _8_, {desc = "Highlights"}), kv("<leader>fn", _9_, {desc = "Notifications"}), kv("<leader>fr", _10_, {desc = "Registers"}), kv("<leader>fs", _11_, {desc = "Symbols"}), kv("<D-/>", _12_, {mode = {"i", "n"}}), kv("<D-b>", _13_, {mode = {"i", "n"}}), kv("<D-e>", _14_, {mode = {"i", "n"}}), kv("<D-f>", _15_, {mode = {"i", "n"}}), kv("<D-g>", _16_, {mode = {"i", "n"}}), kv("Q", _17_), kv("g/", _18_, {desc = "Grep buffers"}), kv("gd", _19_, {desc = "Goto Definition"}), kv("gD", _20_, {desc = "Goto Declaration"}), kv("gr", _21_, "nowait", true, "desc", "References"), kv("gI", _22_, {desc = "Goto Implementation"}), kv("gy", _23_, {desc = "Goto T[y]pe Definition"}), kv("gY", _24_, {desc = "Goto T[y]pe Definition"})}, lazy = false})
+return {
+  "folke/snacks.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {
+    bufdelete = {},
+    explorer = {},
+    git = {},
+    indent = {},
+    input = {},
+    lazygit = {},
+    notifier = {},
+    picker = {
+      formatters = { file = { filename_first = true, truncate = 50 } },
+      layout = {
+        layout = {
+          width = 0.9,
+          height = 0.9,
+        },
+      },
+      matcher = { frecency = true, history_bonus = true, cwd_bonus = false },
+      sources = {
+        explorer = {
+          layout = {
+            layout = {
+              width = 0.2,
+            },
+          },
+        },
+      },
+    },
+    scope = {},
+    scratch = {},
+    statuscolumn = {},
+  },
+  keys = {
+    {
+      "<leader>fb",
+      function() Snacks.picker.buffers() end,
+      desc = "Buffers",
+    },
+    {
+      "<leader>fc",
+      function() Snacks.picker.cliphist() end,
+      desc = "Clipboard history",
+    },
+    {
+      "<leader>fd",
+      function() Snacks.picker.diagnostics() end,
+      desc = "Diagnostics",
+    },
+    {
+      "<leader>ff",
+      function() Snacks.picker.files() end,
+      desc = "Files",
+    },
+    {
+      "<leader>fh",
+      function() Snacks.picker.help() end,
+      desc = "Help tags",
+    },
+    {
+      "<leader>fI",
+      function() Snacks.picker.icons() end,
+      desc = "Icons",
+    },
+    {
+      "<leader>fk",
+      function() Snacks.picker.keymaps() end,
+      desc = "Keymaps",
+    },
+    {
+      "<leader>fl",
+      function() Snacks.picker.highlights() end,
+      desc = "Highlights",
+    },
+    {
+      "<leader>fn",
+      function() Snacks.picker.notifications() end,
+      desc = "Notifications",
+    },
+    {
+      "<leader>fr",
+      function() Snacks.picker.registers() end,
+      desc = "Registers",
+    },
+    {
+      "<leader>fs",
+      function() Snacks.picker.lsp_workspace_symbols() end,
+      desc = "Symbols",
+    },
+    {
+      "<D-/>",
+      function() Snacks.picker.grep() end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-b>",
+      function() Snacks.picker.buffers() end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-e>",
+      function() Snacks.picker.explorer() end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-f>",
+      function() Snacks.picker.smart() end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-g>",
+      function() Snacks.lazygit() end,
+      mode = { "i", "n" },
+    },
+    {
+      "Q",
+      function() Snacks.bufdelete() end,
+    },
+    {
+      "g/",
+      function() Snacks.picker.lines() end,
+      desc = "Grep buffers",
+    },
+    {
+      "gd",
+      function() Snacks.picker.lsp_definitions() end,
+      desc = "Goto Definition",
+    },
+    {
+      "gD",
+      function() Snacks.picker.lsp_declarations() end,
+      desc = "Goto Declaration",
+    },
+    {
+      "gr",
+      function() Snacks.picker.lsp_references() end,
+      desc = "References",
+    },
+    {
+      "gI",
+      function() Snacks.picker.lsp_implementations() end,
+      desc = "Goto Implementation",
+    },
+    {
+      "gy",
+      function() Snacks.picker.lsp_symbols() end,
+      desc = "Goto T[y]pe Definition",
+    },
+    {
+      "gY",
+      function() Snacks.picker.lsp_workspace_symbols() end,
+      desc = "Goto T[y]pe Definition",
+    },
+  },
+}
