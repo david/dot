@@ -1,2 +1,26 @@
--- [nfnl] config/nvim/fnl/plugins/treesitter.fnl
-return setup("nvim-treesitter/nvim-treesitter", {branch = "master", build = ":TSUpdate", main = "nvim-treesitter.configs", opts = {ensure_installed = {"css", "elixir", "embedded_template", "fennel", "heex", "html", "javascript", "json", "regex", "ruby", "yaml"}, highlight = {enable = true}, indent = {enable = true}}, dependencies = {"RRethy/nvim-treesitter-endwise"}, lazy = false})
+return {
+  "nvim-treesitter/nvim-treesitter",
+  lazy = false,
+  branch = "master",
+  build = ":TSUpdate",
+  main = "nvim-treesitter.configs",
+  opts = {
+    ensure_installed = {
+      "bash",
+      "css",
+      "elixir",
+      "embedded_template",
+      "fennel",
+      "heex",
+      "html",
+      "javascript",
+      "json",
+      "regex",
+      "ruby",
+      "yaml",
+    },
+    highlight = { enable = true },
+    indent = { enable = true },
+  },
+  dependencies = { "RRethy/nvim-treesitter-endwise" },
+}
