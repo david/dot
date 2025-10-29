@@ -1,5 +1,3 @@
--- [nfnl] fnl/plugins/timbuktu.fnl
-
 return {
   priority = 10000,
   lazy = false,
@@ -14,6 +12,10 @@ return {
       loaded_ruby_provider = 0,
       neovide_hide_mouse_when_typing = true,
       neovide_opacity = 0.85,
+      neovide_padding_top = 20,
+      neovide_padding_right = 20,
+      neovide_padding_bottom = 20,
+      neovide_padding_left = 20,
       neovide_underline_stroke_scale = 1.1,
     },
     opt = {
@@ -25,7 +27,7 @@ return {
       cursorline = true,
       cursorlineopt = "both",
       expandtab = true,
-      guifont = { "JetBrains Mono", "Symbols Nerd Font", ":h11" },
+      guifont = { "JetBrains Mono", "Symbols Nerd Font", ":h11.25" },
       ignorecase = true,
       iskeyword = "@,48-57,192-255",
       laststatus = 3,
@@ -67,62 +69,44 @@ return {
     { "<D-.>", "<cmd>bnext<cr>", mode = { "i", "n" } },
     {
       "<D-h>",
-      function()
-        vim.cmd.wincmd({ args = { "h" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "h" } }) end,
       mode = { "i", "n", "t" },
     },
     {
       "<D-j>",
-      function()
-        vim.cmd.wincmd({ args = { "j" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "j" } }) end,
       mode = { "i", "n", "t" },
     },
     {
       "<D-k>",
-      function()
-        vim.cmd.wincmd({ args = { "k" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "k" } }) end,
       mode = { "i", "n", "t" },
     },
     {
       "<D-l>",
-      function()
-        vim.cmd.wincmd({ args = { "l" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "l" } }) end,
       mode = { "i", "n", "t" },
     },
     {
       "<D-q>",
-      function()
-        vim.cmd.wincmd({ args = { "q" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "q" } }) end,
       mode = { "i", "n", "t" },
     },
     {
       "<D-C-h>",
-      function()
-        vim.cmd.wincmd({ args = { "H" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "H" } }) end,
     },
     {
       "<D-C-j>",
-      function()
-        vim.cmd.wincmd({ args = { "J" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "J" } }) end,
     },
     {
       "<D-C-k>",
-      function()
-        vim.cmd.wincmd({ args = { "K" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "K" } }) end,
     },
     {
       "<D-C-l>",
-      function()
-        vim.cmd.wincmd({ args = { "L" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "L" } }) end,
     },
     { "<D-L>", vim.cmd.vsplit, mode = { "i", "n" } },
     {
@@ -148,9 +132,7 @@ return {
     { "<localleader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
     {
       "q",
-      function()
-        vim.cmd.wincmd({ args = { "q" } })
-      end,
+      function() vim.cmd.wincmd({ args = { "q" } }) end,
     },
     { "m", "q", desc = "Macro" },
   },
