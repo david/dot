@@ -2,7 +2,3 @@ frame = "none"
 
 [box-drawing]
 mode = "native"
-
-[font]
-normal = "JetBrains Mono"
-size = 11
