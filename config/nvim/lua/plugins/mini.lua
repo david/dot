@@ -1,4 +1,3 @@
--- [nfnl] config/nvim/fnl/plugins/mini.fnl
 return {
   { "nvim-mini/mini-git", opts = {}, main = "mini.git" },
   { "nvim-mini/mini.ai", opts = {} },
