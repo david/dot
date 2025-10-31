@@ -10,7 +10,6 @@ return {
         "on_output_summarize",
         "on_exit_set_status",
         "on_complete_notify",
-        { "on_complete_dispose", require_view = { "SUCCESS", "FAILURE" } },
       },
     },
     strategy = "terminal",
