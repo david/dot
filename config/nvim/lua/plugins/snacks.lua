@@ -100,6 +100,11 @@ return {
       mode = { "i", "n" },
     },
     {
+      "<D-d>",
+      function() Snacks.terminal("mise run services") end,
+      mode = { "i", "n" },
+    },
+    {
       "<D-e>",
       function() Snacks.picker.explorer() end,
       mode = { "i", "n" },
@@ -112,6 +117,16 @@ return {
     {
       "<D-g>",
       function() Snacks.lazygit() end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-n>",
+      function() Snacks.terminal("mise run console") end,
+      mode = { "i", "n" },
+    },
+    {
+      "<D-s>",
+      function() Snacks.terminal("/usr/bin/env bash") end,
       mode = { "i", "n" },
     },
     {
