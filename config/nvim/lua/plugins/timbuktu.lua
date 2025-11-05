@@ -67,47 +67,15 @@ return {
     { "<C-s>", vim.cmd.write },
     { "<D-,>", "<cmd>bprevious<cr>", mode = { "i", "n" } },
     { "<D-.>", "<cmd>bnext<cr>", mode = { "i", "n" } },
-    {
-      "<D-h>",
-      function() vim.cmd.wincmd({ args = { "h" } }) end,
-      mode = { "i", "n", "t" },
-    },
-    {
-      "<D-j>",
-      function() vim.cmd.wincmd({ args = { "j" } }) end,
-      mode = { "i", "n", "t" },
-    },
-    {
-      "<D-k>",
-      function() vim.cmd.wincmd({ args = { "k" } }) end,
-      mode = { "i", "n", "t" },
-    },
-    {
-      "<D-l>",
-      function() vim.cmd.wincmd({ args = { "l" } }) end,
-      mode = { "i", "n", "t" },
-    },
-    {
-      "<D-q>",
-      function() vim.cmd.wincmd({ args = { "q" } }) end,
-      mode = { "i", "n", "t" },
-    },
-    {
-      "<D-C-h>",
-      function() vim.cmd.wincmd({ args = { "H" } }) end,
-    },
-    {
-      "<D-C-j>",
-      function() vim.cmd.wincmd({ args = { "J" } }) end,
-    },
-    {
-      "<D-C-k>",
-      function() vim.cmd.wincmd({ args = { "K" } }) end,
-    },
-    {
-      "<D-C-l>",
-      function() vim.cmd.wincmd({ args = { "L" } }) end,
-    },
+    { "<D-h>", function() vim.cmd.wincmd({ args = { "h" } }) end, mode = { "i", "n", "t" } },
+    { "<D-j>", function() vim.cmd.wincmd({ args = { "j" } }) end, mode = { "i", "n", "t" } },
+    { "<D-k>", function() vim.cmd.wincmd({ args = { "k" } }) end, mode = { "i", "n", "t" } },
+    { "<D-l>", function() vim.cmd.wincmd({ args = { "l" } }) end, mode = { "i", "n", "t" } },
+    { "<D-q>", function() vim.cmd.wincmd({ args = { "q" } }) end, mode = { "i", "n", "t" } },
+    { "<D-C-h>", function() vim.cmd.wincmd({ args = { "H" } }) end },
+    { "<D-C-j>", function() vim.cmd.wincmd({ args = { "J" } }) end },
+    { "<D-C-k>", function() vim.cmd.wincmd({ args = { "K" } }) end },
+    { "<D-C-l>", function() vim.cmd.wincmd({ args = { "L" } }) end },
     { "<D-L>", vim.cmd.vsplit, mode = { "i", "n" } },
     {
       "<D-H>",
@@ -127,13 +95,11 @@ return {
       mode = { "i", "n" },
     },
     { "<leader>ol", "<cmd>Lazy<cr>", desc = "Lazy" },
+    { "<leader>oq", "<cmd>copen<cr>", desc = "Quickfix List" },
     { "<leader>sj", vim.cmd.split, desc = "Below" },
     { "<leader>sl", vim.cmd.vsplit, desc = "Right" },
     { "<localleader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-    {
-      "q",
-      function() vim.cmd.wincmd({ args = { "q" } }) end,
-    },
+    { "q", function() vim.cmd.wincmd({ args = { "q" } }) end },
     { "m", "q", desc = "Macro" },
   },
 }
