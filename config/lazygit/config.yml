@@ -1,6 +1,6 @@
 git:
-  paging:
-    colorArg: always
+  pagers:
+    - colorArg: always
 gui:
   border: single
   mainPanelSplitMode: horizontal
