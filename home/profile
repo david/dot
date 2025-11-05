@@ -26,8 +26,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # secrets
 if [[ -d ~/.config/secrets ]] ; then
-  for f in ~/.config/secrets/*.bash; do
-    source $f;
+  for f in $(ls ~/.config/secrets); do
+    source ~/.config/secrets/$f;
   done
 fi
 
