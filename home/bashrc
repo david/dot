@@ -18,8 +18,6 @@ eval "$(fzf --bash)"
 eval "$(mise activate bash --shims)"
 eval "$(starship init bash)"
 
-command -v heroku &>/dev/null && eval "$(heroku autocomplete:script bash)"
-
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 
 # vim: ft=bash
