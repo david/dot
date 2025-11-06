@@ -5,7 +5,6 @@ return {
     picker = "snacks",
   },
   keys = {
-    { "<leader>fi", "<cmd>Octo issue list<cr>", desc = "Issues" },
     { "<leader>ni", "<cmd>Octo issue create<cr>", desc = "Issue" },
   },
   cmd = { "Octo" },
