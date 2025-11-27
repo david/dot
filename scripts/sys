@@ -1,35 +1,35 @@
 #!/usr/bin/env bash
 
-set -xeuo pipefail
+set -euo pipefail
 
 script_path=$(realpath ${BASH_SOURCE[0]})
-module="$1"
 script_dir="$(dirname $script_path)"
+
+module="${1:-}"
 
 if [[ -z "$module" ]] ; then
   >&2 echo "missing module argument"
+
   exit 1
 fi
 
-if [[ "$module" == "sync" ]] ; then
-  module_script="$script_dir/sys.hosts"
+if [[ "$module" == "setup" ]] ; then
+  echo "Making 'sys' binary available in \$PATH"
 
-  exec bash $module_script "$@"
-elif [[ "$module" == "setup" ]] ; then
   mkdir -p $HOME/.local/bin
 
   ln -sf $script_path $HOME/.local/bin/sys
-else
-  shift
 
-  module_script="$script_dir/sys.$module"
+  exit 0
 fi
+
+shift
+
+module_script="$script_dir/sys.$module"
 
 if [[ ! -x $module_script ]] ; then
   >&2 echo "module $(basename $module_script) not found"
   exit 1
 fi
-
-shift
 
 exec bash $module_script "$@"

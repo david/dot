@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=distrobox enter --no-workdir tina -- bash -c 'source ~/.profile && cd main && mise exec -- neovide'
+Icon=neovide
+Name=Neovide [Tina]
+Keywords=Text;Editor;
+Categories=Utility;TextEditor;

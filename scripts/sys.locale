@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_path=$(realpath ${BASH_SOURCE[0]})
+script_dir="$(dirname $script_path)"
+
+case "${1:-}" in
+  sync)
+    echo "en_US.UTF-8 UTF-8" | sudo tee /etc/locale.gen
+    echo "pt_PT.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
+    sudo locale-gen
+    echo "LANG=en_US.UTF-8" | sudo tee /etc/locale.conf
+    ;;
+
+  *)
+    >&2 echo "usage: $0 sync"
+    exit 1
+esac
+
+# vim: ft=bash

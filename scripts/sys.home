@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
+base_dir="$(dirname $script_dir)"
+
+cd $base_dir
+
+if [[ "${1:-}" != "sync" ]] ; then
+  >&2 echo "usage: $0 sync"
+  exit 1
+fi
+
+# .local
+
+if [[ -v CONTAINER_ID ]] ; then
+  if [[ -d "${base_dir}/hosts/${CONTAINER_ID}/files/local" ]] ; then
+    cd "${base_dir}/hosts/${CONTAINER_ID}/files/local"
+  fi
+elif [[ -d "${base_dir}/hosts/$(hostname)/files/local" ]] ; then
+  cd "${base_dir}/hosts/$(hostname)/files/local"
+fi
+
+if [[ "$(pwd)" != "$base_dir" ]] ; then
+  for f in $(find .) ; do
+    if [[ -d $f ]] ; then
+      echo "mkdir ~/.local/${f}"
+
+      mkdir -p "${HOME}/.local/${f}"
+    else
+      echo "install ~/.local/${f}"
+
+      ln -sf "$(realpath $f)" "${HOME}/.local/${f}"
+    fi
+  done
+
+  cd $base_dir
+fi
+
+# nvim plugins
+
+if [[ -v CONTAINER_ID ]] ; then
+  mkdir -p "${HOME}/.local/share/nvim"
+  ln -sf "${HOME}/../../.local/share/nvim/lazy" "${HOME}/.local/share/nvim/lazy"
+fi

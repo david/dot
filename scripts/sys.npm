@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
-packages=(
-  @github/copilot
-  opencode-ai
-  yarn
-)
-
 set -euo pipefail
 
 script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
 base_dir="$(dirname $script_dir)"
+
+packages=""
+
+if [[ -d "${base_dir}/hosts/${CONTAINER_ID}/npm" ]] ; then
+  for f in ${base_dir}/hosts/${CONTAINER_ID}/npm/* ; do
+    packages="${packages} $(cat $f)"
+  done
+fi
 
 case "${1:-}" in
   sync)
