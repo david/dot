@@ -2,7 +2,7 @@ return {
   "nvim-neotest/neotest",
   config = function()
     return require("neotest").setup({
-      adapters = { require("neotest-rspec"), require("neotest-minitest") },
+      adapters = { require("neotest-minitest"), require("neotest-rspec") },
       consumers = { require("neotest.consumers.overseer") },
     })
   end,

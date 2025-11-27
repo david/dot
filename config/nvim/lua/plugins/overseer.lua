@@ -1,4 +1,3 @@
--- [nfnl] fnl/plugins/overseer.fnl
 return {
   "stevearc/overseer.nvim",
   opts = {

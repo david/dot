@@ -33,6 +33,7 @@ return {
       "mason-org/mason-lspconfig.nvim",
       opts = {
         ensure_installed = {
+          "copilot",
           "eslint",
           "expert",
           "herb_ls",
@@ -47,7 +48,6 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       opts = {
         ensure_installed = {
-          "erb-formatter",
           "stylua",
         },
       },

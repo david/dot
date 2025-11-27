@@ -53,7 +53,7 @@ return {
   },
   keys = {
     { "<Esc>", vim.cmd.nohlsearch },
-    { "<Esc><Esc>", "<C-\\><C-n>", mode = { "t" } },
+    { "<D-Esc>", "<C-\\><C-n>", mode = { "t" } },
     { "<A-p>", "pV`]" },
     { "<A-P>", "PV`]" },
     { "<C-S-v>", "<C-\\><C-o>p", mode = { "t" } },

@@ -1,12 +1,37 @@
 return {
   "olimorris/codecompanion.nvim",
   opts = {
+    adapters = {
+      acp = {
+        claude_code = function()
+          return require("codecompanion.adapters").extend("claude_code", {
+            env = {
+              CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+            },
+          })
+        end,
+      },
+    },
     extensions = {
       mcphub = { callback = "mcphub.extensions.codecompanion" },
       vectorcode = { opts = {} },
     },
-    memory = { opts = { chat = { enabled = true } } },
-    strategies = { chat = { adapter = "copilot", model = "gpt-5" } },
+    memory = {
+      default = {
+        description = "Default memory files",
+        files = {
+          "AGENTS.md",
+        },
+      },
+      opts = {
+        chat = { enabled = true },
+      },
+    },
+    strategies = {
+      chat = { adapter = "claude_code" },
+      inline = { adapter = "claude_code" },
+      cmd = { adapter = "claude_code" },
+    },
   },
   cmd = { "CodeCompanion", "CodeCompanionChat" },
   keys = {

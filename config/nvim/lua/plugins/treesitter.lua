@@ -22,5 +22,7 @@ return {
     highlight = { enable = true },
     indent = { enable = true },
   },
-  dependencies = { "RRethy/nvim-treesitter-endwise" },
+  dependencies = {
+    "RRethy/nvim-treesitter-endwise",
+  },
 }
