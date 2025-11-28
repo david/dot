@@ -3,6 +3,12 @@ return {
   opts = {},
   keys = {
     { "<leader>oa", function() require("sidekick.cli").toggle() end, desc = "Sidekick" },
+    {
+      "<D-a>",
+      function() require("sidekick.cli").toggle() end,
+      desc = "Sidekick",
+      mode = { "i", "n", "t" },
+    },
     { "<Right>", function() require("sidekick.nes").apply() end, mode = "n" },
     { "<Left>", function() require("sidekick.nes").clear() end, mode = "n" },
     { "<Down>", function() require("sidekick.nes").update() end, mode = "n" },
