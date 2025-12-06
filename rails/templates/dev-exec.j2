@@ -1,5 +1,0 @@
-#!/bin/bash
-
-SCRIPT=$(basename "$0")
-
-exec docker compose exec {{ dev.service }} "${SCRIPT}" "$@"
