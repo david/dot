@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=distrobox enter --no-workdir lino -- kitty -- bash -c 'source ~/.profile && cd main && mise exec -- opencode'
+Icon=neovide
+Name=Lino [OpenCode]
+Keywords=Text;Editor;
+Categories=Utility;TextEditor;

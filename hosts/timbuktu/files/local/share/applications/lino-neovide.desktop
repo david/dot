@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=distrobox enter --no-workdir lino -- bash -c 'source ~/.profile && cd main && mise exec -- neovide'
-Icon=neovide
-Name=Neovide [Lino]
-Keywords=Text;Editor;
-Categories=Utility;TextEditor;

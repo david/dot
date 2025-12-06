@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -xeuo pipefail
 
 script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
 base_dir="$(dirname $script_dir)"
@@ -51,10 +51,10 @@ for host in $hosts ; do
       --no-entry \
       --yes
 
-    distrobox enter tina -- bash -c "~/../dot/dot/scripts/sys setup"
-    distrobox enter tina -- sys home sync
-    distrobox enter tina -- sys pkg sync
-    distrobox enter tina -- sys locale sync
+    distrobox enter $host -- bash -c "~/../dot/dot/scripts/sys setup"
+    distrobox enter $host -- sys home sync
+    distrobox enter $host -- sys pkg sync
+    distrobox enter $host -- sys locale sync
   else
     sys home sync
   fi

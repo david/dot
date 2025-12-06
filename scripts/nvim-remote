@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-exec ssh \
-  -L 3000:localhost:3000 \
-  ${USER}@10.0.0.33 \
-  "cd ~/Homes/$1/main; distrobox enter $1 -- nvim"

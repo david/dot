@@ -2,6 +2,7 @@ base-devel
 bat
 bitwarden-cli
 blesh-git
+chromium
 eza
 fd
 fzf
@@ -9,14 +10,14 @@ github-cli
 inotify-tools
 jq
 kde-cli-tools
+kitty
 lazygit
 mise
-neovide
-python-uv
 ripgrep
 starship
 ttf-jetbrains-mono
 ttf-nerd-fonts-symbols
+ttf-nerd-fonts-symbols-mono
 usage
 wl-clipboard
 yay

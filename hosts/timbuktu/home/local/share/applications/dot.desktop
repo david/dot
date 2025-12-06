@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=distrobox enter --no-workdir dot -- kitty -- bash -c "cd main && mise exec -- opencode"
+Icon=neovide
+Name=Dot
+Keywords=Text;Editor;
+Categories=Utility;TextEditor;

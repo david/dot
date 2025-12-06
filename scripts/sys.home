@@ -2,45 +2,77 @@
 
 set -euo pipefail
 
-script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
-base_dir="$(dirname $script_dir)"
+if [[ -v CONTAINER_ID ]] ; then
+  SYS_ENV="boxes/${CONTAINER_ID}"
+else
+  SYS_ENV="hosts/${HOSTNAME}"
+fi
 
-cd $base_dir
+script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
+SYS_HOME="$(dirname $script_dir)"
+
+cd $SYS_HOME
 
 if [[ "${1:-}" != "sync" ]] ; then
   >&2 echo "usage: $0 sync"
   exit 1
 fi
 
-# .local
+for x in ${SYS_HOME}/templates/shared/home/config/* ; do
+  target="${HOME}/.config/$(basename $x)"
 
-if [[ -v CONTAINER_ID ]] ; then
-  if [[ -d "${base_dir}/hosts/${CONTAINER_ID}/files/local" ]] ; then
-    cd "${base_dir}/hosts/${CONTAINER_ID}/files/local"
+  if [[ -e $target && ! -h $target ]] ; then
+    >&2 echo "Can't manage ${target}: target exists and is not a symlink"
+    exit 1
   fi
-elif [[ -d "${base_dir}/hosts/$(hostname)/files/local" ]] ; then
-  cd "${base_dir}/hosts/$(hostname)/files/local"
-fi
 
-if [[ "$(pwd)" != "$base_dir" ]] ; then
-  for f in $(find .) ; do
-    if [[ -d $f ]] ; then
-      echo "mkdir ~/.local/${f}"
+  if [[ "$(basename $x)" == "bash" ]] ; then
+    for y in ${x}/* ; do
+      target="${HOME}/.$(basename $y)"
 
-      mkdir -p "${HOME}/.local/${f}"
+      if [[ -e $target && ! -h $target ]] ; then
+        >&2 echo "Can't manage ${target}: target exists and is not a symlink"
+        exit 1
+      fi
+
+      rm -f $target
+      ln -s $y $target
+    done
+  else
+    rm -f $target
+    ln -s $x $target
+  fi
+done
+
+mkdir -p ${HOME}/.local/share
+
+SYS_LOCAL_HOME="${SYS_HOME}/${SYS_ENV}/home/local"
+
+if [[ -d ${SYS_LOCAL_HOME} ]] ; then
+  local_files=$(find ${SYS_LOCAL_HOME} -type f)
+
+  for x in ${local_files[@]} ; do
+    basepath=$(echo "$x" | sed -e "s#${SYS_LOCAL_HOME}/##")
+    target="${HOME}/.local/${basepath}"
+
+    mkdir -p "$(dirname $target)"
+
+    if [[ ! -e "$target" ]] ; then
+      if [[ -d "$x" ]] ; then
+        mkdir -p "$target"
+      elif [[ -f "$x" ]] ; then
+        ln -s "$x" "$target"
+      else
+        >&2 echo "Don't know what to do with $x"
+        exit 1
+      fi
+    elif [[ -d "$x" && -d "$target" ]] ; then
+      continue
+    elif [[ -f "$x" && -h "$target" ]] ; then
+      ln -sf "$x" "$target"
     else
-      echo "install ~/.local/${f}"
-
-      ln -sf "$(realpath $f)" "${HOME}/.local/${f}"
+      >&2 echo "Can't manage ${target}"
+      exit 1
     fi
   done
-
-  cd $base_dir
-fi
-
-# nvim plugins
-
-if [[ -v CONTAINER_ID ]] ; then
-  mkdir -p "${HOME}/.local/share/nvim"
-  ln -sf "${HOME}/../../.local/share/nvim/lazy" "${HOME}/.local/share/nvim/lazy"
 fi

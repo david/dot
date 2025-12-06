@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=distrobox enter --no-workdir tina -- kitty -- bash -c 'source ~/.profile && cd main && mise exec -- opencode'
+Icon=neovide
+Name=Tina [OpenCode]
+Keywords=Text;Editor;
+Categories=Utility;TextEditor;
