@@ -1,4 +1,5 @@
 [core]
+  pager = "delta"
   excludesfile = ~/.config/git/excludes
 
 [credential "https://gist.github.com"]
@@ -9,8 +10,19 @@
   helper =
   helper = !gh auth git-credential
 
+[delta]
+  hyperlinks = true
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  syntax-theme = gruvbox-dark
+  true-color = "always"
+
 [diff]
   colorMoved = true
+
+[interactive]
+  diffFilter = "delta --color-only"
 
 [merge]
   conflictStyle = "diff3"
