@@ -100,7 +100,7 @@ return {
     { "<leader>sl", vim.cmd.vsplit, desc = "Right" },
     { "<localleader>ca", "ga", desc = "Actions", noremap = true },
     { "<localleader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-    { "q", function() vim.cmd.wincmd({ args = { "q" } }) end },
+    { "q", "<cmd>bd<cr>", desc = "Close" },
     { "m", "q", desc = "Macro" },
     { "+", "<C-a>", mode = "n", noremap = true },
     { "-", "<C-x>", mode = "n", noremap = true },

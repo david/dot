@@ -19,7 +19,6 @@ return {
   },
   keys = {
     { "<leader>ro", "<cmd>OverseerRun<cr>", desc = "Overseer" },
-    { "<D-r>", "<cmd>OverseerRun<cr>" },
     { "<leader>oo", "<cmd>OverseerOpen<cr>", desc = "Overseer" },
   },
 }

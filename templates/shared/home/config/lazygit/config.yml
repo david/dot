@@ -1,3 +1,10 @@
+customCommands:
+  - key: "<c-d>"
+    context: commits
+    command: "kitty @ launch --type=tab --tab-title=diff --location=neighbor -- git show {{.SelectedLocalCommit.Hash}}"
+  - key: "<c-d>"
+    context: files
+    command: "kitty @ launch --type=tab --tab-title=diff --location=neighbor -- git diff --merge-base HEAD"
 git:
   pagers:
     - colorArg: always

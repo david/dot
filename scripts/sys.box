@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(realpath $(dirname ${BASH_SOURCE[0]}))"
+base_dir="$(dirname $script_dir)"
+
+if [[ ! -v CONTAINER_ID ]] ; then
+  >&2 echo "can't configure box from the host"
+  exit 1
+fi
+
+if [[ "${1:-}" != "sync" ]] ; then
+  >&2 echo "usage: $0 sync"
+  exit 1
+fi
+
+shift
+
+# distrobox create \
+#   --home "${HOME}/Homes/${host}" \
+#   --image "ghcr.io/ublue-os/arch-toolbox:latest" \
+#   --name "$host" \
+#   --no-entry \
+#   --yes
+
+sys home sync
+sys pkg sync
+sys locale sync

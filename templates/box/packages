@@ -6,6 +6,7 @@ chromium
 eza
 fd
 fzf
+git-delta
 github-cli
 inotify-tools
 jq

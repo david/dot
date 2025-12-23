@@ -4,8 +4,14 @@ return {
     require("lualine").setup({
       globalstatus = true,
       sections = {
-        lualine_x = { "overseer" },
+        lualine_x = {
+          "overseer",
+          { require("opencode").statusline },
+        },
       },
     })
   end,
+  dependencies = {
+    { "nickvandyke/opencode.nvim" },
+  },
 }

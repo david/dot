@@ -14,6 +14,7 @@
   hyperlinks = true
   line-numbers = true
   navigate = true
+  pager = less -R
   side-by-side = true
   syntax-theme = gruvbox-dark
   true-color = "always"

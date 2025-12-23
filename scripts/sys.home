@@ -46,13 +46,28 @@ done
 
 mkdir -p ${HOME}/.local/share
 
+# Collect local directories to process
+SYS_LOCAL_DIRS=()
+
+# Add box template local directory when in a container
+if [[ -v CONTAINER_ID ]] ; then
+  SYS_LOCAL_DIRS+=("${SYS_HOME}/templates/box/local")
+fi
+
+# Add environment-specific local directory
 SYS_LOCAL_HOME="${SYS_HOME}/${SYS_ENV}/home/local"
-
 if [[ -d ${SYS_LOCAL_HOME} ]] ; then
-  local_files=$(find ${SYS_LOCAL_HOME} -type f)
+  SYS_LOCAL_DIRS+=("${SYS_LOCAL_HOME}")
+fi
 
-  for x in ${local_files[@]} ; do
-    basepath=$(echo "$x" | sed -e "s#${SYS_LOCAL_HOME}/##")
+# Process all local directories
+for SYS_LOCAL_DIR in "${SYS_LOCAL_DIRS[@]}" ; do
+  if [[ ! -d "${SYS_LOCAL_DIR}" ]] ; then
+    continue
+  fi
+
+  while IFS= read -r -d '' x; do
+    basepath=$(echo "$x" | sed -e "s#${SYS_LOCAL_DIR}/##")
     target="${HOME}/.local/${basepath}"
 
     mkdir -p "$(dirname $target)"
@@ -74,5 +89,5 @@ if [[ -d ${SYS_LOCAL_HOME} ]] ; then
       >&2 echo "Can't manage ${target}"
       exit 1
     fi
-  done
-fi
+  done < <(find "$SYS_LOCAL_DIR" -type f -print0)
+done
